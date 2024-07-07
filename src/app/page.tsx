@@ -1,4 +1,3 @@
-import Baner from "@/components/home/baner";
 import Intro from "@/components/home/intro";
 import Trending from "@/components/home/trending";
 import Search from "@/components/home/search";

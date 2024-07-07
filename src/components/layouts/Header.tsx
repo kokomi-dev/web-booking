@@ -4,10 +4,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 export default function Header() {
   return (
-    <div className="w-full h-full">
-      <h1 className="text-center font-bold text-[1.8rem] py-2 text-black">
-        Trải nhiệm là cuộc sống
-      </h1>
+    <div className="w-full h-full ">
       <div className="w-full h-[64px] sticky top-0 z-[15] flex items-center justify-between p-3 px-20 font-[400] text-accent text-[1.2rem] bg-red-400 ">
         {/* logo */}
         <div className=" font-bold font-mono relative">

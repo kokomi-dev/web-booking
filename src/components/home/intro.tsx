@@ -12,7 +12,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import scrollToView from "../components/scrollIntoView";
+import scrollToView from "../components/scroll-to-view";
 const arrInfo: {
   id: number;
   icon: any;

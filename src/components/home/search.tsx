@@ -1,11 +1,13 @@
 "use client";
-import * as React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import banner from "../../assets/images/banner.jpg";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
+import { vi } from "date-fns/locale";
+
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -16,26 +18,33 @@ import {
 } from "@/components/ui/popover";
 import { IoBedOutline, IoPersonOutline } from "react-icons/io5";
 import {
-  EnvelopeClosedIcon,
-  FaceIcon,
-  GearIcon,
-  PersonIcon,
-  RocketIcon,
-} from "@radix-ui/react-icons";
-
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { Label } from "@/components/ui/label";
 
 const Search = () => {
+  // state
+  const [value, setValue] = React.useState<string>("");
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 2),
+  });
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [numberAdults, setNumberAdults] = useState<number>(2);
+  const [numberChildren, setNumberChildren] = useState<number>(1);
+  const [numberRoom, setNumberRoom] = useState<number>(1);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (value) {
+      setError(false);
+    }
+  }, [value]);
   const citys = [
     {
       value: "Hà Nội",
@@ -58,10 +67,8 @@ const Search = () => {
       label: "Đà Nẵng",
     },
   ];
-
-  function Input() {
+  function AdressTravel() {
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState("");
 
     return (
       <Popover open={open} onOpenChange={setOpen}>
@@ -69,7 +76,7 @@ const Search = () => {
           <Button
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between font-[400] bg-transparent text-black"
+            className="w-full shadow-none justify-between font-[400] bg-transparent text-black"
           >
             {value
               ? citys.find((city) => city.value === value)?.label
@@ -110,15 +117,11 @@ const Search = () => {
     );
   }
 
-  function DatePicker({ className }: React.HTMLAttributes<HTMLDivElement>) {
-    const [date, setDate] = React.useState<DateRange | undefined>({
-      from: new Date(),
-      to: addDays(new Date(), 2),
-    });
+  const DatePicker = ({ className }: any) => {
     return (
-      <div className={cn("w-full grid gap-2 ", className)}>
+      <div className={cn("w-full grid gap-2", className)}>
         <Popover>
-          <PopoverTrigger className="w-full h-full" asChild>
+          <PopoverTrigger asChild>
             <Button
               id="date"
               className={cn(
@@ -126,14 +129,14 @@ const Search = () => {
                 !date && "bg-transparent w-full"
               )}
             >
-              <CalendarIcon className="mr-3 text-black_sub h-[1.1rem] w-[1.1rem]" />
               {date?.from ? (
                 date.to ? (
                   <>
-                    {format(date.from, "dd/M")} - {format(date.to, "dd/M")}
+                    {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
+                    {format(date.to, "dd/MM/yyyy", { locale: vi })}
                   </>
                 ) : (
-                  format(date.from, "dd/M/y")
+                  format(date.from, "dd/MM/yyyy", { locale: vi })
                 )
               ) : (
                 <span>Chọn ngày đi và trả phòng</span>
@@ -151,12 +154,78 @@ const Search = () => {
               selected={date}
               onSelect={setDate}
               numberOfMonths={2}
+              locale={vi}
             />
           </PopoverContent>
         </Popover>
       </div>
     );
-  }
+  };
+  const SelectNumberPerson = () => {
+    return (
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <PopoverTrigger asChild>
+          <Button className="bg-transparent text-black font-[400] shadow-none w-full">
+            <span className="w-full overflow-hidden">
+              {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
+              phòng
+            </span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-full bg-red-400 text-white z-[10]">
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="adults">Người lớn:</Label>
+                <Input
+                  type="number"
+                  id="adults"
+                  value={numberAdults}
+                  min="1"
+                  max="100"
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberAdults(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="children">Trẻ em:</Label>
+                <Input
+                  type="number"
+                  id="children"
+                  min="0"
+                  defaultValue={numberChildren}
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberChildren(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="numberRoom">Phòng:</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="numberRoom"
+                  defaultValue={numberRoom}
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberRoom(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
+  // handle submit search travel
+  const handleSeacrh = () => {
+    if (!value || value === "") {
+      setError(true);
+    }
+  };
+
   return (
     <div className=" w-full h-full relative">
       <Image
@@ -177,24 +246,29 @@ const Search = () => {
           Tìm nơi ở cho bạn
         </Button>
         <div className="w-full h-[60px] mt-20 bg-red-400 flex items-center justify-between gap-5 px-1">
-          <div className="w-[30%] h-[90%] px-3 flex justify-center items-center   rounded-sm bg-white">
+          <div className="w-[30%] h-[90%] px-3 flex justify-center items-center rounded-sm bg-white relative">
             <IoBedOutline className="text-[1.5rem]  text-black_sub mr-2" />
-            {/* <Input
-              type="text"
-              placeholder="Bạn muốn đi đâu?"
-              className="outline-none border-none text-black"
-            /> */}
-            <Input />
+            <AdressTravel />
+            {error && (
+              <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2">
+                Chọn nơi bạn muốn đến!
+              </div>
+            )}
           </div>
-          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-between   rounded-sm bg-white">
+          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-between rounded-sm bg-white">
+            <CalendarIcon className="mr-3 text-black_sub h-[1.3rem] w-[1.3rem]" />
             <DatePicker />
           </div>
-          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-start   rounded-sm bg-white">
-            <IoPersonOutline className="text-[1.5rem]  text-black_sub mr-2" />
-            <span className="text-black">2 người lớn - 0 trẻ em - 1 phòng</span>
+          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-center rounded-sm bg-white">
+            <IoPersonOutline className="text-[1.35rem]  text-black_sub mr-2" />
+            <SelectNumberPerson />
           </div>
           <div className="w-[10%] h-[90%] rounded-sm ">
-            <Button variant="default" className="w-full h-full  text-[1.2rem]">
+            <Button
+              variant="default"
+              className="w-full h-full  text-[1.2rem]"
+              onClick={handleSeacrh}
+            >
               Tìm
             </Button>
           </div>
