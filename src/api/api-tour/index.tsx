@@ -4,4 +4,9 @@ const getAllTour = async () => {
   const response = await data.json();
   return response;
 };
-export { getAllTour };
+const getTourTrending = async () => {
+  const data = await fetch(`${apiUrl}/tour?trending=true`);
+  const response = await data.json();
+  return response;
+};
+export { getAllTour, getTourTrending };

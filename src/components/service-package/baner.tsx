@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import img1 from "../../assets/images/img1.webp";
-import img2 from "../../assets/images/img2.webp";
-import img3 from "../../assets/images/img3.webp";
-import Slide from "../home/slide";
+import img1 from "@/assets/images/img1.webp";
+import img2 from "@/assets/images/img2.webp";
+import img3 from "@/assets/images/img3.webp";
+import Slide from "@/components/home/slide";
 import Image, { StaticImageData } from "next/image";
 export default function Baner() {
   const [img, setImg] = useState(0);
