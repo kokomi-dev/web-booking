@@ -27,7 +27,7 @@ const Page = () => {
             className="w-full "
           >
             <CarouselContent>
-              {Array.from({ length: 15 }).map((_, index) => (
+              {Array.from({ length: 15 }).map((item, index) => (
                 <CarouselItem
                   key={index}
                   className="sm:basis-1/3 md:basis-1/4 lg:basis-1/6"

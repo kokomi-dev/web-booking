@@ -3,13 +3,13 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 const TourItem = ({
-  id,
+  slug,
   name,
   images,
   location,
   price,
 }: {
-  id: string;
+  slug: string;
   name: string;
   images: string;
   location: string;
@@ -25,8 +25,8 @@ const TourItem = ({
       });
   };
   return (
-    <Link href={`/tour/${id}`} className="w-full h-full">
-      <Card>
+    <Link href={`/tour/${slug}`} className="w-full min-h-[100%]  h-[100%] ">
+      <Card className="min-h-[100%]">
         <Image
           sizes="w-full h-[400px]"
           width={500}
@@ -36,8 +36,8 @@ const TourItem = ({
           alt="img_preview_tour"
           loading="lazy"
         />
-        <CardContent className="flex flex-col  text-start  items-start justify-center p-6 pt-0">
-          <h4 className="text-[1.4rem] text-start font-[500] capitalize py-1">
+        <CardContent className="flex flex-col   text-start  items-start justify-center p-6 pt-0">
+          <h4 className="text-[1.4rem] h-[80px] text-start font-[500] capitalize py-1  ">
             {name}
           </h4>
           <span className="text-[0.9rem] text-black_sub font-[300] ">
