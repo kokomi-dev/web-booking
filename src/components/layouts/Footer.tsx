@@ -1,21 +1,21 @@
 const Footer = () => {
   return (
-    <footer className="w-full h-full footer ">
-      <ul className="grid grid-cols-5 gap-2 px-20 bg-red-400 text-white py-2">
+    <footer className="w-full h-full footer bg-sub ">
+      <ul className="grid grid-cols-5 gap-2 px-20 text-black py-2">
         <li>
-          <a>Tài khoản của bạn</a>
+          <a className="text-[0.95rem]">Tài khoản của bạn</a>
         </li>
         <li>
-          <a>Thay đổi lịch đi của bạn trực tuyến</a>
+          <a className="text-[0.95rem]">Thay đổi lịch đi của bạn trực tuyến</a>
         </li>
         <li>
-          <a>Dịch vụ khách hàng</a>
+          <a className="text-[0.95rem]">Dịch vụ khách hàng</a>
         </li>
         <li>
-          <a>Trở thành đối tác phân phối</a>
+          <a className="text-[0.95rem]">Trở thành đối tác phân phối</a>
         </li>
         <li>
-          <a>KoKo Travel for Business</a>
+          <a className="text-[0.95rem]">KoKo Travel for Business</a>
         </li>
       </ul>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-10 px-20 text-[0.85rem] text-[#555]">

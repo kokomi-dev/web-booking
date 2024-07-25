@@ -47,9 +47,13 @@ const config = {
         },
         black_sub: "#888",
         white: "#fff",
+        star: "#FEBC04",
       },
       backgroundImage: {
         bannerfix: "url('../assets/images/banner2.jpg')",
+      },
+      backgroundColor: {
+        sub: "#f0f0f0",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -79,6 +83,17 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 1s infinite",
       },
+      gridTemplateColumns: {
+        "layout-2": "65% 35%",
+      },
+      fontSize: {
+        small: "0.9rem",
+        normal: "1.1rem",
+        medium: "1.3rem",
+        lagrget: "1.5rem",
+      },
+      padding: {},
+      margin: {},
     },
   },
   plugins: [require("tailwindcss-animate")],

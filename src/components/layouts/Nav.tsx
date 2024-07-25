@@ -17,7 +17,21 @@ export default function Nav() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/service-package" legacyBehavior passHref>
+          <Link href="/hotels" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Nhà nghỉ
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/blogs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Bài viết
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/combos" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Gói dịch vụ
             </NavigationMenuLink>
