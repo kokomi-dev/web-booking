@@ -6,7 +6,7 @@ import Image from "next/image";
 import preview from "../assets/images/preview.jpg";
 import { Card, CardContent } from "@/components/ui/card";
 import { getAllTour } from "@/api/api-tour";
-import TourItem from "@/components/components/tour-item";
+import TourItem from "@/components/components/item-component";
 import {
   Carousel,
   CarouselContent,
@@ -73,7 +73,7 @@ const Home = async () => {
                   name: string;
                   images: [string];
                   location: string;
-                  price: number;
+                  price: [number];
                 }) => (
                   <CarouselItem
                     key={tour.slug}
@@ -84,7 +84,7 @@ const Home = async () => {
                       name={tour.name}
                       images={tour.images[0]}
                       location={tour.location}
-                      price={tour.price}
+                      price={tour.price[0]}
                     />
                   </CarouselItem>
                 )

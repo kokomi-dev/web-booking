@@ -76,7 +76,7 @@ const Search = () => {
           <Button
             role="combobox"
             aria-expanded={open}
-            className="w-full shadow-none justify-between font-[400] bg-transparent text-black"
+            className="w-full shadow-none justify-between font-[500] text-[1.2rem] bg-transparent text-black"
           >
             {value
               ? citys.find((city) => city.value === value)?.label
@@ -125,7 +125,7 @@ const Search = () => {
             <Button
               id="date"
               className={cn(
-                "min-w-full justify-start text-left font-normal bg-transparent text-black shadow-none",
+                "min-w-full justify-start text-left text-[1.2rem] font-[500]  bg-transparent text-black shadow-none",
                 !date && "bg-transparent w-full"
               )}
             >
@@ -139,7 +139,7 @@ const Search = () => {
                   format(date.from, "dd/MM/yyyy", { locale: vi })
                 )
               ) : (
-                <span>Chọn ngày đi và trả phòng</span>
+                <span className="">Chọn ngày đi và trả phòng</span>
               )}
             </Button>
           </PopoverTrigger>
@@ -155,69 +155,70 @@ const Search = () => {
               onSelect={setDate}
               numberOfMonths={2}
               locale={vi}
+              className="text-[1.2rem] font-[500]"
             />
           </PopoverContent>
         </Popover>
       </div>
     );
   };
-  const SelectNumberPerson = () => {
-    return (
-      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-        <PopoverTrigger asChild>
-          <Button className="bg-transparent text-black font-[400] shadow-none w-full">
-            <span className="w-full overflow-hidden">
-              {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
-              phòng
-            </span>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full bg-red-400 text-white z-[10]">
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="adults">Người lớn:</Label>
-                <Input
-                  type="number"
-                  id="adults"
-                  value={numberAdults}
-                  min="1"
-                  max="100"
-                  className="col-span-2 h-8 outline-none bg-white text-black"
-                  onChange={(e) => setNumberAdults(Number(e.target.value))}
-                  onMouseDown={(e) => e.stopPropagation()}
-                />
-              </div>
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="children">Trẻ em:</Label>
-                <Input
-                  type="number"
-                  id="children"
-                  min="0"
-                  defaultValue={numberChildren}
-                  className="col-span-2 h-8 outline-none bg-white text-black"
-                  onChange={(e) => setNumberChildren(Number(e.target.value))}
-                  onMouseDown={(e) => e.stopPropagation()}
-                />
-              </div>
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="numberRoom">Phòng:</Label>
-                <Input
-                  min="0"
-                  type="number"
-                  id="numberRoom"
-                  defaultValue={numberRoom}
-                  className="col-span-2 h-8 outline-none bg-white text-black"
-                  onChange={(e) => setNumberRoom(Number(e.target.value))}
-                  onMouseDown={(e) => e.stopPropagation()}
-                />
-              </div>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  };
+  // const SelectNumberPerson = () => {
+  //   return (
+  //     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+  //       <PopoverTrigger asChild>
+  //         <Button className="bg-transparent text-black font-[400] shadow-none w-full">
+  //           <span className="w-full overflow-hidden">
+  //             {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
+  //             phòng
+  //           </span>
+  //         </Button>
+  //       </PopoverTrigger>
+  //       <PopoverContent className="w-full bg-red-400 text-white z-[10]">
+  //         <div className="grid gap-4">
+  //           <div className="grid gap-2">
+  //             <div className="grid grid-cols-3 items-center gap-4">
+  //               <Label htmlFor="adults">Người lớn:</Label>
+  //               <Input
+  //                 type="number"
+  //                 id="adults"
+  //                 value={numberAdults}
+  //                 min="1"
+  //                 max="100"
+  //                 className="col-span-2 h-8 outline-none bg-white text-black"
+  //                 onChange={(e) => setNumberAdults(Number(e.target.value))}
+  //                 onMouseDown={(e) => e.stopPropagation()}
+  //               />
+  //             </div>
+  //             <div className="grid grid-cols-3 items-center gap-4">
+  //               <Label htmlFor="children">Trẻ em:</Label>
+  //               <Input
+  //                 type="number"
+  //                 id="children"
+  //                 min="0"
+  //                 defaultValue={numberChildren}
+  //                 className="col-span-2 h-8 outline-none bg-white text-black"
+  //                 onChange={(e) => setNumberChildren(Number(e.target.value))}
+  //                 onMouseDown={(e) => e.stopPropagation()}
+  //               />
+  //             </div>
+  //             <div className="grid grid-cols-3 items-center gap-4">
+  //               <Label htmlFor="numberRoom">Phòng:</Label>
+  //               <Input
+  //                 min="0"
+  //                 type="number"
+  //                 id="numberRoom"
+  //                 defaultValue={numberRoom}
+  //                 className="col-span-2 h-8 outline-none bg-white text-black"
+  //                 onChange={(e) => setNumberRoom(Number(e.target.value))}
+  //                 onMouseDown={(e) => e.stopPropagation()}
+  //               />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </PopoverContent>
+  //     </Popover>
+  //   );
+  // };
 
   // handle submit search travel
   const handleSeacrh = () => {
@@ -245,8 +246,8 @@ const Search = () => {
         <Button className="text-[1.1rem] bg-red-400 mt-3">
           Tìm nơi ở cho bạn
         </Button>
-        <div className="w-full h-[60px] mt-20 bg-red-400 flex items-center justify-between gap-5 px-1">
-          <div className="w-[30%] h-[90%] px-3 flex justify-center items-center rounded-sm bg-white relative">
+        <div className="w-full h-[80px] mt-20 bg-red-400 flex items-center justify-between gap-5 px-1">
+          <div className="w-[45%] h-[90%] px-3 flex justify-center items-center rounded-sm bg-white relative">
             <IoBedOutline className="text-[1.5rem]  text-black_sub mr-2" />
             <AdressTravel />
             {error && (
@@ -255,14 +256,14 @@ const Search = () => {
               </div>
             )}
           </div>
-          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-between rounded-sm bg-white">
+          <div className="w-[45%] h-[90%] px-3 flex  items-center justify-between rounded-sm bg-white">
             <CalendarIcon className="mr-3 text-black_sub h-[1.3rem] w-[1.3rem]" />
             <DatePicker />
           </div>
-          <div className="w-[30%] h-[90%] px-3 flex  items-center justify-center rounded-sm bg-white">
+          {/* <div className="w-[30%] h-[90%] px-3 flex  items-center justify-center rounded-sm bg-white">
             <IoPersonOutline className="text-[1.35rem]  text-black_sub mr-2" />
             <SelectNumberPerson />
-          </div>
+          </div> */}
           <div className="w-[10%] h-[90%] rounded-sm ">
             <Button
               variant="default"
