@@ -2,11 +2,9 @@ import Intro from "@/components/home/intro";
 import Trending from "@/components/home/trending";
 import Search from "@/components/home/search";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import preview from "../assets/images/preview.jpg";
-import { Card, CardContent } from "@/components/ui/card";
 import { getAllTour } from "@/api/api-tour";
-import TourItem from "@/components/components/item-component";
+import ItemCard from "@/components/components/item-component";
+import bannerSearch from "@/assets/images/banner.jpg";
 import {
   Carousel,
   CarouselContent,
@@ -14,16 +12,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-const fechData = async () => {
-  const data = await getAllTour();
-  return data.data;
+
+const fetchData = async () => {
+  const response = await getAllTour();
+  return response.data;
 };
+
 const Home = async () => {
-  const data = await fechData();
+  const data = await fetchData();
   return (
-    <main className="w-full h-full flex  flex-col items-center justify-between  ">
-      <Search />
-      {/* <Baner /> */}
+    <main className="w-full h-full flex flex-col items-center justify-between">
+      <Search img={bannerSearch} page="tours" />
       <Intro />
       <div className="w-full h-full bg-fixed bg-no-repeat bg-cover bg-[url('../assets/images/banner2.jpg')]">
         <div className="p-20 text-white">
@@ -37,35 +36,25 @@ const Home = async () => {
                 Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
                 tiếng của chúng tôi
               </h4>
-              <p>Hãy trải nhiệm nó một cách trọn vẹn</p>
+              <p>Hãy trải nghiệm nó một cách trọn vẹn</p>
               <Button className="bg-red-400 text-white mt-2">
                 Khám phá bây giờ
               </Button>
             </div>
-            <Image
-              src={preview}
-              alt="img_preview"
-              className="min-w-[18%] min-h-[80%] w-[25%] h-[100%] object-cover rounded-md"
-            />
           </div>
         </div>
-        <h3 className="px-20 py-5 text-white">
+        <h3 className="px-20 py-5 text-white underline  ">
           Chỉ cần đăng nhập tài khoản, bạn sẽ sở hữu cho mình nhiều ưu đãi và
-          chương trình chi ân cho những khách hàng mới đặc biệt ưu đãi!
+          chương trình tri ân cho những khách hàng mới đặc biệt ưu đãi!
         </h3>
       </div>
       <div className="w-full px-20 my-10">
-        <h1 className="title_home">Khám phá việt nam</h1>
-        <div className="">
+        <h1 className="title_largest">Khám phá Việt Nam</h1>
+        <div>
           <h4 className="text-black_sub text-[1rem]">
             Các điểm đến đang có nhiều điều chờ đón bạn
           </h4>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full "
-          >
+          <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent>
               {data?.map(
                 (tour: {
@@ -79,7 +68,8 @@ const Home = async () => {
                     key={tour.slug}
                     className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                   >
-                    <TourItem
+                    <ItemCard
+                      route="tours"
                       slug={tour.slug}
                       name={tour.name}
                       images={tour.images[0]}
@@ -99,4 +89,5 @@ const Home = async () => {
     </main>
   );
 };
+
 export default Home;

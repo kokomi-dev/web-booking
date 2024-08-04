@@ -4,5 +4,9 @@ const getAllHotel = async () => {
   const response = await data.json();
   return response;
 };
-
-export { getAllHotel };
+const getDetailHotel = async ({ slug }: { slug: string }) => {
+  const data = await fetch(`${apiUrl}/hotel/${slug}`);
+  const response = await data.json();
+  return response;
+};
+export { getAllHotel, getDetailHotel };

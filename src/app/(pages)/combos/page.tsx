@@ -1,4 +1,4 @@
-import Baner from "@/components/combos/baner";
+import Baner from "@/app/(pages)/combos/baner";
 import {
   Carousel,
   CarouselContent,

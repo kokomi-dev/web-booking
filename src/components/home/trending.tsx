@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import TourItem from "../components/item-component";
+import ItemCard from "../components/item-component";
 const fechData = async () => {
   const data = await getTourTrending();
   return data.data;
@@ -17,7 +17,7 @@ const Trending = async () => {
   return (
     <div className="w-full p-20 pt-0">
       <div className="my-5">
-        <h1 className=" title_home">Tour nổi bật của chúng tôi</h1>
+        <h1 className=" title_largest">Tour nổi bật của chúng tôi</h1>
         <div className="">
           <h4 className="text-black_sub text-[1rem]">
             Khám phá các điểm đến hàng đầu theo cách bạn thich tại Việt Nam
@@ -42,7 +42,8 @@ const Trending = async () => {
                     key={tour.slug}
                     className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                   >
-                    <TourItem
+                    <ItemCard
+                      route="tour"
                       slug={tour.slug}
                       name={tour.name}
                       images={tour.images[0]}

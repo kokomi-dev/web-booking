@@ -11,21 +11,23 @@ export const formatPrice = (num: number) => {
       return (index % 3 ? next : next + ",") + prev;
     });
 };
-const TourItem = ({
+const ItemCard = ({
   slug,
   name,
   images,
   location,
   price,
+  route,
 }: {
   slug: string;
   name: string;
   images: string;
   location: string;
   price: number;
+  route: string;
 }) => {
   return (
-    <Link href={`/tour/${slug}`} className="w-full min-h-[100%]  h-[100%] ">
+    <Link href={`/${route}/${slug}`} className="w-full min-h-[100%]  h-[100%] ">
       <Card className="min-h-[100%]">
         <Image
           width={500}
@@ -51,4 +53,4 @@ const TourItem = ({
   );
 };
 
-export default TourItem;
+export default ItemCard;

@@ -51,6 +51,7 @@ const config = {
       },
       backgroundImage: {
         bannerfix: "url('../assets/images/banner2.jpg')",
+        bannerfix_hotel: "url('../assets/images/banner-hotel.jpg')",
       },
       backgroundColor: {
         sub: "#f0f0f0",

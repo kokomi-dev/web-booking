@@ -1,13 +1,12 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
-import banner from "../../assets/images/banner.jpg";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
-import { Input } from "@/components/ui/input";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
 import { vi } from "date-fns/locale";
-
+import { Label } from "@radix-ui/react-label";
+import { Input } from "../ui/input";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -26,9 +25,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { Label } from "@/components/ui/label";
-
-const Search = () => {
+const Search = ({ img, page }: { img: StaticImageData; page: string }) => {
   // state
   const [value, setValue] = React.useState<string>("");
   const [date, setDate] = React.useState<DateRange | undefined>({
@@ -69,7 +66,6 @@ const Search = () => {
   ];
   function AdressTravel() {
     const [open, setOpen] = React.useState(false);
-
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -116,10 +112,9 @@ const Search = () => {
       </Popover>
     );
   }
-
   const DatePicker = ({ className }: any) => {
     return (
-      <div className={cn("w-full grid gap-2", className)}>
+      <div className={cn("w-full grid gap-2 outline-none", className)}>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -132,8 +127,8 @@ const Search = () => {
               {date?.from ? (
                 date.to ? (
                   <>
-                    {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
-                    {format(date.to, "dd/MM/yyyy", { locale: vi })}
+                    {format(date.from, "dd/MM/yyyy", { locale: vi })} -
+                    {format(date.to, " dd/MM/yyyy", { locale: vi })}
                   </>
                 ) : (
                   format(date.from, "dd/MM/yyyy", { locale: vi })
@@ -162,90 +157,109 @@ const Search = () => {
       </div>
     );
   };
-  // const SelectNumberPerson = () => {
-  //   return (
-  //     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-  //       <PopoverTrigger asChild>
-  //         <Button className="bg-transparent text-black font-[400] shadow-none w-full">
-  //           <span className="w-full overflow-hidden">
-  //             {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
-  //             phòng
-  //           </span>
-  //         </Button>
-  //       </PopoverTrigger>
-  //       <PopoverContent className="w-full bg-red-400 text-white z-[10]">
-  //         <div className="grid gap-4">
-  //           <div className="grid gap-2">
-  //             <div className="grid grid-cols-3 items-center gap-4">
-  //               <Label htmlFor="adults">Người lớn:</Label>
-  //               <Input
-  //                 type="number"
-  //                 id="adults"
-  //                 value={numberAdults}
-  //                 min="1"
-  //                 max="100"
-  //                 className="col-span-2 h-8 outline-none bg-white text-black"
-  //                 onChange={(e) => setNumberAdults(Number(e.target.value))}
-  //                 onMouseDown={(e) => e.stopPropagation()}
-  //               />
-  //             </div>
-  //             <div className="grid grid-cols-3 items-center gap-4">
-  //               <Label htmlFor="children">Trẻ em:</Label>
-  //               <Input
-  //                 type="number"
-  //                 id="children"
-  //                 min="0"
-  //                 defaultValue={numberChildren}
-  //                 className="col-span-2 h-8 outline-none bg-white text-black"
-  //                 onChange={(e) => setNumberChildren(Number(e.target.value))}
-  //                 onMouseDown={(e) => e.stopPropagation()}
-  //               />
-  //             </div>
-  //             <div className="grid grid-cols-3 items-center gap-4">
-  //               <Label htmlFor="numberRoom">Phòng:</Label>
-  //               <Input
-  //                 min="0"
-  //                 type="number"
-  //                 id="numberRoom"
-  //                 defaultValue={numberRoom}
-  //                 className="col-span-2 h-8 outline-none bg-white text-black"
-  //                 onChange={(e) => setNumberRoom(Number(e.target.value))}
-  //                 onMouseDown={(e) => e.stopPropagation()}
-  //               />
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </PopoverContent>
-  //     </Popover>
-  //   );
-  // };
-
+  const SelectNumberPerson = () => {
+    return (
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <PopoverTrigger asChild>
+          <Button className="bg-transparent text-black font-[400] shadow-none w-full">
+            <span className="w-full overflow-hidden font-medium text-[1.2rem]">
+              {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
+              phòng
+            </span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-full bg-red-400 text-white z-[10]">
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="adults">Người lớn:</Label>
+                <Input
+                  type="number"
+                  id="adults"
+                  value={numberAdults}
+                  min="1"
+                  max="100"
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberAdults(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="children">Trẻ em:</Label>
+                <Input
+                  type="number"
+                  id="children"
+                  min="0"
+                  defaultValue={numberChildren}
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberChildren(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="numberRoom">Phòng:</Label>
+                <Input
+                  min="0"
+                  type="number"
+                  id="numberRoom"
+                  defaultValue={numberRoom}
+                  className="col-span-2 h-8 outline-none bg-white text-black"
+                  onChange={(e) => setNumberRoom(Number(e.target.value))}
+                  onMouseDown={(e) => e.stopPropagation()}
+                />
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  };
   // handle submit search travel
-  const handleSeacrh = () => {
+  const handleSeacrh = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!value || value === "") {
       setError(true);
+      e.preventDefault();
     }
   };
-
   return (
-    <div className=" w-full h-full relative">
+    <form className=" w-full h-full relative">
       <Image
-        src={banner}
+        src={img}
         alt="img__banner"
         className="z-[5] max-h-[100vh] h-full object-cover brightness-75"
       />
+      {/* search */}
       <div className="w-full h-full absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10] flex flex-col items-start justify-center text-white px-10 ">
-        <div className="w-[50%]">
-          <p className=" text-wrap text-[2.5rem] font-[900]">
-            Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
-          </p>
-          <p className="text-[1.5rem]">
-            Khám phá những khung cảnh thơ mộng tại Việt Nam
-          </p>
-        </div>
-        <Button className="text-[1.1rem] bg-red-400 mt-3">
-          Tìm nơi ở cho bạn
-        </Button>
+        {page === "tours" && (
+          <div>
+            <div className="w-[50%]">
+              <p className=" text-wrap text-[2.5rem] font-[900]">
+                Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
+              </p>
+              <p className="text-[1.5rem]">
+                Khám phá những khung cảnh thơ mộng tại Việt Nam
+              </p>
+            </div>
+            <Button className="text-[1.1rem] bg-red-400 mt-3">
+              Tìm nơi ở cho bạn
+            </Button>
+          </div>
+        )}
+        {page === "hotels" && (
+          <div>
+            <div className="w-[50%]">
+              <p className=" text-wrap text-[2.5rem] font-[900]">
+                Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
+              </p>
+              <p className="text-[1.5rem]">
+                Những khách sạn hàng đầu tại Việt Nam
+              </p>
+            </div>
+            <Button className="text-[1.1rem] bg-red-400 mt-3">
+              Tìm nơi du lịch cho bạn
+            </Button>
+          </div>
+        )}
         <div className="w-full h-[80px] mt-20 bg-red-400 flex items-center justify-between gap-5 px-1">
           <div className="w-[45%] h-[90%] px-3 flex justify-center items-center rounded-sm bg-white relative">
             <IoBedOutline className="text-[1.5rem]  text-black_sub mr-2" />
@@ -256,16 +270,22 @@ const Search = () => {
               </div>
             )}
           </div>
-          <div className="w-[45%] h-[90%] px-3 flex  items-center justify-between rounded-sm bg-white">
-            <CalendarIcon className="mr-3 text-black_sub h-[1.3rem] w-[1.3rem]" />
-            <DatePicker />
-          </div>
-          {/* <div className="w-[30%] h-[90%] px-3 flex  items-center justify-center rounded-sm bg-white">
-            <IoPersonOutline className="text-[1.35rem]  text-black_sub mr-2" />
-            <SelectNumberPerson />
-          </div> */}
+          {page === "tours" && (
+            <div className="w-[45%] h-[90%] px-3 flex  items-center justify-between rounded-sm bg-white">
+              <CalendarIcon className="mr-3 text-black_sub h-[1.3rem] w-[1.3rem]" />
+              <DatePicker />
+            </div>
+          )}
+          {page === "hotels" && (
+            <div className="w-[45%] h-[90%] px-3 flex  items-center justify-center rounded-sm bg-white">
+              <IoPersonOutline className="text-[1.35rem]  text-black_sub mr-2" />
+              <SelectNumberPerson />
+            </div>
+          )}
+          {/* button handle submit search */}
           <div className="w-[10%] h-[90%] rounded-sm ">
             <Button
+              type="submit"
               variant="default"
               className="w-full h-full  text-[1.2rem]"
               onClick={handleSeacrh}
@@ -275,7 +295,7 @@ const Search = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

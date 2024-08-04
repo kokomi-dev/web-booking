@@ -68,6 +68,7 @@
 }
 body {
   font-size: 62, 5%;
+  scroll-behavior: smooth;
 }
 input[type="number"] {
   -webkit-appearance: textfield;
@@ -111,12 +112,7 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: scale 0.5s ease 1;
   opacity: 1;
 }
-.title_home {
-  text-transform: inherit;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
+
 img {
   width: 100%;
   height: 300px;
@@ -126,6 +122,14 @@ img {
   grid-column: span 2;
   width: 100%;
   height: auto;
+}
+.image-item-largest {
+  grid-column: span 3;
+  width: 100%;
+  height: auto;
+}
+.image-item-largest img {
+  object-fit: cover;
 }
 
 .image-item-small img {
@@ -137,4 +141,116 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/*  */
+/*  */
+/* css  */
+
+/* title */
+.title_largest {
+  text-transform: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.title_large {
+  text-transform: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.title_medium {
+  text-transform: inherit;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.title_small {
+  text-transform: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+/* end title */
+
+/* p */
+.p_type_1 {
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: justify;
+  letter-spacing: 0.6px;
+  line-height: 26px;
+}
+.p_type_2 {
+  font-size: 0.94rem;
+  font-weight: 300;
+  color: #888;
+  text-align: justify;
+  letter-spacing: 0.4px;
+  line-height: 24px;
+}
+/* border */
+.border_div_card {
+  border: 0.5px solid #555;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+/*  flex custom */
+.flex_dou {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+}
+
+.table__booking {
+}
+.table__booking td,
+.table__booking th {
+  text-align: center;
+  border: 0.5px solid rosybrown;
+  padding: 0.5rem;
+  font-size: 1 rem;
+}
+
+/* loading animation css */
+/* HTML: <div class="loader"></div> */
+.loading {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  position: fixed;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.loader {
+  z-index: 35;
+  width: 85px;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(#f87171 0 0);
+  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
+  background-size: 20% 100%;
+  animation: l1 1s infinite linear;
+}
+@keyframes l1 {
+  0% {
+    background-size: 20% 100%, 20% 100%, 20% 100%;
+  }
+  33% {
+    background-size: 20% 10%, 20% 100%, 20% 100%;
+  }
+  50% {
+    background-size: 20% 100%, 20% 10%, 20% 100%;
+  }
+  66% {
+    background-size: 20% 100%, 20% 100%, 20% 10%;
+  }
+  100% {
+    background-size: 20% 100%, 20% 100%, 20% 100%;
+  }
 }
