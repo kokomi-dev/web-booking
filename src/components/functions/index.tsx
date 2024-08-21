@@ -12,6 +12,7 @@ import { addDays, format } from "date-fns";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { IoPersonOutline } from "react-icons/io5";
+// date picker
 const DatePicker = ({
   className,
   date,
@@ -77,6 +78,7 @@ type NumberPersonType = {
   setNumberChildren: React.Dispatch<React.SetStateAction<number>>;
   setNumberRoom: React.Dispatch<React.SetStateAction<number>>;
 };
+// selectnumber
 const SelectNumberPerson = ({
   className,
   popoverOpen,
@@ -150,5 +152,20 @@ const SelectNumberPerson = ({
     </Popover>
   );
 };
+// convert rating
+const ratingConvert = (rating: number) => {
+  if (rating >= 5) {
+    return <span className="font-bold text-[1rem] ">Rất tuyệt vời</span>;
+  }
+  if (rating >= 4.5) {
+    return <span className="font-bold text-[1rem] ">Tuyệt</span>;
+  }
+  if (rating >= 4) {
+    return <span className="font-bold text-[1rem] ">Tốt</span>;
+  }
 
-export { DatePicker, SelectNumberPerson };
+  if (rating > 3) {
+    return <span className="font-bold text-[1rem] ">Chưa tốt</span>;
+  }
+};
+export { DatePicker, SelectNumberPerson, ratingConvert };

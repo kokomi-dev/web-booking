@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/themes-provider";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 const roboto = Roboto({
@@ -22,24 +21,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${roboto.className} bg-white `}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <h1 className="text-center font-semibold text-[1.4rem] py-2 text-black uppercase">
-            Trải nhiệm là cuộc sống
-          </h1>
-          <header className="sticky top-0 z-[20]">
-            <Header />
-          </header>
-          <main className="w-full h-full">{children}</main>
-          <footer>
-            <Footer />
-          </footer>
-        </ThemeProvider>
+      <body
+        className={`${roboto.className} bg-white `}
+        suppressHydrationWarning={true}
+      >
+        <h1 className="text-center font-semibold text-[1.4rem] py-2 text-black uppercase">
+          Trải nhiệm là cuộc sống
+        </h1>
+        <header className="sticky top-0 z-[20]">
+          <Header />
+        </header>
+        <main className="w-full h-full">{children}</main>
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );
