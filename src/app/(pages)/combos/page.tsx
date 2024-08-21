@@ -11,7 +11,6 @@ const Page = () => {
   return (
     <div className="w-full h-full">
       <Baner />
-
       <div className="my-5 px-20">
         <h1 className=" title_home">Các dịch vụ trọn gói của chúng tôi!</h1>
         <div className="">

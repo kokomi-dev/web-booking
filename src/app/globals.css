@@ -149,51 +149,69 @@ img {
 
 /* title */
 .title_largest {
-  text-transform: inherit;
+  text-transform: capitalize;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
 .title_large {
-  text-transform: inherit;
-  font-size: 1.2rem;
+  text-transform: capitalize;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
 .title_medium {
-  text-transform: inherit;
+  text-transform: capitalize;
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 1rem;
 }
 .title_small {
-  text-transform: inherit;
+  text-transform: capitalize;
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 1rem;
 }
 /* end title */
-
+/* text */
+.t_small {
+  font-size: 0.95rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+.t_medium {
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.t_large {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.85rem;
+}
+.t_largest {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 /* p */
 .p_type_1 {
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 400;
   text-align: justify;
-  letter-spacing: 0.6px;
-  line-height: 26px;
 }
 .p_type_2 {
   font-size: 0.94rem;
   font-weight: 300;
   color: #888;
   text-align: justify;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.1px;
   line-height: 24px;
 }
 /* border */
 .border_div_card {
-  border: 0.5px solid #555;
-  padding: 0.75rem;
+  border: 0.8px solid #c3c2c2;
+  padding: 0.5rem;
   border-radius: 6px;
 }
 /*  flex custom */
@@ -205,8 +223,6 @@ img {
   padding: 0.75rem;
 }
 
-.table__booking {
-}
 .table__booking td,
 .table__booking th {
   text-align: center;

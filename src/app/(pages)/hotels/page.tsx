@@ -1,12 +1,8 @@
-import Intro from "@/components/home/intro";
-import Trending from "@/components/home/trending";
 import Search from "@/components/home/search";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import bannerSearch from "@/assets/images/pre-hotel.jpg";
-import { Card, CardContent } from "@/components/ui/card";
 import { getAllHotel } from "@/api/api-hotel";
-import TourItem from "@/components/components/item-component";
 import {
   Carousel,
   CarouselContent,
@@ -24,8 +20,7 @@ const Home = async () => {
   const data = await fechData();
   return (
     <main className="w-full h-full flex  flex-col items-center justify-between  ">
-      <Search img={bannerSearch} page="hotels" />
-
+      <Search img={bannerSearch} page="hotels" currentValue="" />
       <div className="w-full py-10 flex items-center justify-center flex-col">
         <h3 className="title_home font-[500]">
           Những nơi ở tiện nghi, phục vụ chu đáo mang đến những trải nghiệm
@@ -86,7 +81,7 @@ const Home = async () => {
                   name: string;
                   images: [string];
                   location: string;
-                  price_one: number;
+                  price: [number];
                 }) => (
                   <CarouselItem
                     key={tour.slug}
@@ -98,7 +93,7 @@ const Home = async () => {
                       name={tour.name}
                       images={tour.images[0]}
                       location={tour.location}
-                      price={tour.price_one}
+                      price={tour.price[0]}
                     />
                   </CarouselItem>
                 )

@@ -86,6 +86,8 @@ const config = {
       },
       gridTemplateColumns: {
         "layout-2": "65% 35%",
+        "layout-3": "35% 65%",
+        "layout-4": "25% 75%",
       },
       fontSize: {
         small: "0.9rem",
