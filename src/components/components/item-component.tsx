@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+
+import { Card, CardContent } from "@/components/ui/card";
+
 export const formatPrice = (num: number) => {
   const formattedNumber = new Intl.NumberFormat("vi-VN").format(num);
   return formattedNumber;
@@ -22,25 +25,30 @@ const ItemCard = ({
   route: string;
 }) => {
   return (
-    <Link href={`/${route}/${slug}`} className="w-full min-h-[100%]  h-[100%] ">
+    <Link
+      href={`/${route}/${slug}`}
+      className="w-full min-h-[100%]  h-[100%] relative "
+    >
       <Card className="min-h-[100%] flex items-center justify-start flex-col p-3">
         <Image
-          width={500}
-          height={500}
-          className=" rounded-tr-md rounded-tl-md object-cover w-[99%] "
+          width={1920}
+          height={1080}
+          className="rounded-tr-md rounded-tl-md object-cover w-[99%] "
           src={images}
           alt="img_preview_tour"
           loading="lazy"
         />
-        <CardContent className="flex flex-col   text-start  items-start justify-center pb-3 pl-1 ">
-          <h4 className="title_large w-[100%] h-[65px]  overflow-hidden line-clamp-2 text-start py-1  ">
+        <CardContent className="flex flex-col gap-1 text-start  items-start justify-center pt-2 pl-1 ">
+          <h4 className="text-normal font-bold w-[100%] h-auto  overflow-hidden line-clamp-2 text-start   ">
             {name}
           </h4>
-          <span className="t_small text-black_sub">{location}</span>
-          <h6 className="t_medium pt-2">
-            Giá từ <span className="underline">{formatPrice(price)}</span> VND
-          </h6>
+          <address className="text-small text-black_sub">{location}</address>
         </CardContent>
+        <h6 className="text-normal absolute bottom-2 right-4">
+          <span className="text-small pr-2 ">Giá từ</span>
+          <span className="underline text-blue_main">{formatPrice(price)}</span>
+          <span className="text-small font-semibold pl-2">VND</span>
+        </h6>
       </Card>
     </Link>
   );

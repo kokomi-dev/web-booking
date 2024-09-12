@@ -46,7 +46,7 @@ function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 bg-red-400 text-white">
+      <PopoverContent className="w-auto p-0 bg-bg_black_sub text-black">
         <Calendar
           disabled={disablePastDates}
           mode="single"
@@ -54,6 +54,7 @@ function DatePicker({
           onSelect={setDate}
           initialFocus
           locale={vi}
+          lang="vi"
         />
       </PopoverContent>
     </Popover>
