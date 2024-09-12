@@ -14,21 +14,25 @@ const getDetailTour = async ({ slug }: { slug: string }) => {
   const response = await data.json();
   return response;
 };
-type TourData = {
-  // Định nghĩa các thuộc tính mà API trả về, ví dụ:
+export type TourData = {
   id: number;
   name: string;
   address: string;
-  // ... các thuộc tính khác
+  slug: string;
+  images: [string];
+  price: [number];
+  location: string;
+  description: string;
+  ratingsQuantity: number;
 };
 
-type SearchResult = {
+export type SearchResult = {
   data: TourData[];
 };
 const searchResult = async ({
   searchParam,
 }: {
-  searchParam: string;
+  searchParam: string | any;
 }): Promise<SearchResult> => {
   const data = await fetch(
     `${apiUrl}/tour/searchresult?address=${searchParam}`

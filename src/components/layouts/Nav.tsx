@@ -1,55 +1,53 @@
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-} from "@/components/ui/navigation-menu";
+"use client";
 import Link from "next/link";
-export default function Nav() {
+import { usePathname } from "next/navigation";
+
+import { NAVIGATIONS } from "@/constants";
+import { cn } from "@/lib/utils";
+import { useSidebarStore } from "@/store/sidebar-store";
+const Nav = () => {
+  const pathname = usePathname();
+  const { handleClose } = useSidebarStore();
   return (
-    <div className="flex items-center justify-start">
-      <NavigationMenu>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Địa điểm du lịch
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/hotels" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Nhà nghỉ
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/blogs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Bài viết
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/combos" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Gói dịch vụ
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Tư vấn
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenu>
-      <span className="px-4">|</span>
-      <div className="pl-2 text-sm font-[500]">
-        <span className="underline pr-1 ">Hotline:</span>
-        <span>0961999712</span>
+    <div className={cn("w-full h-full ", "lg:w-[100%]", "md:w-[90%]")}>
+      <div
+        className={cn(
+          "w-[80%] text-[0.9rem] font-[500] flex items-start justify-start gap-x-3  "
+        )}
+      >
+        {NAVIGATIONS.map(({ title, url, icon }) => {
+          return (
+            <Link
+              key={url}
+              href={url}
+              className={cn(
+                "flex items-center justify-start py-2 px-3 transition-all duration-300 select-none rounded-14",
+                "hover:bg-bg_primary_active  cursor-pointer",
+                "lg:text-white",
+                pathname.includes(url) &&
+                  "lg:bg-bg_primary_active lg:text-white lg:rounded-14 lg:border-1"
+              )}
+              onClick={handleClose}
+            >
+              <div className="w-[24px] h-[24px]  object-cover flex items-center justify-center mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18px"
+                  height="18px"
+                  viewBox="0 0 24 24"
+                  role="presentation"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d={icon} fill="currentColor"></path>
+                </svg>
+              </div>
+              <span className=" font-normal text-[0.95rem]">{title}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
-}
+};
+export default Nav;

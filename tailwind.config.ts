@@ -19,47 +19,36 @@ const config = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        black_sub: "#888",
-        white: "#fff",
-        star: "#FEBC04",
+        yellow_main: "#FFB700",
+        blue_main: "#003B96",
+        blue_main_sub: "#006CE4",
+        blue_sub: "#1E50A0",
+        black_main: "#111",
+        black_sub: "#4C4C4C",
+        black_sub_2: "#595959",
       },
       backgroundImage: {
         bannerfix: "url('../assets/images/banner2.jpg')",
         bannerfix_hotel: "url('../assets/images/banner-hotel.jpg')",
       },
       backgroundColor: {
+        bg_primary_main: "#003B96",
+        bg_primary_active: "#1E50A0",
+        bg_primary_blue_sub: "#006CE4",
+        bg_primary_yellow: "#FFB700",
+        bg_primary_white: "#f0f0f0",
+        bg_black_sub: "#F5F5F5",
         sub: "#f0f0f0",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        24: "24px",
+        14: "14px",
+        8: "8px",
+      },
+      borderWidth: {
+        "0.5": "0.5px",
+        1: "1px",
+        "1.2": "1.2px",
       },
       keyframes: {
         "accordion-down": {
@@ -90,10 +79,11 @@ const config = {
         "layout-4": "25% 75%",
       },
       fontSize: {
+        smallest: "0.8rem",
         small: "0.9rem",
         normal: "1.1rem",
-        medium: "1.3rem",
-        lagrget: "1.5rem",
+        medium: "1.2rem",
+        large: "1.3rem",
       },
       padding: {},
       margin: {},

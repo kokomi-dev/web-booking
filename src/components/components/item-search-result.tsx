@@ -2,7 +2,8 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa6";
 import Image from "next/image";
-import { ratingConvert } from "../functions";
+
+import { ratingConvert } from "@/constants";
 import { SkeletonLoading } from "@/util/loading";
 export const formatPrice = (num: number) => {
   const str = num.toString();
