@@ -9,7 +9,14 @@ const Nav = () => {
   const pathname = usePathname();
   const { handleClose } = useSidebarStore();
   return (
-    <div className={cn("w-full h-full ", "lg:w-[100%]", "md:w-[90%]")}>
+    <div
+      className={cn(
+        "w-full h-full transition-all duration-200",
+        "lg:w-[100%] ",
+        "md:w-[90%]",
+        pathname.includes("hotels" || "contact" || " combos") && "lg:ml-[-1rem]"
+      )}
+    >
       <div
         className={cn(
           "w-[80%] text-[0.9rem] font-[500] flex items-start justify-start gap-x-3  "

@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import Image, { StaticImageData } from "next/image";
+
 import img1 from "@/assets/images/img1.webp";
 import img2 from "@/assets/images/img2.webp";
 import img3 from "@/assets/images/img3.webp";
-import Slide from "@/components/components/slide";
-import Image, { StaticImageData } from "next/image";
-export default function Baner() {
+import SlideImg from "@/components/components/slide";
+export default function Slide() {
   const [img, setImg] = useState(0);
   const listImg: {
     id: number;
@@ -51,7 +52,7 @@ export default function Baner() {
           {listImg[img].slogan}
         </p>
       </div>
-      <Slide img={img} listImg={listImg} setImg={setImg} />
+      <SlideImg img={img} listImg={listImg} setImg={setImg} />
     </div>
   );
 }

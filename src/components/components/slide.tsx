@@ -14,7 +14,7 @@ type Props = {
   setImg: React.Dispatch<React.SetStateAction<number>>;
   img: number;
 };
-const Slide: React.FC<Props> = ({ listImg, setImg, img }) => {
+const SlideImg: React.FC<Props> = ({ listImg, setImg, img }) => {
   const [currentIndex, setCurrentIndex] = React.useState(img);
   const handlePrevious = () => {
     const newIndex = currentIndex === 0 ? listImg.length - 1 : currentIndex - 1;
@@ -57,4 +57,4 @@ const Slide: React.FC<Props> = ({ listImg, setImg, img }) => {
     </div>
   );
 };
-export default Slide;
+export default SlideImg;

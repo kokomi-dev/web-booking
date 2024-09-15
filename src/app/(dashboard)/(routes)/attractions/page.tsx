@@ -1,29 +1,19 @@
 import Intro from "@/components/dashboard/home/intro";
 import ListTrendingTour from "@/components/dashboard/home/list-trending-tour";
 import ListAllTour from "@/components/dashboard/home/list-all-tour";
-import Search from "@/components/dashboard/home/search";
 import { Button } from "@/components/ui/button";
-import bannerSearch from "@/assets/images/banner.jpg";
 import { cn } from "@/lib/utils";
-import Banner from "@/components/dashboard/banner";
 const HomePage = () => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between">
-      <Banner image={bannerSearch}>
-        <Search
-          page="attractions"
-          currentValue=""
-          className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-        />
-      </Banner>
+    <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
       <Intro />
       <div
         className={cn(
-          "w-full h-full py-20 bg-fixed bg-no-repeat bg-cover bg-[url('../assets/images/banner2.jpg')]",
+          "w-full h-full py-10 bg-fixed bg-no-repeat bg-cover bg-[url('../assets/images/banner2.jpg')]",
           "lg:py-0"
         )}
       >
-        <div className={cn("w-full p-4 text-white", "lg:p-10")}>
+        <div className={cn("w-full p-4 text-white", "lg:p-6")}>
           <h1 className="title_Page  !mb-2 text-yellow_main font-bold">
             Ưu đãi
           </h1>
@@ -50,7 +40,13 @@ const HomePage = () => {
           chương trình tri ân cho những khách hàng mới đặc biệt ưu đãi!
         </h3>
       </div>
-      <div className={cn("w-full")}>
+      <div
+        className={cn(
+          "w-full flex flex-col items-start justify-start gap-2",
+          "md:gap-4",
+          "lg:gap-6"
+        )}
+      >
         {/* list tour in VN */}
         <ListAllTour />
         {/* list tour trending */}

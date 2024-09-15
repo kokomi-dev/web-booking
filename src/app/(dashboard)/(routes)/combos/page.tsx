@@ -1,4 +1,3 @@
-import Baner from "@/app/(dashboard)/(routes)/combos/baner";
 import {
   Carousel,
   CarouselContent,
@@ -7,10 +6,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+
+import Slide from "@/components/dashboard/combos/slide";
 const Page = () => {
   return (
     <div className="w-full h-full">
-      <Baner />
+      <Slide />
       <div className="my-5 px-20">
         <h1 className=" title_home">Các dịch vụ trọn gói của chúng tôi!</h1>
         <div className="">

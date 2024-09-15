@@ -34,7 +34,7 @@ export default function RootLayout({
       <header className="w-full h-full z-[20]">
         <HeaderDashboard />
       </header>
-      <main className={cn("w-full h-full p-4", "lg:px-36 py-6")}>
+      <main className={cn("w-full h-full p-4 py-6", "md:px-24", "lg:px-36 ")}>
         {children}
       </main>
       <footer>

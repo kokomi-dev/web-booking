@@ -48,9 +48,7 @@ const Intro = () => {
   return (
     <div
       className={cn(
-        "w-full flex flex-col items-center justify-start  bg-bg_black_sub mt-[20rem]",
-        "md:mt-[30rem]",
-        "lg:mt-[43rem]"
+        "w-full flex flex-col items-center justify-start  bg-bg_black_sub "
       )}
     >
       <h1

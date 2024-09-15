@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -20,13 +21,16 @@ const ListAllHotels = async () => {
 
   return (
     <div className={cn("w-full my-4", " lg:py-10")}>
-      <h1 className="text-[1.2rem] font-semibold">
+      <h1 className="text-medium font-semibold">
         Khách sạn ( nhà nghỉ ) chúng tôi đang có
       </h1>
-      <h4 className="text-black_sub text-[1rem] mb-3">
+      <h4 className="text-black_sub text-small mb-3">
         Nếu muốn nhanh gọn và tiết kiệm hơn hãy đến với các gói dịch vụ của
         chúng tôi
-        <Link href="/combos" className="ml-3 text-red-400 underline italic">
+        <Link
+          href="/combos"
+          className="ml-3 text-blue_main_sub text-normal font-semibold underline italic"
+        >
           Gói dịch vụ
         </Link>
       </h4>

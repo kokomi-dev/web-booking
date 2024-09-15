@@ -50,8 +50,8 @@ const AddressTravel = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full shadow-none justify-between font-[500] text-[1.1rem] bg-transparent text-black",
-            "lg:text-[1.2rem]"
+            "w-full shadow-none justify-between font-[500] text-normal bg-transparent text-black",
+            "lg:text-normal"
           )}
         >
           {value
@@ -60,9 +60,9 @@ const AddressTravel = ({
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0 bg-red-400 text-white z-[15]">
+      <PopoverContent className="w-[200px] p-0 bg-bg_primary_white text-black z-[15]">
         <Command>
-          <CommandInput placeholder="" className="h-9 text-white" />
+          <CommandInput placeholder="" className="h-9 text-black" />
           <CommandList>
             <CommandEmpty>Không tìm thấy thành phố</CommandEmpty>
             <CommandGroup>
@@ -74,7 +74,7 @@ const AddressTravel = ({
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
-                  className="text-white"
+                  className="text-black"
                 >
                   {city.label}
                   <CheckIcon
@@ -106,9 +106,9 @@ const DatePicker = ({
         <Button
           id="date"
           className={cn(
-            "min-w-full justify-start text-left text-[1.05rem] font-[500]  bg-transparent text-black shadow-none",
-            !date && "bg-transparent w-full",
-            "lg:text-[1.2rem]"
+            "min-w-full justify-start text-left text-normal font-[500]  bg-transparent text-black shadow-none",
+            !date && "bg-bg_primary_white w-full",
+            "lg:text-normal"
           )}
         >
           {date?.from ? (
@@ -126,7 +126,7 @@ const DatePicker = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 bg-red-400 text-white z-[15]"
+        className="w-auto p-0 bg-bg_primary_white text-black z-[15]"
         align="center"
       >
         <Calendar
@@ -137,7 +137,7 @@ const DatePicker = ({
           onSelect={setDate}
           numberOfMonths={2}
           locale={vi}
-          className="text-[1.2rem] font-[500]"
+          className="text-normal font-[500]"
         />
       </PopoverContent>
     </Popover>
@@ -171,7 +171,7 @@ const SelectNumberPerson = ({
           </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full bg-red-400 text-white z-[10]">
+      <PopoverContent className="w-full bg-bg_black_sub text-black z-[10]">
         <div className="grid gap-4">
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
@@ -257,58 +257,69 @@ const Search: React.FC<SearchProps> = ({
   };
 
   return (
-    <form className={cn("w-full h-full relative", className)}>
+    <form
+      className={cn(
+        "w-full h-full flex items-center justify-center px-4",
+        "md:px-24",
+        "lg:px-36",
+        className
+      )}
+    >
       <div
         className={cn(
-          "w-full px-2 absolute top-[80%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10]  flex-col items-start justify-center text-white",
-          variant === "search" && "relative top-[0%] translate-y-[0%]",
-          "lg:absolute lg:top-[50%] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] lg:px-36 "
+          "w-full h-full  flex flex-col items-start justify-start   z-[10] gap-2",
+          "md:gap-4",
+          "lg:gap-6",
+          variant === "search" && " ",
+          " "
         )}
       >
+        {/* search slogan */}
         {page === "attractions" && !variant && (
-          <div className={cn("hidden", "lg:block lg:mb-5")}>
-            <div className="w-[50%]">
-              <p
+          <div className={cn("hidden", "lg:block  lg:text-white")}>
+            <div className="w-full">
+              <h1
                 className={cn(
-                  "w-[50%] hidden",
-                  "lg:block lg:text-[2rem] font-bold"
+                  "w-full hidden",
+                  "lg:block lg:text-largest font-bold"
                 )}
               >
                 Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
-              </p>
-              <p className={cn("hidden", "lg:text-[1.5rem] lg:block")}>
+              </h1>
+              <h2 className={cn("hidden", "lg:text-large font-light lg:block")}>
                 Khám phá những khung cảnh thơ mộng tại Việt Nam
-              </p>
+              </h2>
             </div>
           </div>
         )}
         {page === "hotels" && (
-          <div className={cn("hidden", "lg:block lg:mb-5")}>
-            <div className="w-[50%]">
-              <p className="text-wrap text-[2.5rem] font-[900]">
+          <div className={cn("hidden", "lg:block  lg:text-white")}>
+            <div className="w-full">
+              <h1 className="text-wrap text-largest font-extrabold">
                 Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
-              </p>
-              <p className="text-[1.5rem]">
+              </h1>
+              <h2 className="text-large font-light">
                 Những khách sạn hàng đầu tại Việt Nam
-              </p>
+              </h2>
             </div>
           </div>
         )}
-        {/* search */}
+        {/* search container */}
         <div
           className={cn(
-            "w-full bg-bg_primary_yellow flex flex-col items-center justify-start gap-1 px-1 rounded-lg",
-            variant === "search" && "w-[99%] bg-neutral-300  py-1",
-            "lg:flex lg:h-[95px] lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
+            "w-full bg-bg_primary_yellow flex flex-col items-center justify-start gap-1 p-1 rounded-lg ",
+            variant === "search" &&
+              "w-[100%] bg-bg_primary_yellow  py-1 text-white",
+            " lg:flex lg:h-[65px] lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
         >
           <div
             className={cn(
-              "w-[99%] h-auto px-1  flex justify-center items-center  rounded-lg bg-white relative",
-              "lg:w-[45%] h-[88%] lg:px-3"
+              "w-[100%] h-auto px-1  flex justify-center items-center  rounded-lg bg-bg_primary_white relative",
+              "lg:w-[45%] h-[100%] lg:px-3"
             )}
           >
-            <IoBedOutline className="text-[1.5rem] text-black_sub mr-2" />
+            <IoBedOutline className="text-large text-black_sub mr-2" />
             <AddressTravel value={value} setValue={setValue} />
             {error && (
               <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2">
@@ -319,22 +330,22 @@ const Search: React.FC<SearchProps> = ({
           {(page === "attractions" || variant === "search") && (
             <div
               className={cn(
-                "w-[99%] h-[88%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
-                "lg:w-[45%] lg:h-[88%] lg:px-3 "
+                "w-[100%] h-[100%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
+                "lg:w-[45%] lg:h-[100%] lg:px-3 "
               )}
             >
-              <CalendarIcon className="mr-3 text-black_sub h-[1.3rem] w-[1.3rem]" />
+              <CalendarIcon className="mr-3 text-black_main h-[1.3rem] w-[1.3rem]" />
               <DatePicker date={date} setDate={setDate} />
             </div>
           )}
           {page === "hotels" && (
             <div
               className={cn(
-                "w-[99%] h-[88%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
+                "w-[100%] h-[100%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
                 "lg:w-[45%] lg:h-[88%] lg:px-3 "
               )}
             >
-              <IoPersonOutline className="text-[1.35rem] text-black_sub mr-2" />
+              <IoPersonOutline className="text-large text-black_sub mr-2" />
               <SelectNumberPerson
                 numberAdults={numberAdults}
                 setNumberAdults={setNumberAdults}
@@ -345,13 +356,13 @@ const Search: React.FC<SearchProps> = ({
               />
             </div>
           )}
-          <div className={cn("w-[99%]  rounded-lg mb-1", "lg:w-[14%] h-[88%]")}>
+          <div className={cn("w-[100%] rounded-lg", "lg:w-[14%] h-[100%]")}>
             <Button
               type="submit"
               variant="default"
               className={cn(
-                "w-full h-full text-[1.1rem] font-medium bg-bg_primary_main",
-                "lg:text-[1.2rem]",
+                "w-full h-full text-normal font-medium bg-bg_primary_main text-white",
+                "lg:text-large font-bold",
                 "hover:bg-bg_primary_active"
               )}
               onClick={handleSearch}

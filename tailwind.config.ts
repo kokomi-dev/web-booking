@@ -26,6 +26,7 @@ const config = {
         black_main: "#111",
         black_sub: "#4C4C4C",
         black_sub_2: "#595959",
+        error_color: "#DB0200",
       },
       backgroundImage: {
         bannerfix: "url('../assets/images/banner2.jpg')",
@@ -34,6 +35,7 @@ const config = {
       backgroundColor: {
         bg_primary_main: "#003B96",
         bg_primary_active: "#1E50A0",
+        bg_primary_hover: "#F1F6FE",
         bg_primary_blue_sub: "#006CE4",
         bg_primary_yellow: "#FFB700",
         bg_primary_white: "#f0f0f0",
@@ -82,8 +84,9 @@ const config = {
         smallest: "0.8rem",
         small: "0.9rem",
         normal: "1.1rem",
-        medium: "1.2rem",
-        large: "1.3rem",
+        medium: "1.3rem",
+        large: "1.5rem",
+        largest: "2.4rem",
       },
       padding: {},
       margin: {},

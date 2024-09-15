@@ -1,18 +1,18 @@
-"use client";
-import React from "react";
+import React, { Fragment } from "react";
 
+import NotFoundPage from "@/app/(dashboard)/404";
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/lib/utils";
 function convertToSlug(str: string) {
   return String(str)
-    .normalize("NFKD") // split accented characters into their base characters and diacritical marks
-    .replace(/[\u0300-\u036f]/g, "") // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-    .trim() // trim leading or trailing whitespace
-    .toLowerCase() // convert to lowercase
-    .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
-    .replace(/\s+/g, "-") // replace spaces with hyphens
-    .replace(/-+/g, "-"); // remove consecutive hyphens
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9 -]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
 }
 
 const FilterComponent = ({
@@ -22,7 +22,6 @@ const FilterComponent = ({
   title: string;
   arrayFilterItem: string[];
 }) => {
-  // get  list filter tour
   const listFilter: {
     category: string[];
   } = {
@@ -33,14 +32,12 @@ const FilterComponent = ({
     const valueChecked = e.target.value;
     if (e.target.checked) {
       listFilter.category = [...listFilter.category, valueChecked];
-      console.log(listFilter);
     } else {
-      console.log(listFilter.category.includes(valueChecked));
     }
   };
   return (
-    <>
-      <h6 className="text-small font-semibold ">{title}</h6>
+    <Fragment>
+      <h6 className="text-small font-semibold capitalize ">{title}</h6>
       <div className="filter_component">
         {arrayFilterItem.map((item, index) => (
           <div key={index} className="filter_item">
@@ -61,7 +58,7 @@ const FilterComponent = ({
           </div>
         ))}
       </div>
-    </>
+    </Fragment>
   );
 };
 
@@ -98,7 +95,7 @@ interface ShowResultProps {
 }
 const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
   return (
-    <div className={cn("w-full h-full p-4 mt-5", "lg:px-20  lg:w-full")}>
+    <div className={cn("w-full h-full  mt-5", "  lg:w-full")}>
       {/* main */}
       <div
         className={cn(
@@ -106,9 +103,14 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
         )}
       >
         <div className="w-full">
-          <h6 className="title_small text-red-400 !font-bold">
-            Có {data?.length} kết quả
-          </h6>
+          <div>
+            <h6 className="text-normal text-black_main !font-bold">
+              Có {data?.length} kết quả
+            </h6>
+            <div>
+              <h4>Hiển thị trên bản đồ</h4>
+            </div>
+          </div>
 
           {/* filter tour */}
           <h3 className="title_medium border-b-[0.8px] border-[#c3c2c2]">
@@ -136,6 +138,7 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
             data?.map((tour, index) => {
               return (
                 <ItemSearchResult
+                  key={index}
                   slug={tour.slug}
                   name={tour.name}
                   images={tour.images[0]}
@@ -148,11 +151,7 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
               );
             })
           ) : (
-            <div className="w-full">
-              <h4 className="text-[1.2rem] font-bold">
-                Không có chuyến du lịch nào tại địa điểm này
-              </h4>
-            </div>
+            <NotFoundPage />
           )}
         </div>
       </div>

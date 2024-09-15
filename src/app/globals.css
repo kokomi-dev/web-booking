@@ -59,7 +59,7 @@ img {
 }
 .image-item-large {
   grid-column: span 2;
-  width: 100%;
+  width: 80%;
   height: auto;
 }
 .image-item-largest {

@@ -17,13 +17,13 @@ const fetchData = async () => {
 const ListAllTour = async () => {
   const data = await fetchData();
   return (
-    <div className={cn("w-full my-2", " lg:py-10")}>
+    <div className={cn("w-full ")}>
       <div className={cn("")}>
-        <h1 className="title_largest">Khám phá Việt Nam</h1>
+        <h2 className="text-large font-bold">Khám phá Việt Nam</h2>
         <div>
-          <h4 className="text-black_sub text-[1rem]">
+          <h6 className="text-black_sub text-small">
             Các điểm đến đang có nhiều điều chờ đón bạn
-          </h4>
+          </h6>
           <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent>
               {data?.map(
@@ -50,8 +50,8 @@ const ListAllTour = async () => {
                 )
               )}
             </CarouselContent>
-            <CarouselPrevious className="w-14 h-14 left-2 bg-red-400 border-none text-white" />
-            <CarouselNext className="w-14 h-14 right-2 bg-red-400 border-none text-white" />
+            <CarouselPrevious className="w-14 h-14 left-2 bg-bg_primary_blue_sub border-none text-white" />
+            <CarouselNext className="w-14 h-14 right-2 bg-bg_primary_blue_sub border-none text-white" />
           </Carousel>
         </div>
       </div>

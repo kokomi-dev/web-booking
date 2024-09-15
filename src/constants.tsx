@@ -1,6 +1,6 @@
 import { vi } from "date-fns/locale";
 import { IoPersonOutline } from "react-icons/io5";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 
 import {
   Popover,
@@ -49,7 +49,7 @@ const DatePicker = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 bg-red-400 text-white z-[15]"
+          className="w-auto p-0 bg-bg_black_sub text-black z-[15]"
           align="center"
         >
           <Calendar
@@ -69,45 +69,77 @@ const DatePicker = ({
 };
 
 type NumberPersonType = {
-  className: any;
+  className: string;
   popoverOpen: boolean;
   setPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  error: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+
   numberAdults: number;
   numberChildren: number;
   numberRoom: number;
+  numberRoomDouble: number;
   setNumberAdults: React.Dispatch<React.SetStateAction<number>>;
   setNumberChildren: React.Dispatch<React.SetStateAction<number>>;
   setNumberRoom: React.Dispatch<React.SetStateAction<number>>;
+  setNumberRoomDouble: React.Dispatch<React.SetStateAction<number>>;
+  handlePopoverChange: (open: boolean) => void;
 };
-// selectnumber
+
 const SelectNumberPerson = ({
   className,
   popoverOpen,
   setPopoverOpen,
+  handlePopoverChange,
+  error,
+  setError,
   numberAdults,
   numberChildren,
   numberRoom,
+  numberRoomDouble,
+  setNumberRoomDouble,
   setNumberAdults,
   setNumberChildren,
   setNumberRoom,
 }: NumberPersonType) => {
   return (
-    <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+    <Popover open={popoverOpen} onOpenChange={handlePopoverChange}>
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            "w-full shadow-none text-black font-medium text-[1rem] flex items-center justify-start  outline-none",
-            className
+            "w-full bg-bg_primary_blue_sub text-white shadow-none py-6  font-medium  flex items-center justify-start gap-2 outline-none",
+            "lg:gap-4",
+            error && "border-[3px] border-error_color"
           )}
         >
-          <IoPersonOutline className="text-[1.2rem]" />
-          <span className="w-full overflow-hidden font-medium ">
-            {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
-            phòng
-          </span>
+          <IoPersonOutline className="text-large" />
+          <div
+            className={cn(
+              "w-full flex items-center justify-between gap-1 overflow-hidden font-medium",
+              "lg:gap-2"
+            )}
+          >
+            <div className="w-full bg-white text-black text-small font-semibold p-2 rounded-8">
+              {numberAdults} <span> người lớn </span>
+            </div>
+            <div className="w-full bg-white text-black text-small font-semibold p-2 rounded-8">
+              {numberChildren} <span> trẻ em </span>
+            </div>{" "}
+            <div className="w-full bg-white text-black text-small font-semibold p-2 rounded-8">
+              {numberRoom} <span> phòng đơn</span>
+            </div>
+            <div className="w-full bg-white text-black text-small font-semibold p-2 rounded-8">
+              {numberRoomDouble} <span> phòng đôi</span>
+            </div>
+          </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full bg-red-400 text-white z-[10]">
+      <PopoverContent
+        className={cn(
+          "w-full bg-bg_black_sub text-black_main z-[10]",
+          error && "border-1 border-error_color"
+        )}
+      >
         <div className="grid gap-4">
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
@@ -115,9 +147,8 @@ const SelectNumberPerson = ({
               <Input
                 type="number"
                 id="adults"
+                min="0"
                 value={numberAdults}
-                min="1"
-                max="100"
                 className="col-span-2 h-8 outline-none bg-white text-black"
                 onChange={(e) => setNumberAdults(Number(e.target.value))}
                 onMouseDown={(e) => e.stopPropagation()}
@@ -129,21 +160,34 @@ const SelectNumberPerson = ({
                 type="number"
                 id="children"
                 min="0"
-                defaultValue={numberChildren}
+                value={numberChildren}
                 className="col-span-2 h-8 outline-none bg-white text-black"
                 onChange={(e) => setNumberChildren(Number(e.target.value))}
                 onMouseDown={(e) => e.stopPropagation()}
               />
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="numberRoom">Phòng:</Label>
+              <Label htmlFor="numberRoom">Phòng đơn:</Label>
               <Input
-                min="0"
                 type="number"
                 id="numberRoom"
-                defaultValue={numberRoom}
+                min="0"
+                value={numberRoom}
                 className="col-span-2 h-8 outline-none bg-white text-black"
                 onChange={(e) => setNumberRoom(Number(e.target.value))}
+                onMouseDown={(e) => e.stopPropagation()}
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="numberRoomDouble">Phòng đôi:</Label>
+              <Input
+                type="number"
+                id="numberRoomDouble"
+                min="0"
+                value={numberRoomDouble}
+                disabled={numberAdults <= 3}
+                className="col-span-2 h-8 outline-none bg-white text-black"
+                onChange={(e) => setNumberRoomDouble(Number(e.target.value))}
                 onMouseDown={(e) => e.stopPropagation()}
               />
             </div>
@@ -153,6 +197,9 @@ const SelectNumberPerson = ({
     </Popover>
   );
 };
+
+export default SelectNumberPerson;
+
 // convert rating
 const ratingConvert = (rating: number) => {
   if (rating >= 5) {
@@ -200,4 +247,7 @@ function isValidEmail(email: string) {
   // Sử dụng phương thức test() để kiểm tra
   return regex.test(email);
 }
+
+// hidden search in route
+export const HIDDEN_SEARCH = ["booking", "pay"];
 export { DatePicker, SelectNumberPerson, ratingConvert, isValidEmail };
