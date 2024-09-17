@@ -103,7 +103,7 @@ const FormSignUp = () => {
             setUser({ ...user, numberPhone: e.target.value });
           }}
         />
-        <span className="text-red-400 text-center block w-full text-[0.9rem] font-light">
+        <span className="text-blue_main_sub text-center block w-full text-[0.9rem] font-light">
           Lưu ý : Mật khẩu phải tối thiểu 8 kí tự, 1 chữ cái, 1 số và 1 kí tự
           đặc biệt
         </span>
@@ -135,7 +135,7 @@ const FormSignUp = () => {
           </label>
         </div>
         <Button
-          className="w-full my-4"
+          className="w-full my-4 bg-bg_primary_main text-white"
           onClick={handlesubmit}
           disabled={
             !user.lastname ||
@@ -157,7 +157,7 @@ const FormSignUp = () => {
         >
           <h6>
             <span className="text-gray-400 mr-1">Bạn đã có tài khoản</span>
-            <Link href="/sign-in" className="text-red-400 underline">
+            <Link href="/sign-in" className="text-blue_main_sub underline">
               Đăng nhập
             </Link>
           </h6>

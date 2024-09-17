@@ -5,7 +5,7 @@ const FooterAuth = () => {
   return (
     <ul
       className={cn(
-        "w-full h-[5rem]  flex items-center justify-evenly bg-gray-300",
+        "w-full h-[5rem]  flex items-center justify-evenly bg-bg_black_sub",
         "lg:h-[40rem]"
       )}
     >

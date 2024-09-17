@@ -23,9 +23,9 @@ const Info: React.FC<InfoProps> = ({
     <div className="w-full">
       <div className="w-full" id="overview">
         <div className="w-fit mb-3">
-          <h6 className="text-smallest bg-bg_primary_yellow text-black p-1 rounded-8">
+          <h5 className="text-smallest bg-bg_primary_yellow text-black p-1 rounded-8">
             Đặt phòng với chúng tôi !
-          </h6>
+          </h5>
         </div>
         <div className="flex items-center justify-between">
           <h1 className="text-large font-bold">{name}</h1>

@@ -72,12 +72,12 @@ const Page = () => {
         <Loading />
       ) : data ? (
         <Suspense fallback={<Loading />}>
-          <div className={cn("w-full h-full ")}>
-            <h1 className="text-center my-3 text-normal font-medium underline mb-6">
-              Lưu ý: tất cả các ảnh của chúng tôi là ảnh thật. Giá đã bao gồm
-              thuế VAT
-            </h1>
-            <div className="w-full text-small flex items-center justify-between border-b-[1px] pb-3 border-blue_main_sub mb-6 ">
+          <div
+            className={cn(
+              "w-full h-full flex flex-col items-start justify-start gap-2 "
+            )}
+          >
+            <div className="w-full text-small flex items-center justify-between  ">
               <div
                 className="text-center scroll-smooth w-full cursor-pointer "
                 onClick={() => {
@@ -119,6 +119,7 @@ const Page = () => {
                 Đánh giá của khách hàng
               </div>
             </div>
+            <hr className="hr" />
             {/* info */}
             <Info
               name={data.name}
@@ -128,16 +129,16 @@ const Page = () => {
               images={data.images}
             />
             <div
-              className="w-full h-full flex flex-col items-start justify-start gap-y-4"
+              className="w-full h-full flex flex-col items-start justify-start gap-y-2"
               id="info_utilities"
             >
               <div className="w-full flex items-center">
                 <FaCalendarXmark className="text-blue_main_sub text-[1.3rem] mr-2" />
-                <span>
+                <p className="text-small font-light">
                   Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi
                   hoặc trước 2 ngày đến lịch đặt ( ngoài thời gian quy định
                   chúng tôi sẽ trừ tiền chiết khấu với quý khách )
-                </span>
+                </p>
               </div>
               {/* content */}
               <div className="w-full h-full flex flex-col items-start justify-start gap-y-2 ">

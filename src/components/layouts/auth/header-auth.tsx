@@ -11,7 +11,7 @@ export default function HeaderAuth() {
     <div className="w-full h-auto ">
       <div
         className={cn(
-          "w-full h-[64px] sticky top-0 z-[15] flex items-center justify-between p-3 px-10 font-[400] text-accent text-[1.2rem] bg-red-400",
+          "w-full h-[64px] sticky top-0 z-[15] flex items-center justify-between p-3 px-10 font-[400] text-accent text-[1.2rem] bg-bg_primary_main text-white",
           "lg:px-20 text-[1.2rem] h-[60px]"
         )}
       >
@@ -21,14 +21,14 @@ export default function HeaderAuth() {
         </Link>
         {/* navigation */}
         {/* toogle themes and button login ( register) */}
-        <div className="flex items-center justify-center">
+        <div className="w-fit rounded-8 flex items-center justify-center bg-bg_primary_active ">
           {pathname.includes("sign-in") ? (
             <Link href={"/sign-up"}>
-              <Button className="ml-4">Đăng ký</Button>
+              <Button className="text-normal font-semibold">Đăng ký</Button>
             </Link>
           ) : (
             <Link href={"/sign-in"}>
-              <Button className="ml-4">Đăng nhập</Button>
+              <Button className="text-normal font-semibold">Đăng nhập</Button>
             </Link>
           )}
         </div>

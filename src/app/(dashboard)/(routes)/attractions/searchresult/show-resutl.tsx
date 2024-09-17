@@ -1,9 +1,13 @@
+"use client";
 import React, { Fragment } from "react";
 
 import NotFoundPage from "@/app/(dashboard)/404";
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
+import imgMap from "@/assets/images/img_map.jpg";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 function convertToSlug(str: string) {
   return String(str)
     .normalize("NFKD")
@@ -94,28 +98,39 @@ interface ShowResultProps {
   }[];
 }
 const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
+  const searchParam = useSearchParams();
+  const addressSearch = searchParam.get("address");
   return (
-    <div className={cn("w-full h-full  mt-5", "  lg:w-full")}>
+    <div className={cn("w-full h-full mt-5", "  lg:w-full")}>
       {/* main */}
       <div
         className={cn(
           "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3"
         )}
       >
-        <div className="w-full">
+        <div className="w-full h-full flex flex-col items-start justify-start gap-2">
           <div>
-            <h6 className="text-normal text-black_main !font-bold">
-              Có {data?.length} kết quả
-            </h6>
-            <div>
-              <h4>Hiển thị trên bản đồ</h4>
+            <h2 className="text-large font-bold mb-2">
+              Địa điểm tham quan ở <span>{addressSearch}</span>
+            </h2>
+            <h3 className="text-normal text-black_main !font-bold">
+              Có <span className="text-blue_main">{data?.length}</span> kết quả
+            </h3>
+            <div className="relative">
+              <Image
+                alt="img_map"
+                width={600}
+                height={400}
+                src={imgMap}
+                className="brightness-75 rounded-8"
+              />
+              <Button className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-bg_primary_main text-white text-smallest hover:bg-bg_primary_active">
+                <span className="text-white">Hiển thị trên bản đồ</span>
+              </Button>
             </div>
           </div>
-
           {/* filter tour */}
-          <h3 className="title_medium border-b-[0.8px] border-[#c3c2c2]">
-            Lọc theo
-          </h3>
+          <h3 className="text-normal font-semibold">Lọc theo</h3>
           <div
             className={cn(
               "w-full filter_component border_div_card flex flex-row items-center justify-start gap-2 overflow-x-scroll",
@@ -134,6 +149,24 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
             "lg:pl-3 lg:gap-y-3"
           )}
         >
+          <div
+            className={cn(
+              "w-full flex items-center justify-between bg-bg_black_sub rounded-8"
+            )}
+          >
+            <Button className="py-6 px-2 text-small rounded-8 shadow-none border-1 border-black bg-bg_primary_white">
+              Đề xuất của chúng tôi
+            </Button>
+            <Button className="py-6 px-2 text-small rounded-8 shadow-none">
+              Được ưa chuộng nhất
+            </Button>
+            <Button className="py-6 px-2 text-small rounded-8 shadow-none">
+              Giá thấp nhất
+            </Button>
+            <Button className="py-6 px-2 text-small rounded-8 shadow-none">
+              Được đánh giá tốt nhất
+            </Button>
+          </div>
           {data ? (
             data?.map((tour, index) => {
               return (

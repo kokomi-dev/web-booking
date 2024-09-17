@@ -60,7 +60,12 @@ const FormLogin = () => {
         }}
       />
 
-      <Button type="submit" className="w-full my-4" onClick={handleLogin}>
+      <Button
+        disabled={!user.email || !user.password}
+        type="submit"
+        className="w-full my-4 bg-bg_primary_blue_sub text-white text-normal font-medium"
+        onClick={handleLogin}
+      >
         Đăng nhập
       </Button>
       <div
@@ -71,7 +76,7 @@ const FormLogin = () => {
       >
         <span
           className={cn(
-            "text-red-400  transition-all duration-300",
+            "text-blue_main_sub  transition-all duration-300",
             "hover:underline"
           )}
         >
@@ -79,7 +84,7 @@ const FormLogin = () => {
         </span>
         <h6>
           <span className="text-gray-400 mr-1">Bạn chưa có tài khoản</span>
-          <Link href="/sign-up" className="text-red-400 underline">
+          <Link href="/sign-up" className="text-blue_main_sub underline">
             Đăng ký
           </Link>
         </h6>

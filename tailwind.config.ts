@@ -24,6 +24,7 @@ const config = {
         blue_main_sub: "#006CE4",
         blue_sub: "#1E50A0",
         black_main: "#111",
+        green_main: "#018235",
         black_sub: "#4C4C4C",
         black_sub_2: "#595959",
         error_color: "#DB0200",
@@ -81,8 +82,8 @@ const config = {
         "layout-4": "25% 75%",
       },
       fontSize: {
-        smallest: "0.8rem",
-        small: "0.9rem",
+        smallest: "0.9rem",
+        small: "1rem",
         normal: "1.1rem",
         medium: "1.3rem",
         large: "1.5rem",

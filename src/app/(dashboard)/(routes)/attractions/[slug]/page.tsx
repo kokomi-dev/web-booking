@@ -3,8 +3,7 @@ import { useEffect, useState, useRef, Suspense } from "react";
 import { useParams } from "next/navigation";
 import { GoStarFill } from "react-icons/go";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { Share2 } from "lucide-react";
 
 import { getDetailTour } from "@/api/api-tour";
 import CardText from "@/components/components/card-text";
@@ -37,13 +36,13 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
           const textareaRef = useAutoResizeTextarea(sche);
           return (
             <div key={index}>
-              <h4 className="font-medium underline text-[1.2rem]">
+              <h4 className="underline text-normal font-semibold">
                 Ngày <span>{index + 1}</span>
               </h4>
               <textarea
                 readOnly
                 ref={textareaRef}
-                className="w-full resize-none box-border border-none outline-none mt-3 text-justify"
+                className="w-full text-small resize-none box-border border-none outline-none mt-1 text-justify"
                 value={sche}
               ></textarea>
             </div>
@@ -53,7 +52,7 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
         <textarea
           readOnly
           ref={useAutoResizeTextarea(data.schedule[0])}
-          className="w-full resize-none box-border border-none outline-none mt-3 text-justify"
+          className="w-full resize-none box-border border-none outline-none mt-1 text-justify"
           value={data.schedule[0]}
         ></textarea>
       )}
@@ -98,33 +97,31 @@ const DetailAttractionPage = () => {
       {isLoading ? (
         <Loading />
       ) : data ? (
-        <div className={cn("w-full h-full ")}>
-          <h1 className="text-center my-3 text-normal text-black_main font-medium underline mb-6">
+        <div
+          className={cn(
+            "w-full h-full flex flex-col items-start justify-start gap-2 "
+          )}
+        >
+          {/* head */}
+          <h3 className="text-center my-3 text-normal text-black_main font-medium underline">
             Lưu ý: tất cả các tour du lịch của chúng tôi đã bao gồm bảo hiểm cho
             quý khách trong toàn bộ chuyến đi
-          </h1>
-          <div
-            className={cn("sticky top-0 mx-[-1rem] shadow-lg", "lg:mx-[-9rem]")}
-          >
-            <Link
-              href="/attractions"
-              className={cn(
-                "w-full bg-bg_primary_blue_sub transition-all duration-300 text-white py-3 px-4 flex items-center justify-start  ",
-                "hover:bg-bg_primary_active",
-                "lg:px-36"
-              )}
-            >
-              <ArrowLeft className="mr-2" />
-              <span className="font-[600]">Quay lại</span>
-            </Link>
-          </div>
+          </h3>
           {/* info */}
-          <div>
-            <h1 className="name_detail">{data.name}</h1>
-            <p className=" text-[0.98rem] my-2 px-3 text-justify">
-              {data.description}
-            </p>
-            <h6 className="flex items-center justify-start mb-2">
+          <section className="w-full h-full flex flex-col items-start justify-start gap-2">
+            <div className="w-full flex items-center justify-between mt-6">
+              <h1 className="text-large font-bold ">{data.name}</h1>
+              <div
+                className={cn(
+                  "flex items-center gap-1 justify-start p-1 rounded-8  text-black border-[1px] border-black_sub transition-all duration-300",
+                  "hover:cursor-pointer hover:bg-bg_black_sub"
+                )}
+              >
+                <Share2 className="w-4 h-4" />
+                <span className="text-small">Chia sẻ điểm tham quan này</span>
+              </div>
+            </div>
+            <h3 className="flex items-center justify-start mb-2">
               <GoStarFill className="text-yellow_main text-[1.6rem] mr-2" />
               <span className="text-medium mr-2">
                 {data.ratingsQuantity}
@@ -137,7 +134,7 @@ const DetailAttractionPage = () => {
               <span className="text-[0.9rem] text-black_sub ">
                 ( 0 đánh giá )
               </span>
-            </h6>
+            </h3>
             {data.duration < 2 ? (
               <span className="bg-yellow_main text-white text-[0.9rem] rounded-xl p-1 px-2">
                 Lựa chọn ưa thích của khách du lịch một mình
@@ -145,9 +142,9 @@ const DetailAttractionPage = () => {
             ) : (
               <></>
             )}
-          </div>
+          </section>
           {/* images */}
-          <div className="w-full h-auto grid gap-3 grid-cols-3 mt-3">
+          <div className="w-full h-auto grid gap-2 grid-cols-2 rounded-8 overflow-hidden">
             {data.images.map((img: string, index: number) => (
               <Image
                 key={index}
@@ -161,6 +158,11 @@ const DetailAttractionPage = () => {
               />
             ))}
           </div>
+          {/* des */}
+          <div>
+            <p className=" text-small text-justify">{data.description}</p>
+          </div>
+          {/* rules */}
           <div className="w-full h-full">
             <div className="flex items-center my-5">
               <FaCalendarXmark className="text-yellow_main text-[1.3rem] mr-2" />
@@ -176,7 +178,7 @@ const DetailAttractionPage = () => {
               <div className="w-full flex flex-col items-start justify-start gap-6 ">
                 {/* schedule in tour */}
                 <div className="w-full pl-3">
-                  <h3 className="text-normal font-bold text-blue_main  bg-bg_black_sub rounded-8 p-2">
+                  <h3 className="text-medium font-semibold  text-blue_main  bg-bg_black_sub rounded-8 p-2">
                     Lịch trình tour của chúng tôi
                   </h3>
                   <div className="w-full h-full flex flex-col flex-grow ">
@@ -191,21 +193,24 @@ const DetailAttractionPage = () => {
                         key={index}
                         className="flex items-center justify-start gap-3 py-1"
                       >
-                        <FaCheck className="text-[1rem] text-[#018235] " />
-                        {item}
+                        <FaCheck className="text-small text-[#018235] " />
+
+                        <span className="text-small">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </CardText>
                 {/* healthy */}
                 <CardText title="Sức khỏe an toàn">
-                  <ul className="pl-3 list-disc">
-                    <li>Không phù hợp với khách có vấn đề về lưng</li>
-                    <li>
+                  <ul className="pl-3 list-disc text-small">
+                    <li className="py-1">
+                      Không phù hợp với khách có vấn đề về lưng
+                    </li>
+                    <li className="py-1">
                       Không phù hợp với khách có vấn đề về tim hoặc vấn đề sức
                       khỏe nghiêm trọng
                     </li>
-                    <li>Phù hợp với mọi tình trạng thể lực</li>
+                    <li className="py-1">Phù hợp với mọi tình trạng thể lực</li>
                   </ul>
                 </CardText>
                 {/* languge guides */}
@@ -239,7 +244,7 @@ const DetailAttractionPage = () => {
                 </div>
               </div>
               {/* book tickets */}
-              <div className="w-full h-fit flex items-start justify-start flex-col gap-4 p-4 sticky top-[2rem] bg-bg_black_sub border-[2px] border-blue_main_sub rounded-xl ">
+              <div className="w-full h-fit flex items-start justify-start flex-col gap-4 p-4 sticky top-[0.5rem] bg-bg_black_sub border-[2px] border-blue_main_sub rounded-xl ">
                 <div>
                   <h3 className="text-medium font-bold">Chọn ngày</h3>
                   <DatePicker date={date} setDate={setDate} />

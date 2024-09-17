@@ -1,13 +1,7 @@
 "use client";
 
 import { vi } from "date-fns/locale";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { SetStateAction, useState } from "react";
 import { CircleCheck, TriangleAlert } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
@@ -105,7 +99,7 @@ const Booking = ({
         <CardText title="Chọn số lượng người">
           <div className="flex items-center justify-start gap-x-2">
             <TriangleAlert className="text-yellow_main" />
-            <h5 className="text-small">
+            <h5 className="text-small mb-1">
               Vui lòng chọn đúng đủ số người ( nếu bạn đăng kí không trung thực
               chúng tôi sẽ không thể giao nhấn phòng cho bạn)
             </h5>
