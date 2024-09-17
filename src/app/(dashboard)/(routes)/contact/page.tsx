@@ -45,7 +45,7 @@ const Item = ({ title }: { title: string }) => {
       )}
     >
       <span className="capitalize font-normal text-[0.9rem] ">{title}</span>
-      <ChevronRight className="text-[1rem] font-light" />
+      <ChevronRight className="text-small font-light" />
     </div>
   );
 };
@@ -58,7 +58,7 @@ const ContactPage = () => {
         <div className="w-full border-[0.5px] border-[#999] rounded-xl p-4">
           <div className="flex items-center justify-start">
             <MailWarning className={cn("pr-2", "lg:pr-3")} />
-            <span className="text-[1rem] font-bold">Bảo mật online</span>
+            <span className="text-small font-bold">Bảo mật online</span>
           </div>
           <p className="my-2">
             Bảo vệ an toàn của bản thân bằng cách không chia sẻ thông tin cá
@@ -68,13 +68,13 @@ const ContactPage = () => {
         </div>
       </div>
       {/* main */}
-      <div className="mt-5">
-        <h1 className={cn("font-extrabold text-[1.5rem]", "lg:text-[1.9rem]")}>
+      <div className="mt-5 w-full h-full flex flex-col items-start justify-start gap-2">
+        <h1 className={cn("font-bold text-medium", "lg:text-large")}>
           Chào mừng đến với Trung tâm Trợ giúp
         </h1>
-        <span>Chúng tôi luôn hỗ trợ 24/7</span>
-        <div className="mt-2">
-          <h3 className="font-bold">Các câu hỏi thường gặp</h3>
+        <h3 className="text-normal font-normal">Chúng tôi luôn hỗ trợ 24/7</h3>
+        <div className="">
+          <h4 className="text-small font-bold">Các câu hỏi thường gặp</h4>
           <div className="w-full mt-5">
             <Tabs
               defaultValue="stay"

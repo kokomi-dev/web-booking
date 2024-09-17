@@ -3,10 +3,14 @@ import ListTrendingTour from "@/components/dashboard/home/list-trending-tour";
 import ListAllTour from "@/components/dashboard/home/list-all-tour";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Trending from "@/components/dashboard/home/trending";
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
+      <Trending />
+      <hr className="hr" />
       <Intro />
+      <hr className="hr" />
       <div
         className={cn(
           "w-full h-full py-10 bg-fixed bg-no-repeat bg-cover bg-[url('../assets/images/banner2.jpg')]",
@@ -42,14 +46,16 @@ const HomePage = () => {
       </div>
       <div
         className={cn(
-          "w-full flex flex-col items-start justify-start gap-2",
+          "w-full flex flex-col items-start justify-start gap-y-2",
           "md:gap-4",
           "lg:gap-6"
         )}
       >
         {/* list tour in VN */}
+        <hr className="hr" />
         <ListAllTour />
         {/* list tour trending */}
+        <hr className="hr" />
         <ListTrendingTour />
       </div>
     </div>

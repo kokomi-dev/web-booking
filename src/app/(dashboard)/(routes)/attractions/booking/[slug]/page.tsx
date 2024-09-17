@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, Suspense, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -150,7 +150,7 @@ const BookingAttractions = () => {
       ) : data ? (
         <div
           className={cn(
-            "w-full h-full  flex flex-col items-start justify-start"
+            "w-full h-full  flex flex-col items-start justify-start gap-2"
           )}
         >
           {/* head */}
@@ -166,16 +166,18 @@ const BookingAttractions = () => {
               )}
               onClick={() => router.back()}
             >
-              <ChevronLeft />
-              <span className="ml-2">Loại vé</span>
+              <ChevronLeft className="text-yellow_main" />
+              <span className="ml-2 text-small">Loại vé</span>
             </div>
-            <div className="text-[0.9rem]">
-              <span>Bước 1/2</span>
+            <div className="text-smallest">
+              <span className="text-blue_main_sub">Bước 1/2</span>
             </div>
-            <div className={cn("text-[1.4rem] font-bold", "lg:text-[1.6rem]")}>
+            <div className={cn("text-medium font-bold", "lg:text-large")}>
               <h1>{data?.name}</h1>
             </div>
-            <p>Hoạt động này được tổ chức bởi một doanh nghiệp</p>
+            <p className="text-small text-black_sub">
+              Hoạt động này được tổ chức bởi một doanh nghiệp
+            </p>
           </div>
           {/* body */}
           <div
@@ -189,7 +191,7 @@ const BookingAttractions = () => {
                 "w-[100%] flex flex-col items-start justify-start gap-3 "
               )}
             >
-              <h3 className={cn("text-[1.2rem] font-bold", "lg:text-[1.4rem]")}>
+              <h3 className={cn("text-normal font-semibold", "lg:text-medium")}>
                 Thông tin của bạn
               </h3>
               <div className="w-full flex flex-col items-start justify-start gap-2">
@@ -227,7 +229,7 @@ const BookingAttractions = () => {
                   error={!!emailError}
                   errorTitle={emailError}
                 />
-                <span className="font-medium">
+                <span className="font-normal text-small text-blue_main_sub">
                   Chúng tôi sẽ gửi thông tin xác nhận tới email của bạn
                 </span>
                 <FormInput
@@ -240,10 +242,10 @@ const BookingAttractions = () => {
                   onChange={handleChangePhone}
                 />
               </div>
-              <h3 className={cn("text-[1.2rem] font-bold", "lg:text-[1.4rem]")}>
+              <h3 className={cn("text-normal font-semibold", "lg:text-medium")}>
                 Thông tin thêm
               </h3>
-              <span>Vui lòng chọn địa điểm đón khách</span>
+              <h4 className="text-small">Vui lòng chọn địa điểm đón khách</h4>
               <div className="w-full">
                 <div className="flex items-center justify-start my-1">
                   <input

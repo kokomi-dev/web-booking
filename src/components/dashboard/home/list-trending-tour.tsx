@@ -18,10 +18,10 @@ const ListTrendingTour = async () => {
     <div className={cn("w-full")}>
       <h2 className="text-large font-bold">Tour nổi bật của chúng tôi</h2>
       <div className="">
-        <h6 className="text-black_sub text-small">
+        <p className="text-black_sub text-small mb-1">
           Khám phá các điểm đến hàng đầu theo cách bạn thich tại Việt Nam chúng
           tôi
-        </h6>
+        </p>
         <Carousel
           opts={{
             align: "start",

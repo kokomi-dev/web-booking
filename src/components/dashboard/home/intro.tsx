@@ -53,8 +53,8 @@ const Intro = () => {
     >
       <h1
         className={cn(
-          "intro__title mt-10 transition-all duration-300 text-center py-5  font-medium scale-50 opacity-0 text-[1.5rem]",
-          "lg:text-[1.9rem] lg:mt-0"
+          "intro__title mt-10 transition-all duration-300 text-center py-5  font-medium scale-50 opacity-0 text-large",
+          "lg:text-largest lg:mt-0 lg:font-bold"
         )}
       >
         Chào mừng tới với KoKo Travel
@@ -115,7 +115,7 @@ const Intro = () => {
         {/* <CarouselPrevious />
         <CarouselNext /> */}
       </Carousel>
-      <div className="w-full pt-5  grid grid-cols-2 lg:grid-cols-4 gap-2 mt-10 border-t-[2px] border-blue_main">
+      <div className="w-full pt-5 text-small  grid grid-cols-2 lg:grid-cols-4 gap-2 mt-10 border-t-[2px] border-blue_main">
         <div className="flex flex-col items-center justify-center text-center ">
           <span className="text-black_sub mb-1">Địa điểm</span>
           <span className="uppercase">Việt Nam</span>

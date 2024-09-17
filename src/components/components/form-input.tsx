@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
         htmlFor={title}
         className="capitalize select-none flex items-center justify-start mb-1"
       >
-        <span className="text-[0.95rem]">{title}</span>
+        <span className="text-small">{title}</span>
         {isImportant && <Asterisk className="text-red-700" size={18} />}
       </label>
       <Input
@@ -40,13 +40,13 @@ const FormInput: React.FC<FormInputProps> = ({
         placeholder={placeholder}
         className={cn(
           "border-[0.5px] border-[#999] rounded-md p-2",
-          error && "border-[1px] border-red-500"
+          error && "border-1 border-red-500"
         )}
         value={value}
         onChange={onChange}
       />
       {error && (
-        <span className="text-red-500 text-[0.9rem]">{errorTitle}</span>
+        <span className="text-red-500 text-smallest">{errorTitle}</span>
       )}
     </div>
   );

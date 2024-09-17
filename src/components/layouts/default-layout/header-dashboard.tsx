@@ -21,7 +21,7 @@ const HeaderDashboard = () => {
       {/* logo, navigation, notify */}
       <div
         className={cn(
-          "w-full   font-[500] text-white text-normal  flex items-center justify-between transition-all duration-300",
+          "w-full font-[500] text-white text-normal  flex items-center justify-between transition-all duration-300",
           "lg:px-36 lg:text-normal lg:h-[140px] lg:block  "
         )}
       >
@@ -54,7 +54,7 @@ const HeaderDashboard = () => {
         </div>
       </div>
       {/* slogan , search */}
-      {pathname.includes("booking" || "pay") ? (
+      {pathname.includes("booking" || "pay" || "combos" || "contact") ? (
         <Fragment></Fragment>
       ) : (
         <div className="w-full h-full">

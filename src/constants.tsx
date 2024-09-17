@@ -1,3 +1,5 @@
+"use client";
+
 import { vi } from "date-fns/locale";
 import { IoPersonOutline } from "react-icons/io5";
 import { format } from "date-fns";
@@ -13,6 +15,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import { Label } from "./components/ui/label";
 import { Input } from "./components/ui/input";
+import { useAuthenticatedStore } from "./store/authencation-store";
+import { Fragment } from "react";
 // date picker
 const DatePicker = ({
   className,
@@ -250,4 +254,36 @@ function isValidEmail(email: string) {
 
 // hidden search in route
 export const HIDDEN_SEARCH = ["booking", "pay"];
+export const ADDRESS_TRENDING = [
+  {
+    name: "Đà nẵng",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688844.jpg?k=02892d4252c5e4272ca29db5faf12104004f81d13ff9db724371de0c526e1e15&o=",
+    slug: "da-nang",
+  },
+  {
+    name: "Hội an",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688872.jpg?k=d0eb773fecb09bba40b98866ca0efd153ad51091f128ef93d1298e4d2c48df8d&o=",
+    slug: "hoi-an",
+  },
+  {
+    name: "nha trang",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688907.jpg?k=8a219233969467d9f7ff828918cce2a53b4db6f1da1039d27222441ffb97c409&o=",
+    slug: "nha-trang",
+  },
+  {
+    name: "Huê",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688888.jpg?k=e66838f3f1a5e26b31a01fa5284cff8ebfb9d186203bf516f72ce8b476d8dcc4&o=",
+    slug: "hue",
+  },
+  {
+    name: "Hà nội",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688861.jpg?k=69489591c3adcc2571361d7b6be1b284f4ad5573b4544767d4ce1426ef33af30&o=",
+    slug: "ha-noi",
+  },
+  {
+    name: "TP.Hồ Chí Minh ",
+    img: "https://q-xx.bstatic.com/xdata/images/city/533x300/688895.jpg?k=cbd714092f2cdd284db903badf316a7cf6b5ac73fd08b6cafee6e58c16f7d6b5&o=",
+    slug: "tp-ho-chi-minh",
+  },
+];
 export { DatePicker, SelectNumberPerson, ratingConvert, isValidEmail };

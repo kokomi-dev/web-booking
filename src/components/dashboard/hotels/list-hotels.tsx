@@ -20,16 +20,16 @@ const ListAllHotels = async () => {
   const data = await fechData();
 
   return (
-    <div className={cn("w-full my-4", " lg:py-10")}>
-      <h1 className="text-medium font-semibold">
+    <div className={cn("w-full ", " ")}>
+      <h2 className="text-large font-bold">
         Khách sạn ( nhà nghỉ ) chúng tôi đang có
-      </h1>
-      <h4 className="text-black_sub text-small mb-3">
+      </h2>
+      <h4 className="text-black_sub text-small mb-1">
         Nếu muốn nhanh gọn và tiết kiệm hơn hãy đến với các gói dịch vụ của
         chúng tôi
         <Link
           href="/combos"
-          className="ml-3 text-blue_main_sub text-normal font-semibold underline italic"
+          className="ml-3 text-blue_main_sub text-small font-semibold underline italic"
         >
           Gói dịch vụ
         </Link>

@@ -12,6 +12,16 @@ const nextConfig = {
         hostname: "cdn.icon-icons.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "q-xx.bstatic.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        port: "",
+      },
     ],
   },
 };
