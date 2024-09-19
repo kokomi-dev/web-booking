@@ -12,6 +12,14 @@ interface reqLoginProp {
   password: string;
 }
 
+interface reqUpdateProp {
+  firstname: string;
+  lastname: string;
+  password: string;
+  passwordNew: string;
+  passwordNewConfirm: string;
+}
+
 const reqRegiter = async (data: reqRegisterProp) => {
   try {
     const response = await fetch(apiUrl + "/auth/register", {
@@ -63,5 +71,35 @@ const reqCurrentUser = async () => {
     console.log("Lỗi khi lấy thông tin người dùng hiện tại:", error);
   }
 };
+const reqUpdateUser = async (id: string, data: reqUpdateProp) => {
+  try {
+    const response = await fetch(apiUrl + "/auth/update/" + id, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data, id }),
+    });
 
-export { reqRegiter, reqLogin, reqCurrentUser };
+    return await response.json();
+  } catch (error) {
+    return error;
+  }
+};
+const reqLogout = async (data: reqRegisterProp) => {
+  try {
+    const response = await fetch(apiUrl + "/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    return await response.json();
+  } catch (error) {
+    return error;
+  }
+};
+
+export { reqRegiter, reqLogin, reqCurrentUser, reqUpdateUser, reqLogout };
