@@ -13,6 +13,8 @@ interface FormInputProps {
   value: string | number;
   error?: boolean;
   errorTitle?: string;
+  className?: string;
+  defaultValue?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -24,14 +26,16 @@ const FormInput: React.FC<FormInputProps> = ({
   type,
   error,
   errorTitle,
+  className,
+  defaultValue,
 }) => {
   return (
-    <div className="w-full">
+    <div className={cn("w-full text-small", className)}>
       <label
         htmlFor={title}
         className="capitalize select-none flex items-center justify-start mb-1"
       >
-        <span className="text-small">{title}</span>
+        <span className="">{title}</span>
         {isImportant && <Asterisk className="text-red-700" size={18} />}
       </label>
       <Input
@@ -44,6 +48,7 @@ const FormInput: React.FC<FormInputProps> = ({
         )}
         value={value}
         onChange={onChange}
+        defaultValue={defaultValue}
       />
       {error && (
         <span className="text-red-500 text-smallest">{errorTitle}</span>

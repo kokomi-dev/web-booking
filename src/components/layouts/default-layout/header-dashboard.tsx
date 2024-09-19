@@ -1,3 +1,4 @@
+"use client";
 import { BadgeHelp, Bell } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -6,10 +7,26 @@ import Account from "@/components/dashboard/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
 import Search from "@/components/dashboard/home/search";
-import { HIDDEN_SEARCH } from "@/constants";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { reqCurrentUser } from "@/api/api-auth";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+
 const HeaderDashboard = () => {
   const pathname = usePathname();
+  const { setUserLogined, setIsAuthenticated } = useAuthenticatedStore();
+
+  useEffect(() => {
+    try {
+      const getCurrentUser = async () => {
+        const fetchData = await reqCurrentUser();
+        if (fetchData) {
+          setUserLogined(fetchData.user);
+          setIsAuthenticated();
+        }
+      };
+      getCurrentUser();
+    } catch (error) {}
+  }, []);
   return (
     <div
       className={cn(
