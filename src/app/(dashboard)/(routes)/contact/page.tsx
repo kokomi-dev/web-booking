@@ -73,7 +73,7 @@ const ContactPage = () => {
           Chào mừng đến với Trung tâm Trợ giúp
         </h1>
         <h3 className="text-normal font-normal">Chúng tôi luôn hỗ trợ 24/7</h3>
-        <div className="">
+        <div className="w-full">
           <h4 className="text-small font-bold">Các câu hỏi thường gặp</h4>
           <div className="w-full mt-5">
             <Tabs

@@ -286,4 +286,28 @@ export const ADDRESS_TRENDING = [
     slug: "tp-ho-chi-minh",
   },
 ];
+export interface TourData {
+  slug: string;
+  name: string;
+  description: string;
+  ratingsQuantity: number;
+  duration: number;
+  images: string[];
+  schedule: string[];
+  included: string[];
+  price: [number, number];
+}
+export type HotelData = {
+  slug: string;
+  name: string;
+  details: [string];
+  location: string;
+  rating: number;
+  images: string[];
+  city: string;
+  type: number;
+  highlights: [string];
+  price: [number, number];
+  sales: number;
+};
 export { DatePicker, SelectNumberPerson, ratingConvert, isValidEmail };

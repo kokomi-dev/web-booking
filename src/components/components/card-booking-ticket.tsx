@@ -56,7 +56,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-start justify-start gap-4 border-[0.5px] border-[#999] rounded-xl p-6"
+        "flex flex-col items-start justify-start gap-4 border-[0.5px] border-[#999] rounded-xl p-3"
       )}
     >
       <h5 className="flex items-center justify-start gap-1">

@@ -2,7 +2,6 @@ import { Fragment } from "react";
 
 import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
 import FooterDashboard from "@/components/layouts/default-layout/footer-dashboard";
-import { cn } from "@/lib/utils";
 
 const RootLayout = ({
   children,

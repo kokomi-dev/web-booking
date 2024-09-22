@@ -1,4 +1,6 @@
-const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+import { TourData } from "@/constants";
+
+export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const getAllTour = async () => {
   const data = await fetch(`${apiUrl}/tour`);
   const response = await data.json();
@@ -10,20 +12,17 @@ const getTourTrending = async () => {
   return response;
 };
 const getDetailTour = async ({ slug }: { slug: string }) => {
-  const data = await fetch(`${apiUrl}/tour/${slug}`);
-  const response = await data.json();
-  return response;
-};
-export type TourData = {
-  id: number;
-  name: string;
-  address: string;
-  slug: string;
-  images: [string];
-  price: [number];
-  location: string;
-  description: string;
-  ratingsQuantity: number;
+  try {
+    const response = await fetch(`${apiUrl}/tour/${slug}`);
+    if (!response) {
+      throw new Error("Failed to fetch tour details");
+    }
+    const reult = await response.json();
+    return reult.data;
+  } catch (error) {
+    console.error("Error fetching tour details:", error);
+    throw new Error("Error fetching tour details");
+  }
 };
 
 export type SearchResult = {

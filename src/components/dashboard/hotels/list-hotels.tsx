@@ -44,24 +44,26 @@ const ListAllHotels = async () => {
           >
             <CarouselContent>
               {data?.map(
-                (tour: {
+                (hotel: {
                   slug: string;
                   name: string;
                   images: [string];
                   location: string;
                   price: [number];
+                  rating: number;
                 }) => (
                   <CarouselItem
-                    key={tour.slug}
+                    key={hotel.slug}
                     className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                   >
                     <ItemCard
                       route="hotels"
-                      slug={tour.slug}
-                      name={tour.name}
-                      images={tour.images[0]}
-                      location={tour.location}
-                      price={tour.price[0]}
+                      slug={hotel.slug}
+                      name={hotel.name}
+                      images={hotel.images[0]}
+                      location={hotel.location}
+                      price={hotel.price[0]}
+                      rating={hotel.rating}
                     />
                   </CarouselItem>
                 )

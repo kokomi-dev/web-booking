@@ -16,6 +16,7 @@ const ItemCard = ({
   location,
   price,
   route,
+  rating,
 }: {
   slug: string;
   name: string;
@@ -23,13 +24,14 @@ const ItemCard = ({
   location: string;
   price: number;
   route: string;
+  rating: number;
 }) => {
   return (
     <Link
       href={`/${route}/${slug}`}
-      className="w-full min-h-[100%]  h-[100%] relative "
+      className="w-full min-h-[100%]  h-[100%] relative  "
     >
-      <Card className="min-h-[100%] flex items-center justify-start flex-col p-3">
+      <Card className="min-h-[100%] flex items-center justify-start flex-col ">
         <Image
           width={1920}
           height={1080}
@@ -38,17 +40,27 @@ const ItemCard = ({
           alt="img_preview_tour"
           loading="lazy"
         />
-        <CardContent className="flex flex-col gap-1 text-start  items-start justify-center pt-2 pl-1 ">
-          <h4 className="text-normal font-bold w-[100%] h-auto  overflow-hidden line-clamp-2 text-start   ">
+        <CardContent className="flex flex-col gap-1 items-start justify-start p-2 pt-1 pb-8">
+          <h4 className="text-normal font-bold w-[100%]   overflow-hidden line-clamp-1 text-start   ">
             {name}
           </h4>
-          <address className="text-small text-black_sub">{location}</address>
+          <address className="text-[0.8rem] text-black_sub">{location}</address>
+          <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
+            <div>
+              <span className="text-white bg-bg_primary_active rounded-8  px-2 py-1">
+                {rating}
+              </span>
+            </div>
+            <h6>{rating > 4.5 ? "Rất tuyệt vời" : "Rất tốt "}</h6>
+          </div>
+          <h6 className="text-normal absolute bottom-2 right-4">
+            <span className="text-[0.8rem] font-light pr-1">Bắt đầu từ</span>
+            <span className="text-small font-bold pr-1">VND</span>
+            <span className="underline text-blue_main text-small font-bold">
+              {formatPrice(price)}
+            </span>
+          </h6>
         </CardContent>
-        <h6 className="text-normal absolute bottom-2 right-4">
-          <span className="text-small pr-2 ">Giá từ</span>
-          <span className="underline text-blue_main">{formatPrice(price)}</span>
-          <span className="text-small font-semibold pl-2">VND</span>
-        </h6>
       </Card>
     </Link>
   );

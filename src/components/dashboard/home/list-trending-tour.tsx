@@ -36,6 +36,7 @@ const ListTrendingTour = async () => {
                 images: [string];
                 location: string;
                 price: [number];
+                ratingsQuantity: number;
               }) => (
                 <CarouselItem
                   key={tour.slug}
@@ -48,6 +49,7 @@ const ListTrendingTour = async () => {
                     images={tour.images[0]}
                     location={tour.location}
                     price={tour.price[0]}
+                    rating={tour.ratingsQuantity}
                   />
                 </CarouselItem>
               )

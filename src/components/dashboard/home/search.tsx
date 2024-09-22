@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../../ui/button";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
@@ -239,6 +239,7 @@ const Search: React.FC<SearchProps> = ({
   const [numberChildren, setNumberChildren] = useState<number>(1);
   const [numberRoom, setNumberRoom] = useState<number>(1);
   const [error, setError] = useState(false);
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
@@ -260,7 +261,11 @@ const Search: React.FC<SearchProps> = ({
     <form
       className={cn(
         "w-full h-full  flex items-center justify-center py-4",
-        className
+        className,
+        pathname.includes("combos") && "hidden",
+        pathname.includes("contact") && "hidden",
+        pathname.includes("booking") && "hidden",
+        pathname.includes("pay") && "hidden"
       )}
     >
       <div
