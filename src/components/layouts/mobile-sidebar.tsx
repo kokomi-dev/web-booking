@@ -13,8 +13,11 @@ const MobileSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className={cn("w-full h-full block", "lg:hidden")}>
-      <MenuIcon onClick={handleCloseOrModal} className="text-[1.4rem] mr-4" />
+    <div className={cn("w-fit h-full block", "lg:hidden")}>
+      <MenuIcon
+        onClick={handleCloseOrModal}
+        className="w-7 h-7 mr-4 text-white hover:cursor-pointer transition-all duration-300"
+      />
       <Sheet open={isOpen}>
         <SheetContent
           onClick={handleClose}

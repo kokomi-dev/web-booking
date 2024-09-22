@@ -29,20 +29,18 @@ const HeaderDashboard = () => {
   return (
     <div
       className={cn(
-        "w-full h-full bg-bg_primary_main z-[15] p-4 flex flex-col items-start justify-start gap-2",
-        "md:gap-4",
-        "lg:gap-6"
+        "w-full h-full container-padding bg-bg_primary_main z-[15]  flex flex-col items-start justify-start gap-2 py-2"
       )}
     >
       {/* logo, navigation, notify */}
       <div
         className={cn(
-          "w-full font-[500] text-white text-normal  flex items-center justify-between transition-all duration-300",
-          "lg:px-36 lg:text-normal lg:h-[140px] lg:block  "
+          "w-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
+          " lg:text-normal lg:h-[140px] lg:block  "
         )}
       >
         <MobileSidebar />
-        <div className="w-full font-bold  flex items-center justify-between text-white ">
+        <div className="w-full font-bold  flex items-center justify-between text-white  ">
           <h1 className="text-large e font-mono">KoKoTravel.com</h1>
           <div className="flex items-center justify-start gap-2">
             <div
@@ -55,8 +53,8 @@ const HeaderDashboard = () => {
                 Đăng chỗ nghỉ của bạn
               </h3>
             </div>
-            <BadgeHelp className="size__icon-small" />
-            <Bell className="size__icon--small" />
+            <BadgeHelp className="size__icon-small hidden lg:block" />
+            <Bell className="size__icon--small hidden lg:block" />
           </div>
         </div>
         <div

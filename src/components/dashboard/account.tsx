@@ -43,11 +43,11 @@ const Account = () => {
                   className=" rounded-full object-contain"
                 />
               </div>
-              <div className="w-auto h-auto flex flex-col items-start justify-center ">
+              <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                 <div
                   className={cn(
-                    " hidden items-center justify-start gap-x-1 text-white font-bold text-small select-none",
-                    "lg:flex"
+                    " flex items-center justify-start gap-x-1 text-white font-bold text-small select-none",
+                    ""
                   )}
                 >
                   <span className="capitalize text-white">
