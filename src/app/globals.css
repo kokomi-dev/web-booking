@@ -183,7 +183,7 @@ img {
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  position: fixed;
+  position: relative;
   right: 0;
   bottom: 0;
   left: 0;
@@ -193,6 +193,8 @@ img {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
+  transition: all;
+  transition-duration: 200;
 }
 .loader {
   z-index: 35;
