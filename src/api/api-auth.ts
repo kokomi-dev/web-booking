@@ -13,11 +13,11 @@ interface reqLoginProp {
 }
 
 interface reqUpdateProp {
-  firstname: string;
-  lastname: string;
-  password: string;
-  passwordNew: string;
-  passwordNewConfirm: string;
+  firstname?: string | undefined;
+  lastname?: string | undefined;
+  password?: string;
+  passwordNew?: string;
+  passwordNewConfirm?: string;
 }
 
 const reqRegiter = async (data: reqRegisterProp) => {
@@ -71,7 +71,7 @@ const reqCurrentUser = async () => {
     console.log("Lỗi khi lấy thông tin người dùng hiện tại:", error);
   }
 };
-const reqUpdateUser = async (id: string, data: reqUpdateProp) => {
+const reqUpdateUser = async (id: string | number, data: reqUpdateProp) => {
   try {
     const response = await fetch(apiUrl + "/auth/update/" + id, {
       method: "POST",

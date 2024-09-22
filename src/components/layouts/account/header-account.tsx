@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { BookmarkCheck, CalendarCheck, LogOut, UserRound } from "lucide-react";
 
 import { reqCurrentUser } from "@/api/api-auth";
@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LoadingComponentAccount } from "@/util/loading";
 
 const HeaderAccount = () => {
   const { setUserLogined, setIsAuthenticated, user } = useAuthenticatedStore();
@@ -29,16 +30,15 @@ const HeaderAccount = () => {
         }
       };
       getCurrentUser();
-      console.log(user);
     } catch (error) {}
   }, []);
-
   return (
     <div className="w-full h-auto ">
       <div
         className={cn(
-          "w-full h-[64px] sticky top-0 z-[15] flex items-center justify-between p-3 px-10   bg-bg_primary_main text-white",
-          "lg:px-36 text-normal text-white lg:h-[84px]"
+          "w-full h-[64px] text-normal text-white sticky top-0 z-[15] flex items-center justify-between p-3 px-10 bg-bg_primary_main container-padding",
+
+          "lg:h-[84px]"
         )}
       >
         {/* logo */}
@@ -50,107 +50,114 @@ const HeaderAccount = () => {
         </Link>
         {/* navigation */}
         {user && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className={cn(
-                  "w-fit h-full flex items-start justify-center gap-2 p-1  rounded-lg",
-                  "bg-bg_primary_active cursor-pointer",
-                  "md:p-2 md:px-3"
-                )}
-              >
-                <div
+          <Suspense fallback={<LoadingComponentAccount />}>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
                   className={cn(
-                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center",
-                    "md:w-[2.8rem] md:h-[2.8rem]"
+                    "h-full flex items-center justify-end  rounded-lg bg-bg_primary_active",
+                    "cursor-pointer",
+                    "md:items-center md:px-1 md:w-auto",
+                    "lg:gap-x-2 "
                   )}
                 >
-                  <Image
-                    src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
-                    width={600}
-                    height={600}
-                    alt="avatar-user"
-                    className=" rounded-full object-contain"
-                  />
-                </div>
-                <div className="w-auto h-auto flex flex-col items-start justify-center ">
                   <div
                     className={cn(
-                      " hidden items-center justify-start gap-x-1 text-white font-bold text-small select-none",
+                      "w-[2.3rem] h-[2.3rem] border-1  border-yellow_main rounded-full flex items-center justify-center",
+                      "md:w-[2.8rem] md:h-[2.8rem]"
+                    )}
+                  >
+                    <Image
+                      src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
+                      width={600}
+                      height={600}
+                      alt="avatar-user"
+                      className=" rounded-full object-contain"
+                    />
+                  </div>
+                  <div
+                    className={cn(
+                      "w-auto h-auto hidden flex-col items-start justify-center ",
                       "lg:flex"
                     )}
                   >
-                    <span className="capitalize text-white">
-                      {user.firstname}
-                    </span>
-                    <span className="capitalize text-white">
-                      {user.lastname}
-                    </span>
+                    <div
+                      className={cn(
+                        "flex items-center justify-start gap-x-1 text-white font-bold text-small select-none"
+                      )}
+                    >
+                      <span className="capitalize text-white">
+                        {user?.firstname}
+                      </span>
+                      <span className="capitalize text-white">
+                        {user?.lastname}
+                      </span>
+                    </div>
+                    <div className="text-start">
+                      <span className="text-[0.8rem] text-yellow_main">
+                        Genius Cấp 1
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-start">
-                    <span className="text-[0.8rem] text-yellow_main">
-                      Genius Cấp 1
-                    </span>
-                  </div>
-                </div>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 h-auto bg-white text-black rounded-14 p-0 ">
-              <DropdownMenuGroup className="w-full">
-                <DropdownMenuItem
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
-                >
-                  <Link
-                    className="w-full flex items-center justify-start"
-                    href={`/account/${user.email}-${user._id}?do=manage-account`}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 h-auto bg-white text-black rounded-14 p-0 ">
+                <DropdownMenuGroup className="w-full">
+                  <DropdownMenuItem
+                    className={cn(
+                      "cursor-pointer p-2 py-3",
+                      "hover:bg-bg_primary_hover"
+                    )}
                   >
-                    <UserRound className="w-5 h-5 mr-2" />
-                    <span> Quản lí tài khoản</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
-                >
-                  <Link
-                    className="w-full flex items-center justify-start"
-                    href={`/account/${user.email}-${user._id}?do=booking`}
+                    <Link
+                      className="w-full flex items-center justify-start"
+                      href={`/account/mysetting/${user._id}?do=manage-account`}
+                    >
+                      <UserRound className="w-5 h-5 mr-2" />
+                      <span> Quản lí tài khoản</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className={cn(
+                      "cursor-pointer p-2 py-3",
+                      "hover:bg-bg_primary_hover"
+                    )}
                   >
-                    <CalendarCheck className="w-5 h-5 mr-2" />
-                    <span>Đặt chỗ & chuyến đi</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
-                >
-                  <Link
-                    className="w-full flex items-center justify-start"
-                    href={`/account/${user.email}-${user._id} ?do=saved`}
+                    <Link
+                      className="w-full flex items-center justify-start"
+                      href={`/account/manage-booking/${user._id}?do=booking`}
+                    >
+                      <CalendarCheck className="w-5 h-5 mr-2" />
+                      <span>Đặt chỗ & chuyến đi</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className={cn(
+                      "cursor-pointer p-2 py-3",
+                      "hover:bg-bg_primary_hover"
+                    )}
                   >
-                    <BookmarkCheck className="w-5 h-5 mr-2" />
-                    <span>Đã lưu</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
-                >
-                  <LogOut className="w-5 h-5 mr-2" />
-                  <span>Đăng xuất</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                    <Link
+                      className="w-full flex items-center justify-start"
+                      href={`/account/saved/${user._id} ?do=saved`}
+                    >
+                      <BookmarkCheck className="w-5 h-5 mr-2" />
+                      <span>Đã lưu</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className={cn(
+                      "cursor-pointer p-2 py-3",
+                      "hover:bg-bg_primary_hover"
+                    )}
+                  >
+                    <LogOut className="w-5 h-5 mr-2" />
+                    <span>Đăng xuất</span>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </Suspense>
         )}
       </div>
     </div>

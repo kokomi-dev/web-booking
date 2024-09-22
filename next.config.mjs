@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: "www.google.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "t-cf.bstatic.com",
+        port: "",
+      },
     ],
   },
 };

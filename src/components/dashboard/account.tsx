@@ -73,7 +73,7 @@ const Account = () => {
               >
                 <Link
                   className="w-full flex items-center justify-start"
-                  href={`/account/${user.email}-${user._id}?do=manage-account`}
+                  href={`/account/mysetting/${user._id}?do=manage-account`}
                 >
                   <UserRound className="w-5 h-5 mr-2" />
                   <span> Quản lí tài khoản</span>
@@ -87,7 +87,7 @@ const Account = () => {
               >
                 <Link
                   className="w-full flex items-center justify-start"
-                  href={`/account/${user.email}-${user._id}?do=booking`}
+                  href={`/account/manage-booking/${user._id}?do=booking`}
                 >
                   <CalendarCheck className="w-5 h-5 mr-2" />
                   <span>Đặt chỗ & chuyến đi</span>
@@ -101,7 +101,7 @@ const Account = () => {
               >
                 <Link
                   className="w-full flex items-center justify-start"
-                  href={`/account/${user.email}-${user._id} ?do=saved`}
+                  href={`/account/saved/${user._id}-${user._id} ?do=saved`}
                 >
                   <BookmarkCheck className="w-5 h-5 mr-2" />
                   <span>Đã lưu</span>
@@ -122,7 +122,9 @@ const Account = () => {
       ) : (
         <div className=" flex items-center justify-center">
           <Link href={"/sign-in"}>
-            <Button className="ml-4 text-small">Đăng nhập</Button>
+            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub">
+              Đăng nhập
+            </Button>
           </Link>
         </div>
       )}

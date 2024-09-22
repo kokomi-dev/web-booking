@@ -93,7 +93,39 @@ const config = {
       margin: {},
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({
+      addUtilities,
+    }: {
+      addUtilities: (utilities: object, variants?: string[]) => void;
+    }) {
+      const newUtilities = {
+        ".container-padding": {
+          paddingLeft: "1rem", // tương đương với px-4
+          paddingRight: "1rem", // tương đương với px-4
+          "@screen sm": {
+            paddingLeft: "1.5rem", // sm:px-6
+            paddingRight: "1.5rem", // sm:px-6
+          },
+          "@screen md": {
+            paddingLeft: "3rem", // md:px-12
+            paddingRight: "3rem", // md:px-12
+          },
+          "@screen lg": {
+            paddingLeft: "6rem", // lg:px-24
+            paddingRight: "6rem", // lg:px-24
+          },
+          "@screen xl": {
+            paddingLeft: "9rem", // xl:px-36
+            paddingRight: "9rem", // xl:px-36
+          },
+        },
+      };
+
+      addUtilities(newUtilities, ["responsive"]);
+    },
+  ],
 } satisfies Config;
 
 export default config;
