@@ -10,7 +10,7 @@ interface FormInputProps {
   placeholder?: string;
   isImportant?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string | number;
+  value: string | number | undefined;
   error?: boolean;
   errorTitle?: string;
   className?: string;
@@ -35,7 +35,7 @@ const FormInput: React.FC<FormInputProps> = ({
         htmlFor={title}
         className="capitalize select-none flex items-center justify-start mb-1"
       >
-        <span className="">{title}</span>
+        <span className="text-smallest font-light">{title}</span>
         {isImportant && <Asterisk className="text-red-700" size={18} />}
       </label>
       <Input

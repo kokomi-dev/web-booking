@@ -13,8 +13,7 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 
 const HeaderDashboard = () => {
   const pathname = usePathname();
-  const { setUserLogined, setIsAuthenticated } = useAuthenticatedStore();
-
+  const { setUserLogined, user, setIsAuthenticated } = useAuthenticatedStore();
   useEffect(() => {
     try {
       const getCurrentUser = async () => {
@@ -30,7 +29,7 @@ const HeaderDashboard = () => {
   return (
     <div
       className={cn(
-        "w-full h-full bg-bg_primary_main z-[15] py-4 flex flex-col items-start justify-start gap-2",
+        "w-full h-full bg-bg_primary_main z-[15] p-4 flex flex-col items-start justify-start gap-2",
         "md:gap-4",
         "lg:gap-6"
       )}

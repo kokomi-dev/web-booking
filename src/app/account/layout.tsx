@@ -1,3 +1,4 @@
+import FooterAccount from "@/components/layouts/account/footer-account";
 import HeaderAccount from "@/components/layouts/account/header-account";
 import React, { Fragment } from "react";
 
@@ -10,7 +11,10 @@ const AccountLayout: React.FC<IAccount> = ({ children }) => {
       <header>
         <HeaderAccount />
       </header>
-      <div>{children}</div>
+      <main className="container-padding">{children}</main>
+      <footer>
+        <FooterAccount />
+      </footer>
     </Fragment>
   );
 };

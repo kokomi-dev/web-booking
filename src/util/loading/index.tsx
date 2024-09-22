@@ -11,4 +11,11 @@ function SkeletonLoading() {
     </div>
   );
 }
-export { SkeletonLoading };
+function LoadingComponentAccount() {
+  return (
+    <div className="flex items-center space-x-4">
+      <Skeleton className="h-[50px] w-[200px] rounded-8" />
+    </div>
+  );
+}
+export { SkeletonLoading, LoadingComponentAccount };
