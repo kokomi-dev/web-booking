@@ -105,12 +105,12 @@ const HeaderAccount = () => {
                 <DropdownMenuGroup className="w-full">
                   <DropdownMenuItem
                     className={cn(
-                      "cursor-pointer p-2 py-3",
+                      "cursor-pointer ",
                       "hover:bg-bg_primary_hover"
                     )}
                   >
                     <Link
-                      className="w-full flex items-center justify-start"
+                      className="w-full h-full  p-2 py-3 flex items-center justify-start"
                       href={`/account/mysetting/${user._id}?do=manage-account`}
                     >
                       <UserRound className="w-5 h-5 mr-2" />
@@ -119,12 +119,12 @@ const HeaderAccount = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className={cn(
-                      "cursor-pointer p-2 py-3",
+                      "cursor-pointer ",
                       "hover:bg-bg_primary_hover"
                     )}
                   >
                     <Link
-                      className="w-full flex items-center justify-start"
+                      className="w-full flex p-2 py-3 items-center justify-start"
                       href={`/account/manage-booking/${user._id}?do=booking`}
                     >
                       <CalendarCheck className="w-5 h-5 mr-2" />
@@ -133,12 +133,12 @@ const HeaderAccount = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className={cn(
-                      "cursor-pointer p-2 py-3",
+                      "cursor-pointer ",
                       "hover:bg-bg_primary_hover"
                     )}
                   >
                     <Link
-                      className="w-full flex items-center justify-start"
+                      className="w-full flex p-2 py-3 items-center justify-start"
                       href={`/account/saved/${user._id} ?do=saved`}
                     >
                       <BookmarkCheck className="w-5 h-5 mr-2" />
@@ -147,7 +147,7 @@ const HeaderAccount = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className={cn(
-                      "cursor-pointer p-2 py-3",
+                      "cursor-pointer px-4 py-3",
                       "hover:bg-bg_primary_hover"
                     )}
                   >

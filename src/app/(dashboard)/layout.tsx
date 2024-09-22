@@ -14,9 +14,7 @@ const RootLayout = ({
       <header className="w-full h-full z-[20]">
         <HeaderDashboard />
       </header>
-      <main className={cn("w-full h-full p-4 py-6", "md:px-24", "lg:px-36 ")}>
-        {children}
-      </main>
+      <main className="w-full h-full container-padding  py-4">{children}</main>
       <footer>
         <FooterDashboard />
       </footer>

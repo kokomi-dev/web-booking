@@ -50,16 +50,17 @@ const page = () => {
     passwordNewConfirm,
   };
   const handleChangePassword = async () => {
+    if (!passwordNew) {
+      return toast.error("Mật khẩu không được để trông");
+    }
+    if (!passwordNewConfirm) {
+      return toast.error("Vui lòng nhập lại mật khẩu mới");
+    }
+    if (passwordNew !== passwordNewConfirm) {
+      return toast.error("Mật khẩu mới không trùng khớp");
+    }
+    setLoading(true);
     try {
-      if (!passwordNew) {
-        return toast.error("Mật khẩu không được để trông");
-      }
-      if (!passwordNewConfirm) {
-        return toast.error("Vui lòng nhập lại mật khẩu mới");
-      }
-      if (passwordNew !== passwordNewConfirm) {
-        return toast.error("Mật khẩu mới không trùng khớp");
-      }
       if (user) {
         const res = await reqUpdateUser(user._id, {
           password,
@@ -67,10 +68,15 @@ const page = () => {
           passwordNewConfirm,
         });
         if (res) {
-          console.log(res);
+          await route.refresh();
+          toast.success("Đổi mật khẩu thành công");
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
   const handleChangeName = async () => {
     if (!firstname) {
@@ -87,15 +93,14 @@ const page = () => {
           lastname,
         });
         if (res) {
-          // AlertNotify({ open: true, setOpen: setOpen });
           await route.refresh();
+          toast.success("Đổi tên thành công");
         }
       }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      AlertNotify();
     }
   };
   if (loading) {

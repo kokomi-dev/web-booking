@@ -259,15 +259,13 @@ const Search: React.FC<SearchProps> = ({
   return (
     <form
       className={cn(
-        "w-full h-full flex items-center justify-center px-4",
-        "md:px-24",
-        "lg:px-36",
+        "w-full h-full  flex items-center justify-center py-4",
         className
       )}
     >
       <div
         className={cn(
-          "w-full h-full  flex flex-col items-start justify-start   z-[10] gap-2",
+          "w-full h-full  flex flex-col items-start justify-start z-[10] gap-2",
           "md:gap-4",
           "lg:gap-6",
           variant === "search" && " ",
