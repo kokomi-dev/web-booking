@@ -38,7 +38,7 @@ const FormLogin = () => {
   };
   return (
     <form
-      action={process.env.NEXT_PUBLIC_API_ENDPOINT + "/auth/login"}
+      // action={process.env.NEXT_PUBLIC_API_ENDPOINT + "/auth/login"}
       method="POST"
       className="flex flex-col items-start justify-start gap-4"
     >
@@ -66,7 +66,7 @@ const FormLogin = () => {
         className="w-full my-4 bg-bg_primary_blue_sub text-white text-normal font-medium"
         onClick={handleLogin}
       >
-        Đăng nhập
+        <span className="text-white">Đăng nhập</span>
       </Button>
       <div
         className={cn(

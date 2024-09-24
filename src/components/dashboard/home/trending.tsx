@@ -1,12 +1,16 @@
 "use client";
-import { ADDRESS_TRENDING } from "@/constants";
-import { cn } from "@/lib/utils";
-import { LoadingImg } from "@/util/loading/loading-img";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-const Trending = () => {
+import { ADDRESS_TRENDING } from "@/constants";
+import { cn } from "@/lib/utils";
+import { LoadingImg } from "@/util/loading/loading-img";
+
+interface ITrending {
+  page: string;
+}
+const Trending: React.FC<ITrending> = ({ page }) => {
   return (
     <div className="w-full h-full flex flex-col items-start justify-start gap-4">
       <section className="flex flex-col items-start justify-start gap-2">
@@ -25,7 +29,7 @@ const Trending = () => {
         {ADDRESS_TRENDING.map((address, index) => {
           return (
             <Link
-              href=""
+              href={`/${page}/searchresult?address=${address.slug}`}
               key={index}
               className={cn(
                 "w-full h-full relative transition-all duration-300 ",

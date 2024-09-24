@@ -8,6 +8,7 @@ import imgMap from "@/assets/images/img_map.jpg";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+
 function convertToSlug(str: string) {
   return String(str)
     .normalize("NFKD")
@@ -97,7 +98,7 @@ interface ShowResultProps {
     ratingsQuantity: number;
   }[];
 }
-const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
+const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
   const searchParam = useSearchParams();
   const addressSearch = searchParam.get("address");
   return (
@@ -167,7 +168,7 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
               Được đánh giá tốt nhất
             </Button>
           </div>
-          {data ? (
+          {data &&
             data?.map((tour, index) => {
               return (
                 <ItemSearchResult
@@ -182,9 +183,18 @@ const ShowResult: React.FC<ShowResultProps> = async ({ data }) => {
                   ratingsQuantity={tour.ratingsQuantity}
                 />
               );
-            })
-          ) : (
-            <NotFoundPage />
+            })}
+          {data.length === 0 && (
+            <div className="w-full h-[20%] flex items-center justify-center  rounded-8">
+              <div className="flex items-center justify-center w-full h-full flex-col">
+                <h3 className="text-normal font-medium text-blue_main_sub">
+                  Hiện tại chúng tôi chưa có dịch vụ ở đây
+                </h3>
+                <p className="text-small text-black_sub">
+                  Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </div>

@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,7 +34,7 @@ const ItemCard = ({
         <Image
           width={1920}
           height={1080}
-          className="rounded-tr-md rounded-tl-md object-cover w-[99%] "
+          className="rounded-tr-md rounded-tl-md object-cover w-[99%] h-[300px] md:h-[260px] lg:h-[240px] "
           src={images}
           alt="img_preview_tour"
           loading="lazy"

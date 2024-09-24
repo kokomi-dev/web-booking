@@ -1,27 +1,30 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-tour";
-import ShowResult from "./show-resutl";
+import ShowResult from "@/components/dashboard/home/show-resutl";
 import { cn } from "@/lib/utils";
 import Loading from "../loading";
-import NotFoundPage from "@/app/(dashboard)/404";
-
-const fetcher = async (search: string | null) => {
-  const data = await searchResult({ searchParam: search || "" });
-  return data.data;
-};
+import { TourData } from "@/constants";
 
 const SearchResultPage = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("address");
 
-  const { data, error } = useSWR(search, fetcher);
+  const [data, setData] = useState<TourData[]>([]);
+  useEffect(() => {
+    const fetcher = async () => {
+      const data = await searchResult({ searchParam: search || "" });
+      return setData(data.data);
+    };
+    fetcher();
+  }, [search]);
 
-  if (error) return <NotFoundPage />;
-  if (!data) return <Loading />;
+  // const { data, error } = useSWR(search, fetcher);
 
+  // if (error) return <NotFoundPage />;
+  // if (!data) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
       <ShowResult data={data} />

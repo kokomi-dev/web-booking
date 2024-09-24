@@ -17,8 +17,8 @@ const getDetailTour = async ({ slug }: { slug: string }) => {
     if (!response) {
       throw new Error("Failed to fetch tour details");
     }
-    const reult = await response.json();
-    return reult.data;
+    const result = await response.json();
+    return result.data;
   } catch (error) {
     console.error("Error fetching tour details:", error);
     throw new Error("Error fetching tour details");

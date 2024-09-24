@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
@@ -12,15 +10,11 @@ import {
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotel";
 
-const fechData = async () => {
-  const data = await getAllHotel();
-  return data.data;
-};
 const ListAllHotels = async () => {
-  const data = await fechData();
-
+  const result = await getAllHotel();
+  const data = await result.data;
   return (
-    <div className={cn("w-full ", " ")}>
+    <div className={cn("w-full")}>
       <h2 className="text-large font-bold">
         Khách sạn ( nhà nghỉ ) chúng tôi đang có
       </h2>

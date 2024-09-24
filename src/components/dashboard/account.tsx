@@ -6,7 +6,7 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +14,59 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { BookmarkCheck, CalendarCheck, LogOut, UserRound } from "lucide-react";
+import { DialogTitle } from "../ui/dialog";
+import { reqCurrentUser, reqLogout } from "@/api/api-auth";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const Account = () => {
-  const { isAuthenticated, user } = useAuthenticatedStore();
+  const pathname = usePathname();
+  const router = useRouter();
+  const {
+    setUserLogined,
+    user,
+    setIsAuthenticated,
+    isAuthenticated,
+    setLogout,
+  } = useAuthenticatedStore();
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      if (localStorage.getItem("token")) {
+        const fetchData = await reqCurrentUser();
+        if (fetchData) {
+          setUserLogined(fetchData.user);
+          setIsAuthenticated();
+        }
+      } else {
+        console.log("Hiện tại chưa đăng nhập");
+      }
+    };
+    getCurrentUser();
+  }, []);
+  const handleLogout = async () => {
+    const data = await reqLogout();
+    console.log(data);
+    if (data && data.code === 200) {
+      setLogout();
+      localStorage.removeItem("token");
+      router.refresh();
+      toast.success("Đăng xuất thành công");
+    }
+  };
   return (
     <Fragment>
-      {isAuthenticated && user ? (
+      {isAuthenticated === true && user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -107,15 +154,41 @@ const Account = () => {
                   <span>Đã lưu</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem
-                className={cn(
-                  "cursor-pointer p-2 py-3",
-                  "hover:bg-bg_primary_hover"
-                )}
-              >
-                <LogOut className="w-5 h-5 mr-2" />
-                <span>Đăng xuất</span>
-              </DropdownMenuItem>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <div
+                    className={cn(
+                      "flex items-center justify-start w-full cursor-pointer px-[0.65rem] py-3",
+                      "hover:bg-bg_primary_hover"
+                    )}
+                  >
+                    <LogOut className="w-5 h-5 mr-[0.3rem]" />
+                    <span className="text-smallest">Đăng xuất</span>
+                  </div>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-bg_black_sub text-black rounded-14">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Bạn chắc chắn muốn Đăng Xuất
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-black_sub text-smallest">
+                      Mọi thông tin sẽ được lưu trữ lại phục vụ cho lần đăng
+                      nhập tiếp
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active">
+                      Hủy
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleLogout}
+                      className="bg-bg_black_sub text-black_sub hover:text-black"
+                    >
+                      Đăng xuất
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -7,7 +7,7 @@ import Trending from "@/components/dashboard/home/trending";
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
-      <Trending />
+      <Trending page="attractions" />
       <hr className="hr" />
       <Intro />
       <hr className="hr" />
