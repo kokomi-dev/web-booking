@@ -12,13 +12,7 @@ interface InfoProps {
   rating: number;
   images: string[];
 }
-const Info: React.FC<InfoProps> = ({
-  name,
-  location,
-  details,
-  rating,
-  images,
-}) => {
+const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
   return (
     <div className="w-full">
       <div className="w-full" id="overview">
@@ -63,17 +57,29 @@ const Info: React.FC<InfoProps> = ({
         </h6>
       </div>
       {/* images */}
-      <div className="w-full h-auto grid gap-3 grid-cols-3 mt-3">
-        {images.map((img: string, index: number) => (
+      <div className="grid grid-cols-2 gap-2 rounded-8 overflow-hidden">
+        {images.slice(0, 2).map((img: string, index: number) => (
           <Image
             key={index}
             width={500}
             height={300}
             src={img}
+            className="object-cover w-full h-auto"
             alt={`một vài ảnh giới thiệu về tour du lịch ${name}`}
-            className={index === 0 ? "image-item-largest" : "image-item-small"}
           />
         ))}
+        <div className="col-span-2 grid grid-cols-2 gap-2 ">
+          {images.slice(2).map((img: string, index: number) => (
+            <Image
+              key={index + 2}
+              width={500}
+              height={300}
+              src={img}
+              className="object-cover w-full h-[320px]"
+              alt={`một vài ảnh giới thiệu về tour du lịch ${name}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

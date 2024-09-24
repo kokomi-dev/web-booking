@@ -6,10 +6,11 @@ import { cn } from "@/lib/utils";
 import ListAllHotels from "@/components/dashboard/hotels/list-hotels";
 import Trending from "@/components/dashboard/home/trending";
 import Rules from "@/components/dashboard/hotels/rules";
+
 const HotelPage = () => {
   return (
     <div className="w-full h-full flex  flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
-      <Trending />
+      <Trending page="hotels" />
       <hr className="hr" />
       <Rules />
       <hr className="hr" />

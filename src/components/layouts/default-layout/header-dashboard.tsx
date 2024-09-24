@@ -1,31 +1,13 @@
-"use client";
 import { BadgeHelp, Bell } from "lucide-react";
-import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import Account from "@/components/dashboard/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
-import Search from "@/components/dashboard/home/search";
-import { Fragment, useEffect } from "react";
-import { reqCurrentUser } from "@/api/api-auth";
-import { useAuthenticatedStore } from "@/store/authencation-store";
+import Search from "@/components/components/search";
+import Link from "next/link";
 
-const HeaderDashboard = () => {
-  const pathname = usePathname();
-  const { setUserLogined, user, setIsAuthenticated } = useAuthenticatedStore();
-  useEffect(() => {
-    try {
-      const getCurrentUser = async () => {
-        const fetchData = await reqCurrentUser();
-        if (fetchData) {
-          setUserLogined(fetchData.user);
-          setIsAuthenticated();
-        }
-      };
-      getCurrentUser();
-    } catch (error) {}
-  }, []);
+const HeaderDashboard = async () => {
   return (
     <div
       className={cn(
@@ -41,7 +23,9 @@ const HeaderDashboard = () => {
       >
         <MobileSidebar />
         <div className="w-full font-bold  flex items-center justify-between text-white  ">
-          <h1 className="text-large e font-mono">KoKoTravel.com</h1>
+          <Link href="/attractions" className="text-large e font-mono">
+            KoKoTravel.com
+          </Link>
           <div className="flex items-center justify-start gap-2">
             <div
               className={cn(
@@ -68,13 +52,9 @@ const HeaderDashboard = () => {
         </div>
       </div>
       {/* slogan , search */}
-      {pathname.includes("booking" || "pay" || "combos" || "contact") ? (
-        <Fragment></Fragment>
-      ) : (
-        <div className="w-full h-full">
-          <Search page={pathname.split("/")[1]} currentValue={""} />
-        </div>
-      )}
+      <div className="w-full h-full">
+        <Search currentValue={""} />
+      </div>
     </div>
   );
 };

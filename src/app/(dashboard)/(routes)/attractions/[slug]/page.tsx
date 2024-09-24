@@ -10,6 +10,7 @@ import { apiUrl } from "@/api/api-tour";
 import BookingContainer from "@/components/components/booking-container";
 import { TourData } from "@/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
+import Loading from "../loading";
 
 export async function generateStaticParams() {
   const listTours = await fetch(`${apiUrl}/tour`).then((res) => res.json());
@@ -23,7 +24,9 @@ const DetailAttractionPage = async ({
   params: { slug: string };
 }) => {
   const data = await getDetailTour({ slug });
-
+  if (!data) {
+    <Loading />;
+  }
   return (
     <section className="w-full h-full">
       <div
@@ -73,17 +76,29 @@ const DetailAttractionPage = async ({
           )}
         </section>
         {/* images */}
-        <div className="w-full h-auto grid gap-2 grid-cols-2 rounded-8 overflow-hidden">
-          {data.images.map((img: string, index: number) => (
+        <div className="grid grid-cols-2 gap-2 rounded-8 overflow-hidden">
+          <div className="col-span-1">
             <Image
-              key={index}
               width={500}
               height={300}
-              src={img}
-              alt={`một vài ảnh giới thiệu về tour du lịch ${data.name}`}
-              className={index === 0 ? "image-item-large" : "image-item-small"}
+              src={data.images[0]}
+              className="object-cover w-full h-auto"
+              alt={`Ảnh chính của tour du lịch ${data.name}`}
             />
-          ))}
+          </div>
+
+          <div className="grid grid-cols-2 items-end gap-2 col-span-1">
+            {data.images.slice(1).map((img: string, index: number) => (
+              <Image
+                key={index + 1}
+                width={250}
+                height={150}
+                src={img}
+                className="object-cover w-full h-auto"
+                alt={`Một vài ảnh giới thiệu về tour du lịch ${data.name}`}
+              />
+            ))}
+          </div>
         </div>
         {/* des */}
         <div>

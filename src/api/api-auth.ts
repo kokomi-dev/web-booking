@@ -86,16 +86,9 @@ const reqUpdateUser = async (id: string | number, data: reqUpdateProp) => {
     return error;
   }
 };
-const reqLogout = async (data: reqRegisterProp) => {
+const reqLogout = async () => {
   try {
-    const response = await fetch(apiUrl + "/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
-
+    const response = await fetch(apiUrl + "/auth/logout");
     return await response.json();
   } catch (error) {
     return error;

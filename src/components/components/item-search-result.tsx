@@ -51,13 +51,13 @@ const ItemSearchResult = ({
             loading="lazy"
           />
           <div className="flex flex-col text-start  items-start justify-center p-4 pt-0">
-            <h4 className="text-medium font-bold w-[100%] h-[40px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
+            <h4 className="text-medium font-bold w-[100%] h-[38px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
               {name}
             </h4>
-            <address className="text-small text-black_sub  ">
+            <address className="text-smallest font-light text-black_sub  ">
               {location}
             </address>
-            <p className="overflow-hidden line-clamp-2 p_type_1 text-normal">
+            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-normal">
               {description}
             </p>
             <h6 className="t_medium flex items-center justify-start gap-1 ">
@@ -66,11 +66,11 @@ const ItemSearchResult = ({
               {ratingConvert(ratingsQuantity)}
             </h6>
             <h6 className="t_small pt-2">
-              Giá từ{" "}
+              <span className="text-smallest pr-1"> Giá từ </span>
               <span className="underline text-blue_main_sub font-semibold">
                 {formatPrice(price)}
               </span>{" "}
-              VND
+              <span className="font-semibold">VNĐ</span>
             </h6>
           </div>
         </div>

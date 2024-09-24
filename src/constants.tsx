@@ -244,6 +244,7 @@ export const NAVIGATIONS: { title: string; url: string; icon: string }[] = [
     icon: "M9.75 9a2.25 2.25 0 1 1 3 2.122 2.25 2.25 0 0 0-1.5 2.122v1.006a.75.75 0 0 0 1.5 0v-1.006c0-.318.2-.602.5-.708A3.75 3.75 0 1 0 8.25 9a.75.75 0 1 0 1.5 0zM12 16.5a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25.75.75 0 0 0 0 1.5.375.375 0 1 1 0-.75.375.375 0 0 1 0 .75.75.75 0 0 0 0-1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z",
   },
 ];
+// validate email
 function isValidEmail(email: string) {
   // Biểu thức chính quy để kiểm tra email
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -251,9 +252,20 @@ function isValidEmail(email: string) {
   // Sử dụng phương thức test() để kiểm tra
   return regex.test(email);
 }
+// convert to slug
+function convertToSlug(text: string) {
+  text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  text = text.toLowerCase();
+  text = text.replace(/[^a-z0-9\s-]/g, "");
+  text = text.trim().replace(/\s+/g, "-");
+  return text;
+}
 
+//
 // hidden search in route
 export const HIDDEN_SEARCH = ["booking", "pay"];
+//
+//
 export const ADDRESS_TRENDING = [
   {
     name: "Đà nẵng",
@@ -286,10 +298,14 @@ export const ADDRESS_TRENDING = [
     slug: "tp-ho-chi-minh",
   },
 ];
+//
+//
+// type
 export interface TourData {
   slug: string;
   name: string;
   description: string;
+  location: string;
   ratingsQuantity: number;
   duration: number;
   images: string[];
@@ -310,4 +326,11 @@ export type HotelData = {
   price: [number, number];
   sales: number;
 };
-export { DatePicker, SelectNumberPerson, ratingConvert, isValidEmail };
+//
+export {
+  DatePicker,
+  SelectNumberPerson,
+  ratingConvert,
+  isValidEmail,
+  convertToSlug,
+};

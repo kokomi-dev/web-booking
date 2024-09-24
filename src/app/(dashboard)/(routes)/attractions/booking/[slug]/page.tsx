@@ -13,29 +13,20 @@ import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-
-interface TourData {
-  name: string;
-  description: string;
-  ratingsQuantity: number;
-  duration: number;
-  images: [string];
-  schedule: string[];
-  included: string[];
-  price: [number, number];
-}
+import { TourData } from "@/constants";
 
 const BookingAttractions = () => {
   const { slug } = useParams<{
     slug: string;
   }>();
   const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<TourData | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const tourData = await getDetailTour({ slug });
-        setData(tourData.data);
+        setData(tourData);
       } catch (error) {
         console.error("Failed to fetch tour details:", error);
       } finally {
@@ -48,7 +39,6 @@ const BookingAttractions = () => {
   }, [slug]);
 
   const router = useRouter();
-  const [data, setData] = useState<TourData | null>(null);
   const [lastName, setLastName] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [numberphone, setNumberphone] = useState<string>("");
@@ -64,6 +54,7 @@ const BookingAttractions = () => {
   const [phoneError, setPhoneError] = useState<string>("");
 
   const param = useSearchParams();
+
   const hour = param.get("hour");
   const date = param.get("date");
   const adult = param.get("adult");

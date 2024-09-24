@@ -5,7 +5,12 @@ import { usePathname } from "next/navigation";
 
 import { NAVIGATIONS } from "@/constants";
 import Image from "next/image";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useSidebarStore } from "@/store/sidebar-store";
 import { cn } from "@/lib/utils";
 const MobileSidebar = () => {
@@ -18,10 +23,12 @@ const MobileSidebar = () => {
         onClick={handleCloseOrModal}
         className="w-7 h-7 mr-4 text-white hover:cursor-pointer transition-all duration-300"
       />
-      <Sheet open={isOpen}>
+      <Sheet open={isOpen} onOpenChange={handleClose}>
+        <SheetTitle></SheetTitle>
+        <SheetDescription></SheetDescription>
         <SheetContent
           onClick={handleClose}
-          className="w-[80%] h-full bg-bg_primary_main text-white"
+          className="w-[65%] h-full bg-bg_primary_main text-white"
           side="left"
         >
           <div className={cn("w-full h-full ", "lg:w-[80%]", "md:w-[90%]")}>

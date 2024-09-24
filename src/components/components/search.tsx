@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { addDays, format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Label } from "@radix-ui/react-label";
-import { Input } from "../../ui/input";
+import { Input } from "../ui/input";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -25,13 +25,39 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { convertToSlug } from "@/constants";
 
 const citys = [
-  { value: "Hà Nội", codeProvinces: "29", label: "Hà Nội" },
-  { value: "Khánh Hòa", codeProvinces: "79", label: "Khánh Hòa" },
-  { value: "Hạ Long", codeProvinces: "14", label: "Hạ Long" },
-  { value: "Việt Trì", codeProvinces: "19", label: "Việt Trì" },
-  { value: "Đà Nẵng", codeProvinces: "43", label: "Đà Nẵng" },
+  {
+    "city-slug": "ha-noi",
+    codeProvinces: "29",
+    label: "Hà Nội",
+    value: "Hà Nội",
+  },
+  {
+    "city-slug": "khanh-hoa",
+    codeProvinces: "79",
+    label: "Khánh Hòa",
+    value: "Khánh Hòa",
+  },
+  {
+    "city-slug": "ha-long",
+    codeProvinces: "14",
+    label: "Hạ Long",
+    value: "Hạ Long",
+  },
+  {
+    "city-slug": "viet-tri",
+    codeProvinces: "19",
+    label: "Việt Trì",
+    value: "Việt Trì",
+  },
+  {
+    "city-slug": "da-nang",
+    codeProvinces: "43",
+    label: "Đà Nẵng",
+    value: "Đà Nẵng",
+  },
 ];
 
 const AddressTravel = ({
@@ -50,7 +76,7 @@ const AddressTravel = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full shadow-none justify-between font-[500] text-normal bg-transparent text-black",
+            "w-full shadow-none justify-between font-medium text-normal bg-transparent text-black",
             "lg:text-normal"
           )}
         >
@@ -74,13 +100,15 @@ const AddressTravel = ({
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
-                  className="text-black"
+                  className="text-black hover:cursor-pointer hover:bg-white transition-all duration-300 rounded-8"
                 >
                   {city.label}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",
-                      value === city.value ? "opacity-100" : "opacity-0"
+                      value === city.value
+                        ? "opacity-100  text-blue_main_sub"
+                        : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -220,13 +248,11 @@ const SelectNumberPerson = ({
 
 interface SearchProps {
   className?: string;
-  page: string;
   currentValue: string | null;
   variant?: string;
 }
 const Search: React.FC<SearchProps> = ({
   className,
-  page,
   currentValue,
   variant,
 }) => {
@@ -242,6 +268,7 @@ const Search: React.FC<SearchProps> = ({
   const pathname = usePathname();
   const router = useRouter();
 
+  const page = pathname.split("/")[1];
   useEffect(() => {
     if (value) {
       setError(false);
@@ -253,10 +280,10 @@ const Search: React.FC<SearchProps> = ({
     if (!value) {
       setError(true);
     } else {
-      router.push(`${page}/searchresult?address=${value}`);
+      const slugSearch = convertToSlug(value);
+      router.push(`${page}/searchresult?address=${slugSearch}`);
     }
   };
-
   return (
     <form
       className={cn(
