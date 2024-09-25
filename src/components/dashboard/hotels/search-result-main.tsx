@@ -1,25 +1,16 @@
 "use client";
-import React, { Fragment, useCallback, useMemo } from "react";
-
-import { Button } from "@/components/ui/button";
-import ItemSearchResult from "@/components/components/item-search-result";
-import imgMap from "@/assets/images/img_map.jpg";
+import { HotelData, convertToSlug } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import React, { Fragment, MouseEventHandler, useCallback } from "react";
+import imgMap from "@/assets/images/img_map.jpg";
+import ItemSearchResult from "@/components/components/item-search-result";
+import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TourData } from "@/constants";
 
-function convertToSlug(str: string) {
-  return String(str)
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9 -]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+interface ISearchResult {
+  data: HotelData[];
 }
-
 const FilterComponent = ({
   title,
   arrayFilterItem,
@@ -43,23 +34,28 @@ const FilterComponent = ({
   return (
     <Fragment>
       <h6 className="text-small font-semibold capitalize ">{title}</h6>
-      <div className="filter_component">
+      <div className="filter_component w-full">
         {arrayFilterItem.map((item, index) => (
-          <div key={index} className="filter_item">
-            <Button variant="ghost">
-              <input
-                type="checkbox"
-                id={convertToSlug(item)}
-                value={convertToSlug(item)}
-                onChange={handleFilterCategory}
-              />
-              <label
-                htmlFor={convertToSlug(item)}
-                className="ml-2 capitalize cursor-pointer transition-all duration-300"
-              >
-                {item}
-              </label>
-            </Button>
+          <div
+            key={index}
+            className={cn(
+              "w-full flex items-center justify-start gap-1 ] text-[0.85rem] font-normal rounded-8 transition-all duration-300",
+              "hover:bg-bg_black_sub hover:cursor-pointer"
+            )}
+          >
+            <input
+              type="checkbox"
+              id={convertToSlug(item)}
+              value={convertToSlug(item)}
+              onChange={handleFilterCategory}
+              className="w-5 h-5"
+            />
+            <label
+              htmlFor={convertToSlug(item)}
+              className="flex-1 ml-2 capitalize cursor-pointer transition-all duration-300  py-[0.4rem]"
+            >
+              {item}
+            </label>
           </div>
         ))}
       </div>
@@ -68,17 +64,18 @@ const FilterComponent = ({
 };
 const filterBar = [
   { value: "suggest", label: "Đề xuất của chúng tôi" },
-  { value: "hightest-price", label: "Giá cao nhất" },
+  { value: "most-popular", label: "Được ưa chuộng nhất" },
   { value: "lowest-price", label: "Giá thấp nhất" },
   { value: "rating-best", label: "Đánh giá cao nhất" },
 ];
 const filter1 = [
-  "tour",
-  "thiên nhiên và ngoài trời",
-  "bảo tàng nghệ thuật văn hóa",
-  "hoạt động giải trí, vé",
-  "ăn uống",
-  "dịch vụ & cho thuê",
+  "home stay",
+  "Nhà khách",
+  "Nhà nghỉ B&B",
+  "Nhà nghỉ mát",
+  "Căn hộ",
+  "Khu cắm trại",
+  "Biệt thự",
 ];
 const filter2 = [
   "0 - 400.000",
@@ -92,15 +89,12 @@ const filter3 = [
   "từ 3.5 trở lên",
   "từ 3 trở lên",
 ];
-interface ShowResultProps {
-  data: TourData[];
-}
-const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
+const SearchResultMain: React.FC<ISearchResult> = ({ data }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterBarValue = searchParams.get("filter");
   interface IHandleFilterData {
-    data: TourData[];
+    data: HotelData[];
   }
   const handleFilterData = useCallback(
     ({ data }: IHandleFilterData, value: string) => {
@@ -112,7 +106,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
           return data.sort((a, b) => b.price[1] - a.price[1]);
         }
         case "rating-best": {
-          return data.sort((a, b) => b.ratingsQuantity - a.ratingsQuantity);
+          return data.sort((a, b) => b.rating - a.rating);
         }
         case "suggest":
           return data;
@@ -123,13 +117,12 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
     },
     [filterBarValue]
   );
-
   const handleChangeFilter = (newFilter: string) => {
     const currentParams = new URLSearchParams(searchParams.toString());
 
     currentParams.set("filter", newFilter);
     const newValue = currentParams.toString();
-    router.push(`/attractions/searchresult?${newValue}`);
+    router.push(`/hotels/searchresult?${newValue}`);
     handleFilterData({ data }, newValue.split("&filter=")[1]);
   };
   const handleChangeFilterBar = (
@@ -152,13 +145,12 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
           <div>
             {data?.length > 0 && (
               <h2 className="text-large font-bold mb-2">
-                {data[0]?.city}{" "}
+                {data[0]?.city}
                 <span className="text-normal font-medium">
-                  : tìm thấy {data?.length} điểm tham quan
+                  : tìm thấy {data?.length} chỗ nghỉ
                 </span>
               </h2>
             )}
-
             <div className="relative">
               <Image
                 alt="img_map"
@@ -202,9 +194,9 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
                 key={index}
                 value={item.value}
                 className={cn(
-                  "py-6 px-2 text-smallest font-normal rounded-8 shadow-none ",
+                  "py-6 px-2 text-smallest font-normal rounded-8 shadow-none select-none ",
                   filterBarValue === item.value &&
-                    "border-1 border-black bg-bg_primary_white"
+                    "border-1 border-black_sub bg-bg_primary_white"
                 )}
                 data-value={item.value}
                 onClick={handleChangeFilterBar}
@@ -214,18 +206,17 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
             ))}
           </div>
           {data &&
-            data?.map((tour, index) => {
+            data?.map((hotel, index) => {
               return (
                 <ItemSearchResult
                   key={index}
-                  slug={tour.slug}
-                  name={tour.name}
-                  images={tour.images[0]}
-                  price={tour.price[0]}
+                  slug={hotel.slug}
+                  name={hotel.name}
+                  images={hotel.images[0]}
+                  price={hotel.price[0]}
                   route="attractions"
-                  location={tour.location}
-                  description={tour.description}
-                  ratingsQuantity={tour.ratingsQuantity}
+                  location={hotel.location}
+                  details={hotel.details}
                 />
               );
             })}
@@ -247,4 +238,4 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
   );
 };
 
-export default ShowResult;
+export default SearchResultMain;

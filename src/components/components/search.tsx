@@ -281,7 +281,9 @@ const Search: React.FC<SearchProps> = ({
       setError(true);
     } else {
       const slugSearch = convertToSlug(value);
-      router.push(`${page}/searchresult?address=${slugSearch}`);
+      router.replace(
+        `/${page}/searchresult?address=${slugSearch}&filter=suggest`
+      );
     }
   };
   return (
