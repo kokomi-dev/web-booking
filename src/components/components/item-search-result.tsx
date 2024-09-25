@@ -24,6 +24,7 @@ const ItemSearchResult = ({
   route,
   description,
   ratingsQuantity,
+  details,
 }: {
   slug: string;
   name: string;
@@ -31,8 +32,9 @@ const ItemSearchResult = ({
   location: string;
   price: number;
   route: string;
-  description: string;
-  ratingsQuantity: number;
+  description?: string;
+  ratingsQuantity?: number;
+  details?: string;
 }) => {
   return (
     <Suspense fallback={<SkeletonLoading />}>
@@ -50,20 +52,23 @@ const ItemSearchResult = ({
             alt="img_preview_tour"
             loading="lazy"
           />
-          <div className="flex flex-col text-start  items-start justify-center p-4 pt-0">
+          <div className="flex flex-col gap-y-1 text-start  items-start justify-center p-4 pt-0">
             <h4 className="text-medium font-bold w-[100%] h-[38px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
               {name}
             </h4>
             <address className="text-smallest font-light text-black_sub  ">
               {location}
             </address>
-            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-normal">
+            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-light">
               {description}
             </p>
-            <h6 className="t_medium flex items-center justify-start gap-1 ">
+            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-light">
+              {details}
+            </p>
+            <h6 className=" flex items-center justify-start gap-1 ">
               <FaStar className="text-yellow-400" />
-              <span>{ratingsQuantity}</span>
-              {ratingConvert(ratingsQuantity)}
+              <span className="text-smallest font-bold">{ratingsQuantity}</span>
+              {ratingsQuantity && ratingConvert(ratingsQuantity)}
             </h6>
             <h6 className="t_small pt-2">
               <span className="text-smallest pr-1"> Giá từ </span>

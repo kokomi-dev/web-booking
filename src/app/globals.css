@@ -142,9 +142,10 @@ img {
 }
 /* p */
 .p_type_1 {
-  font-size: 0.98rem;
   font-weight: 400;
   text-align: justify;
+  line-height: 1rem;
+  font-size: 0.85rem;
 }
 .p_type_2 {
   font-size: 0.94rem;

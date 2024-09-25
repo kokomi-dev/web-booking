@@ -1,3 +1,5 @@
+import { HotelData } from "@/constants";
+
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export async function generateStaticParams() {
@@ -16,4 +18,18 @@ const getDetailHotel = async ({ slug }: { slug: string }) => {
   const response = await data.json();
   return response.data;
 };
-export { getAllHotel, getDetailHotel };
+export type SearchResult = {
+  data: HotelData[];
+};
+const searchResultHotel = async ({
+  searchParam,
+}: {
+  searchParam: string | any;
+}): Promise<SearchResult> => {
+  const data = await fetch(
+    `${apiUrl}/hotel/searchresult?address=${searchParam}`
+  );
+  const response = await data.json();
+  return response;
+};
+export { getAllHotel, getDetailHotel, searchResultHotel };

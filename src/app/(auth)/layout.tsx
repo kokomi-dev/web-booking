@@ -19,7 +19,13 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="w-full h-screen  flex flex-col items-center justify-start ">
       <HeaderAuth />
-      <div className="w-[90%] h-full container-padding flex flex-col items-center justify-center py-10">
+      <div
+        className={cn(
+          "w-[90%] h-full container-padding flex flex-col items-center justify-center py-10",
+          "md:w-[60%]",
+          "lg:w-[50%]"
+        )}
+      >
         {children}
       </div>
       <FooterAuth />

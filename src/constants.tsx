@@ -207,17 +207,17 @@ export default SelectNumberPerson;
 // convert rating
 const ratingConvert = (rating: number) => {
   if (rating >= 5) {
-    return <span className="font-bold text-[1rem] ">Rất tuyệt vời</span>;
+    return <span className="font-bold text-smallest ">Rất tuyệt vời</span>;
   }
   if (rating >= 4.5) {
-    return <span className="font-bold text-[1rem] ">Tuyệt</span>;
+    return <span className="font-bold text-smallest ">Tuyệt</span>;
   }
   if (rating >= 4) {
-    return <span className="font-bold text-[1rem] ">Tốt</span>;
+    return <span className="font-bold text-smallest ">Tốt</span>;
   }
 
   if (rating > 3) {
-    return <span className="font-bold text-[1rem] ">Chưa tốt</span>;
+    return <span className="font-bold text-smallest ">Chưa tốt</span>;
   }
 };
 
@@ -312,11 +312,12 @@ export interface TourData {
   schedule: string[];
   included: string[];
   price: [number, number];
+  city: string;
 }
 export type HotelData = {
   slug: string;
   name: string;
-  details: [string];
+  details: string;
   location: string;
   rating: number;
   images: string[];
