@@ -14,11 +14,13 @@ import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
 import { TourData } from "@/constants";
+import { useAuthenticatedStore } from "@/store/authencation-store";
 
 const BookingAttractions = () => {
   const { slug } = useParams<{
     slug: string;
   }>();
+  const { user } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<TourData | null>(null);
   useEffect(() => {
@@ -39,10 +41,12 @@ const BookingAttractions = () => {
   }, [slug]);
 
   const router = useRouter();
-  const [lastName, setLastName] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [numberphone, setNumberphone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [lastName, setLastName] = useState<string>(user?.lastname || "");
+  const [firstName, setFirstName] = useState<string>(user?.firstname || "");
+  const [numberphone, setNumberphone] = useState<number>(
+    user?.numberPhone || 0
+  );
+  const [email, setEmail] = useState<string>(user?.email || "");
   const [confirm, setConfirm] = useState({
     idEmail: "",
     code: "",
@@ -116,7 +120,7 @@ const BookingAttractions = () => {
   };
   const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setNumberphone(value);
+    setNumberphone(Number(value));
     validatePhoneNumber(value);
   };
 
@@ -196,17 +200,19 @@ const BookingAttractions = () => {
                     type="text"
                     title="tên"
                     isImportant
-                    value={lastName}
+                    value={user ? user.lastname : lastName}
                     error={!!lastnameError}
                     errorTitle={lastnameError}
+                    disable={user}
                     onChange={handleChangeLastname}
                   />
                   <FormInput
                     type="text"
                     title="họ"
                     isImportant
-                    value={firstName}
+                    value={user ? user.firstname : firstName}
                     onChange={handleChangeFirstname}
+                    disable={user}
                     error={!!firstnameError}
                     errorTitle={firstnameError}
                   />
@@ -216,6 +222,7 @@ const BookingAttractions = () => {
                   title="Địa chỉ email"
                   isImportant
                   value={email}
+                  // user ? user.email :
                   onChange={handleChangeEmail}
                   error={!!emailError}
                   errorTitle={emailError}
@@ -227,9 +234,10 @@ const BookingAttractions = () => {
                   type="number"
                   title="Số điện thoại (ưu tiên số di động)"
                   isImportant
-                  value={numberphone}
+                  value={user ? user.numberPhone : numberphone}
                   error={!!phoneError}
                   errorTitle={phoneError}
+                  disable={user}
                   onChange={handleChangePhone}
                 />
               </div>
@@ -299,18 +307,26 @@ const BookingAttractions = () => {
                 <DialogTrigger className="w-full" asChild>
                   <Button
                     className="bg-bg_primary_blue_sub text-white w-full py-6"
-                    disabled={!firstName || !lastName || !email || !numberphone}
+                    disabled={
+                      user
+                        ? false
+                        : !firstName || !lastName || !email || !numberphone
+                    }
                     onClick={handleSendEmailConfirm}
                   >
                     Chi tiết thanh toán
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined}>
+                <DialogContent
+                  aria-describedby={undefined}
+                  className="bg-bg_black_sub"
+                >
                   <ModalConfirmCode
+                    totalBooking={totalBooking}
                     success={!!confirm?.idEmail}
                     code={confirm?.code}
-                    lastName={lastName}
-                    email={email}
+                    lastName={user ? user.lastname : lastName}
+                    email={user ? user.email : email}
                   />
                 </DialogContent>
               </Dialog>
