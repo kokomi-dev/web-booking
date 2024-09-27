@@ -5,7 +5,7 @@ import { sendEmailConfirm } from "@/api/api-email";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { formatPrice } from "@/components/components/item-component";
 import { getDetailHotel } from "@/api/api-hotel";
-import { HotelData } from "../../[slug]/page";
+import { HotelData } from "@/constants";
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -324,6 +324,7 @@ const BookingHotelPage = () => {
                   </DialogTrigger>
                   <DialogContent aria-describedby={undefined}>
                     <ModalConfirmCode
+                      totalBooking={totalBooking}
                       success={!!confirm?.idEmail}
                       code={confirm?.code}
                       lastName={lastName}

@@ -15,6 +15,7 @@ interface FormInputProps {
   errorTitle?: string;
   className?: string;
   defaultValue?: string;
+  disable?: any;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -28,6 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
   errorTitle,
   className,
   defaultValue,
+  disable,
 }) => {
   return (
     <div className={cn("w-full text-small", className)}>
@@ -49,6 +51,7 @@ const FormInput: React.FC<FormInputProps> = ({
         value={value}
         onChange={onChange}
         defaultValue={defaultValue}
+        disabled={disable}
       />
       {error && (
         <span className="text-red-500 text-smallest">{errorTitle}</span>

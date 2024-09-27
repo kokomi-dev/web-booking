@@ -17,32 +17,45 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { createRequestPayment } from "@/api/api-payment";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface ModalConfirmCodeProps {
   lastName: string;
   email: string;
   success: boolean;
   code: string;
+  totalBooking: any;
 }
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,
   email,
   success,
   code,
+  totalBooking,
 }) => {
   const [value, setValue] = useState("");
+  const router = useRouter();
   const handleConfirm = async () => {
+    function removeDots(numberStr: string) {
+      return numberStr.replace(/\./g, "");
+    }
+    const total = totalBooking();
+
     try {
       if (value == code) {
-        const result = await createRequestPayment();
-        console.log("result: ", result);
+        const result = await createRequestPayment({
+          amount: parseFloat(removeDots(total)),
+        });
+        if (result && result.data) {
+          router.push(result?.data?.order_url);
+        }
       } else {
         toast.error("Nhâp lại mã code");
       }
     } catch (error) {}
   };
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black">
       <div className="w-full flex items-center justify-start flex-col gap-4 ">
         <DialogHeader>
           <DialogTitle>
@@ -51,7 +64,8 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           </DialogTitle>
           <DialogDescription>
             Chúng tôi đã gửi email xác thưc tới
-            <span className="text-red-400 underline"> {email}</span> của bạn
+            <span className="text-blue_main_sub underline"> {email}</span> của
+            bạn
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -79,7 +93,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           </DialogTrigger>
           <Button
             onClick={handleConfirm}
-            className="w-full rounded-lg bg-red-400 text-white"
+            className="w-full rounded-lg bg-bg_primary_blue_sub text-white"
             disabled={!value}
           >
             Tiếp

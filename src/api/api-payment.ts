@@ -1,21 +1,21 @@
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-const createRequestPayment = async () => {
-  const bodyData = new URLSearchParams({
-    amount: "100000", // giá trị amount cần thiết
-    bankCode: "NCB", // mã ngân hàng (ví dụ)
-    orderDescription: "Payment for order #123", // miêu tả đơn hàng
-    orderType: "billpayment", // loại đơn hàng
-    language: "vn", // ngôn ngữ (mặc định là "vn")
-  });
-
-  const result = await fetch(apiUrl + "/pay/create-payment-url", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: bodyData.toString(),
-  });
-  const data = await result.json();
-  console.log(data);
+interface ICreatePayment {
+  amount: number;
+}
+const createRequestPayment = async ({ amount }: ICreatePayment) => {
+  try {
+    const result = await fetch(apiUrl + "/pay/create-payment-url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: amount }),
+    });
+    return result.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export { createRequestPayment };
