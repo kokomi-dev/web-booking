@@ -66,7 +66,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
       <ol className="w-full">
         <li className="flex items-center font-normal justify-start gap-1  ">
           Ngày bắt đầu:
-          <span className="underline italic">
+          <span className="underline italic text-blue_main_sub font-medium">
             {date ? (
               format(date, "dd/MM/yyyy", { locale: vi })
             ) : (
@@ -76,27 +76,29 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
         </li>
         <li className="font-normal">
           Giờ khởi hành :
-          <span className="underline italic">
+          <span className="underline italic text-blue_main_sub font-medium">
             {hour ? hour : "Chưa chọn giờ khởi hành"}
           </span>
         </li>
       </ol>
       <ol className="w-full">
-        <li className="flex items-center text-[0.95rem] text-black_sub justify-start gap-1">
-          <AiOutlineCheckCircle className="text-[1.3rem]" /> Đầy đủ các dịch vụ
-          đi kèm
+        <li className="flex items-center text-[0.95rem] justify-start gap-1 text-green_main font-normal">
+          <AiOutlineCheckCircle className="text-[1.2rem]" />
+          <span>Đầy đủ các dịch vụ đi kèm</span>
         </li>
-        <li className="flex items-center text-[0.95rem] text-black_sub justify-start gap-1">
-          <AiOutlineInfoCircle className="text-[1.4rem]" /> Hủy lịch sau 4h khi
-          đặt hoặc tối đa trước 2 ngày tour diễn ra
+        <li className="flex items-center text-[0.95rem] ub justify-start gap-1 text-green_main font-normal">
+          <AiOutlineInfoCircle className="text-[1.5rem]" />
+          <span>
+            Hủy lịch sau 4h khi đặt hoặc tối đa trước 2 ngày tour diễn ra
+          </span>
         </li>
       </ol>
       <ol className="w-full">
-        <li className="font-medium">
+        <li className="text-normal font-medium">
           Giá người lớn:{" "}
           <span className="underline">{formatPrice(price[0])}</span> vnđ
         </li>
-        <li className="font-medium">
+        <li className="text-normal font-medium">
           Giá trẻ em (7 tuổi trở lên):{" "}
           <span className="underline">{formatPrice(price[1])}</span> vnđ
         </li>
@@ -119,14 +121,14 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
           }}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
         <Button
-          className="bg-bg_primary_blue_sub text-white"
+          className="bg-bg_primary_blue_sub text-white w-full"
           onClick={handleBooking}
         >
           Đặt ngay
         </Button>
-        <Button>Liên hệ</Button>
+        <Button className="w-full">Liên hệ</Button>
       </div>
     </div>
   );

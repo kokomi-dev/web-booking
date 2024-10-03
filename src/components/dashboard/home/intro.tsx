@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 import {
   IoAirplaneOutline,
   IoStarOutline,
@@ -12,7 +10,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import scrollToView from "../../components/scroll-to-view";
 import { cn } from "@/lib/utils";
 const arrInfo: {
   id: number;
@@ -40,11 +37,6 @@ const arrInfo: {
   },
 ];
 const Intro = () => {
-  React.useEffect(() => {
-    scrollToView(".intro__title", "active__scale");
-    scrollToView(".intro__des", "active__scrollY");
-    scrollToView(".intro__info__item", "active__scrollX");
-  }, []);
   return (
     <div
       className={cn(
@@ -53,7 +45,7 @@ const Intro = () => {
     >
       <h1
         className={cn(
-          "intro__title mt-10 transition-all duration-300 text-center py-5  font-medium scale-50 opacity-0 text-large",
+          " mt-10  text-center py-5  font-medium text-large",
           "lg:text-largest lg:mt-0 lg:font-bold"
         )}
       >
@@ -61,7 +53,7 @@ const Intro = () => {
       </h1>
       <p
         className={cn(
-          "intro__des w-[90%] block pb-5 text-justify  text-[#888] translate-y-[70%] transition-all duration-500 opacity-0",
+          " w-[90%] block pb-5 text-justify  text-[#888]",
           "lg:w-[70%] lg:pb-20 lg:text-center"
         )}
       >

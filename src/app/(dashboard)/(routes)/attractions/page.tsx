@@ -4,6 +4,8 @@ import ListAllTour from "@/components/dashboard/home/list-all-tour";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Trending from "@/components/dashboard/home/trending";
+import ListProvinces from "@/components/dashboard/home/list-provinces";
+import ReceiveFeedback from "@/components/dashboard/home/receive-feedback";
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
@@ -51,13 +53,14 @@ const HomePage = () => {
           "lg:gap-6"
         )}
       >
-        {/* list tour in VN */}
         <hr className="hr" />
         <ListAllTour />
-        {/* list tour trending */}
         <hr className="hr" />
         <ListTrendingTour />
       </div>
+      <ListProvinces />
+      <hr className="hr" />
+      <ReceiveFeedback />
     </div>
   );
 };

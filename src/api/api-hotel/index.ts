@@ -9,12 +9,22 @@ export async function generateStaticParams() {
   }));
 }
 const getAllHotel = async () => {
-  const data = await fetch(`${apiUrl}/hotel`);
+  const data = await fetch(`${apiUrl}/hotel`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const response = await data.json();
   return response;
 };
 const getDetailHotel = async ({ slug }: { slug: string }) => {
-  const data = await fetch(`${apiUrl}/hotel/${slug}`);
+  const data = await fetch(`${apiUrl}/hotel/${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const response = await data.json();
   return response.data;
 };
@@ -27,7 +37,13 @@ const searchResultHotel = async ({
   searchParam: string | any;
 }): Promise<SearchResult> => {
   const data = await fetch(
-    `${apiUrl}/hotel/searchresult?address=${searchParam}`
+    `${apiUrl}/hotel/searchresult?address=${searchParam}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   const response = await data.json();
   return response;

@@ -204,7 +204,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
                 className={cn(
                   "py-6 px-2 text-smallest font-normal rounded-8 shadow-none ",
                   filterBarValue === item.value &&
-                    "border-1 border-black bg-bg_primary_white"
+                    "border-1 border-black bg-bg_primary_blue_sub2"
                 )}
                 data-value={item.value}
                 onClick={handleChangeFilterBar}
@@ -223,7 +223,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
                   images={tour.images[0]}
                   price={tour.price[0]}
                   route="attractions"
-                  location={tour.location}
+                  location={tour.location.detail}
                   description={tour.description}
                   ratingsQuantity={tour.ratingsQuantity}
                 />

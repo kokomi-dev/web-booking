@@ -32,21 +32,21 @@ function DatePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal border-[1.5px] border-blue_main py-5 bg-bg_primary_blue_sub2",
             !date && "text-muted-foreground"
           )}
         >
           {date ? (
             format(date, "dd/MM/yyyy", { locale: vi })
           ) : (
-            <span className="flex items-center justify-start gap-2">
+            <span className="flex items-center justify-start gap-2 ">
               <FaRegCalendarCheck className="text-[1.2rem]" />
               Chọn ngày đặt tour
             </span>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 bg-bg_black_sub text-black">
+      <PopoverContent className="w-full min-w-full p-0 bg-bg_black_sub text-black">
         <Calendar
           disabled={disablePastDates}
           mode="single"
@@ -55,6 +55,7 @@ function DatePicker({
           initialFocus
           locale={vi}
           lang="vi"
+          className="w-full"
         />
       </PopoverContent>
     </Popover>

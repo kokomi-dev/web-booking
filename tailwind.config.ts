@@ -29,38 +29,48 @@ const config = {
         black_sub_2: "#595959",
         error_color: "#DB0200",
       },
-      backgroundImage: {
-        bannerfix: "url('../assets/images/banner2.jpg')",
-        bannerfix_hotel: "url('../assets/images/banner-hotel.jpg')",
-      },
+      // backgroundImage: {
+      // 	bannerfix: 'url('../assets/images/banner2.jpg')',
+      // 	bannerfix_hotel: 'url('../assets/images/banner-hotel.jpg')'
+      // },
       backgroundColor: {
         bg_primary_main: "#003B96",
         bg_primary_active: "#1E50A0",
         bg_primary_hover: "#F1F6FE",
         bg_primary_blue_sub: "#006CE4",
+        bg_primary_blue_sub2: "#F1F6FE",
+
         bg_primary_yellow: "#FFB700",
         bg_primary_white: "#f0f0f0",
         bg_black_sub: "#F5F5F5",
         sub: "#f0f0f0",
       },
       borderRadius: {
-        24: "24px",
-        14: "14px",
-        8: "8px",
+        "8": "8px",
+        "14": "14px",
+        "24": "24px",
       },
       borderWidth: {
+        "1": "1px",
         "0.5": "0.5px",
-        1: "1px",
         "1.2": "1.2px",
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
         },
         "typing ": {
           from: {
@@ -82,9 +92,10 @@ const config = {
         "layout-4": "25% 75%",
       },
       fontSize: {
-        smallest: "0.9rem",
-        small: "1rem",
-        normal: "1.1rem",
+        smallest: "0.82rem",
+        small: "0.92rem",
+        normal: "1rem",
+        "normal+": "1.1rem",
         medium: "1.3rem",
         large: "1.5rem",
         largest: "2.4rem",

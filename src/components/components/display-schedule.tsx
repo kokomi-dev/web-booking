@@ -19,7 +19,7 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
               <textarea
                 readOnly
                 ref={textareaRef}
-                className="w-full text-small resize-none box-border border-none outline-none mt-1 text-justify"
+                className="w-full text-normal resize-none box-border border-none outline-none mt-1 text-justify"
                 value={sche}
               ></textarea>
             </div>
