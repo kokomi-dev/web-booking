@@ -37,7 +37,7 @@ const FormInput: React.FC<FormInputProps> = ({
         htmlFor={title}
         className="capitalize select-none flex items-center justify-start mb-1"
       >
-        <span className="text-smallest font-light">{title}</span>
+        <span className="text-small font-light">{title}</span>
         {isImportant && <Asterisk className="text-red-700" size={18} />}
       </label>
       <Input

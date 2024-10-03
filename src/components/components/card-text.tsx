@@ -12,7 +12,7 @@ const CardText = ({
   return (
     <div className="w-full">
       <h3 className="text-medium font-semibold mb-2">{title}</h3>
-      <div className={cn(className)}>{children}</div>
+      <div className={cn("text-normal", className)}>{children}</div>
     </div>
   );
 };

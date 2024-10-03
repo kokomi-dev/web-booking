@@ -1,4 +1,3 @@
-import React from "react";
 import ItemCard from "../../components/item-component";
 import {
   Carousel,
@@ -11,12 +10,8 @@ import { getAllTour } from "@/api/api-tour";
 import { cn } from "@/lib/utils";
 import { TourData } from "@/constants";
 
-const fetchData = async () => {
-  const response = await getAllTour();
-  return response.data;
-};
 const ListAllTour = async () => {
-  const data = await fetchData();
+  const { data } = await getAllTour();
   return (
     <div className={cn("w-full ")}>
       <h2 className="text-large font-bold">Khám phá Việt Nam</h2>
@@ -36,7 +31,7 @@ const ListAllTour = async () => {
                   slug={tour.slug}
                   name={tour.name}
                   images={tour.images[0]}
-                  location={tour.location}
+                  location={tour.location.detail}
                   price={tour.price[0]}
                   rating={tour.ratingsQuantity}
                 />

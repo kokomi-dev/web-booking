@@ -2,18 +2,33 @@ import { TourData } from "@/constants";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const getAllTour = async () => {
-  const data = await fetch(`${apiUrl}/tour`);
+  const data = await fetch(`${apiUrl}/tour`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const response = await data.json();
   return response;
 };
 const getTourTrending = async () => {
-  const data = await fetch(`${apiUrl}/tour?trending=true`);
+  const data = await fetch(`${apiUrl}/tour?trending=true`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const response = await data.json();
   return response;
 };
 const getDetailTour = async ({ slug }: { slug: string }) => {
   try {
-    const response = await fetch(`${apiUrl}/tour/${slug}`);
+    const response = await fetch(`${apiUrl}/tour/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (!response) {
       throw new Error("Failed to fetch tour details");
     }
@@ -34,9 +49,29 @@ const searchResult = async ({
   searchParam: string | any;
 }): Promise<SearchResult> => {
   const data = await fetch(
-    `${apiUrl}/tour/searchresult?address=${searchParam}`
+    `${apiUrl}/tour/searchresult?address=${searchParam}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   const response = await data.json();
   return response;
 };
-export { getAllTour, getTourTrending, getDetailTour, searchResult };
+const getListProvinces = async () => {
+  try {
+    const data = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm");
+    return data.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+export {
+  getAllTour,
+  getTourTrending,
+  getDetailTour,
+  searchResult,
+  getListProvinces,
+};

@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./globals.css";
+
 const roboto = Roboto({
   subsets: ["vietnamese"],
   weight: ["100", "300", "400", "500", "700"],
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{}}>
       <body suppressHydrationWarning={true}>
         {children}
         <ToastContainer />

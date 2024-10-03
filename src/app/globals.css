@@ -231,3 +231,6 @@ img {
   height: 1px;
   background-color: #ffb700;
 }
+.img {
+  image-rendering: crisp-edges;
+}

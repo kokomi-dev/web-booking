@@ -253,13 +253,25 @@ function isValidEmail(email: string) {
   return regex.test(email);
 }
 // convert to slug
-function convertToSlug(text: string) {
+export const convertToSlug = (text: string) => {
   text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   text = text.toLowerCase();
   text = text.replace(/[^a-z0-9\s-]/g, "");
   text = text.trim().replace(/\s+/g, "-");
   return text;
-}
+};
+const scrollToView = (classe: string, cssActive: string) => {
+  const itemDiversity = document.querySelectorAll(`${classe}`);
+  const scroll = new IntersectionObserver((entry) => {
+    entry.forEach((e) => {
+      const { target } = e;
+      target.classList.toggle(`${cssActive}`, e.isIntersecting);
+    });
+  }, {});
+  itemDiversity.forEach((item) => {
+    scroll.observe(item);
+  });
+};
 
 //
 // hidden search in route
@@ -305,7 +317,11 @@ export interface TourData {
   slug: string;
   name: string;
   description: string;
-  location: string;
+  location: {
+    province: object;
+    district: object;
+    detail: string;
+  };
   ratingsQuantity: number;
   duration: number;
   images: string[];
@@ -333,5 +349,5 @@ export {
   SelectNumberPerson,
   ratingConvert,
   isValidEmail,
-  convertToSlug,
+  scrollToView,
 };
