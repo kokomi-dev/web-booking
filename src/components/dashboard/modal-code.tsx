@@ -40,7 +40,6 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
       return numberStr.replace(/\./g, "");
     }
     const total = totalBooking();
-
     try {
       if (value == code) {
         const result = await createRequestPayment({

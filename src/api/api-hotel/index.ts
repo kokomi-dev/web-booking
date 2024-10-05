@@ -8,6 +8,7 @@ export async function generateStaticParams() {
     slug: hotel.slug,
   }));
 }
+
 const getAllHotel = async () => {
   const data = await fetch(`${apiUrl}/hotel`, {
     method: "GET",
@@ -28,8 +29,15 @@ const getDetailHotel = async ({ slug }: { slug: string }) => {
   const response = await data.json();
   return response.data;
 };
-export type SearchResult = {
-  data: HotelData[];
+const getHotelOutStanding = async () => {
+  const data = await fetch(`${apiUrl}/hotel?fillter=outstanding`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const response = await data.json();
+  return response;
 };
 const searchResultHotel = async ({
   searchParam,
@@ -48,4 +56,11 @@ const searchResultHotel = async ({
   const response = await data.json();
   return response;
 };
-export { getAllHotel, getDetailHotel, searchResultHotel };
+
+// type
+export type SearchResult = {
+  data: HotelData[];
+};
+// type
+
+export { getAllHotel, getDetailHotel, searchResultHotel, getHotelOutStanding };

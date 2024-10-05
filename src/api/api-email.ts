@@ -1,6 +1,7 @@
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const sendEmailConfirm = async (email: string) => {
+  console.log(email);
   try {
     const response = await fetch(apiUrl + "/email/send-email", {
       method: "POST",

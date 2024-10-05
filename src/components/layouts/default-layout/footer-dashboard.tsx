@@ -68,13 +68,13 @@ const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
 
 const FooterDashboard = () => {
   return (
-    <footer className="w-full h-full footer bg-sub py-5  ">
+    <footer className="w-full h-full  bg-sub py-5 container-padding  ">
       <div>
         <ul
           className={cn(
-            "grid grid-cols-2 gap-2 px-4 text-black py-2 ",
+            "grid grid-cols-2 gap-2  text-black py-2 ",
             "md:grid-cols-3",
-            "lg:px-36 lg:py-2 lg:grid-cols-5"
+            "lg:grid-cols-5"
           )}
         >
           {titles.map((title, index) => {
@@ -88,7 +88,7 @@ const FooterDashboard = () => {
       <div
         className={cn(
           "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4  text-[0.8rem] text-black_sub border-b-0.5 border-blue_main",
-          "lg:p-10 lg:px-36 "
+          "  "
         )}
       >
         <ul></ul>

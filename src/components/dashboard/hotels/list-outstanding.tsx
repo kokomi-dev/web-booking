@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   Carousel,
@@ -7,18 +8,25 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
-import { getAllHotel } from "@/api/api-hotel";
+import { getHotelOutStanding } from "@/api/api-hotel";
 
-const ListAllHotels = async () => {
-  const result = await getAllHotel();
-  const data = await result.data;
+const ListHotelOutStanding = async () => {
+  const result = await getHotelOutStanding();
+  const data = await result?.data;
   return (
     <div className={cn("w-full")}>
       <h2 className="text-large font-bold">
-        Khách sạn ( nhà nghỉ ) của chúng tôi
+        Khách sạn ( nhà nghỉ ) nổi bật của chúng tôi
       </h2>
       <h4 className="text-black_sub text-small mb-1">
-        Hãy theo dỗi và xem qua những nơi nghỉ chân hàng đầu của chúng tôi
+        Nếu muốn nhanh gọn và tiết kiệm hơn hãy đến với các gói dịch vụ của
+        chúng tôi
+        <Link
+          href="/combos"
+          className="ml-3 text-blue_main_sub text-small font-semibold underline italic"
+        >
+          Gói dịch vụ
+        </Link>
       </h4>
       <div className="">
         <div className="">
@@ -64,4 +72,4 @@ const ListAllHotels = async () => {
   );
 };
 
-export default ListAllHotels;
+export default ListHotelOutStanding;

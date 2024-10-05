@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/command";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { convertToSlug } from "@/constants";
+import { toast } from "react-toastify";
 
 const citys = [
   {
@@ -76,13 +77,15 @@ const AddressTravel = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full shadow-none justify-between font-medium text-normal bg-transparent text-black",
+            "w-full text-normal shadow-none justify-between font-medium  bg-transparent text-black",
             "lg:text-normal"
           )}
         >
-          {value
-            ? citys.find((city) => city.value === value)?.label
-            : "Bạn muốn đi đâu"}
+          {value ? (
+            citys.find((city) => city.value === value)?.label
+          ) : (
+            <span className="text-normal font-medium">Bạn muốn đi đâu</span>
+          )}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -191,9 +194,9 @@ const SelectNumberPerson = ({
 
   return (
     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-      <PopoverTrigger asChild>
-        <Button className="bg-transparent text-black font-[400] shadow-none w-full ">
-          <span className="w-full overflow-hidden font-medium text-[1.2rem]">
+      <PopoverTrigger asChild className="w-full h-auto">
+        <Button className="bg-transparent text-black font-[400] shadow-none w-full  ">
+          <span className="w-full h-full overflow-hidden font-medium text-normal">
             {numberAdults} người lớn - {numberChildren} trẻ em - {numberRoom}{" "}
             phòng
           </span>
@@ -374,10 +377,10 @@ const Search: React.FC<SearchProps> = ({
             <div
               className={cn(
                 "w-[100%] h-[100%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
-                "lg:w-[45%] lg:h-[88%] lg:px-3 "
+                "lg:w-[45%] lg:h-[99%] lg:px-3 "
               )}
             >
-              <IoPersonOutline className="text-large text-black_sub mr-2" />
+              <IoPersonOutline className="text-large font-medium text-black_sub mr-2" />
               <SelectNumberPerson
                 numberAdults={numberAdults}
                 setNumberAdults={setNumberAdults}
