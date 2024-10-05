@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+:root {
+  --toastify-color-success: #006ce4;
+  --toastify-color-warning: #ffb700;
+  --toastify-color-error: #e74c3c;
+}
 body {
   font-size: 62, 5%;
   scroll-behavior: smooth;

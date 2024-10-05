@@ -42,8 +42,6 @@ const Booking = ({
       const result = numberPerson / 2 <= numberRoom;
       const result2 = numberPerson / 2 < numberRoomDouble;
 
-      console.log("kq ", result);
-
       if (result === false) {
         setPopoverOpen(true);
         setError(true);
@@ -84,7 +82,7 @@ const Booking = ({
   return (
     <div className="w-full">
       <div
-        className="w-full flex items-start justify-start flex-col gap-2 h-full p-3 bg-sub rounded-xl "
+        className="w-full flex items-start justify-start flex-col gap-2 h-full p-3 bg-sub rounded-xl text-normal"
         id="price"
       >
         {/* choose date */}
@@ -126,10 +124,12 @@ const Booking = ({
           <table className="table__booking w-full">
             <thead>
               <tr>
-                <th>Giá đã gồm</th>
-                <th>Sức chứa</th>
-                <th>Giá phòng( ngày/đêm )</th>
-                <th>Lựa chọn</th>
+                <th className="text-normal font-semibold">Giá đã gồm</th>
+                <th className="text-normal font-semibold">Sức chứa</th>
+                <th className="text-normal font-semibold">
+                  Giá phòng( ngày/đêm )
+                </th>
+                <th className="text-normal font-semibold">Lựa chọn</th>
               </tr>
             </thead>
             <tbody>
@@ -138,20 +138,29 @@ const Booking = ({
                   <ol>
                     <li className="flex_dou">
                       <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span> Miễn phí hủy trước 3 ngày</span>
+                      <span className="text-normal font-normal">
+                        {" "}
+                        Miễn phí hủy trước 3 ngày
+                      </span>
                     </li>
                     <li className="flex_dou">
                       <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span>Thanh toán tại nơi ở</span>
+                      <span className="text-normal font-normal">
+                        Thanh toán tại nơi ở
+                      </span>
                     </li>
 
                     <li className="flex_dou">
                       <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span>Các tiện nghi đầy đủ kể trên</span>
+                      <span className="text-normal font-normal">
+                        Các tiện nghi đầy đủ kể trên
+                      </span>
                     </li>
                     <li className="flex_dou">
                       <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span>Cam kết chất lượng, phục vụ</span>
+                      <span className="text-normal font-normal">
+                        Cam kết chất lượng, phục vụ
+                      </span>
                     </li>
                   </ol>
                 </td>
@@ -196,7 +205,12 @@ const Booking = ({
                   >
                     Đặt ngay
                   </Button>
-                  <Button variant="outline">Tư vấn</Button>
+                  <Button
+                    variant="outline"
+                    className="bg-bg_black_sub text-black"
+                  >
+                    Tư vấn
+                  </Button>
                 </td>
               </tr>
             </tbody>

@@ -1,4 +1,8 @@
 "use client";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { Dispatch, SetStateAction, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,12 +11,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { Dispatch, SetStateAction, useState } from "react";
 
 interface IShowImage {
   data: any;
@@ -69,7 +69,7 @@ const ShowImages: React.FC<IShowImage> = ({
               className="w-full h-full object-cover object-center rounded-8 transition-all duration-200"
             />
           </div>
-          <Button className="h" onClick={handleNext}>
+          <Button onClick={handleNext}>
             <ChevronRight />
           </Button>
         </div>

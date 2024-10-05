@@ -8,6 +8,7 @@ import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
 import { HotelData } from "@/constants";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
+import ShowComments from "@/components/components/show-comments";
 
 export async function generateStaticParams() {
   const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
@@ -25,7 +26,7 @@ const DetailHotelPage = async ({
     <div className="w-full h-full">
       <div
         className={cn(
-          "w-full h-full flex flex-col items-start justify-start gap-2 "
+          "w-full h-full flex flex-col items-start justify-start gap-y-4 "
         )}
       >
         {/* head */}
@@ -37,7 +38,7 @@ const DetailHotelPage = async ({
           location={data.location}
           rating={data.rating}
           details={data.details}
-          images={data.images}
+          images={data}
         />
         <div
           className="w-full h-full flex flex-col items-start justify-start gap-y-2"
@@ -54,7 +55,7 @@ const DetailHotelPage = async ({
           {/* content */}
           <div className="w-full h-full flex flex-col items-start justify-start gap-y-2 ">
             <CardText title="Mô tả về chúng tôi">
-              <p title="Chi tiêt" className="list-none p_type_1 ">
+              <p title="Chi tiêt" className="list-none  text-small ">
                 {data.details}
               </p>
             </CardText>
@@ -83,42 +84,42 @@ const DetailHotelPage = async ({
           <Booking price={data.price} sales={data.sales} slug={slug} />
           {/* regulations */}
           <div
-            className="border-1 rounded-8 p-4 my-3 border-blue_main_sub"
+            className="w-full border-1 rounded-8 p-4 my-3 border-blue_main_sub"
             id="general_rule"
           >
-            <h3 className="title_large">Quy định về chỗ nghỉ</h3>
-            <div>
-              <h5 className="title_medium">Trẻ em và giường phụ</h5>
-              <p className="p_type_2">
+            <h3 className="text-medium font-semibold">Quy định về chỗ nghỉ</h3>
+            <div className="w-full h-atuo">
+              <h5 className="text-normal">Trẻ em và giường phụ</h5>
+              <p className="text-small text-black_sub">
                 Giường phụ tùy thuộc vào loại phòng bạn chọn, xin vui lòng kiểm
                 tra thông tin phòng để biết thêm chi tiết. Tất cả trẻ em đều
                 được chào đón.
               </p>
             </div>
-            <div className="w-full  flex items-center justify-start gap-2 mt-3">
+            <div className="w-full  grid grid-cols-1 md:grid-cols-2 gap-x-2 mt-3">
               <div className="border_div_card h-[120px]">
                 <div>
-                  <h3 className="title_medium">
+                  <h3 className="text-normal">
                     Trẻ em 0-2 tuổi [bao gồm cả bé 2 tuổi]
                   </h3>
                 </div>
                 <hr />
-                <div className="mt-2">
+                <div className="mt-2 text-small font-light">
                   <h5 className="">Ở miễn phí nếu sử dụng giường có sẵn</h5>
-                  <p className="p_type_2">
+                  <p className="">
                     Nếu cần một giường phụ thì sẽ phụ thu thêm.
                   </p>
                 </div>
               </div>
               <div className="border_div_card h-[120px]">
                 <div>
-                  <h3 className="title_medium">
+                  <h3 className="text-normal">
                     Những khách từ 3 tuổi trở lên tính là người lớn
                   </h3>
                 </div>
                 <hr />
-                <div className="mt-2">
-                  <p className="p_type_2">
+                <div className="mt-2 text-small font-light">
+                  <p className="">
                     Cần đặt thêm một giường phụ và sẽ phụ thu thêm.
                   </p>
                 </div>
@@ -126,10 +127,12 @@ const DetailHotelPage = async ({
             </div>
           </div>
           {/* comments */}
-          <CardText title="Đánh giá của khách hàng">
-            Đánh giá của khách hàng
-          </CardText>
-          <div id="comments"></div>
+
+          <ShowComments
+            type="hotel"
+            comments={data.comment}
+            rating={data.rating}
+          />
         </div>
       </div>
     </div>

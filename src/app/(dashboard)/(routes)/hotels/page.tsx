@@ -32,10 +32,6 @@ const HotelPage = () => {
             />
           </div>
         </section>
-        <p className={cn("p-4  text-small text-blue_main_sub", "lg:px-20")}>
-          Chỉ cần đăng nhập tài khoản, bạn sẽ sở hữu cho mình nhiều ưu đãi và
-          chương trình chi ân cho những khách hàng mới đặc biệt ưu đãi!
-        </p>
       </div>
       <hr className="hr" />
       <div

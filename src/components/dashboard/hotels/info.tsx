@@ -1,5 +1,6 @@
 "use client";
 
+import ImagesDetail from "@/components/components/images-detail";
 import { Heart, MapPin, Share2, TriangleAlert } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -10,7 +11,7 @@ interface InfoProps {
   location: string;
   details: [string];
   rating: number;
-  images: string[];
+  images: any;
 }
 const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
   return (
@@ -43,7 +44,7 @@ const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
         {/* <p className=" text-[0.98rem] my-2 px-3 text-justify">{details}</p>  */}
         <h6 className="flex items-center justify-start mb-2">
           <GoStarFill className="text-yellow_main text-[1.6rem] mr-2" />
-          <span className="text-medium mr-2">
+          <span className="text-normal font-medium mr-2">
             {rating} -
             {rating > 4 ? (
               <span className="text-[0.98rem] font-medium"> Rất tốt</span>
@@ -57,30 +58,7 @@ const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
         </h6>
       </div>
       {/* images */}
-      <div className="grid grid-cols-2 gap-2 rounded-8 overflow-hidden">
-        {images.slice(0, 2).map((img: string, index: number) => (
-          <Image
-            key={index}
-            width={500}
-            height={300}
-            src={img}
-            className="object-cover w-full h-auto"
-            alt={`một vài ảnh giới thiệu về tour du lịch ${name}`}
-          />
-        ))}
-        <div className="col-span-2 grid grid-cols-2 gap-2 ">
-          {images.slice(2).map((img: string, index: number) => (
-            <Image
-              key={index + 2}
-              width={500}
-              height={300}
-              src={img}
-              className="object-cover w-full h-[320px]"
-              alt={`một vài ảnh giới thiệu về tour du lịch ${name}`}
-            />
-          ))}
-        </div>
-      </div>
+      <ImagesDetail data={images} />
     </div>
   );
 };
