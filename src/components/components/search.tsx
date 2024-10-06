@@ -16,50 +16,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { IoBedOutline, IoPersonOutline } from "react-icons/io5";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { convertToSlug } from "@/constants";
-import { toast } from "react-toastify";
 
-const citys = [
-  {
-    "city-slug": "ha-noi",
-    codeProvinces: "29",
-    label: "Hà Nội",
-    value: "Hà Nội",
-  },
-  {
-    "city-slug": "khanh-hoa",
-    codeProvinces: "79",
-    label: "Khánh Hòa",
-    value: "Khánh Hòa",
-  },
-  {
-    "city-slug": "ha-long",
-    codeProvinces: "14",
-    label: "Hạ Long",
-    value: "Hạ Long",
-  },
-  {
-    "city-slug": "viet-tri",
-    codeProvinces: "19",
-    label: "Việt Trì",
-    value: "Việt Trì",
-  },
-  {
-    "city-slug": "da-nang",
-    codeProvinces: "43",
-    label: "Đà Nẵng",
-    value: "Đà Nẵng",
-  },
-];
+import { convertToSlug } from "@/constants";
+import { getListProvinces } from "@/api/api-tour";
 
 const AddressTravel = ({
   value,
@@ -68,59 +27,81 @@ const AddressTravel = ({
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [valueSearch, setValueSearch] = useState("");
+  const [data, setData] = useState<any[]>([]);
 
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      const { data } = await getListProvinces();
+      if (data) {
+        const filteredData = data.filter((item: any) => {
+          return (
+            item.name.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            item.name_en.toLowerCase().includes(valueSearch.toLowerCase())
+          );
+        });
+        setData(filteredData);
+      }
+    };
+
+    if (valueSearch) {
+      fetchProvinces();
+    } else {
+      setData([]);
+    }
+  }, [valueSearch]);
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          role="combobox"
-          aria-expanded={open}
-          className={cn(
-            "w-full text-normal shadow-none justify-between font-medium  bg-transparent text-black",
-            "lg:text-normal"
-          )}
-        >
-          {value ? (
-            citys.find((city) => city.value === value)?.label
-          ) : (
-            <span className="text-normal font-medium">Bạn muốn đi đâu</span>
-          )}
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0 bg-bg_primary_white text-black z-[15]">
-        <Command>
-          <CommandInput placeholder="" className="h-9 text-black" />
-          <CommandList>
-            <CommandEmpty>Không tìm thấy thành phố</CommandEmpty>
-            <CommandGroup>
-              {citys.map((city) => (
-                <CommandItem
-                  key={city.value}
-                  value={city.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                  className="text-black hover:cursor-pointer hover:bg-white transition-all duration-300 rounded-8"
-                >
-                  {city.label}
-                  <CheckIcon
-                    className={cn(
-                      "ml-auto h-4 w-4",
-                      value === city.value
-                        ? "opacity-100  text-blue_main_sub"
-                        : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <div className="w-full relative">
+      <Input
+        type="text"
+        placeholder="Bạn muốn đi đâu"
+        className={cn(
+          "w-full text-normal shadow-none justify-between font-medium  bg-transparent text-black border-none outline-none placeholder-black transition-all duration-300",
+          "lg:text-normal",
+          !open && "placeholder-black_sub"
+        )}
+        value={valueSearch}
+        onChange={(e: any) => {
+          setValueSearch(e.target.value); // Update search value
+        }}
+        onFocus={() => {
+          setOpen(false);
+        }}
+        onBlur={() => {
+          setOpen(true);
+        }}
+      />
+      <div
+        hidden={open}
+        className="w-full max-h-[300px] absolute left-0 right-0 top-0 translate-y-[50px] bg-white shadow-2xl  text-black overflow-y-auto"
+      >
+        {!valueSearch ? (
+          ""
+        ) : data && data.length > 0 ? (
+          data.map((item, index) => (
+            <div
+              key={index}
+              className="px-4 py-2 border-b last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
+              onMouseDown={() => {
+                setValue(item.name_en);
+                setValueSearch(item.name);
+              }}
+            >
+              <span className="text-small font-normal">{item.name}</span>
+            </div>
+          ))
+        ) : (
+          <div className="p-2 text-small font-normal">
+            {valueSearch ? (
+              <span>Nhập chính xác tên tỉnh thành !</span>
+            ) : (
+              <span></span>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
@@ -357,7 +338,7 @@ const Search: React.FC<SearchProps> = ({
             <IoBedOutline className="text-large text-black_sub mr-2" />
             <AddressTravel value={value} setValue={setValue} />
             {error && (
-              <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2">
+              <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2 text-white text-small">
                 Chọn nơi bạn muốn đến!
               </div>
             )}
