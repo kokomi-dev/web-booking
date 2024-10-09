@@ -56,7 +56,6 @@ const Account = () => {
   }, []);
   const handleLogout = async () => {
     const data = await reqLogout();
-    console.log(data);
     if (data && data.code === 200) {
       setLogout();
       localStorage.removeItem("token");

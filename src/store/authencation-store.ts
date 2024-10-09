@@ -7,6 +7,15 @@ export interface User {
   lastname: string;
   email: string;
   numberPhone: number;
+  booked: [
+    {
+      tripId: string;
+      category: string;
+      orderId: string;
+      bookingDate: Date;
+      amount: number;
+    }
+  ];
 }
 
 interface AuthenticatedStoreProps {

@@ -40,6 +40,27 @@ const getDetailTour = async ({ slug }: { slug: string }) => {
   }
 };
 
+const getTourBooked = async ({ arr }: { arr: string[] | null }) => {
+  try {
+    const response = await fetch(`${apiUrl}/tour/getTourBooked`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        arr,
+      }),
+    });
+    if (!response) {
+      throw new Error("Failed to fetch tour booked");
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error("Error fetching tour booked:", error);
+  }
+};
+
 export type SearchResult = {
   data: TourData[];
 };
@@ -72,6 +93,7 @@ export {
   getAllTour,
   getTourTrending,
   getDetailTour,
+  getTourBooked,
   searchResult,
   getListProvinces,
 };

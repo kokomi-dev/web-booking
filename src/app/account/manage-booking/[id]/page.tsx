@@ -1,19 +1,23 @@
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+"use client";
 import React from "react";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+
+import Image from "next/image";
+import BookedAttractions from "@/components/account/manage-booking/booked-attractions";
+import BookedHotels from "@/components/account/manage-booking/booked-hotels";
 
 const ManageBooking = () => {
-  const has = null;
+  const { user } = useAuthenticatedStore();
+
   return (
-    <div className={cn("w-ful h-full p-4", "lg:px-36")}>
-      {has ? (
-        <div>
-          <h1 className="text-large font-bold">
-            Quản lí đặt chỗ và chuyến đi của bạn
-          </h1>
-        </div>
+    <div className="w-full h-full py-4">
+      {user && user.booked && user.booked.length > 0 ? (
+        <section className="w-full h-full grid gap-y-4">
+          <BookedAttractions />
+          <BookedHotels />
+        </section>
       ) : (
-        <div className="w-full min-h-full border-0.5 border-black_sub rounded-8 gap-2 flex items-center justify-center p-6">
+        <section className="w-full min-h-full border-0.5 border-black_sub rounded-8 gap-2 flex items-center justify-center p-6">
           <div className=" flex flex-col items-center justify-start gap-4">
             <Image
               src="https://t-cf.bstatic.com/design-assets/assets/v3.125.0/illustrations-traveller/TripsGlobe@2x.png"
@@ -31,7 +35,7 @@ const ManageBooking = () => {
               nhận và mã PIN.
             </p>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

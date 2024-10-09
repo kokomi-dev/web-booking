@@ -41,6 +41,7 @@ const config = {
         bg_primary_blue_sub2: "#F1F6FE",
 
         bg_primary_yellow: "#FFB700",
+        bg_primary_green: "#018235",
         bg_primary_white: "#f0f0f0",
         bg_black_sub: "#F5F5F5",
         sub: "#f0f0f0",
