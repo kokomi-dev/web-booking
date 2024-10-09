@@ -314,6 +314,7 @@ export const ADDRESS_TRENDING = [
 //
 // type
 export interface TourData {
+  _id: string;
   slug: string;
   name: string;
   description: string;
@@ -331,6 +332,7 @@ export interface TourData {
   city: string;
 }
 export type HotelData = {
+  _id: string;
   slug: string;
   name: string;
   details: string;

@@ -327,6 +327,8 @@ const BookingAttractions = () => {
                     code={confirm?.code}
                     lastName={user ? user.lastname : lastName}
                     email={user ? user.email : email}
+                    tripId={data._id}
+                    category="tour"
                   />
                 </DialogContent>
               </Dialog>

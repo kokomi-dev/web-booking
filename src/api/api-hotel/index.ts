@@ -56,11 +56,36 @@ const searchResultHotel = async ({
   const response = await data.json();
   return response;
 };
-
+const getHotelBooked = async ({ arr }: { arr: string[] | null }) => {
+  try {
+    const response = await fetch(`${apiUrl}/hotel/getHotelBooked`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        arr,
+      }),
+    });
+    if (!response) {
+      throw new Error("Failed to fetch tour booked");
+    }
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error("Error fetching tour booked:", error);
+  }
+};
 // type
 export type SearchResult = {
   data: HotelData[];
 };
 // type
 
-export { getAllHotel, getDetailHotel, searchResultHotel, getHotelOutStanding };
+export {
+  getAllHotel,
+  getDetailHotel,
+  searchResultHotel,
+  getHotelOutStanding,
+  getHotelBooked,
+};

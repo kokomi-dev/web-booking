@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { createRequestPayment } from "@/api/api-payment";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useAuthenticatedStore } from "@/store/authencation-store";
 
 interface ModalConfirmCodeProps {
   lastName: string;
@@ -25,6 +26,8 @@ interface ModalConfirmCodeProps {
   success: boolean;
   code: string;
   totalBooking: any;
+  tripId: string;
+  category: string;
 }
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,
@@ -32,7 +35,11 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   success,
   code,
   totalBooking,
+  category,
+  tripId,
 }) => {
+  const { user } = useAuthenticatedStore();
+
   const [value, setValue] = useState("");
   const router = useRouter();
   const handleConfirm = async () => {
@@ -41,9 +48,12 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
     }
     const total = totalBooking();
     try {
-      if (value == code) {
+      if (value == code && user) {
         const result = await createRequestPayment({
           amount: parseFloat(removeDots(total)),
+          userId: user._id,
+          tripId,
+          category,
         });
         if (result && result.data) {
           router.push(result?.data?.order_url);
