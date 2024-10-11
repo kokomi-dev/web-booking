@@ -1,15 +1,15 @@
 "use client";
 import { HotelData, convertToSlug } from "@/constants";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import React, { Fragment, MouseEventHandler, useCallback } from "react";
-import imgMap from "@/assets/images/img_map.jpg";
+import React, { Fragment, useCallback } from "react";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
+import ShowOnMap from "@/components/components/show-on-map";
 
 interface ISearchResult {
   data: HotelData[];
+  search: any;
 }
 const FilterComponent = ({
   title,
@@ -89,7 +89,7 @@ const filter3 = [
   "từ 3.5 trở lên",
   "từ 3 trở lên",
 ];
-const SearchResultMain: React.FC<ISearchResult> = ({ data }) => {
+const SearchResultMain: React.FC<ISearchResult> = ({ data, search }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterBarValue = searchParams.get("filter");
@@ -141,7 +141,7 @@ const SearchResultMain: React.FC<ISearchResult> = ({ data }) => {
           "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3"
         )}
       >
-        <div className="w-full h-full flex flex-col items-start justify-start gap-2">
+        <div className="w-full h-full grid gap-y-2">
           <div>
             {data?.length > 0 && (
               <h2 className="text-large font-bold mb-2">
@@ -151,17 +151,8 @@ const SearchResultMain: React.FC<ISearchResult> = ({ data }) => {
                 </span>
               </h2>
             )}
-            <div className="relative">
-              <Image
-                alt="img_map"
-                width={600}
-                height={400}
-                src={imgMap}
-                className="brightness-75 rounded-8"
-              />
-              <Button className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-bg_primary_main text-white text-smallest hover:bg-bg_primary_active">
-                <span className="text-white">Hiển thị trên bản đồ</span>
-              </Button>
+            <div className="w-full h-full">
+              <ShowOnMap address={search} />
             </div>
           </div>
           {/* filter tour */}

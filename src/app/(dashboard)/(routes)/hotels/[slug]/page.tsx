@@ -9,6 +9,7 @@ import Booking from "@/components/dashboard/hotels/booking";
 import { HotelData } from "@/constants";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import ShowComments from "@/components/components/show-comments";
+import ShowOnMap from "@/components/components/show-on-map";
 
 export async function generateStaticParams() {
   const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
@@ -77,7 +78,7 @@ const DetailHotelPage = async ({
             </CardText>
             {/* location on map */}
             <CardText title="Vị trí">
-              Vị trí khách sạn ( nhà nghỉ ) trên bản đồ
+              <ShowOnMap address={data.location} />
             </CardText>
           </div>
           {/* booking */}

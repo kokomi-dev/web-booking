@@ -3,11 +3,10 @@ import React, { Fragment, useCallback, useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
-import imgMap from "@/assets/images/img_map.jpg";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TourData } from "@/constants";
+import ShowOnMap from "@/components/components/show-on-map";
 
 function convertToSlug(str: string) {
   return String(str)
@@ -94,14 +93,17 @@ const filter3 = [
 ];
 interface ShowResultProps {
   data: TourData[];
+  search: any;
 }
-const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
+interface IHandleFilterData {
+  data: TourData[];
+}
+
+const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterBarValue = searchParams.get("filter");
-  interface IHandleFilterData {
-    data: TourData[];
-  }
+
   const handleFilterData = useCallback(
     ({ data }: IHandleFilterData, value: string) => {
       switch (value) {
@@ -148,7 +150,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
           "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3"
         )}
       >
-        <div className="w-full h-full flex flex-col items-start justify-start gap-2">
+        <div className="w-full h-full grid gap-y-2">
           <div>
             {data?.length > 0 && (
               <h2 className="text-large font-bold mb-2">
@@ -160,16 +162,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data }) => {
             )}
 
             <div className="relative">
-              <Image
-                alt="img_map"
-                width={600}
-                height={400}
-                src={imgMap}
-                className="brightness-75 rounded-8"
-              />
-              <Button className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-bg_primary_main text-white text-smallest hover:bg-bg_primary_active">
-                <span className="text-white">Hiển thị trên bản đồ</span>
-              </Button>
+              <ShowOnMap address={search} />
             </div>
           </div>
           {/* filter tour */}
