@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --toastify-color-success: #006ce4;
   --toastify-color-warning: #ffb700;

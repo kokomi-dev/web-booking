@@ -31,7 +31,7 @@ const SearchResultPage = () => {
   if (loading) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <ShowResult data={data} />
+      <ShowResult data={data} search={search} />
     </div>
   );
 };

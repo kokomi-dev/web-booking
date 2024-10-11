@@ -104,7 +104,7 @@ const DetailAttractionPage = async ({
             </span>
           </div>
           {/* content and book tickets */}
-          <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 md:grid-cols-layout-2">
+          <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 lg:grid-cols-layout-2">
             {/* left */}
             <div className="w-full flex flex-col items-start justify-start gap-6 ">
               {/* schedule in tour */}
@@ -167,7 +167,7 @@ const DetailAttractionPage = async ({
               </CardText>
               {/* location on map */}
               <CardText title="Vị trí">
-                <ShowOnMap address={data.location} />
+                <ShowOnMap address={data.location.detail || data.location} />
               </CardText>
             </div>
             {/* book tickets */}

@@ -30,7 +30,7 @@ const SearchResultPageHotel = () => {
   if (loading) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <SearchResultMain data={data} />
+      <SearchResultMain data={data} search={search} />
     </div>
   );
 };
