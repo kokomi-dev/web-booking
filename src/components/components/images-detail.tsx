@@ -27,6 +27,7 @@ const ImagesDetail = ({ data }: { data: any }) => {
                 <div className="absolute w-full h-full inset-0 bg-gray-200 animate-pulse"></div>
               )}
               <Image
+                priority
                 width={500}
                 height={600}
                 src={data.images[0]}
@@ -37,7 +38,7 @@ const ImagesDetail = ({ data }: { data: any }) => {
                 onClick={() => {
                   setOpen(true);
                 }}
-                onLoadingComplete={() => handleImageLoad(0)}
+                onLoad={() => handleImageLoad(0)}
               />
             </div>
           </div>
@@ -58,7 +59,7 @@ const ImagesDetail = ({ data }: { data: any }) => {
                   onClick={() => {
                     setOpen(true);
                   }}
-                  onLoadingComplete={() => handleImageLoad(index + 1)}
+                  onLoad={() => handleImageLoad(index + 1)}
                   alt={`Ảnh giới thiệu về tour du lịch ${data.name}`}
                 />
               </div>
