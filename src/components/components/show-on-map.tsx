@@ -39,13 +39,13 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
       initialViewState={{
         longitude: location[0],
         latitude: location[1],
-        zoom: 11,
+        zoom: 13,
       }}
       style={{ width: "100%", height: 420, borderRadius: "12px" }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={accessToken}
       maxZoom={16}
-      minZoom={9}
+      minZoom={10}
     >
       <Marker longitude={location[0]} latitude={location[1]} anchor="bottom">
         <Image
