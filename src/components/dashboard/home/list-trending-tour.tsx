@@ -1,4 +1,4 @@
-import { getTourTrending } from "@/api/api-tour";
+import { getAttractionTrending } from "@/api/api-attractions";
 import {
   Carousel,
   CarouselContent,
@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "../../components/item-component";
 import { cn } from "@/lib/utils";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 const fechData = async () => {
-  const data = await getTourTrending();
+  const data = await getAttractionTrending();
   return data.data;
 };
 const ListTrendingTour = async () => {
@@ -30,7 +30,7 @@ const ListTrendingTour = async () => {
           className="w-full "
         >
           <CarouselContent>
-            {data?.map((tour: TourData) => (
+            {data?.map((tour: AttractionData) => (
               <CarouselItem
                 key={tour.slug}
                 className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
@@ -42,7 +42,7 @@ const ListTrendingTour = async () => {
                   images={tour.images[0]}
                   location={tour.location.detail}
                   price={tour.price[0]}
-                  rating={tour.ratingsQuantity}
+                  rating={tour.rating}
                 />
               </CarouselItem>
             ))}

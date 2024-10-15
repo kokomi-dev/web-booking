@@ -6,12 +6,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
-import { getAllTour } from "@/api/api-tour";
+import { getAllAttraction } from "@/api/api-attractions";
 import { cn } from "@/lib/utils";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 
 const ListAllTour = async () => {
-  const { data } = await getAllTour();
+  const { data } = await getAllAttraction();
   return (
     <div className={cn("w-full ")}>
       <h2 className="text-large font-bold">Khám phá Việt Nam</h2>
@@ -21,7 +21,7 @@ const ListAllTour = async () => {
         </p>
         <Carousel opts={{ align: "start" }} className="w-full">
           <CarouselContent>
-            {data?.map((tour: TourData) => (
+            {data?.map((tour: AttractionData) => (
               <CarouselItem
                 key={tour.slug}
                 className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
@@ -33,7 +33,7 @@ const ListAllTour = async () => {
                   images={tour.images[0]}
                   location={tour.location.detail}
                   price={tour.price[0]}
-                  rating={tour.ratingsQuantity}
+                  rating={tour.rating}
                 />
               </CarouselItem>
             ))}

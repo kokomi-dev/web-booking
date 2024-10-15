@@ -1,6 +1,6 @@
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 
-import { apiUrl, getDetailHotel } from "@/api/api-hotel";
+import { apiUrl, getDetailHotel } from "@/api/api-hotels";
 import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +8,7 @@ import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
 import { HotelData } from "@/constants";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
-import ShowComments from "@/components/components/show-comments";
+import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";
 
 export async function generateStaticParams() {
@@ -128,11 +128,11 @@ const DetailHotelPage = async ({
             </div>
           </div>
           {/* comments */}
-
-          <ShowComments
-            type="hotel"
-            comments={data.comment}
-            rating={data.rating}
+          <Comments
+            category="hotel"
+            initialComments={data.comment}
+            initialRating={data.rating}
+            slug={slug}
           />
         </div>
       </div>

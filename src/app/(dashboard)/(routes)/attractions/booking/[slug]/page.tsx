@@ -6,14 +6,14 @@ import Image from "next/image";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { getDetailTour } from "@/api/api-tour";
+import { getDetailAttraction } from "@/api/api-attractions";
 import Loading from "@/app/loading";
 import FormInput from "@/components/components/form-input";
 import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 
 const BookingAttractions = () => {
@@ -22,12 +22,12 @@ const BookingAttractions = () => {
   }>();
   const { user } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<TourData | null>(null);
+  const [data, setData] = useState<AttractionData | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const tourData = await getDetailTour({ slug });
+        const tourData = await getDetailAttraction({ slug });
         setData(tourData);
       } catch (error) {
         console.error("Failed to fetch tour details:", error);

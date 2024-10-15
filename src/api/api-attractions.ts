@@ -1,8 +1,6 @@
-import { TourData } from "@/constants";
-
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const getAllTour = async () => {
-  const data = await fetch(`${apiUrl}/tour`, {
+const getAllAttraction = async () => {
+  const data = await fetch(`${apiUrl}/attraction`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -11,8 +9,8 @@ const getAllTour = async () => {
   const response = await data.json();
   return response;
 };
-const getTourTrending = async () => {
-  const data = await fetch(`${apiUrl}/tour?trending=true`, {
+const getAttractionTrending = async () => {
+  const data = await fetch(`${apiUrl}/attraction?trending=true`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -21,28 +19,28 @@ const getTourTrending = async () => {
   const response = await data.json();
   return response;
 };
-const getDetailTour = async ({ slug }: { slug: string }) => {
+const getDetailAttraction = async ({ slug }: { slug: string }) => {
   try {
-    const response = await fetch(`${apiUrl}/tour/${slug}`, {
+    const response = await fetch(`${apiUrl}/attraction/${slug}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (!response) {
-      throw new Error("Failed to fetch tour details");
+      throw new Error("Failed to fetch attractions details");
     }
     const result = await response.json();
     return result.data;
   } catch (error) {
-    console.error("Error fetching tour details:", error);
-    throw new Error("Error fetching tour details");
+    console.error("Error fetching attractions details:", error);
+    throw new Error("Error fetching attractions details");
   }
 };
 
-const getTourBooked = async ({ arr }: { arr: string[] | null }) => {
+const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
   try {
-    const response = await fetch(`${apiUrl}/tour/getTourBooked`, {
+    const response = await fetch(`${apiUrl}/attraction/getTourBooked`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,25 +50,23 @@ const getTourBooked = async ({ arr }: { arr: string[] | null }) => {
       }),
     });
     if (!response) {
-      throw new Error("Failed to fetch tour booked");
+      throw new Error("Failed to fetch attractions booked");
     }
     const result = await response.json();
     return result.data;
   } catch (error) {
-    console.error("Error fetching tour booked:", error);
+    console.error("Error fetching attractions booked:", error);
   }
 };
 
-export type SearchResult = {
-  data: TourData[];
-};
+export type SearchResult = {};
 const searchResult = async ({
   searchParam,
 }: {
   searchParam: string | any;
 }): Promise<SearchResult> => {
   const data = await fetch(
-    `${apiUrl}/tour/searchresult?address=${searchParam}`,
+    `${apiUrl}/attraction/searchresult?address=${searchParam}`,
     {
       method: "GET",
       headers: {
@@ -90,10 +86,10 @@ const getListProvinces = async () => {
   }
 };
 export {
-  getAllTour,
-  getTourTrending,
-  getDetailTour,
-  getTourBooked,
+  getAllAttraction,
+  getAttractionTrending,
+  getDetailAttraction,
+  getAttractionBooked,
   searchResult,
   getListProvinces,
 };

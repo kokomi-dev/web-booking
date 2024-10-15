@@ -18,7 +18,7 @@ import {
 import { IoBedOutline, IoPersonOutline } from "react-icons/io5";
 
 import { convertToSlug } from "@/constants";
-import { getListProvinces } from "@/api/api-tour";
+import { getListProvinces } from "@/api/api-attractions";
 
 const AddressTravel = ({
   value,

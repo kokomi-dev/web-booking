@@ -17,7 +17,7 @@ import { checkOrderPayment, checkOrderPaymentHotel } from "@/api/api-payment";
 import { TourData } from "@/constants";
 import { Button } from "@/components/ui/button";
 import Loading from "@/app/loading";
-import { getHotelBooked } from "@/api/api-hotel";
+import { getHotelBooked } from "@/api/api-hotels";
 import { formatPrice } from "@/components/components/item-component";
 import Link from "next/link";
 

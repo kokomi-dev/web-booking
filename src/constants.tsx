@@ -313,7 +313,7 @@ export const ADDRESS_TRENDING = [
 //
 //
 // type
-export interface TourData {
+export interface AttractionData {
   _id: string;
   slug: string;
   name: string;
@@ -323,7 +323,7 @@ export interface TourData {
     district: object;
     detail: string;
   };
-  ratingsQuantity: number;
+  rating: number;
   duration: number;
   images: string[];
   schedule: string[];
