@@ -5,7 +5,7 @@ import React, { Suspense } from "react";
 
 import { ADDRESS_TRENDING } from "@/constants";
 import { cn } from "@/lib/utils";
-import { LoadingImg } from "@/util/loading/loading-img";
+import { LoadingImg } from "@/components/components/loading";
 
 interface ITrending {
   page: string;

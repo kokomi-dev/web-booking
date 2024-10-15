@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning style={{}}>
       <body suppressHydrationWarning={true}>
         {children}
-        <ToastContainer />
+        <ToastContainer autoClose={1500} />
       </body>
     </html>
   );

@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getTourBooked } from "@/api/api-tour";
+import { getAttractionBooked } from "@/api/api-attractions";
 import { checkOrderPayment } from "@/api/api-payment";
 import { TourData } from "@/constants";
 import Image from "next/image";
@@ -45,7 +45,7 @@ const BookedAttractions = () => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
-        const result = await getTourBooked({ arr }); // Chỉ gọi API khi arr có giá trị
+        const result = await getAttractionBooked({ arr }); // Chỉ gọi API khi arr có giá trị
         setData(result);
         await fetchOrderStatuses(arrOrderId);
       } catch (error) {

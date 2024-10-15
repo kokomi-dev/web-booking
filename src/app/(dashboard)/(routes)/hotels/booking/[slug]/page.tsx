@@ -14,7 +14,7 @@ import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
 import { HotelData } from "@/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { getDetailHotel } from "@/api/api-hotel";
+import { getDetailHotel } from "@/api/api-hotels";
 
 const BookingHotel = () => {
   const { slug } = useParams<{

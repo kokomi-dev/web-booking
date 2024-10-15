@@ -6,12 +6,31 @@
   --toastify-color-success: #006ce4;
   --toastify-color-warning: #ffb700;
   --toastify-color-error: #e74c3c;
+
+  --toastify-icon-color-success: white;
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 280px;
+  --toastify-toast-min-height: 64px;
+  --toastify-toast-max-height: 120px;
+  --toastify-z-index: 9999;
 }
+
 body {
   font-size: 62, 5%;
   scroll-behavior: smooth;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.Toastify__toast-container {
+  right: 12px;
+  bottom: 12px;
+  top: auto;
+}
+.toast-success {
+  background-color: #006ce4 !important;
+  color: white !important;
 }
 
 input[type="number"] {
@@ -207,6 +226,33 @@ img {
   background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
   background-size: 20% 100%;
   animation: l1 1s infinite linear;
+}
+.loader-btn {
+  width: 50px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #006ce4) content-box;
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 20deg,
+      #0000 21deg 36deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l4 1s infinite steps(10);
+
+  @keyframes l4 {
+    to {
+      transform: rotate(1turn);
+    }
+  }
 }
 @keyframes l1 {
   0% {

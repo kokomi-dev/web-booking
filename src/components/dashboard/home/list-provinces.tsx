@@ -1,4 +1,4 @@
-import { getListProvinces } from "@/api/api-tour";
+import { getListProvinces } from "@/api/api-attractions";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";

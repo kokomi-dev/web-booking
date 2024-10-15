@@ -3,27 +3,27 @@ import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 import { MapPin, Share2 } from "lucide-react";
 import dynamic from "next/dynamic";
 
-import { getDetailTour } from "@/api/api-tour";
+import { getDetailAttraction } from "@/api/api-attractions";
 import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
-import { apiUrl } from "@/api/api-tour";
+import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/components/booking-container";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
 import Loading from "../loading";
 import ImagesDetail from "@/components/components/images-detail";
-import { Comments } from "@/components/components/comment";
 
-import ShowComments from "@/components/components/show-comments";
+import Comments from "@/components/components/comments";
 import SupportQuestions from "@/components/dashboard/home/support-questions";
 const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });
-
 export async function generateStaticParams() {
-  const listTours = await fetch(`${apiUrl}/tour`).then((res) => res.json());
-  return listTours.data.map((tour: TourData) => ({
-    slug: tour.slug,
+  const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
+    res.json()
+  );
+  return listAttraction.data.map((attraction: AttractionData) => ({
+    slug: attraction.slug,
   }));
 }
 const DetailAttractionPage = async ({
@@ -31,7 +31,7 @@ const DetailAttractionPage = async ({
 }: {
   params: { slug: string };
 }) => {
-  const data = await getDetailTour({ slug });
+  const data = await getDetailAttraction({ slug });
   if (!data) {
     <Loading />;
   }
@@ -66,10 +66,8 @@ const DetailAttractionPage = async ({
           <h3 className="flex items-center justify-start ">
             <GoStarFill className="text-yellow_main text-[1.2rem] mr-2" />
             <span className="text-medium mr-2">
-              <span className="text-normal font-semibold">
-                {data.ratingsQuantity}
-              </span>
-              {data.ratingsQuantity > 4 ? (
+              <span className="text-normal font-semibold">{data.rating}</span>
+              {data.rating > 4 ? (
                 <span className="ml-1 text-small font-medium">Rất tốt</span>
               ) : (
                 <span className="ml-1 text-small font-medium">Tốt</span>
@@ -177,12 +175,12 @@ const DetailAttractionPage = async ({
           <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 md:grid-cols-layout-2">
             {/* evaluate */}
             <div className="">
-              <ShowComments
-                type="attractions"
-                comments={data.comments}
-                rating={data.ratingsQuantity}
+              <Comments
+                category="attraction"
+                initialComments={data.comments}
+                initialRating={data.rating}
+                slug={slug}
               />
-              {/* <Comments id={data._id} /> */}
             </div>
             {/* question */}
             <SupportQuestions />

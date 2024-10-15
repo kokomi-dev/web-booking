@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { HotelData } from "@/constants";
-import { searchResultHotel } from "@/api/api-hotel";
+import { searchResultHotel } from "@/api/api-hotels";
 import SearchResultMain from "@/components/dashboard/hotels/search-result-main";
 import Loading from "./loading";
 

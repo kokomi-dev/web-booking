@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
-import { getAllHotel } from "@/api/api-hotel";
+import { getAllHotel } from "@/api/api-hotels";
 
 const ListAllHotels = async () => {
   const result = await getAllHotel();
