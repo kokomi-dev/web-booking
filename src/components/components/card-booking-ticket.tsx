@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 
 import {
   AiOutlineInfoCircle,
@@ -13,7 +15,16 @@ import {
 import { Button } from "../ui/button";
 import { formatPrice } from "./item-component";
 import { cn } from "@/lib/utils";
-import FormInput from "./form-input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
 interface CardBookingTicketProps {
   duration: number;
   price: [number, number];
@@ -30,10 +41,23 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
 }) => {
   const router = useRouter();
 
-  const [adult, setAdult] = useState<any>(0);
-  const [children, setChildren] = useState<any>(0);
+  const cardBookingBody = z
+    .object({
+      children: z.string().min(0, "Số trẻ em"),
+      adult: z.string().min(1, "Số người lớn"),
+    })
+    .strict();
+  type CardBookingData = z.infer<typeof cardBookingBody>;
 
-  const handleBooking = () => {
+  const form = useForm<CardBookingData>({
+    resolver: zodResolver(cardBookingBody),
+    defaultValues: {
+      children: "",
+      adult: "",
+    },
+  });
+
+  const onSubmit = ({ adult, children }: CardBookingData) => {
     if (!date) {
       return toast.error("Chọn ngày đặt lịch");
     }
@@ -55,9 +79,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   };
   return (
     <div
-      className={cn(
-        "flex flex-col items-start justify-start gap-4 border-[0.5px] border-[#999] rounded-xl p-3"
-      )}
+      className={cn("space-y-3 border-[0.5px] border-[#999] rounded-xl p-3")}
     >
       <h5 className="flex items-center justify-start gap-1">
         <AiOutlineClockCircle className="text-[1.25rem]" />{" "}
@@ -66,17 +88,19 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
       <ol className="w-full">
         <li className="flex items-center font-normal justify-start gap-1  ">
           Ngày bắt đầu:
-          <span className="underline italic text-blue_main_sub font-medium">
+          <span className="underline italic text-blue_main font-medium">
             {date ? (
               format(date, "dd/MM/yyyy", { locale: vi })
             ) : (
-              <span className="underline italic">Chưa chọn ngày bắt đầu</span>
+              <span className="underline italic text-small">
+                Chưa chọn ngày bắt đầu
+              </span>
             )}
           </span>
         </li>
         <li className="font-normal">
           Giờ khởi hành :
-          <span className="underline italic text-blue_main_sub font-medium">
+          <span className="underline text-small italic text-blue_main font-medium">
             {hour ? hour : "Chưa chọn giờ khởi hành"}
           </span>
         </li>
@@ -96,39 +120,64 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
       <ol className="w-full">
         <li className="text-normal font-medium">
           Giá người lớn:{" "}
-          <span className="underline">{formatPrice(price[0])}</span> vnđ
+          <span className="underline text-blue_main">
+            {formatPrice(price[0])}
+          </span>
+          VNĐ
         </li>
-        <li className="text-normal font-medium">
-          Giá trẻ em (7 tuổi trở lên):{" "}
-          <span className="underline">{formatPrice(price[1])}</span> vnđ
+        <li className="text-normal font-medium ">
+          Giá trẻ em (7 =&gt; 14 tuổi):{" "}
+          <span className="underline text-blue_main">
+            {formatPrice(price[1])}
+          </span>
+          VNĐ
         </li>
       </ol>
       <div className="w-full">
-        <FormInput
-          type="number"
-          title="Chọn người lớn"
-          value={adult}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setAdult(e.target.value);
-          }}
-        />
-        <FormInput
-          type="number"
-          title="Chọn trẻ em"
-          value={children}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setChildren(e.target.value);
-          }}
-        />
-      </div>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
-        <Button
-          className="bg-bg_primary_blue_sub text-white w-full"
-          onClick={handleBooking}
-        >
-          Đặt ngay
-        </Button>
-        <Button className="w-full">Liên hệ</Button>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-2 text-small"
+          >
+            <FormField
+              control={form.control}
+              name="adult"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-small">Số người lớn</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="..." {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="children"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Số trẻ em</FormLabel>
+                  <FormControl>
+                    <Input type="number" placeholder="..." {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
+              <Button
+                type="submit"
+                className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+              >
+                <span className="text-white text-small font-normal">
+                  Đặt ngay
+                </span>
+              </Button>
+              <Button className="w-full text-small font-normal">Liên hệ</Button>
+            </div>
+          </form>
+        </Form>
       </div>
     </div>
   );

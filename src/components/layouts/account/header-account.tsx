@@ -15,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LoadingComponentAccount } from "@/util/loading";
+import { LoadingComponentAccount } from "@/components/components/loading";
 
 const HeaderAccount = () => {
   const { setUserLogined, setIsAuthenticated, user } = useAuthenticatedStore();

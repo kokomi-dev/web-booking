@@ -1,46 +1,88 @@
 "use client";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import FormInput from "@/components/components/form-input";
-import { reqRegiter } from "@/api/api-auth";
-import Loading from "@/app/loading";
+import Link from "next/link";
+import { reqLogin, reqRegiter } from "@/api/api-auth";
+import { useRouter } from "next/navigation";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+import { LoadingPage } from "@/components/components/loading";
+import { toast } from "react-toastify";
+import { Label } from "@radix-ui/react-label";
 
-const FormSignUp = () => {
-  const [user, setUser] = useState<{
-    firstname: string;
-    lastname: string;
-    email: string;
-    numberPhone: string;
-    password: string;
-  }>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    numberPhone: "",
-    password: "",
+const signUpBody = z
+  .object({
+    firstname: z.string().min(6, "Vui lòng nhập họ, tên đệm ").max(100),
+    lastname: z.string().min(2, "Vui lòng nhập tên").max(100),
+    numberPhone: z.string().min(9, "Nhập đúng số ĐT").max(11),
+    email: z.string().email("Vui lòng nhập email"),
+    password: z
+      .string()
+      .min(6, "Nhập đúng mật khẩu")
+      .max(100, "Mật khẩu không quá 100 kí tự"),
+    confirmPassword: z
+      .string()
+      .min(6, "Nhập đúng mật khẩu")
+      .max(100, "Mật khẩu không quá 100 kí tự"),
+  })
+  .strict()
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Mật khẩu không khớp",
+        path: ["confirmPassword"],
+      });
+    }
   });
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [checked, setChecked] = useState(false);
+type SignupFormData = z.infer<typeof signUpBody>;
+
+const FormLogin: React.FC = () => {
+  const form = useForm<SignupFormData>({
+    resolver: zodResolver(signUpBody),
+    defaultValues: {
+      firstname: "",
+      lastname: "",
+      numberPhone: undefined,
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
   const [isLoading, setIsLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const router = useRouter();
-  const handlesubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    if (user.password !== confirmPassword) {
-      setIsLoading(false);
-      return toast.warning("Mật khẩu không khớp!");
+
+  const onSubmit = async (data: SignupFormData) => {
+    if (checked === false) {
+      return toast.warning("Điều khoản dịch vụ của chúng tôi", {
+        className: "toast-warning",
+      });
     }
+    setIsLoading(true);
     try {
-      const response = await reqRegiter(user);
-      if (response) {
-        setIsLoading(false);
-        toast.success("Tạo tài khoản thành công");
+      const result = await reqRegiter(data);
+      if (result.code === 401) {
+        toast.error("Lỗi đi tạo mới tài khoản", {
+          className: "toast-error",
+        });
+      }
+      if (result) {
+        toast.success("Tạo tài khoản thành công", {
+          className: "toast-success",
+        });
         router.replace("/sign-in");
       }
     } catch (error) {
@@ -49,122 +91,134 @@ const FormSignUp = () => {
       setIsLoading(false);
     }
   };
-  const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-  };
+  if (isLoading) {
+    <LoadingPage />;
+  }
   return (
-    <div className="w-full ">
-      {isLoading && <Loading fix={true} />}
+    <Form {...form}>
       <form
-        action="/"
-        method="POST"
-        className="flex flex-col items-start justify-start gap-3"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4  w-full"
+        noValidate
       >
-        <div
-          className={cn(
-            "w-full grid grid-cols-1 gap-x-2",
-            "lg:grid-cols-2 lg:gap-y-3"
-          )}
-        >
-          <FormInput
-            title="Họ"
-            value={user.firstname}
-            type="text"
-            placeholder="VD: Nguyen Van"
-            onChange={(e) => {
-              setUser({ ...user, firstname: e.target.value });
-            }}
-          />
-          <FormInput
-            placeholder="VD: A"
-            title="Tên"
-            value={user.lastname}
-            type="text"
-            onChange={(e) => {
-              setUser({ ...user, lastname: e.target.value });
-            }}
+        <div className="w-full grid gap-x-4 md:grid-cols-2 md:gap-x-2">
+          <FormField
+            control={form.control}
+            name="firstname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Họ</FormLabel>
+                <FormControl>
+                  <Input placeholder="VD: Nguyen Van" {...field} />
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />{" "}
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tên</FormLabel>
+                <FormControl>
+                  <Input placeholder="VD:A" {...field} />
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
           />
         </div>
-        <FormInput
-          placeholder="VD: email@gmail.com"
-          title="Email"
-          value={user.email}
-          type="email"
-          onChange={(e) => {
-            setUser({ ...user, email: e.target.value });
-          }}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="VD:email@gmail.com" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
         />
-        <FormInput
-          placeholder="VD: +8400123123"
-          title="Số ĐT"
-          value={user.numberPhone}
-          type="number"
-          onChange={(e) => {
-            setUser({ ...user, numberPhone: e.target.value });
-          }}
+        <FormField
+          control={form.control}
+          name="numberPhone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Số ĐT</FormLabel>
+              <FormControl>
+                <Input type="number" placeholder="VD:+8400476486" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
         />
-        <span className="text-blue_main_sub text-center block w-full text-[0.9rem] font-light">
-          Lưu ý : Mật khẩu phải tối thiểu 8 kí tự, 1 chữ cái, 1 số và 1 kí tự
+        <h5 className="text-small text-blue_main_sub font-normal">
+          Lưu ý: Mật khẩu phải tối thiểu 8 kí tự,1 chữ số, 1 chữ cái và 1 kí tự
           đặc biệt
-        </span>
-        <FormInput
-          placeholder="VD: matkhau@1"
-          title="Mật khẩu "
-          value={user.password}
-          type="password"
-          onChange={(e) => {
-            setUser({ ...user, password: e.target.value });
-          }}
+        </h5>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Mật khẩu</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="Mật khẩu" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
         />
-        <FormInput
-          title="Nhập lại mật khẩu"
-          value={confirmPassword}
-          type="password"
-          onChange={(e) => {
-            setConfirmPassword(e.target.value);
-          }}
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nhập lại Mật khẩu</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
         />
-        <div className="flex items-center justify-start gap-1">
-          <input type="checkbox" id="check_private" onChange={handleChecked} />
-          <label
-            htmlFor="check_private"
-            className="cursor-pointer text-[0.9rem] select-none "
-          >
-            Đồng ý với điều khoản dịch vụ và quyền riêng tư bảo mật của chúng
+        <div className="flex items-center justify-start gap-x-2">
+          <Input
+            type="checkbox"
+            id="checkBox"
+            className="size-4"
+            onChange={(e) => {
+              setChecked(e.target.checked);
+            }}
+          />
+          <Label htmlFor="checkBox" className="text-small hover:cursor-pointer">
+            Đồng ý vơi điều khoản dịch vụ và quyền riêng tư bảo mật của chúng
             tôi
-          </label>
+          </Label>
         </div>
         <Button
-          className="w-full my-4 bg-bg_primary_main text-white"
-          onClick={handlesubmit}
-          disabled={
-            !user.lastname ||
-            !user.email ||
-            !user.firstname ||
-            !confirmPassword ||
-            !user.password ||
-            !user.numberPhone ||
-            !checked
-          }
+          type="submit"
+          className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
         >
-          Đăng ký
+          <span className="text-white text-normal font-medium"> Đăng ký</span>
         </Button>
-        <div
-          className={cn(
-            "text-[0.9rem] w-full flex items-center justify-between ",
-            "lg:text-[1rem]"
-          )}
-        >
-          <h6>
-            <span className="text-gray-400 mr-1">Bạn đã có tài khoản</span>
-            <Link href="/sign-in" className="text-blue_main_sub underline">
+        <div className="w-full flex items-center justify-between">
+          <h4 className="text-small ">
+            Bạn đã có tài khoản
+            <Link
+              href="/sign-in"
+              className="text-blue_main_sub ml-1 underline "
+            >
               Đăng nhập
             </Link>
-          </h6>
+          </h4>
         </div>
       </form>
-    </div>
+    </Form>
   );
 };
 
-export default FormSignUp;
+export default FormLogin;

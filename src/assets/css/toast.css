@@ -1,0 +1,22 @@
+.Toastify__toast--success {
+  background-color: #006ce4 !important;
+  color: white !important;
+  font-size: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.Toastify__toast--warning {
+  background-color: #ffb700 !important;
+  color: white !important;
+  font-size: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.Toastify__toast--error {
+  background-color: #ed6758 !important;
+  color: white !important;
+  font-size: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

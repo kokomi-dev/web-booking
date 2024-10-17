@@ -77,6 +77,7 @@ const Comments: React.FC<IComments> = ({
         user.firstname + " " + user.lastname,
         user.lastname.slice(0, 1)
       );
+      console.log(result);
       if (result.message && result.data) {
         await mutate(`${apiUrl}/${category}/${slug}`);
         setVote(0);

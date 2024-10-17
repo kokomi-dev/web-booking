@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa6";
 import Image from "next/image";
 
 import { ratingConvert } from "@/constants";
-import { SkeletonLoading } from "@/util/loading";
+import { LoadingItemSearch } from "@/components/components/loading";
 export const formatPrice = (num: number) => {
   const str = num.toString();
   return str
@@ -37,7 +37,7 @@ const ItemSearchResult = ({
   details?: string;
 }) => {
   return (
-    <Suspense fallback={<SkeletonLoading />}>
+    <Suspense fallback={<LoadingItemSearch />}>
       <Link
         href={`/${route}/${slug}`}
         className="w-full border_div_card "

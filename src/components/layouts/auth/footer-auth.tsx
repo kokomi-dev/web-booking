@@ -5,13 +5,19 @@ const FooterAuth = () => {
   return (
     <ul
       className={cn(
-        "w-full h-[5rem]  flex items-center justify-evenly bg-bg_black_sub",
+        "w-full h-[5rem] py-4  flex items-center justify-evenly bg-bg_black_sub",
         "lg:h-[40rem]"
       )}
     >
-      <li>Điều khoản dịch vụ</li>
-      <li>Quyền riêng tư và bảo mật</li>
-      <li>Liên hệ với chúng tôi </li>
+      <li className="text-small hover:cursor-pointer hover:underline">
+        Điều khoản dịch vụ
+      </li>
+      <li className="text-small hover:cursor-pointer hover:underline">
+        Quyền riêng tư và bảo mật
+      </li>
+      <li className="text-small hover:cursor-pointer hover:underline">
+        Liên hệ với chúng tôi{" "}
+      </li>
     </ul>
   );
 };

@@ -1,17 +1,20 @@
 "use client";
 
 import { vi } from "date-fns/locale";
-import React, { SetStateAction, useState } from "react";
-import { CircleCheck, TriangleAlert } from "lucide-react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { CalendarIcon, CircleCheck, TriangleAlert } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
 
 import CardText from "@/components/components/card-text";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { DatePicker, SelectNumberPerson } from "@/constants";
+import {
+  DatePickerDou,
+  SelectNumberPerson,
+} from "@/components/components/search";
 import { toast } from "react-toastify";
+import { IoPersonOutline } from "react-icons/io5";
 const Booking = ({
   price,
   sales,
@@ -22,12 +25,10 @@ const Booking = ({
   slug: string;
 }) => {
   const router = useRouter();
-  const [date, setDate] = React.useState<DateRange | SetStateAction<DateRange>>(
-    {
-      from: new Date(),
-      to: addDays(new Date(), 2),
-    }
-  );
+  const [date, setDate] = React.useState<any>({
+    from: new Date(),
+    to: addDays(new Date(), 2),
+  });
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [numberAdults, setNumberAdults] = useState<number>(0);
   const [numberChildren, setNumberChildren] = useState<number>(0);
@@ -89,9 +90,13 @@ const Booking = ({
         <h3 className="text-medium font-semibold">
           Chọn ngày nhận và trả phòng
         </h3>
-        <div className="flex_dou bg-bg_primary_blue_sub text-white rounded-xl">
-          <CalendarIcon className="mr-3  h-[1.3rem] w-[1.3rem] text-yellow_main" />
-          <DatePicker className="" date={date} setDate={setDate} />
+        <div className="w-full flex_dou bg-white text-black rounded-8">
+          <CalendarIcon className="mr-3 text-black text-large" />
+          <DatePickerDou
+            className="text-black w-full text-medium font-semibold"
+            date={date}
+            setDate={setDate}
+          />
         </div>
         {/* choose person and room */}
         <CardText title="Chọn số lượng người">
@@ -102,22 +107,26 @@ const Booking = ({
               chúng tôi sẽ không thể giao nhấn phòng cho bạn)
             </h5>
           </div>
-          <SelectNumberPerson
-            error={error}
-            setError={setError}
-            className="bg-bg_primary_blue_sub text-white"
-            popoverOpen={popoverOpen}
-            setPopoverOpen={setPopoverOpen}
-            numberAdults={numberAdults}
-            numberChildren={numberChildren}
-            numberRoom={numberRoom}
-            numberRoomDouble={numberRoomDouble}
-            setNumberAdults={setNumberAdults}
-            setNumberChildren={setNumberChildren}
-            setNumberRoom={setNumberRoom}
-            setNumberRoomDouble={setNumberRoomDouble}
-            handlePopoverChange={handlePopoverChange}
-          />
+          <div className="bg-bg_primary_blue_sub flex items-center justify-start gap-x-2 px-2 rounded-8">
+            <IoPersonOutline className="text-large font-medium text-white " />
+            <SelectNumberPerson
+              isBooking
+              error={error}
+              setError={setError}
+              className=" rounded-8 p-4 w-full text-medium font-semibold text-white"
+              popoverOpen={popoverOpen}
+              setPopoverOpen={setPopoverOpen}
+              numberAdults={numberAdults}
+              numberChildren={numberChildren}
+              numberRoom={numberRoom}
+              numberRoomDouble={numberRoomDouble}
+              setNumberAdults={setNumberAdults}
+              setNumberChildren={setNumberChildren}
+              setNumberRoom={setNumberRoom}
+              setNumberRoomDouble={setNumberRoomDouble}
+              handlePopoverChange={handlePopoverChange}
+            />
+          </div>
         </CardText>
         {/* booking tickets */}
         <CardText title="Chọn loại phòng">
