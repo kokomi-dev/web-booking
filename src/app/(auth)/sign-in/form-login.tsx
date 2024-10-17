@@ -1,30 +1,58 @@
 "use client";
-
 import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-import { cn } from "@/lib/utils";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FormInput from "@/components/components/form-input";
+import Link from "next/link";
 import { reqLogin } from "@/api/api-auth";
-import Loading from "@/app/loading";
+import { useRouter } from "next/navigation";
 import { useAuthenticatedStore } from "@/store/authencation-store";
+import { LoadingPage } from "@/components/components/loading";
+import { toast } from "react-toastify";
 
-const FormLogin = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
+const signInBody = z
+  .object({
+    email: z.string().email("Vui lòng nhập email"),
+    password: z
+      .string()
+      .min(6, "Nhập đúng mật khẩu")
+      .max(100, "Mật khẩu không quá 100 kí tự"),
+  })
+  .strict();
+type SignupFormData = z.infer<typeof signInBody>;
+
+const FormLogin: React.FC = () => {
+  const form = useForm<SignupFormData>({
+    resolver: zodResolver(signInBody),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
   const [isLoading, setIsLoading] = useState(false);
-  const { setUserLogined, setIsAuthenticated } = useAuthenticatedStore();
   const router = useRouter();
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const { setIsAuthenticated, setUserLogined } = useAuthenticatedStore();
+  const onSubmit = async (data: SignupFormData) => {
     try {
-      const result = await reqLogin(user);
+      setIsLoading(true);
+      const result = await reqLogin(data);
+      if (result.code === 401) {
+        toast.error(result.message, {
+          className: "toast-error",
+        });
+      }
       if (result.token) {
+        toast.success("Đăng nhập thành công");
         router.replace("/attractions");
         setIsAuthenticated();
         setUserLogined(result);
@@ -36,60 +64,61 @@ const FormLogin = () => {
       setIsLoading(false);
     }
   };
+  if (isLoading) {
+    <LoadingPage />;
+  }
   return (
-    <form
-      // action={process.env.NEXT_PUBLIC_API_ENDPOINT + "/auth/login"}
-      method="POST"
-      className="flex flex-col items-start justify-start gap-4"
-    >
-      {isLoading && <Loading fix />}
-      <FormInput
-        title="email"
-        value={user.email}
-        type="email"
-        onChange={(e) => {
-          setUser({ ...user, email: e.target.value });
-        }}
-      />
-      <FormInput
-        title="Mật khẩu"
-        value={user.password}
-        type="password"
-        onChange={(e) => {
-          setUser({ ...user, password: e.target.value });
-        }}
-      />
-
-      <Button
-        disabled={!user.email || !user.password}
-        type="submit"
-        className="w-full my-4 bg-bg_primary_blue_sub text-white text-normal font-medium"
-        onClick={handleLogin}
-      >
-        <span className="text-white">Đăng nhập</span>
-      </Button>
-      <div
-        className={cn(
-          "text-[0.9rem] w-full flex items-center justify-between ",
-          "lg:text-[1rem]"
-        )}
-      >
-        <span
-          className={cn(
-            "text-blue_main_sub  transition-all duration-300",
-            "hover:underline"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Email" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
           )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Mật khẩu</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="Mật khẩu" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
         >
-          Quên mật khẩu
-        </span>
-        <h6>
-          <span className="text-gray-400 mr-1">Bạn chưa có tài khoản</span>
-          <Link href="/sign-up" className="text-blue_main_sub underline">
-            Đăng ký
-          </Link>
-        </h6>
-      </div>
-    </form>
+          <span className="text-white text-normal font-medium"> Đăng nhập</span>
+        </Button>
+        <div className="w-full flex items-center justify-between">
+          <h4 className="text-small ">
+            Bạn chưa có tài khoản{" "}
+            <Link
+              href="/sign-up"
+              className="text-blue_main_sub ml-1 underline "
+            >
+              Đăng ký
+            </Link>
+          </h4>
+          <h4 className="text-small underline hover:cursor-pointer">
+            Quên mật khẩu
+          </h4>
+        </div>
+      </form>
+    </Form>
   );
 };
 

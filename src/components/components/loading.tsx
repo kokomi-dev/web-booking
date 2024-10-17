@@ -1,6 +1,6 @@
 import { Skeleton } from "../ui/skeleton";
 
-const LoadingItem = () => {
+const LoadingPage = () => {
   return (
     <div className="loading">
       <div className="loader"></div>
@@ -24,6 +24,19 @@ const LoadingImg = () => {
     </div>
   );
 };
+const LoadingItemSearch = () => {
+  return (
+    <div className="w-full h-full">
+      <Skeleton className="h-full w-full rounded-14 animate-pulse  bg-primary/10">
+        <div>
+          <Skeleton className="size-9 rounded-full mr-2  animate-pulse  bg-primary/10" />
+          <Skeleton className="h-full w-fit rounded-14 animate-pulse  bg-primary/10" />
+        </div>
+        <Skeleton className="h-full w-fit rounded-8 animate-pulse  bg-primary/10" />
+      </Skeleton>
+    </div>
+  );
+};
 const LoadingItemComment = () => {
   return (
     <div className="w-full h-full">
@@ -38,7 +51,8 @@ const LoadingItemComment = () => {
   );
 };
 export {
-  LoadingItem,
+  LoadingItemSearch,
+  LoadingPage,
   LoadingButton,
   LoadingComponentAccount,
   LoadingImg,

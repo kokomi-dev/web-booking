@@ -1,21 +1,30 @@
 "use client";
 import React, { useState } from "react";
-import DatePicker from "@/components/components/pickdate-calender";
+import { DatePicker } from "@/components/components/search";
 import CardText from "./card-text";
 import CardBookingTicket from "./card-booking-ticket";
+import { FaRegCalendarCheck } from "react-icons/fa";
 
 interface IBookingContainer {
   slug: string;
   data: any;
 }
 const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string>("7h00");
+
   return (
-    <div className="w-full h-fit flex items-start justify-start flex-col gap-4 p-4 sticky top-[0.5rem]  rounded-xl ">
+    <div className="w-full h-fit space-y-3 p-4 sticky top-[0.3rem]  rounded-xl ">
       <div className="w-full">
         <h3 className="text-medium font-bold">Chọn ngày</h3>
-        <DatePicker date={date} setDate={setDate} />
+        <div className="w-full bg-bg_primary_blue_sub2 flex items-center justify-start gap-x-2 p-1 px-2 rounded-14">
+          <FaRegCalendarCheck className="text-normal font-normal size-5 " />
+          <DatePicker
+            date={date}
+            setDate={setDate}
+            className="w-full  text-black text-normal "
+          />
+        </div>
       </div>
       <CardText title="Chọn giờ">
         <div className="flex items-center justify-start gap-x-2">

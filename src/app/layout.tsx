@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+import "../assets/css/toast.css";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],

@@ -6,7 +6,7 @@ export interface User {
   firstname: string;
   lastname: string;
   email: string;
-  numberPhone: number;
+  numberPhone: string;
   booked: [
     {
       tripId: string;

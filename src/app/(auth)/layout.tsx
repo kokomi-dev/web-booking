@@ -23,7 +23,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         className={cn(
           "w-[90%] h-full container-padding flex flex-col items-center justify-center py-10",
           "md:w-[60%]",
-          "lg:w-[50%]"
+          "lg:w-[60%]"
         )}
       >
         {children}

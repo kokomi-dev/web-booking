@@ -23,7 +23,6 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 interface ModalConfirmCodeProps {
   lastName: string;
   email: string;
-  success: boolean;
   code: string;
   totalBooking: any;
   tripId: string;
@@ -32,7 +31,6 @@ interface ModalConfirmCodeProps {
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,
   email,
-  success,
   code,
   totalBooking,
   category,
@@ -47,6 +45,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
       return numberStr.replace(/\./g, "");
     }
     const total = totalBooking();
+
     try {
       if (value == code && user) {
         const result = await createRequestPayment({
@@ -64,7 +63,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
     } catch (error) {}
   };
   return (
-    <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black">
+    <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black rounded-14">
       <div className="w-full flex items-center justify-start flex-col gap-4 ">
         <DialogHeader>
           <DialogTitle>
@@ -73,12 +72,14 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           </DialogTitle>
           <DialogDescription>
             Chúng tôi đã gửi email xác thưc tới
-            <span className="text-blue_main_sub underline"> {email}</span> của
-            bạn
+            <span className="text-blue_main_sub underline font-medium mx-1">
+              {email}
+            </span>
+            của bạn
           </DialogDescription>
         </DialogHeader>
         <div>
-          <h6>Vui lòng nhập mã 6 chữ số</h6>
+          <h4 className="text-normal font-medium">Vui lòng nhập mã 6 chữ số</h4>
           <div className="w-full my-2">
             <InputOTP
               maxLength={6}
