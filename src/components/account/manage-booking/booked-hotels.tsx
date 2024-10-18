@@ -13,8 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { checkOrderPayment, checkOrderPaymentHotel } from "@/api/api-payment";
-import { TourData } from "@/constants";
+import { checkOrderPaymentHotel } from "@/api/api-payment";
+import { HotelData } from "@/constants";
 import { Button } from "@/components/ui/button";
 import Loading from "@/app/loading";
 import { getHotelBooked } from "@/api/api-hotels";
@@ -24,7 +24,7 @@ import Link from "next/link";
 const BookedHotel = () => {
   const { user } = useAuthenticatedStore();
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<TourData[]>([]);
+  const [data, setData] = useState<HotelData[]>([]);
   const [statuses, setStatuses] = useState<number[]>([]);
 
   const arr: string[] = [];

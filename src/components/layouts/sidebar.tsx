@@ -1,11 +1,11 @@
 "use client";
 
-import Nav from "./nav";
+import Navigation from "@/components/layouts/nav";
 import { cn } from "@/lib/utils";
 const Sidebar = () => {
   return (
     <div className={cn("hidden", "lg:block lg:w-full")}>
-      <Nav />
+      <Navigation />
     </div>
   );
 };

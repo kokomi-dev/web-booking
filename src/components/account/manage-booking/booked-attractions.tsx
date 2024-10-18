@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { getAttractionBooked } from "@/api/api-attractions";
 import { checkOrderPayment } from "@/api/api-payment";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Loading from "@/app/loading";
@@ -24,7 +24,7 @@ import { formatPrice } from "@/components/components/item-component";
 const BookedAttractions = () => {
   const { user } = useAuthenticatedStore();
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<TourData[]>([]);
+  const [data, setData] = useState<AttractionData[]>([]);
   const [statuses, setStatuses] = useState<number[]>([]);
 
   const arr: string[] = [];

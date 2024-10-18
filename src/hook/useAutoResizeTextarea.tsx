@@ -1,17 +1,17 @@
-import { useEffect, useRef } from "react";
+// import { useEffect, useRef } from "react";
 
-const useAutoResizeTextarea = (value: any) => {
-  const textareaRef = useRef(null);
+// const useAutoResizeTextarea = (value: any) => {
+//   const textareaRef = useRef(null);
 
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "auto";
-      textarea.style.height = textarea.scrollHeight + "px";
-    }
-  }, [value]);
+//   useEffect(() => {
+//     const textarea = textareaRef.current;
+//     if (textarea) {
+//       textarea.style.height = "auto";
+//       textarea.style.height = textarea.scrollHeight + "px";
+//     }
+//   }, [value]);
 
-  return textareaRef;
-};
+//   return textareaRef;
+// };
 
-export default useAutoResizeTextarea;
+// export default useAutoResizeTextarea;

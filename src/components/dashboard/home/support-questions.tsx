@@ -39,8 +39,8 @@ const SupportQuestions = () => {
                 gian.
               </li>
               <li className="text-smallest font-light py-1">
-                Bạn có thể xem vé của mình trong email xác nhận hoặc ở mục "Đặt
-                chỗ & Chuyến đi" trong tài khoản.
+                Bạn có thể xem vé của mình trong email xác nhận hoặc ở mục
+                &qout; Đặt chỗ & Chuyến đi &ldqou; trong tài khoản.
               </li>
             </ul>
           </AccordionContent>

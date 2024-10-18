@@ -56,6 +56,15 @@ interface IDatePicker {
   setDate: React.Dispatch<SetStateAction<Date | undefined>>;
   className?: string;
 }
+interface IDataProvince {
+  full_name: string;
+  full_name_en: string;
+  id: string;
+  latitude: string;
+  longitude: string;
+  name: string;
+  name_en: string;
+}
 // address
 export const AddressTravel = ({
   value,
@@ -66,12 +75,12 @@ export const AddressTravel = ({
 }) => {
   const [open, setOpen] = useState(true);
   const [valueSearch, setValueSearch] = useState("");
-  const [data, setData] = useState<Date | SetStateAction<Date>>();
+  const [data, setData] = useState<IDataProvince[]>([]);
 
   useEffect(() => {
     const fetchProvinces = async () => {
-      const { data } = await getListProvinces();
-      if (data) {
+      const { data, error } = await getListProvinces();
+      if (data && error === 0) {
         const filteredData = data.filter((item: any) => {
           return (
             item.name.toLowerCase().includes(valueSearch.toLowerCase()) ||
@@ -84,10 +93,9 @@ export const AddressTravel = ({
 
     if (valueSearch) {
       fetchProvinces();
-    } else {
-      setData([]);
     }
   }, [valueSearch]);
+
   return (
     <div className="w-full relative">
       <Input
@@ -112,7 +120,7 @@ export const AddressTravel = ({
 
       <div
         hidden={open}
-        className="w-full max-h-[300px] absolute left-0 right-0 top-0 translate-y-[50px] bg-white shadow-2xl  text-black overflow-y-auto"
+        className="w-full max-h-[300px] rounded-8 absolute left-0 right-0 top-0 translate-y-[50px] bg-white shadow-2xl  text-black overflow-y-auto"
       >
         {!valueSearch ? (
           ""
@@ -120,13 +128,13 @@ export const AddressTravel = ({
           data.map((item, index) => (
             <div
               key={index}
-              className="px-4 py-2 border-b last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
+              className="px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
               onMouseDown={() => {
                 setValue(item.name_en);
                 setValueSearch(item.name);
               }}
             >
-              <span className="text-small font-normal">{item.name}</span>
+              <span className="text-small font-medium">{item.name}</span>
             </div>
           ))
         ) : (
@@ -456,10 +464,11 @@ const Search: React.FC<SearchProps> = ({
     to: addDays(new Date(), 2),
   });
   const [date, setDate] = useState<any>();
-
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const [numberAdults, setNumberAdults] = useState<number>(2);
   const [numberChildren, setNumberChildren] = useState<number>(1);
   const [numberRoom, setNumberRoom] = useState<number>(1);
+  const [numberRoomDouble, setNumberRoomDouble] = useState<number>(1);
 
   const [error, setError] = useState(false);
 
@@ -585,12 +594,18 @@ const Search: React.FC<SearchProps> = ({
               >
                 <IoPersonOutline className="text-large font-medium text-black_sub " />
                 <SelectNumberPerson
+                  popoverOpen={popoverOpen}
+                  setPopoverOpen={setPopoverOpen}
+                  error={error}
+                  setError={setError}
                   numberAdults={numberAdults}
                   setNumberAdults={setNumberAdults}
                   numberChildren={numberChildren}
                   setNumberChildren={setNumberChildren}
                   numberRoom={numberRoom}
                   setNumberRoom={setNumberRoom}
+                  numberRoomDouble={numberRoomDouble}
+                  setNumberRoomDouble={setNumberRoomDouble}
                 />
               </div>
             </Fragment>

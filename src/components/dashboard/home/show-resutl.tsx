@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TourData } from "@/constants";
+import { AttractionData } from "@/constants";
 import ShowOnMap from "@/components/components/show-on-map";
 
 function convertToSlug(str: string) {
@@ -72,7 +72,7 @@ const filterBar = [
   { value: "rating-best", label: "Đánh giá cao nhất" },
 ];
 const filter1 = [
-  "tour",
+  "attraction",
   "thiên nhiên và ngoài trời",
   "bảo tàng nghệ thuật văn hóa",
   "hoạt động giải trí, vé",
@@ -92,11 +92,11 @@ const filter3 = [
   "từ 3 trở lên",
 ];
 interface ShowResultProps {
-  data: TourData[];
+  data: AttractionData[];
   search: any;
 }
 interface IHandleFilterData {
-  data: TourData[];
+  data: AttractionData[];
 }
 
 const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
@@ -114,7 +114,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
           return data.sort((a, b) => b.price[1] - a.price[1]);
         }
         case "rating-best": {
-          return data.sort((a, b) => b.ratingsQuantity - a.ratingsQuantity);
+          return data.sort((a, b) => b.rating - a.rating);
         }
         case "suggest":
           return data;
@@ -165,7 +165,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
               <ShowOnMap address={search} />
             </div>
           </div>
-          {/* filter tour */}
+          {/* filter attraction */}
           <h3 className="text-normal font-semibold">Lọc theo</h3>
           <div
             className={cn(
@@ -207,18 +207,18 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
             ))}
           </div>
           {data &&
-            data?.map((tour, index) => {
+            data?.map((attraction, index) => {
               return (
                 <ItemSearchResult
                   key={index}
-                  slug={tour.slug}
-                  name={tour.name}
-                  images={tour.images[0]}
-                  price={tour.price[0]}
+                  slug={attraction.slug}
+                  name={attraction.name}
+                  images={attraction.images[0]}
+                  price={attraction.price[0]}
                   route="attractions"
-                  location={tour.location.detail}
-                  description={tour.description}
-                  ratingsQuantity={tour.ratingsQuantity}
+                  location={attraction.location.detail}
+                  description={attraction.description}
+                  ratingsQuantity={attraction.rating}
                 />
               );
             })}

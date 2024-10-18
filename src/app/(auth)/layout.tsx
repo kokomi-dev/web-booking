@@ -15,7 +15,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     if (localStorage.getItem("token")) {
       return route.replace("/attractions");
     }
-  }, []);
+  }, [route]);
   return (
     <div className="w-full h-screen  flex flex-col items-center justify-start ">
       <HeaderAuth />

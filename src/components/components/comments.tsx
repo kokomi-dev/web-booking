@@ -88,12 +88,9 @@ const Comments: React.FC<IComments> = ({
       }
     }
   }, [comment, vote, apiUrl, category, slug, user]);
-  const handleVote = useCallback(
-    (value: number) => {
-      setVote(value);
-    },
-    [vote]
-  );
+  const handleVote = useCallback((value: number) => {
+    setVote(value);
+  }, []);
   const handleDeleteComment = async (idComment: string) => {
     const result = await deleteComment(idComment, category, slug);
     if (result.code === 200) {

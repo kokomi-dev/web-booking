@@ -1,4 +1,8 @@
 "use client";
+import React, { Suspense, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Bell, UserPen } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { reqUpdateUser } from "@/api/api-auth";
 import FormInput from "@/components/components/form-input";
@@ -7,17 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { Bell, UserPen } from "lucide-react";
-import React, { Suspense, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import Loading from "../loading";
-import { useRouter } from "next/navigation";
-import AlertNotify from "@/components/components/alert-notify";
 
-const page = () => {
+const MySetingPage = () => {
   const { user } = useAuthenticatedStore();
   const route = useRouter();
-
   const [firstname, setFirstname] = useState(user?.firstname);
   const [lastname, setLastname] = useState(user?.lastname);
   const [password, setPassword] = useState("");
@@ -25,12 +23,11 @@ const page = () => {
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [open, setOpen] = useState(true);
-
   useEffect(() => {
     setFirstname(user?.firstname || "");
     setLastname(user?.lastname || "");
   }, [user]);
+
   const hasNameChanged = (
     firstname: string | undefined,
     lastname: string | undefined,
@@ -289,4 +286,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default MySetingPage;
