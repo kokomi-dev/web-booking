@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { NAVIGATIONS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useSidebarStore } from "@/store/sidebar-store";
-const Nav = () => {
+const Navigation = () => {
   const pathname = usePathname();
   const { handleClose } = useSidebarStore();
   return (
@@ -57,4 +57,4 @@ const Nav = () => {
     </div>
   );
 };
-export default Nav;
+export default Navigation;

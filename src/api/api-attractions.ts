@@ -59,7 +59,9 @@ const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
   }
 };
 
-export type SearchResult = {};
+export type SearchResult = {
+  data: any;
+};
 const searchResult = async ({
   searchParam,
 }: {
@@ -79,8 +81,10 @@ const searchResult = async ({
 };
 const getListProvinces = async () => {
   try {
-    const data = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm");
-    return data.json();
+    const listProvinces = await fetch(
+      "https://esgoo.net/api-tinhthanh/1/0.htm"
+    );
+    return listProvinces.json();
   } catch (error) {
     console.log(error);
   }

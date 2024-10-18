@@ -12,8 +12,12 @@ const LoadingButton = () => {
 };
 const LoadingComponentAccount = () => {
   return (
-    <div className="flex items-center space-x-4">
-      <Skeleton className="h-[50px] w-[200px] rounded-8 animate-pulse  bg-primary/10" />
+    <div className="flex items-start gap-2 p-1 rounded-lg w-[200px] h-[50px] animate-pulse bg-primary/10">
+      <Skeleton className="w-[2.2rem] h-[2.2rem] rounded-full bg-primary/10" />
+      <div className="flex flex-col justify-center space-y-1">
+        <Skeleton className="w-[100px] h-[16px] rounded bg-primary/10" />
+        <Skeleton className="w-[80px] h-[12px] rounded bg-primary/10" />
+      </div>
     </div>
   );
 };

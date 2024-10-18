@@ -301,8 +301,8 @@ const BookingHotel = () => {
                       )}
                     />
                     <p className={cn("text-[0.90rem]", "lg:text-[0.95rem]")}>
-                      Bằng việc nhấn "Chi tiết thanh toán" và hoàn tất đơn đặt,
-                      bạn đồng ý với
+                      Bằng việc nhấn &qout; Thanh toán &ldquo; và hoàn tất đơn
+                      đặt, bạn đồng ý với
                       <span className="text-blue_main_sub">
                         điều khoản và điều kiện
                       </span>
