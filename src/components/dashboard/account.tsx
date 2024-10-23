@@ -31,7 +31,7 @@ import { LoadingComponentAccount } from "../components/loading";
 
 const Account = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [loading, setLoading] = useState(true);
   const {
     setUserLogined,
     user,

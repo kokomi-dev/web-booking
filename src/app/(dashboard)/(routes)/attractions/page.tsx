@@ -1,6 +1,6 @@
 import Intro from "@/components/dashboard/home/intro";
-import ListTrendingTour from "@/components/dashboard/home/list-trending-tour";
-import ListAllTour from "@/components/dashboard/home/list-all-tour";
+import ListTrendingTour from "@/components/dashboard/home/list-trending-attractions";
+import ListAllTour from "@/components/dashboard/home/list-all-attractions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Trending from "@/components/dashboard/home/trending";

@@ -1,12 +1,22 @@
 "use client";
-import React, { Fragment, useCallback, useMemo } from "react";
+import React, { Fragment, useCallback } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
 import { AttractionData } from "@/constants";
 import ShowOnMap from "@/components/components/show-on-map";
+import { LoadingItemSearch } from "@/components/components/loading";
+import { Dot } from "lucide-react";
 
 function convertToSlug(str: string) {
   return String(str)
@@ -94,12 +104,19 @@ const filter3 = [
 interface ShowResultProps {
   data: AttractionData[];
   search: any;
+  isLoading: boolean;
+  nameValue: string | null;
 }
 interface IHandleFilterData {
   data: AttractionData[];
 }
 
-const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
+const ShowResult: React.FC<ShowResultProps> = ({
+  data,
+  search,
+  isLoading,
+  nameValue,
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterBarValue = searchParams.get("filter");
@@ -143,26 +160,43 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
     }
   };
   return (
-    <div className={cn("w-full h-full mt-5", "  lg:w-full")}>
-      {/* main */}
+    <div className={cn("w-full h-full grid grid-y-4", "  lg:w-full")}>
+      {/* head */}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/attractions">
+              Địa điểm du lịch
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/attractions/searchresult?address=''">
+              Tìm kiếm
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{nameValue}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div
         className={cn(
-          "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3"
+          "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3 mt-1"
         )}
       >
         <div className="w-full h-full grid gap-y-2">
           <div>
-            {data?.length > 0 && (
-              <h2 className="text-large font-bold mb-2">
-                {data[0]?.city}{" "}
-                <span className="text-normal font-medium">
-                  : tìm thấy {data?.length} điểm tham quan
-                </span>
-              </h2>
-            )}
-
+            <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
+              <span className="capitalize">{nameValue}</span>
+              <Dot />
+              <span className="text-normal font-medium">
+                tìm thấy {data?.length} điểm tham quan
+              </span>
+            </h2>
             <div className="relative">
-              <ShowOnMap address={search} />
+              <ShowOnMap address={nameValue || ""} />
             </div>
           </div>
           {/* filter attraction */}
@@ -206,9 +240,9 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
               </Button>
             ))}
           </div>
-          {data &&
-            data?.map((attraction, index) => {
-              return (
+          {isLoading && <LoadingItemSearch />}
+          {!isLoading && data.length > 0
+            ? data.map((attraction, index) => (
                 <ItemSearchResult
                   key={index}
                   slug={attraction.slug}
@@ -220,9 +254,13 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
                   description={attraction.description}
                   ratingsQuantity={attraction.rating}
                 />
-              );
-            })}
-          {data.length === 0 && (
+              ))
+            : !isLoading && (
+                <div className="w-full h-20 flex items-center justify-center">
+                  <p>Không tìm thấy kết quả nào</p>
+                </div>
+              )}
+          {/* {data.length === 0 && (
             <div className="w-full h-[20%] flex items-center justify-center  rounded-8">
               <div className="flex items-center justify-center w-full h-full flex-col">
                 <h3 className="text-normal font-medium text-blue_main_sub">
@@ -233,7 +271,7 @@ const ShowResult: React.FC<ShowResultProps> = ({ data, search }) => {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

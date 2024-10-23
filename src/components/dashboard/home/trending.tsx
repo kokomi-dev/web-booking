@@ -29,7 +29,7 @@ const Trending: React.FC<ITrending> = ({ page }) => {
         {ADDRESS_TRENDING.map((address, index) => {
           return (
             <Link
-              href={`/${page}/searchresult?address=${address.slug}&filter=suggest`}
+              href={`/${page}/searchresult?address=${address.name}&filter=suggest`}
               key={index}
               className={cn(
                 "w-full h-full relative transition-all duration-300 ",

@@ -1,6 +1,7 @@
 import { GoStarFill } from "react-icons/go";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 import { MapPin, Share2 } from "lucide-react";
+import { Slash } from "lucide-react";
 import dynamic from "next/dynamic";
 
 import { getDetailAttraction } from "@/api/api-attractions";
@@ -10,11 +11,20 @@ import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/components/booking-container";
 import { AttractionData } from "@/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
-import Loading from "../loading";
 import ImagesDetail from "@/components/components/images-detail";
 
 import Comments from "@/components/components/comments";
 import SupportQuestions from "@/components/dashboard/home/support-questions";
+import NotFoundPage from "@/app/account/not-found";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
 const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });
@@ -33,7 +43,7 @@ const DetailAttractionPage = async ({
 }) => {
   const data = await getDetailAttraction({ slug });
   if (!data) {
-    <Loading />;
+    return <NotFoundPage page="attractions" />;
   }
   return (
     <section className="w-full h-full">
@@ -43,6 +53,19 @@ const DetailAttractionPage = async ({
         )}
       >
         {/* head */}
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/attractions">
+                Địa điểm du lịch
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{data?.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <h3 className="text-center my-3 text-normal text-black_main font-medium underline">
           Lưu ý: tất cả các tour du lịch của chúng tôi đã bao gồm bảo hiểm cho
           quý khách trong toàn bộ chuyến đi
@@ -63,23 +86,26 @@ const DetailAttractionPage = async ({
               </span>
             </div>
           </div>
-          <h3 className="flex items-center justify-start ">
-            <GoStarFill className="text-yellow_main text-[1.2rem] mr-2" />
-            <span className="text-medium mr-2">
-              <span className="text-normal font-semibold">{data.rating}</span>
-              {data.rating > 4 ? (
+          <h3 className="w-fit flex items-center justify-center gap-x-2  ">
+            <GoStarFill className="text-yellow_main text-[1.2rem]" />
+            <span className="text-medium ">
+              <span className="text-normal font-semibold">{data?.rating}</span>
+              {data?.rating > 4 ? (
                 <span className="ml-1 text-small font-medium">Rất tốt</span>
               ) : (
                 <span className="ml-1 text-small font-medium">Tốt</span>
               )}
             </span>
-            <span className="text-[0.9rem] text-black_sub ">
-              ( 0 đánh giá )
+            <span className="text-small text-black_sub ">
+              ( {data.comments.length} đánh giá )
             </span>
           </h3>
           <address className="text-small font-normal text-black_sub flex items-center justify-start gap-1">
             <MapPin className="w-5 h-5 text-red-500" />
-            <span>{data.location.detail}</span>
+            <address className="text-black">
+              <span className="font-medium">Địa chỉ: </span>
+              {data.location.detail}
+            </address>
           </address>
           {data.duration < 2 ? (
             <p className="bg-yellow_main text-white text-smallest font-normal rounded-xl p-1 px-2 block">
@@ -106,11 +132,11 @@ const DetailAttractionPage = async ({
             {/* left */}
             <div className="w-full flex flex-col items-start justify-start gap-6 ">
               {/* schedule in tour */}
-              <div className="w-full pl-3">
+              <div className="w-full h-full pl-3">
                 <h3 className="text-medium font-semibold  text-blue_main  bg-bg_black_sub rounded-8 p-2">
                   Lịch trình tour của chúng tôi
                 </h3>
-                <div className="w-full h-full flex flex-col flex-grow ">
+                <div className="w-full h-full grid gap-y-2 ">
                   <ScheduleDisplay data={data} />
                 </div>
               </div>

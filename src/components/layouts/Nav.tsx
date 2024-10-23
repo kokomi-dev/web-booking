@@ -28,11 +28,11 @@ const Navigation = () => {
               key={url}
               href={url}
               className={cn(
-                "flex items-center justify-start py-2 px-3 transition-all duration-300 select-none rounded-14",
+                "flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
                 "hover:bg-bg_primary_active  cursor-pointer",
                 "lg:text-white",
                 pathname.includes(url) &&
-                  "lg:bg-bg_primary_active lg:text-white lg:rounded-14 lg:border-1"
+                  "lg:bg-bg_primary_active lg:text-white lg:rounded-8 lg:border-1"
               )}
               onClick={handleClose}
             >

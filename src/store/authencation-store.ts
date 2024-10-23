@@ -7,10 +7,17 @@ export interface User {
   lastname: string;
   email: string;
   numberPhone: string;
-  booked: [
+  bookedAttractions: [
     {
       tripId: string;
-      category: string;
+      orderId: string;
+      bookingDate: Date;
+      amount: number;
+    }
+  ];
+  bookedHotels: [
+    {
+      tripId: string;
       orderId: string;
       bookingDate: Date;
       amount: number;

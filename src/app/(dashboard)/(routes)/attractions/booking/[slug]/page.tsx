@@ -1,6 +1,6 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
-import { ChevronLeft, Dot } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
@@ -11,9 +11,8 @@ import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData } from "@/constants";
+import { AttractionData, HotelData } from "@/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { getDetailHotel } from "@/api/api-hotels";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +26,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { getDetailAttraction } from "@/api/api-attractions";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const BookingHotel = () => {
   const { slug } = useParams<{
@@ -34,7 +41,7 @@ const BookingHotel = () => {
   }>();
   const { user } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<HotelData | null>(null);
+  const [data, setData] = useState<AttractionData | null>(null);
   const infoBooking = z.object({
     lastname: z.string().min(2, "Vui lòng nhập tên"),
     firstname: z.string().min(2, "Vui lòng nhập họ"),
@@ -71,10 +78,10 @@ const BookingHotel = () => {
     }
     if (user) {
       form.reset({
-        firstname: user.firstname || "",
-        lastname: user.lastname || "",
-        email: user.email || "",
-        numberphone: user.numberPhone || "",
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        numberphone: user.numberPhone,
         special: "",
       });
     }
@@ -104,9 +111,11 @@ const BookingHotel = () => {
   };
   const handleSendEmailConfirm = async (email: string) => {
     try {
-      const data = await sendEmailConfirm(user ? user.email : email);
-      if (data) {
-        setConfirm(data);
+      if (user) {
+        const data = await sendEmailConfirm(user.email);
+        if (data) {
+          setConfirm(data);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -132,18 +141,28 @@ const BookingHotel = () => {
               "w-full flex flex-col items-start justify-start gap-2"
             )}
           >
-            <div
-              className={cn(
-                "w-[30%] flex  items-center justify-start transition-all duration-300 cursor-pointer hover:underline",
-                "lg:w-[10%]"
-              )}
-              onClick={() => router.back()}
-            >
-              <ChevronLeft className="text-yellow_main" />
-              <span className="ml-2 text-small">Loại lưu trú</span>
-            </div>
-            <div className="text-smallest">
-              <span className="text-blue_main_sub">Bước 1/2</span>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/attractions">
+                    Địa điểm du lịch
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/attractions/${data.slug}`}>
+                    {data.name}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Đặt chỗ</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+
+            <div className="text-small">
+              <span className="text-blue_main_sub font-medium">Bước 1/2</span>
             </div>
             <div className={cn("text-medium font-bold", "lg:text-large")}>
               <h1>{data?.name}</h1>
@@ -209,6 +228,7 @@ const BookingHotel = () => {
                           <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input
+                              disabled
                               type="email"
                               placeholder="Email"
                               {...field}
@@ -339,7 +359,7 @@ const BookingHotel = () => {
                     lastName={user ? user.lastname : ""}
                     email={user ? user.email : ""}
                     tripId={data._id}
-                    category="hotel"
+                    category="attraction"
                   />
                 </DialogContent>
               </Dialog>
@@ -355,22 +375,16 @@ const BookingHotel = () => {
                   "w-full h-full flex items-start justify-start gap-2 border-b-[0.4px] border-[#999] py-4"
                 )}
               >
-                {data?.images.map((img, index) => {
-                  if (index === 0) {
-                    return (
-                      <Image
-                        priority
-                        key={index}
-                        alt="img-booking"
-                        src={img}
-                        width={900}
-                        height={600}
-                        sizes="50"
-                        className="w-[8rem] h-[8rem] rounded-lg"
-                      />
-                    );
-                  }
-                })}
+                <Image
+                  priority
+                  alt="img-booking"
+                  src={data?.images[0]}
+                  width={900}
+                  height={600}
+                  sizes="50"
+                  className="w-[8rem] h-[8rem] rounded-lg"
+                />
+
                 <span className="font-bold text-[1.1rem]">{data?.name}</span>
               </div>
               <div className="w-full h-full border-b-[0.4px] border-[#999] flex flex-col items-start justify-start gap-4 py-2">

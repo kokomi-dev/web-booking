@@ -9,7 +9,6 @@ const convertToSlug = (text: string) => {
 
 const ListProvinces = async () => {
   const { data } = await getListProvinces();
-
   return (
     <div className="w-full h-auto flex items-start justify-start flex-col gap-x-2">
       <h3 className="text-large font-semibold">
@@ -30,9 +29,7 @@ const ListProvinces = async () => {
             return (
               <Link
                 key={index}
-                href={`/attractions/searchresult?address=${convertToSlug(
-                  province.name_en
-                )}?filter=suggest`}
+                href={`/attractions/searchresult?address=${province.name}&filter=suggest`}
                 className="text-small font-normal p-1 rounded-8 bg-bg_black_sub text-center transition-all duration-300 hover:bg-bg_primary_hover"
               >
                 <span className="text-smallest text-black_main font-normal">

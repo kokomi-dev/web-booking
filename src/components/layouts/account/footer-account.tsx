@@ -5,12 +5,12 @@ const FooterAccount = () => {
   return (
     <div
       className={cn(
-        "w-full h-auto p-4 text-small",
+        "w-full h-fit p-4 text-small",
         "lg:p-36 bg-bg_black_sub text-black flex flex-col items-start justify-start gap-2"
       )}
     >
       <div>
-        <ol className="w-full flex items-center justify-start gap-x-6 flex-wrap list-disc">
+        <ol className="w-full flex items-center justify-start gap-x-6 flex-wrap ">
           <li
             className={cn(
               "w-fit transition-all duration-200",

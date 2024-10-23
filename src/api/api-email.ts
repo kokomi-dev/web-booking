@@ -5,7 +5,7 @@ const sendEmailConfirm = async (email: string) => {
     const response = await fetch(apiUrl + "/email/send-email", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email: email }),
     });

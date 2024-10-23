@@ -21,6 +21,7 @@ import { convertToSlug } from "@/constants";
 import { getListProvinces } from "@/api/api-attractions";
 import { ChevronDown, Dot } from "lucide-react";
 import { FaRegCalendarCheck } from "react-icons/fa";
+import Link from "next/link";
 
 // interface
 interface NumberPersonType {
@@ -100,15 +101,15 @@ export const AddressTravel = ({
     <div className="w-full relative">
       <Input
         type="text"
-        placeholder="Bạn muốn đi đâu"
+        placeholder="Nhập tên tỉnh thành !"
         className={cn(
-          "w-full text-normal shadow-none justify-between font-normal  bg-transparent text-black border-none outline-none placeholder-black transition-all duration-300",
+          "w-full text-normal font-normal shadow-none justify-between   bg-transparent text-black border-none outline-none placeholder-black transition-all duration-300",
           "lg:text-normal",
           !open && "placeholder-black_sub"
         )}
         value={valueSearch}
         onChange={(e: any) => {
-          setValueSearch(e.target.value); // Update search value
+          setValueSearch(e.target.value);
         }}
         onFocus={() => {
           setOpen(false);
@@ -119,30 +120,63 @@ export const AddressTravel = ({
       />
 
       <div
-        hidden={open}
-        className="w-full max-h-[300px] rounded-8 absolute left-0 right-0 top-0 translate-y-[50px] bg-white shadow-2xl  text-black overflow-y-auto"
+        className={cn(
+          "w-full h-auto rounded-8 absolute right-0 top-0 translate-y-[70px] opacity-0 visible   shadow-2xl  text-black transition-all duration-200 ",
+          !open && "opacity-100 translate-y-[50px]"
+        )}
       >
         {!valueSearch ? (
-          ""
-        ) : data && data.length > 0 ? (
-          data.map((item, index) => (
-            <div
-              key={index}
-              className="px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
-              onMouseDown={() => {
-                setValue(item.name_en);
-                setValueSearch(item.name);
-              }}
-            >
-              <span className="text-small font-medium">{item.name}</span>
+          <div className="w-full max-h-[300px] bg-white h-full p-3 rounded-8 ">
+            <div className="w-full flex-wrap flex gap-x-2">
+              <Link
+                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
+                href="/attractions"
+              >
+                Địa điểm tham quan
+              </Link>
+              <Link
+                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
+                href="/hotels"
+              >
+                Lưu trú
+              </Link>
+              <Link
+                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
+                href="/contact"
+              >
+                Liên hệ tư vấn
+              </Link>
             </div>
-          ))
+            <div className="mt-2">
+              <h6 className="text-small font-normal">Tìm kiếm gần đây:</h6>
+              <ul className="text-small">
+                <li>Đang cập nhật</li>
+              </ul>
+            </div>
+          </div>
         ) : (
-          <div className="p-2 text-small font-normal">
-            {valueSearch ? (
-              <span>Nhập chính xác tên tỉnh thành !</span>
+          <div className="w-full max-h-[300px]  h-full overflow-y-auto bg-white rounded-8">
+            {data && data.length > 0 ? (
+              data.map((item, index) => (
+                <div
+                  key={index}
+                  className=" px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
+                  onMouseDown={() => {
+                    setValue(item.name);
+                    setValueSearch(item.name);
+                  }}
+                >
+                  <span className="text-small font-medium">{item.name}</span>
+                </div>
+              ))
             ) : (
-              <span></span>
+              <div className="p-2 text-small font-normal">
+                {valueSearch ? (
+                  <span>Nhập chính xác tên tỉnh thành !</span>
+                ) : (
+                  <span></span>
+                )}
+              </div>
             )}
           </div>
         )}
@@ -176,7 +210,7 @@ export const DatePicker: React.FC<IDatePicker> = ({
           {date ? (
             format(date, "dd/MM/yyyy", { locale: vi })
           ) : (
-            <span className="flex items-center justify-start gap-x-2 ">
+            <span className="text-normal font-normal ">
               Vui lòng chọn ngày !
             </span>
           )}
@@ -487,8 +521,7 @@ const Search: React.FC<SearchProps> = ({
     if (!value) {
       setError(true);
     } else {
-      const slugSearch = convertToSlug(value);
-      router.push(`/${page}/searchresult?address=${slugSearch}&filter=suggest`);
+      router.push(`/${page}/searchresult?address=${value}&filter=suggest`);
     }
   };
   return (

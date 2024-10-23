@@ -1,6 +1,6 @@
 "use client";
 
-import Navigation from "@/components/layouts/nav";
+import Navigation from "./nav";
 import { cn } from "@/lib/utils";
 const Sidebar = () => {
   return (

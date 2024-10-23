@@ -1,4 +1,3 @@
-"use client";
 import { AttractionData } from "@/constants";
 
 interface ScheduleDisplayProps {
@@ -10,13 +9,13 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
       {data.schedule.length > 0 ? (
         data.schedule.map((sche: string, index: number) => {
           return (
-            <div key={index}>
+            <div key={index} className="w-full ">
               <h4 className="underline text-normal font-semibold">
                 Ngày <span>{index + 1}</span>
               </h4>
               <textarea
                 readOnly
-                className="w-full min-h-[30vh] text-normal resize-none box-border border-none outline-none mt-1 text-justify"
+                className="w-full min-h-[40vh] text-normal resize-none box-border border-none outline-none mt-1 text-justify"
                 value={sche}
               ></textarea>
             </div>
