@@ -1,15 +1,22 @@
 "use client";
-import { BadgeHelp, Bell } from "lucide-react";
+import { BadgeHelp } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import Account from "@/components/dashboard/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
 import Search from "@/components/components/search";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-const HeaderDashboard = async () => {
+import Notifycation from "@/components/components/notifycation";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+const HeaderDashboard = () => {
   const pathname = usePathname();
   return (
     <div
@@ -29,7 +36,7 @@ const HeaderDashboard = async () => {
           <Link href="/attractions" className="text-large e font-mono">
             KoKoTravel.com
           </Link>
-          <div className="flex items-center justify-start gap-2">
+          <div className="flex items-center justify-start gap-x-2">
             <div
               className={cn(
                 "hidden p-2 rounded-lg transition-all duration-300",
@@ -47,8 +54,21 @@ const HeaderDashboard = async () => {
                 Đăng chỗ nghỉ của bạn
               </h3>
             </div>
-            <BadgeHelp className="size__icon-small hidden lg:block" />
-            <Bell className="size__icon--small hidden lg:block" />
+            <HoverCard>
+              <HoverCardTrigger>
+                <BadgeHelp className="size__icon-small hidden lg:block hover:cursor-pointer" />
+              </HoverCardTrigger>
+              <HoverCardContent
+                align="end"
+                className="bg-black text-white border-none p-1 px-2 w-full shadow-2xl z-10"
+              >
+                <Link href="/contact" className="text-smallest font-normal">
+                  Liên hệ tư vấn
+                </Link>
+              </HoverCardContent>
+            </HoverCard>
+
+            <Notifycation />
           </div>
         </div>
         <div
