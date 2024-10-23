@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { NAVIGATIONS } from "@/constants";
-import Image from "next/image";
 import {
   Sheet,
   SheetContent,

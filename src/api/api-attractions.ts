@@ -1,3 +1,5 @@
+import { AttractionData } from "@/constants";
+
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const getAllAttraction = async () => {
   const data = await fetch(`${apiUrl}/attraction`, {
@@ -27,17 +29,21 @@ const getDetailAttraction = async ({ slug }: { slug: string }) => {
         "Content-Type": "application/json",
       },
     });
-    if (!response) {
-      throw new Error("Failed to fetch attractions details");
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error("Không tìm thấy địa điểm tham quan");
+      }
+      throw new Error("Lỗi khi lấy chi tiết địa điểm tham quan");
     }
     const result = await response.json();
+    if (!result || !result.data) {
+      throw new Error("Dữ liệu không hợp lệ");
+    }
     return result.data;
-  } catch (error) {
-    console.error("Error fetching attractions details:", error);
-    throw new Error("Error fetching attractions details");
+  } catch (error: any) {
+    console.error("Error fetching attractions details:", error.message);
   }
 };
-
 const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
   try {
     const response = await fetch(`${apiUrl}/attraction/getTourBooked`, {
@@ -60,7 +66,7 @@ const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
 };
 
 export type SearchResult = {
-  data: any;
+  data: AttractionData[];
 };
 const searchResult = async ({
   searchParam,

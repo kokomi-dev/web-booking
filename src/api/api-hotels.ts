@@ -20,14 +20,27 @@ const getAllHotel = async () => {
   return response;
 };
 const getDetailHotel = async ({ slug }: { slug: string }) => {
-  const data = await fetch(`${apiUrl}/hotel/${slug}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const response = await data.json();
-  return response.data;
+  try {
+    const data = await fetch(`${apiUrl}/hotel/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!data.ok) {
+      if (data.status === 404) {
+        throw new Error("Không tìm thấy chỗ nghỉ");
+      }
+      throw new Error("Lỗi khi lấy chỗ nghỉ");
+    }
+    const response = await data.json();
+    if (!response || !response.data) {
+      throw new Error("Dữ liệu lỗi");
+    }
+    return response.data;
+  } catch (error: any) {
+    console.error("Xảy ra lỗi khi lấy dữ liệu ", error.message);
+  }
 };
 const getHotelOutStanding = async () => {
   const data = await fetch(`${apiUrl}/hotel?fillter=outstanding`, {
@@ -68,12 +81,12 @@ const getHotelBooked = async ({ arr }: { arr: string[] | null }) => {
       }),
     });
     if (!response) {
-      throw new Error("Failed to fetch tour booked");
+      throw new Error("Failed to fetch hotel booked");
     }
     const result = await response.json();
     return result.data;
   } catch (error) {
-    console.error("Error fetching tour booked:", error);
+    console.error("Error fetching hotel booked:", error);
   }
 };
 // type

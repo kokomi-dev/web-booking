@@ -25,6 +25,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+import Link from "next/link";
 interface CardBookingTicketProps {
   duration: number;
   price: [number, number];
@@ -40,7 +42,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   slug,
 }) => {
   const router = useRouter();
-
+  const { user, isAuthenticated } = useAuthenticatedStore();
   const cardBookingBody = z
     .object({
       children: z.string().min(0, "Số trẻ em"),
@@ -165,16 +167,24 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
                 </FormItem>
               )}
             />
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
-              <Button
-                type="submit"
-                className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
-              >
-                <span className="text-white text-small font-normal">
-                  Đặt ngay
-                </span>
-              </Button>
-              <Button className="w-full text-small font-normal">Liên hệ</Button>
+            <div className="w-full ">
+              {isAuthenticated && user ? (
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
+                  <Button
+                    type="submit"
+                    className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+                  >
+                    <span className="text-white text-small font-normal">
+                      Đặt ngay
+                    </span>
+                  </Button>
+                  <Button className="w-full text-small font-normal">
+                    Liên hệ
+                  </Button>
+                </div>
+              ) : (
+                <Link href="/sign-in">Đăng nhập để tiếp tục</Link>
+              )}
             </div>
           </form>
         </Form>

@@ -1,3 +1,4 @@
+"use client";
 import { BadgeHelp, Bell } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -6,8 +7,10 @@ import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
 import Search from "@/components/components/search";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const HeaderDashboard = async () => {
+  const pathname = usePathname();
   return (
     <div
       className={cn(
@@ -33,7 +36,14 @@ const HeaderDashboard = async () => {
                 "lg:block hover:bg-bg_primary_active hover:cursor-pointer"
               )}
             >
-              <h3 className="text-small font-medium  ">
+              <h3
+                className={cn(
+                  "text-small font-medium  ",
+                  pathname.includes("attractions") && "hidden",
+                  pathname.includes("contact") && "hidden",
+                  pathname.includes("booking") && "hidden"
+                )}
+              >
                 Đăng chỗ nghỉ của bạn
               </h3>
             </div>

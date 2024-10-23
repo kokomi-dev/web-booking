@@ -51,7 +51,7 @@ const Item = ({ title }: { title: string }) => {
 };
 const ContactPage = () => {
   return (
-    <div className={cn("w-full ")}>
+    <section className="w-full">
       {/* head */}
       <div className="w-full ">
         <h6 className="pb-4">Trung tâm trợ giúp</h6>
@@ -115,7 +115,7 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

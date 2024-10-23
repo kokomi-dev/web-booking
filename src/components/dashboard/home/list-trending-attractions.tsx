@@ -17,7 +17,7 @@ const ListTrendingTour = async () => {
   const data = await fechData();
   return (
     <div className={cn("w-full")}>
-      <h2 className="text-large font-bold">Tour nổi bật của chúng tôi</h2>
+      <h2 className="text-large font-bold">Địa điểm tham quan nổi bật</h2>
       <div className="">
         <p className="text-black_sub text-small mb-1">
           Khám phá các điểm đến hàng đầu theo cách bạn thich tại Việt Nam chúng

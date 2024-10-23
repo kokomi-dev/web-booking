@@ -4,34 +4,37 @@ import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-attractions";
 import ShowResult from "@/components/dashboard/home/show-resutl";
 import { cn } from "@/lib/utils";
-import { AttractionData } from "@/constants";
-import Loading from "./loading";
+import { AttractionData, convertToSlug } from "@/constants";
 
 const SearchResultPage = () => {
   const searchParams = useSearchParams();
-  const search = searchParams.get("address");
-
+  const nameValue = searchParams.get("address");
+  const search = nameValue && convertToSlug(nameValue);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<AttractionData[]>([]);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     const fetcher = async () => {
-      setLoading(true);
       try {
         const data = await searchResult({ searchParam: search || "" });
         return setData(data.data);
       } catch (error) {
         throw new Error();
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     fetcher();
   }, [search]);
 
-  if (loading) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <ShowResult data={data} search={search} />
+      <ShowResult
+        data={data}
+        search={search}
+        isLoading={isLoading}
+        nameValue={nameValue}
+      />
     </div>
   );
 };

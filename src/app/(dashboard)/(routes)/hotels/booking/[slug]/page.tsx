@@ -1,6 +1,14 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
 import { ChevronLeft, Dot } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
@@ -128,6 +136,24 @@ const BookingHotel = () => {
           )}
         >
           {/* head */}
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/hotels">Lưu trú</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/hotels/${data.slug}`}>
+                  {data.name}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Đặt nơi lưu trú</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
           <div
             className={cn(
               "w-full flex flex-col items-start justify-start gap-2"

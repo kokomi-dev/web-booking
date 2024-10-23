@@ -27,20 +27,23 @@ const BookedAttractions = () => {
   const [data, setData] = useState<AttractionData[]>([]);
   const [statuses, setStatuses] = useState<number[]>([]);
 
-  const arr: string[] = [];
-  const arrOrderId: string[] = [];
+  let arr: string[] = [];
+  let arrOrderId: string[] = [];
 
   useEffect(() => {
-    if (!user || !user.booked) {
+    if (!user || !user.bookedAttractions) {
       return;
-    }
-
-    user.booked.forEach((item) => {
-      if (item.category === "tour") {
+    } else {
+      if (user.bookedAttractions.length < 1) {
+        arr = [];
+        arrOrderId = [];
+      } else {
+      }
+      user.bookedAttractions.forEach((item) => {
         arr.push(item.tripId);
         arrOrderId.push(item.orderId);
-      }
-    });
+      });
+    }
 
     const fetchBookings = async () => {
       setLoading(true);
@@ -96,49 +99,55 @@ const BookedAttractions = () => {
   if (loading) {
     return <Loading />;
   }
-
+  console.log(data);
   return (
     <div className="w-full h-full py-4">
-      {user && user.booked && user.booked.length > 0 ? (
+      <h3 className="text-medium font-semibold text-black">
+        Địa điểm tham quan đã đặt chỗ
+      </h3>
+      {user && user.bookedAttractions && user.bookedAttractions.length > 0 ? (
         <section className="w-full h-full grid gap-y-4">
           <div>
-            <h3 className="text-medium font-semibold text-black">
-              Địa điểm tham quan đã đặt chỗ
-            </h3>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>STT</TableHead>
                   <TableHead>Ảnh</TableHead>
                   <TableHead>Tên</TableHead>
-                  <TableHead className="text-right">Giá</TableHead>
+                  <TableHead className="text-right">Giá-VNĐ</TableHead>
                   <TableHead className="text-right">Ngày đặt</TableHead>
                   <TableHead className="text-right">Trạng thái</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map((item, index) => (
+                {data?.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
                       <Image
                         src={item.images[0]}
-                        alt="Tour"
+                        alt="attraction booked"
                         width={300}
                         height={300}
-                        className="size-16"
+                        className="size-16 rounded-8"
                       />
                     </TableCell>
-                    <TableCell className="text-small font-medium">
+                    <TableCell className="text-small text-blue_main font-semibold">
                       {item.name}
                     </TableCell>
                     <TableCell className="text-right">
-                      {formatPrice(user.booked[index].amount)} VNĐ
+                      <span className="text-yellow_main font-medium underline">
+                        {formatPrice(user.bookedAttractions[index].amount)}
+                      </span>
                     </TableCell>
                     <TableCell className="text-right">
-                      {format(user.booked[index].bookingDate, "dd/MM/yyyy", {
-                        locale: vi,
-                      })}
+                      {format(
+                        user.bookedAttractions[index].bookingDate,
+                        "dd/MM/yyyy",
+                        {
+                          locale: vi,
+                        }
+                      )}
                     </TableCell>
                     <TableCell className="text-right">
                       {checkStatusBtn(statuses[index], index) || "Checking..."}
@@ -150,7 +159,9 @@ const BookedAttractions = () => {
           </div>
         </section>
       ) : (
-        <TableRow>Chưa có điểm tham quan nào được đặt</TableRow>
+        <TableRow className="text-black font-normal">
+          Chưa có điểm tham quan nào được đặt
+        </TableRow>
       )}
     </div>
   );

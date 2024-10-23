@@ -1,15 +1,27 @@
 "use client";
+
+import React, { Fragment, useCallback } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import ItemSearchResult from "@/components/components/item-search-result";
 import { HotelData, convertToSlug } from "@/constants";
 import { cn } from "@/lib/utils";
-import React, { Fragment, useCallback } from "react";
-import ItemSearchResult from "@/components/components/item-search-result";
 import { Button } from "@/components/ui/button";
-import { useRouter, useSearchParams } from "next/navigation";
 import ShowOnMap from "@/components/components/show-on-map";
+import { Dot } from "lucide-react";
 
 interface ISearchResult {
   data: HotelData[];
   search: any;
+  nameValue: string | null;
 }
 const FilterComponent = ({
   title,
@@ -89,7 +101,11 @@ const filter3 = [
   "từ 3.5 trở lên",
   "từ 3 trở lên",
 ];
-const SearchResultMain: React.FC<ISearchResult> = ({ data, search }) => {
+const SearchResultMain: React.FC<ISearchResult> = ({
+  data,
+  search,
+  nameValue,
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterBarValue = searchParams.get("filter");
@@ -134,7 +150,25 @@ const SearchResultMain: React.FC<ISearchResult> = ({ data, search }) => {
     }
   };
   return (
-    <div className={cn("w-full h-full mt-5", "  lg:w-full")}>
+    <div className={cn("w-full h-full  grid gap-y-4", "  lg:w-full")}>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/hotels">Lưu trú</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/hotels/searchresult?address=''">
+              Tìm kiếm
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{nameValue}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {/* main */}
       <div
         className={cn(
@@ -143,16 +177,15 @@ const SearchResultMain: React.FC<ISearchResult> = ({ data, search }) => {
       >
         <div className="w-full h-full grid gap-y-2">
           <div>
-            {data?.length > 0 && (
-              <h2 className="text-large font-bold mb-2">
-                {data[0]?.city}
-                <span className="text-normal font-medium">
-                  : tìm thấy {data?.length} chỗ nghỉ
-                </span>
-              </h2>
-            )}
+            <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
+              <span className="capitalize">{nameValue}</span>
+              <Dot />
+              <span className="text-normal font-medium">
+                tìm thấy {data?.length} chỗ nghỉ
+              </span>
+            </h2>
             <div className="w-full h-full">
-              <ShowOnMap address={search} />
+              <ShowOnMap address={nameValue || ""} />
             </div>
           </div>
           {/* filter tour */}
