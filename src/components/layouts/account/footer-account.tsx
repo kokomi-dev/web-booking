@@ -3,14 +3,14 @@ import React from "react";
 
 const FooterAccount = () => {
   return (
-    <div
+    <footer
       className={cn(
-        "w-full h-fit p-4 text-small",
-        "lg:p-36 bg-bg_black_sub text-black flex flex-col items-start justify-start gap-2"
+        "w-full h-[100px] p-4 text-small px-4 md:px-12 lg:px-24 ",
+        "xl:px-36  bg-bg_black_sub text-black grid gap-2"
       )}
     >
-      <div>
-        <ol className="w-full flex items-center justify-start gap-x-6 flex-wrap ">
+      <div className="w-full h-auto ">
+        <ol className="w-full flex items-center justify-center gap-x-6 flex-wrap text-smallest font-normal text-center ">
           <li
             className={cn(
               "w-fit transition-all duration-200",
@@ -53,12 +53,12 @@ const FooterAccount = () => {
           </li>
         </ol>
       </div>
-      <div>
+      <div className="text-center">
         <p className="text-smallest font-extralight">
           Bản quyền © 2024 KoKoTravel.com™. Bảo lưu mọi quyền.
         </p>
       </div>
-    </div>
+    </footer>
   );
 };
 

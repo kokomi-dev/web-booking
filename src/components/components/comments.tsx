@@ -54,7 +54,6 @@ const Comments: React.FC<IComments> = ({
         comments: initialComments || [],
         rating: initialRating,
       },
-      // refreshInterval: 1000,
     }
   );
   const comments = data?.comments;
@@ -77,7 +76,6 @@ const Comments: React.FC<IComments> = ({
         user.firstname + " " + user.lastname,
         user.lastname.slice(0, 1)
       );
-      console.log(result);
       if (result.message && result.data) {
         await mutate(`${apiUrl}/${category}/${slug}`);
         setVote(0);
