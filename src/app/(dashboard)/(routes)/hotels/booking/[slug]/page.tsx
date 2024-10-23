@@ -367,6 +367,7 @@ const BookingHotel = () => {
                     email={user ? user.email : ""}
                     tripId={data._id}
                     category="hotel"
+                    img={data.images[0]}
                   />
                 </DialogContent>
               </Dialog>

@@ -5,12 +5,14 @@ interface ICreatePayment {
   userId: string | number;
   tripId: string;
   category: string;
+  img: string;
 }
 const createRequestPayment = async ({
   amount,
   userId,
   tripId,
   category,
+  img,
 }: ICreatePayment) => {
   try {
     const result = await fetch(apiUrl + "/pay/create-payment-url", {
@@ -18,8 +20,9 @@ const createRequestPayment = async ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount, userId, tripId, category }),
+      body: JSON.stringify({ amount, userId, tripId, category, img }),
     });
+    console.log(result);
     return result.json();
   } catch (error) {
     console.log(error);

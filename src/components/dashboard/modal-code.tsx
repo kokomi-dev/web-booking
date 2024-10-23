@@ -27,6 +27,7 @@ interface ModalConfirmCodeProps {
   totalBooking: any;
   tripId: string;
   category: string;
+  img: string;
 }
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,
@@ -35,6 +36,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   totalBooking,
   category,
   tripId,
+  img,
 }) => {
   const { user } = useAuthenticatedStore();
 
@@ -53,6 +55,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           userId: user._id,
           tripId,
           category,
+          img,
         });
         if (result && result.data) {
           router.push(result?.data?.order_url);

@@ -1,7 +1,6 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
-import { ChevronLeft } from "lucide-react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -11,7 +10,7 @@ import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { AttractionData, HotelData } from "@/constants";
+import { AttractionData } from "@/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -86,8 +85,6 @@ const BookingHotel = () => {
       });
     }
   }, [slug, user, form]);
-
-  const router = useRouter();
 
   const [openModal, setOpenModal] = useState(false);
   const [confirm, setConfirm] = useState({
@@ -359,6 +356,7 @@ const BookingHotel = () => {
                     lastName={user ? user.lastname : ""}
                     email={user ? user.email : ""}
                     tripId={data._id}
+                    img={data.images[0]}
                     category="attraction"
                   />
                 </DialogContent>

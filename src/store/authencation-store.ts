@@ -23,6 +23,14 @@ export interface User {
       amount: number;
     }
   ];
+  notifys: [
+    {
+      title: string;
+      time: string;
+      content: string;
+      img: string;
+    }
+  ];
 }
 
 interface AuthenticatedStoreProps {
