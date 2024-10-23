@@ -33,7 +33,7 @@ const HeaderAccount = () => {
     } catch (error) {}
   }, []);
   return (
-    <div className="w-full h-auto ">
+    <header className="w-full h-auto ">
       <div
         className={cn(
           "w-full h-[64px] text-normal text-white sticky top-0 z-[15] flex items-center justify-between p-3 px-10 bg-bg_primary_main container-padding",
@@ -160,7 +160,7 @@ const HeaderAccount = () => {
           </Suspense>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 

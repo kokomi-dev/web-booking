@@ -8,13 +8,9 @@ interface IAccount {
 const AccountLayout: React.FC<IAccount> = ({ children }) => {
   return (
     <Fragment>
-      <header>
-        <HeaderAccount />
-      </header>
+      <HeaderAccount />
       <main className="container-padding">{children}</main>
-      <footer>
-        <FooterAccount />
-      </footer>
+      <FooterAccount />
     </Fragment>
   );
 };
