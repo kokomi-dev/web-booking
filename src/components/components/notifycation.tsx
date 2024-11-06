@@ -73,7 +73,7 @@ const Notifycation = () => {
   const { user } = useAuthenticatedStore();
   return (
     <div>
-      {user && user ? (
+      {user && user.notifys ? (
         <Popover>
           <PopoverTrigger className="relative flex items-center justify-center">
             <Bell

@@ -89,7 +89,7 @@ const DetailAttractionPage = async ({
           <h3 className="w-fit flex items-center justify-center gap-x-2  ">
             <GoStarFill className="text-yellow_main text-[1.2rem]" />
             <span className="text-medium ">
-              <span className="text-normal font-semibold">{data?.rating}</span>
+              <span className="text-normal font-semibold">{data.rating}</span>
               {data?.rating > 4 ? (
                 <span className="ml-1 text-small font-medium">Rất tốt</span>
               ) : (
@@ -119,20 +119,24 @@ const DetailAttractionPage = async ({
         <ImagesDetail data={data} />
         {/* rules */}
         <div className="w-full h-full flex flex-col items-start justify-start gap-y-4">
-          <div className="flex items-center ">
-            <FaCalendarXmark className="text-yellow_main text-[1.3rem] mr-2" />
-            <span>
-              Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi (
-              ngoài thời gian quy định chúng tôi sẽ trừ tiền chiết khấu với quý
-              khách )
-            </span>
-          </div>
+          {data.cancelFree && (
+            <div className="flex items-center ">
+              <FaCalendarXmark className="text-green_main text-[1.3rem] mr-2" />
+              <h4 className="text-normal text-green_main font-semibold">
+                Có lựa chọn hủy miễn phí
+              </h4>
+            </div>
+          )}
           {/* content and book tickets */}
           <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 lg:grid-cols-layout-2">
             {/* left */}
             <div className="w-full flex flex-col items-start justify-start gap-6 ">
+              {/* descriptiton */}
+              <p className="text-small font-normal text-justify">
+                {data.description}
+              </p>
               {/* schedule in tour */}
-              <div className="w-full h-full pl-3">
+              <div className="w-full h-full ">
                 <h3 className="text-medium font-semibold  text-blue_main  bg-bg_black_sub rounded-8 p-2">
                   Lịch trình tour của chúng tôi
                 </h3>
@@ -148,7 +152,7 @@ const DetailAttractionPage = async ({
                       key={index}
                       className="flex items-center justify-start gap-3 py-1"
                     >
-                      <FaCheck className="text-small text-[#018235] " />
+                      <FaCheck className="text-normal text-[#018235] " />
 
                       <span className="text-normal">{item}</span>
                     </li>

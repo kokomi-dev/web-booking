@@ -253,6 +253,7 @@ const ShowResult: React.FC<ShowResultProps> = ({
                   location={attraction.location.detail}
                   description={attraction.description}
                   ratingsQuantity={attraction.rating}
+                  cancelFree={attraction.cancelFree}
                 />
               ))
             : !isLoading && (

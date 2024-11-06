@@ -15,28 +15,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { IoBedOutline, IoPersonOutline } from "react-icons/io5";
 
-import { convertToSlug } from "@/constants";
 import { getListProvinces } from "@/api/api-attractions";
-import { ChevronDown, Dot } from "lucide-react";
-import { FaRegCalendarCheck } from "react-icons/fa";
+import { ChevronDown, Dot, MapPinned, User } from "lucide-react";
 import Link from "next/link";
 
 // interface
 interface NumberPersonType {
   className?: string;
   isBooking?: boolean;
-  popoverOpen: boolean;
-  setPopoverOpen: (open: boolean) => void;
   handlePopoverChange?: (open: boolean) => void;
   error: boolean;
   setError: (error: boolean) => void;
   numberAdults: number;
   numberChildren: number;
   numberRoom: number;
-  numberRoomDouble: number;
-  setNumberRoomDouble: (value: number) => void;
+  numberRoomDouble?: number;
+  setNumberRoomDouble?: (value: number) => void;
   setNumberAdults: (value: number) => void;
   setNumberChildren: (value: number) => void;
   setNumberRoom: (value: number) => void;
@@ -98,26 +93,29 @@ export const AddressTravel = ({
   }, [valueSearch]);
 
   return (
-    <div className="w-full relative">
-      <Input
-        type="text"
-        placeholder="Nhập tên tỉnh thành !"
-        className={cn(
-          "w-full text-normal font-normal shadow-none justify-between   bg-transparent text-black border-none outline-none placeholder-black transition-all duration-300",
-          "lg:text-normal",
-          !open && "placeholder-black_sub"
-        )}
-        value={valueSearch}
-        onChange={(e: any) => {
-          setValueSearch(e.target.value);
-        }}
-        onFocus={() => {
-          setOpen(false);
-        }}
-        onBlur={() => {
-          setOpen(true);
-        }}
-      />
+    <div className="w-full relative ">
+      <div className="w-full  min-h-[40px] max-h-[48px] h-full  flex items-center justify-start gap-x-1 bg-bg_primary_white rounded-8 px-2 py-1">
+        <MapPinned className="size-5 text-black_main " />
+        <Input
+          type="text"
+          placeholder="Nhập tên tỉnh thành !"
+          className={cn(
+            "w-full  text-normal font-normal shadow-none justify-between   bg-transparent text-black border-none outline-none placeholder-black plac transition-all duration-300",
+            "lg:text-normal ",
+            !open && "placeholder-black_sub"
+          )}
+          value={valueSearch}
+          onChange={(e: any) => {
+            setValueSearch(e.target.value);
+          }}
+          onFocus={() => {
+            setOpen(false);
+          }}
+          onBlur={() => {
+            setOpen(true);
+          }}
+        />
+      </div>
 
       <div
         className={cn(
@@ -202,11 +200,13 @@ export const DatePicker: React.FC<IDatePicker> = ({
         <Button
           variant={"ghost"}
           className={cn(
-            "w-full justify-start text-left font-normal bg-transparent shadow-none px-0",
+            "w-full min-h-[40px] max-h-[48px] h-full  justify-start text-left font-normal bg-bg_primary_white px-2 py-1 shadow-none ",
             !date && "text-muted-foreground",
             className
           )}
         >
+          <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
+
           {date ? (
             format(date, "dd/MM/yyyy", { locale: vi })
           ) : (
@@ -216,7 +216,7 @@ export const DatePicker: React.FC<IDatePicker> = ({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full min-w-full p-0 bg-bg_black_sub text-black">
+      <PopoverContent className="w-full min-w-full p-0 bg-bg_primary_white text-black">
         <Calendar
           disabled={disablePastDates}
           mode="single"
@@ -225,7 +225,7 @@ export const DatePicker: React.FC<IDatePicker> = ({
           initialFocus
           locale={vi}
           lang="vi"
-          className="w-full"
+          className="min-w-full w-full bg-bg_primary_white"
         />
       </PopoverContent>
     </Popover>
@@ -237,62 +237,57 @@ export const DatePickerDou: React.FC<IDatePickerDou> = ({
   date,
   setDate,
 }) => (
-  <div className={cn("w-full grid gap-2 outline-none")}>
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          id="date"
-          className={cn(
-            "min-w-full justify-start text-left text-normal font-normal  bg-transparent text-black shadow-none  pl-0 ",
-            !date && "bg-bg_primary_white w-full py-2",
-            className
-          )}
-        >
-          {date?.from ? (
-            date.to ? (
-              <>
-                {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
-                {format(date.to, " dd/MM/yyyy", { locale: vi })}
-              </>
-            ) : (
-              format(date.from, "dd/MM/yyyy", { locale: vi })
-            )
-          ) : (
-            <span className="">Chọn ngày đi và trả phòng</span>
-          )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
-        className="w-auto p-0 bg-bg_primary_white text-black z-[15]"
-        align="center"
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button
+        id="date"
+        variant="ghost"
+        className={cn(
+          "w-full  min-h-[40px] max-h-[48px]  h-full bg-bg_primary_white px-2 py-1",
+          !date && "bg-bg_primary_white w-full",
+          className
+        )}
       >
-        <Calendar
-          initialFocus
-          mode="range"
-          defaultMonth={date?.from}
-          selected={date}
-          onSelect={setDate}
-          numberOfMonths={2}
-          locale={vi}
-          className="text-normal font-[500]"
-        />
-      </PopoverContent>
-    </Popover>
-  </div>
+        {date?.from ? (
+          date.to ? (
+            <span className="w-full h-full flex items-center justify-start gap-x-1 text-small">
+              <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
+              {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
+              {format(date.to, " dd/MM/yyyy", { locale: vi })}
+            </span>
+          ) : (
+            format(date.from, "dd/MM/yyyy", { locale: vi })
+          )
+        ) : (
+          <span className="w-full h-full">Chọn ngày đi và trả phòng</span>
+        )}
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent
+      className="w-auto p-0 bg-bg_primary_white text-black z-[15]"
+      align="center"
+    >
+      <Calendar
+        initialFocus
+        mode="range"
+        defaultMonth={date?.from}
+        selected={date}
+        onSelect={setDate}
+        numberOfMonths={2}
+        locale={vi}
+        className="text-normal font-normal bg-bg_primary_white "
+      />
+    </PopoverContent>
+  </Popover>
 );
 
 // choose number person
 export const SelectNumberPerson = ({
   className,
-  isBooking,
-  popoverOpen,
-  handlePopoverChange,
   error,
   numberAdults,
   numberChildren,
   numberRoom,
-  numberRoomDouble,
-  setNumberRoomDouble,
   setNumberAdults,
   setNumberChildren,
   setNumberRoom,
@@ -306,45 +301,34 @@ export const SelectNumberPerson = ({
       setter(value - 1);
     }
   };
-
   return (
-    <Popover open={popoverOpen} onOpenChange={handlePopoverChange}>
+    <Popover>
       <PopoverTrigger asChild>
-        <div
+        <Button
+          variant="ghost"
           className={cn(
-            "w-full h-full  text-black shadow-none  font-medium flex items-center justify-between gap-2 outline-none transition-all duration-200 select-none p-2",
-            "lg:gap-4",
+            "w-full  min-h-[40px] max-h-[48px] h-full bg-bg_primary_white px-2 py-1",
             "hover:cursor-pointer ",
-            error && "border-[3px] border-error_color",
+            error && "border-[2px] border-error_color",
             className
           )}
         >
-          <div className="w-full h-auto flex items-center justify-start gap-x-1  ">
-            <div className="w-full text-small font-normal ">
-              {numberAdults} <span> lớn</span>
-            </div>
-            <Dot className="text-[1.2rem]" />
-            <div className="w-full text-small font-normal">
-              {numberChildren} <span>trẻ em</span>
-            </div>
-            <Dot className="text-[1.2rem]" />
-            <div className="w-full text-small font-normal">
-              {numberRoom} <span> đơn</span>
-            </div>
-            {isBooking && (
-              <div className="w-full  text-normal font-normal">
-                {numberRoomDouble} <span>phòng đôi</span>
-              </div>
-            )}
-          </div>
-          <ChevronDown className="size-4" />
-        </div>
+          <User className="size-5 font-medium text-black mr-2 " />
+          <span className="w-full h-full flex items-center justify-start gap-x-1 ">
+            <span className="w-full flex items-center justify-start gap-x-1 text-small font-medium whitespace-nowrap">
+              {numberAdults} người lớn <Dot /> {numberChildren} trẻ em <Dot />{" "}
+              {numberRoom} phòng
+            </span>
+          </span>
+          <ChevronDown className="size-5 " />
+        </Button>
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "w-full bg-bg_black_sub text-black_main z-[10] shadow-2xl ",
+          "w-auto  bg-bg_primary_white text-black z-[15] p-2 shadow-2xl ",
           error && "border-1 border-error_color"
         )}
+        align="center"
       >
         <div className="grid gap-2">
           {/* Người lớn */}
@@ -416,7 +400,7 @@ export const SelectNumberPerson = ({
           {/* Phòng đơn */}
           <div className="grid grid-cols-3 items-center gap-4">
             <Label className="text-small" htmlFor="numberRoom">
-              Phòng đơn:
+              Phòng:
             </Label>
             <div className="col-span-2 flex items-center">
               <Button
@@ -444,43 +428,6 @@ export const SelectNumberPerson = ({
               </Button>
             </div>
           </div>
-          {/* phòng đôi */}
-          {isBooking && (
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label className="text-small" htmlFor="numberRoomDouble">
-                Phòng đôi:
-              </Label>
-              <div className="col-span-2 flex items-center">
-                <Button
-                  onClick={() =>
-                    handleDecrease(setNumberRoomDouble, numberRoomDouble)
-                  }
-                  className="bg-white hover:bg-bg_black_sub text-black px-4 text-medium "
-                >
-                  -
-                </Button>
-                <Input
-                  type="number"
-                  id="numberRoomDouble"
-                  min="1"
-                  value={numberRoomDouble}
-                  className="h-8 outline-none bg-white  max-w-[60px] text-black text-center"
-                  onChange={(e) =>
-                    setNumberRoomDouble(Math.max(1, Number(e.target.value)))
-                  }
-                  onMouseDown={(e) => e.stopPropagation()}
-                />
-                <Button
-                  onClick={() =>
-                    handleIncrease(setNumberRoomDouble, numberRoomDouble)
-                  }
-                  className="bg-white hover:bg-bg_black_sub text-black px-4 text-medium "
-                >
-                  +
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </PopoverContent>
     </Popover>
@@ -502,7 +449,6 @@ const Search: React.FC<SearchProps> = ({
   const [numberAdults, setNumberAdults] = useState<number>(2);
   const [numberChildren, setNumberChildren] = useState<number>(1);
   const [numberRoom, setNumberRoom] = useState<number>(1);
-  const [numberRoomDouble, setNumberRoomDouble] = useState<number>(1);
 
   const [error, setError] = useState(false);
 
@@ -578,85 +524,47 @@ const Search: React.FC<SearchProps> = ({
         <div
           className={cn(
             "w-full bg-bg_primary_yellow flex flex-col items-center justify-between gap-y-1 p-1 rounded-lg ",
-            variant === "search" &&
-              "w-[100%] bg-bg_primary_yellow  py-1 text-white",
-            " lg:flex lg:h-[65px] lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
+            variant === "search" && "lg:grid lg:grid-flow-row ",
+            " lg:flex  lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
         >
-          <div
-            className={cn(
-              "w-[100%] h-auto px-1 flex justify-center items-center  rounded-lg bg-bg_primary_white relative p-1",
-              "lg:w-[45%] h-[100%] lg:px-3"
-            )}
-          >
-            <IoBedOutline className="text-large text-black_sub " />
-            <AddressTravel value={value} setValue={setValue} />
-            {error && (
-              <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2 text-white text-small">
-                Chọn nơi bạn muốn đến!
-              </div>
-            )}
-          </div>
-          {(page === "attractions" || variant === "search") && (
-            <div
-              className={cn(
-                "w-[100%] h-[100%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white p-1",
-                "lg:w-[45%] lg:h-[100%] lg:px-3 "
-              )}
-            >
-              <FaRegCalendarCheck className="text-normal font-normal size-5 mr-2" />
-              <DatePicker date={date} setDate={setDate} />
+          <AddressTravel value={value} setValue={setValue} />
+          {error && (
+            <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2 text-white text-small">
+              Chọn nơi bạn muốn đến!
             </div>
+          )}
+          {(page === "attractions" || variant === "search") && (
+            <DatePicker date={date} setDate={setDate} />
           )}
           {page === "hotels" && (
             <Fragment>
-              <div
-                className={cn(
-                  "w-[100%] h-[100%] px-1 flex items-center justify-between rounded-lg bg-bg_primary_white p-1",
-                  "lg:w-[45%] lg:h-[100%] lg:px-3 "
-                )}
-              >
-                <CalendarIcon className="mr-3 text-black_main h-[1.3rem] w-[1.3rem]" />
-                <DatePickerDou date={dateDou} setDate={setDateDou} />
-              </div>
-              <div
-                className={cn(
-                  "w-[100%] h-[100%] p-1 flex items-center justify-between rounded-lg bg-bg_primary_white",
-                  "lg:w-[45%] lg:h-[99%] lg:px-3 "
-                )}
-              >
-                <IoPersonOutline className="text-large font-medium text-black_sub " />
-                <SelectNumberPerson
-                  popoverOpen={popoverOpen}
-                  setPopoverOpen={setPopoverOpen}
-                  error={error}
-                  setError={setError}
-                  numberAdults={numberAdults}
-                  setNumberAdults={setNumberAdults}
-                  numberChildren={numberChildren}
-                  setNumberChildren={setNumberChildren}
-                  numberRoom={numberRoom}
-                  setNumberRoom={setNumberRoom}
-                  numberRoomDouble={numberRoomDouble}
-                  setNumberRoomDouble={setNumberRoomDouble}
-                />
-              </div>
+              <DatePickerDou date={dateDou} setDate={setDateDou} />
+              <SelectNumberPerson
+                className="z-[50]"
+                error={error}
+                setError={setError}
+                numberAdults={numberAdults}
+                setNumberAdults={setNumberAdults}
+                numberChildren={numberChildren}
+                setNumberChildren={setNumberChildren}
+                numberRoom={numberRoom}
+                setNumberRoom={setNumberRoom}
+              />
             </Fragment>
           )}
-          <div className={cn("w-[100%] rounded-lg", "lg:w-[14%] h-[100%]")}>
-            <Button
-              type="submit"
-              variant="default"
-              className={cn(
-                "w-full h-full text-normal font-medium bg-bg_primary_main text-white",
-                "lg:text-large font-semibold",
-                "hover:bg-bg_primary_active"
-              )}
-              onClick={handleSearch}
-            >
-              Tìm
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            variant="default"
+            className={cn(
+              "w-full  h-full  text-normal font-medium bg-bg_primary_blue_sub text-white",
+              "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
+              "hover:bg-bg_primary_active"
+            )}
+            onClick={handleSearch}
+          >
+            Tìm
+          </Button>
         </div>
       </div>
     </form>

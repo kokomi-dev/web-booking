@@ -14,7 +14,9 @@ const Navigation = () => {
         "w-full h-full transition-all duration-200",
         "lg:w-[100%] ",
         "md:w-[90%]",
-        pathname.includes("hotels" || "contact" || " combos") && "lg:ml-[-1rem]"
+        pathname.includes("hotels" || "contact" || " combos") &&
+          "lg:ml-[-1rem]",
+        pathname.includes("booking") && "hidden invisible"
       )}
     >
       <div

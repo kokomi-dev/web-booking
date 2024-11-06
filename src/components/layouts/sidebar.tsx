@@ -1,5 +1,3 @@
-"use client";
-
 import Navigation from "./nav";
 import { cn } from "@/lib/utils";
 const Sidebar = () => {

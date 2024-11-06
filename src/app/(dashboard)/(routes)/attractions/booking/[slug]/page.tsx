@@ -34,7 +34,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-const BookingHotel = () => {
+const BookingAttraction = () => {
   const { slug } = useParams<{
     slug: string;
   }>();
@@ -439,4 +439,4 @@ const BookingHotel = () => {
   );
 };
 
-export default BookingHotel;
+export default BookingAttraction;

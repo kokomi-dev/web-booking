@@ -1,11 +1,11 @@
 "use client";
 
 import { vi } from "date-fns/locale";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { CalendarIcon, CircleCheck, TriangleAlert } from "lucide-react";
-import { DateRange } from "react-day-picker";
+import React, { useEffect, useState } from "react";
+import { Check, TriangleAlert, User, UserPlus, X } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import CardText from "@/components/components/card-text";
 import { Button } from "@/components/ui/button";
@@ -13,54 +13,63 @@ import {
   DatePickerDou,
   SelectNumberPerson,
 } from "@/components/components/search";
-import { toast } from "react-toastify";
-import { IoPersonOutline } from "react-icons/io5";
+import { convertVND } from "@/constants";
+import { Input } from "@/components/ui/input";
+import { useBookingInfoStore } from "@/store/booking-info";
 const Booking = ({
-  price,
-  sales,
   slug,
+  listRooms,
 }: {
-  price: [number, number];
-  sales: number;
   slug: string;
+  listRooms: [
+    {
+      name: string;
+      details: string[];
+      price: number;
+      sale: number;
+      isAddChildren: boolean;
+      numberPeople: number;
+    }
+  ];
 }) => {
   const router = useRouter();
+  const { setBookingInfo } = useBookingInfoStore();
   const [date, setDate] = React.useState<any>({
     from: new Date(),
     to: addDays(new Date(), 2),
   });
-  const [popoverOpen, setPopoverOpen] = useState(false);
-  const [numberAdults, setNumberAdults] = useState<number>(0);
-  const [numberChildren, setNumberChildren] = useState<number>(0);
-  const [numberRoom, setNumberRoom] = useState<number>(1);
-  const [numberRoomDouble, setNumberRoomDouble] = useState<number>(0);
-  const [error, setError] = useState<boolean>(false);
+  const [total, setTotal] = useState(0);
+  const [totalSale, setTotalSale] = useState(0);
 
+  const [numberAdults, setNumberAdults] = useState<number>(1);
+  const [numberChildren, setNumberChildren] = useState<number>(1);
+  const [numberRoom, setNumberRoom] = useState<number>(1);
+  const [error, setError] = useState<boolean>(false);
+  const [chooseInput, setChooseInput] = useState<number[]>(
+    Array.from({ length: listRooms.length }, (_) => {
+      return 0;
+    })
+  );
+  const [checkHiddenBtn, setCheckHiddenBtn] = useState(true);
   const handlePopoverChange = (open: boolean) => {
-    setPopoverOpen(open);
     if (!open) {
       const numberPerson = numberAdults + numberChildren;
       const result = numberPerson / 2 <= numberRoom;
-      const result2 = numberPerson / 2 < numberRoomDouble;
-
       if (result === false) {
-        setPopoverOpen(true);
         setError(true);
         toast.error("Số phòng đơn không đủ cho số người đã chọn.");
-      } else if (numberRoomDouble > 0) {
-        if (result2 === false) {
-          setError(true);
-          toast.error("Số phòng đôi không đủ cho số người đã chọn.");
-        }
       } else {
         setError(false);
       }
     }
   };
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (date) {
       const dateFrom = format(String(date.from), "dd/MM/yyyy", { locale: vi });
       const dateTo = format(String(date.to), "dd/MM/yyyy", { locale: vi });
+      await setBookingInfo({
+        chooseInput,
+      });
       router.push(
         "/hotels/booking/" +
           slug +
@@ -74,11 +83,29 @@ const Booking = ({
           numberChildren +
           "&numberRoom=" +
           numberRoom +
-          "&numberRoomDouble=" +
-          numberRoomDouble
+          "&price=" +
+          total
       );
     }
   };
+  useEffect(() => {
+    let res = 0;
+    let resSale = 0;
+
+    listRooms.forEach((room, index) => {
+      resSale +=
+        (room.price - (room.price / 100) * room.sale) * chooseInput[index];
+      res += room.price * chooseInput[index];
+      setTotalSale(resSale);
+      setTotal(res);
+    });
+    const isCheck = chooseInput.filter((item) => item !== 0);
+    if (isCheck.length < 1) {
+      return setCheckHiddenBtn(true);
+    } else {
+      setCheckHiddenBtn(false);
+    }
+  }, [chooseInput]);
 
   return (
     <div className="w-full">
@@ -86,145 +113,161 @@ const Booking = ({
         className="w-full flex items-start justify-start flex-col gap-2 h-full p-3 bg-sub rounded-xl text-normal"
         id="price"
       >
-        {/* choose date */}
-        <h3 className="text-medium font-semibold">
-          Chọn ngày nhận và trả phòng
-        </h3>
-        <div className="w-full flex_dou bg-white text-black rounded-8">
-          <CalendarIcon className="mr-3 text-black text-large" />
-          <DatePickerDou
-            className="text-black w-full text-medium font-semibold"
-            date={date}
-            setDate={setDate}
-          />
-        </div>
         {/* choose person and room */}
-        <CardText title="Chọn số lượng người">
+        <CardText title="Thông tin đặt phòng">
           <div className="flex items-center justify-start gap-x-2">
             <TriangleAlert className="text-yellow_main" />
             <h5 className="text-small mb-1">
-              Vui lòng chọn đúng đủ số người ( nếu bạn đăng kí không trung thực
-              chúng tôi sẽ không thể giao nhấn phòng cho bạn)
+              Vui lòng chọn đúng đủ số người cho phòng để có trải nghiệm tốt
+              nhất !
             </h5>
           </div>
-          <div className="bg-bg_primary_blue_sub flex items-center justify-start gap-x-2 px-2 rounded-8">
-            <IoPersonOutline className="text-large font-medium text-white " />
+          <div className="bg-bg_primary_yellow w-fit flex items-center justify-start gap-x-2 p-2 rounded-8">
+            <DatePickerDou
+              className="text-black w-full h-full text-medium font-medium"
+              date={date}
+              setDate={setDate}
+            />
             <SelectNumberPerson
-              isBooking
               error={error}
               setError={setError}
-              className=" rounded-8 p-4 w-full text-medium font-semibold text-white"
-              popoverOpen={popoverOpen}
-              setPopoverOpen={setPopoverOpen}
-              numberAdults={numberAdults}
+              className=" w-full h-full text-medium font-semibold "
               numberChildren={numberChildren}
-              numberRoom={numberRoom}
-              numberRoomDouble={numberRoomDouble}
+              numberAdults={numberAdults}
               setNumberAdults={setNumberAdults}
+              numberRoom={numberRoom}
               setNumberChildren={setNumberChildren}
               setNumberRoom={setNumberRoom}
-              setNumberRoomDouble={setNumberRoomDouble}
               handlePopoverChange={handlePopoverChange}
             />
           </div>
         </CardText>
         {/* booking tickets */}
-        <CardText title="Chọn loại phòng">
-          <table className="table__booking w-full">
-            <thead>
-              <tr>
-                <th className="text-normal font-semibold">Giá đã gồm</th>
-                <th className="text-normal font-semibold">Sức chứa</th>
-                <th className="text-normal font-semibold">
-                  Giá phòng( ngày/đêm )
-                </th>
-                <th className="text-normal font-semibold">Lựa chọn</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <ol>
-                    <li className="flex_dou">
-                      <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span className="text-normal font-normal">
-                        {" "}
-                        Miễn phí hủy trước 3 ngày
-                      </span>
-                    </li>
-                    <li className="flex_dou">
-                      <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span className="text-normal font-normal">
-                        Thanh toán tại nơi ở
-                      </span>
-                    </li>
-
-                    <li className="flex_dou">
-                      <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span className="text-normal font-normal">
-                        Các tiện nghi đầy đủ kể trên
-                      </span>
-                    </li>
-                    <li className="flex_dou">
-                      <CircleCheck className="text-[1rem] text-[#018235]" />
-                      <span className="text-normal font-normal">
-                        Cam kết chất lượng, phục vụ
-                      </span>
-                    </li>
-                  </ol>
-                </td>
-                <td>
-                  <div>
-                    <div className="font-medium">
-                      Phòng đơn :{" "}
-                      <span className="font-normal underline italic">
-                        1 giường (2 người)
-                      </span>
-                    </div>
-                  </div>
-                  <div className="font-medium">
-                    Phòng đôi :{" "}
-                    <span className="font-normal underline italic">
-                      2 giường (4 người)
+        <table className="w-full mt-4 border-collapse border-0.5 border-blue_main_sub">
+          <thead className="w-full h-[36px] bg-bg_primary_main text-white  p-2 text-small font-semibold">
+            <tr className="w-full">
+              <th className="">Loại chỗ nghỉ</th>
+              <th className="">Số lượng khách</th>
+              <th className="">Giá </th>
+              <th className="">Chọn số phòng</th>
+              <th className=""></th>
+            </tr>
+          </thead>
+          <tbody>
+            {listRooms.map((room, index) => {
+              return (
+                <tr key={index} className="w-full table__booking  ">
+                  <td className="p-2 max-w-[30%] w-full ">
+                    <span className="text-blue_main underline font-bold">
+                      {" "}
+                      {room.name}
                     </span>
-                  </div>
-                </td>
-                <td>
-                  <ul>
-                    <li>1 : {price[0]} vnđ</li>
-                    <li>2 : {price[1]} vnđ</li>
-                  </ul>
-                </td>
-                <td>
-                  <div>
-                    <h5 className="title_small text-yellow_main">
-                      Giảm giá:
-                      <span>
-                        {sales} %
-                        <span className="text-black_sub">
-                          (đặt qua KoKo Travel)
-                        </span>
+                    <ul className="flex flex-wrap">
+                      {room.details.map((detail, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className="text-smallest flex items-center justify-start "
+                          >
+                            <Check className="size-3 text-green_main mr-1" />
+                            <span>{detail}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </td>
+                  <td className="h-full  p-2 text-small font-normal text-start   ">
+                    <span className="flex items-center justify-start gap-x-1">
+                      <User className="size-4 fill-black" />
+                      <X className="size-4" />
+                      <span className="text-small"> {room.numberPeople}</span>
+                    </span>
+                    {room.isAddChildren && (
+                      <span className="w-full flex items-center justify-start gap-x-1 text-smallest mt-1">
+                        <UserPlus className="size-4" />
+                        trẻ em
                       </span>
-                    </h5>
-                  </div>
-                  <Button
-                    disabled={!date || !numberAdults || error}
-                    className="mr-3 bg-bg_primary_blue_sub text-white "
-                    onClick={handleBooking}
-                  >
-                    Đặt ngay
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="bg-bg_black_sub text-black"
-                  >
-                    Tư vấn
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </CardText>
+                    )}
+                  </td>
+                  <td className="w-full h-full grid grid-cols-1 gap-y-1 p-2  ">
+                    <span className="text-red-400  font-medium text-[0.8rem] line-through">
+                      <span className="mr-1">VNĐ</span>
+                      {convertVND(room.price)}
+                    </span>
+                    <span className="text-black_main text-small  font-semibold">
+                      <span className="mr-1">VNĐ</span>
+                      {convertVND(room.price - (room.price / 100) * room.sale)}
+                    </span>
+                    <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
+                      Tiết kiệm {room.sale} %
+                    </span>
+                  </td>
+                  <td className="text-center w-fit pl-2 " align="center">
+                    <Input
+                      type="number"
+                      placeholder=""
+                      className="max-w-[40px] w-full border-0.5 border-black_main"
+                      value={chooseInput[index]}
+                      min={0}
+                      max={50}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        setChooseInput((pre) => {
+                          const newChoose = [...pre];
+                          newChoose[index] = Number(value);
+                          return newChoose;
+                        });
+                      }}
+                    />
+                  </td>
+                  {index === 0 && (
+                    <td className="p-2 " rowSpan={listRooms.length}>
+                      {chooseInput && checkHiddenBtn !== true && (
+                        <div className="grid mb-4 gap-y-1">
+                          <div className="line-through text-red-400 text-small font-normal">
+                            <span className="mr-1">VNĐ</span>
+                            <span>{convertVND(total)}</span>
+                          </div>
+                          <div className="text-black_main text-normal font-bold">
+                            <span className="mr-1">VNĐ</span>
+                            <span>{convertVND(totalSale)}</span>
+                          </div>
+                          <div>
+                            {total && totalSale !== 0 ? (
+                              <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
+                                <span>
+                                  Tiết kiệm{" "}
+                                  {(100 - (totalSale / total) * 100).toFixed(2)}{" "}
+                                  %
+                                </span>
+                              </span>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                          <span className="text-black_sub text-small">
+                            Đã bao gồm thuế và phí
+                          </span>
+                        </div>
+                      )}
+                      <Button
+                        className="w-full h-auto bg-bg_primary_blue_sub text-white select-none"
+                        onClick={handleBooking}
+                        disabled={checkHiddenBtn}
+                      >
+                        Đặt ngay
+                      </Button>
+                      <ul className="text-smallest pl-3 mt-2">
+                        <li>Chỉ mất 2 phút</li>
+                        <li>Xác thực tức thời</li>
+                      </ul>
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

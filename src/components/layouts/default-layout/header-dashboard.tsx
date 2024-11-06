@@ -28,7 +28,7 @@ const HeaderDashboard = () => {
       <div
         className={cn(
           "w-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
-          " lg:text-normal lg:h-[140px] lg:block  "
+          " lg:text-normal lg:h-auto lg:block  "
         )}
       >
         <MobileSidebar />
@@ -74,7 +74,8 @@ const HeaderDashboard = () => {
         <div
           className={cn(
             "md:mt-2",
-            "lg:mt-2 lg:w-full lg:flex lg:items-center lg:justify-between"
+            "lg:mt-3",
+            "xl:mt-4 lg:w-full lg:flex lg:items-center lg:justify-between"
           )}
         >
           <Sidebar />

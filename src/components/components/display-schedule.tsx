@@ -5,7 +5,7 @@ interface ScheduleDisplayProps {
 }
 const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
   return (
-    <div className="w-full h-full flex flex-col flex-grow">
+    <div className="w-full h-full flex flex-col flex-grow mt-2">
       {data.schedule.length > 0 ? (
         data.schedule.map((sche: string, index: number) => {
           return (
@@ -22,11 +22,9 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
           );
         })
       ) : (
-        <textarea
-          readOnly
-          className="w-full min-h-[30vh] resize-none box-border border-none outline-none mt-1 text-justify"
-          value={data.schedule[0]}
-        ></textarea>
+        <div>
+          <h4>Chưa có lịch trình cụ thể</h4>
+        </div>
       )}
     </div>
   );
