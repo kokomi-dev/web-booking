@@ -14,7 +14,14 @@ const ratingConvert = (rating: number) => {
     return <span className="font-bold text-smallest ">Chưa tốt</span>;
   }
 };
-
+// convert VND
+const convertVND = (num: number) => {
+  const newNumber = new Intl.NumberFormat("vi-VI", {
+    style: "currency",
+    currency: "VND",
+  }).format(num);
+  return newNumber;
+};
 // navigations
 export const NAVIGATIONS: { title: string; url: string; icon: string }[] = [
   {
@@ -54,7 +61,7 @@ export const convertToSlug = (text: string) => {
   text = text.trim().replace(/\s+/g, "-");
   return text;
 };
-const scrollToView = (classe: string, cssActive: string) => {
+const scrollToView = (classe: string, cssActive?: string) => {
   const itemDiversity = document.querySelectorAll(`${classe}`);
   const scroll = new IntersectionObserver((entry) => {
     entry.forEach((e) => {
@@ -124,20 +131,36 @@ export interface AttractionData {
   included: string[];
   price: [number, number];
   city: string;
+  cancelFree: boolean;
 }
 export type HotelData = {
   _id: string;
   slug: string;
   name: string;
   details: string;
-  location: string;
+  location: {
+    detail: string;
+    province_id: string;
+    district_id: string;
+    commun_id: string;
+  };
+  listRooms: [
+    {
+      name: string;
+      numberPeople: number;
+      details: string[];
+      price: number;
+      sale: number;
+      isAddchildren: boolean;
+    }
+  ];
   rating: number;
   images: string[];
   city: string;
   type: number;
   highlights: [string];
-  price: [number, number];
-  sales: number;
+  includes: [string];
+  comments: [{}];
 };
 //
-export { ratingConvert, isValidEmail, scrollToView };
+export { ratingConvert, convertVND, isValidEmail, scrollToView };

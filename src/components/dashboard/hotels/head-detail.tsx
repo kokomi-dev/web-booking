@@ -14,7 +14,7 @@ const scrollToView = (id: string) => {
 };
 const HeadDetail = () => {
   return (
-    <div className="w-full text-small flex items-center justify-between py-2  ">
+    <div className="w-full text-small flex items-center justify-between   ">
       <div
         className="text-center scroll-smooth w-full cursor-pointer "
         onClick={() => {

@@ -237,11 +237,11 @@ const Comments: React.FC<IComments> = ({
             <h4 className="flex items-center justify-start gap-x-1 ext-normal font-medium">
               <Link
                 href="/sign-in"
-                className="text-normal font-medium text-blue_main_sub"
+                className="text-normal font-medium text-blue_main_sub underline"
               >
                 Đăng nhập
               </Link>
-              <span>để bình luận</span>
+              <span className="font-normal ">để bình luận</span>
             </h4>
           </div>
         )}

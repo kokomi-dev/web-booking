@@ -306,3 +306,15 @@ img {
 .img {
   image-rendering: crisp-edges;
 }
+.table__booking > tr {
+  border: 0.5px;
+  border-style: solid;
+  border-color: #006ce4;
+}
+.table__booking > th,
+.table__booking > td {
+  border-right: 0.5px;
+  border-left: 0.5px;
+  border-style: solid;
+  border-color: #006ce4;
+}

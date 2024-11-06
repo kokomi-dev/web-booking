@@ -1,7 +1,7 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,10 +24,15 @@ interface IShowImage {
 const ShowImages: React.FC<IShowImage> = ({
   data,
   open,
-  currentIndex,
+  currentIndex = 0,
   setOpen,
 }) => {
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (open) {
+      setIndex(currentIndex);
+    }
+  }, [open, currentIndex]);
   const handleBack = () => {
     if (index === 0) {
       return setIndex(data.images.length - 1);
@@ -74,7 +79,7 @@ const ShowImages: React.FC<IShowImage> = ({
           </Button>
         </div>
         <div className="w-full items-center flex  justify-center">
-          <span>
+          <span className="text-small font-semibold">
             {index + 1} / {data?.images.length}
           </span>
         </div>
@@ -91,7 +96,7 @@ const ShowImages: React.FC<IShowImage> = ({
                         width={200}
                         height={200}
                         className={cn(
-                          "w-auto h-[80px] object-cover brightness-50 blur-[2px] transition-all duration-300 rounded-8",
+                          "w-auto h-[80px] object-cover brightness-70 blur-[2px] transition-all duration-300 rounded-8",
                           index === indexImg && "brightness-100 blur-[0px]"
                         )}
                       />

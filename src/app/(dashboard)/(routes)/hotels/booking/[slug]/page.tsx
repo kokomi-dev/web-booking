@@ -1,6 +1,6 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
-import { ChevronLeft, Dot } from "lucide-react";
+import { Check, Star, UserRound } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,22 +9,35 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import { useParams, useSearchParams } from "next/navigation";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
-import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData } from "@/constants";
+import { HotelData, convertVND } from "@/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { getDetailHotel } from "@/api/api-hotels";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import {
   Form,
   FormControl,
@@ -34,12 +47,52 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useBookingInfoStore } from "@/store/booking-info";
+import Image from "next/image";
+const timeList = [
+  {
+    value: "0",
+    label: "Tôi chưa rõ",
+  },
+  {
+    value: "01.00 - 05.00",
+    label: "01.00 - 05.00",
+  },
+  {
+    value: "05.00 - 07.00",
+    label: "05.00 - 07.00",
+  },
+  {
+    value: "07.00 - 10.00",
+    label: "07.00 - 10.00",
+  },
+  {
+    value: "10.00 - 13.00",
+    label: "10.00 - 13.00",
+  },
+  {
+    value: "13.00 - 15.00",
+    label: "13.00 - 15.00",
+  },
+  {
+    value: "15.00 - 17.00",
+    label: "15.00 - 17.00",
+  },
+  {
+    value: "17.00 - 20.00",
+    label: "17.00 - 20.00",
+  },
+  {
+    value: "20.00 - 24.00",
+    label: "20.00 - 24.00",
+  },
+];
 
 const BookingHotel = () => {
   const { slug } = useParams<{
     slug: string;
   }>();
-  const { user } = useAuthenticatedStore();
+  const { user, isAuthenticated } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<HotelData | null>(null);
   const infoBooking = z.object({
@@ -87,33 +140,22 @@ const BookingHotel = () => {
     }
   }, [slug, user]);
 
-  const router = useRouter();
-
   const [openModal, setOpenModal] = useState(false);
   const [confirm, setConfirm] = useState({
     idEmail: "",
     code: "",
   });
-
+  const [value, setValue] = React.useState("");
+  const [open, setOpen] = React.useState(false);
   const param = useSearchParams();
 
   const dateFrom = param.get("date-from");
   const dateTo = param.get("date-to");
-  const numberRoom = param.get("numberRoom");
-  const numberRoomDouble = param.get("numberRoomDouble");
+  const total = param.get("price");
 
-  const totalBooking = () => {
-    if (data) {
-      return formatPrice(
-        Number(numberRoom) * data.price[0] +
-          Number(numberRoomDouble) * data.price[1]
-      );
-    }
-  };
   const handleSendEmailConfirm = async (email: string) => {
     try {
       const data = await sendEmailConfirm(email);
-      console.log(data);
       if (data) {
         setConfirm(data);
       }
@@ -125,6 +167,10 @@ const BookingHotel = () => {
     setOpenModal(true);
     handleSendEmailConfirm(value.email);
   };
+  const { bookingInfo } = useBookingInfoStore();
+  const num = bookingInfo?.chooseInput.reduce((arrg, item) => {
+    return arrg + item;
+  }, 0);
   return (
     <Fragment>
       {isLoading ? (
@@ -158,57 +204,201 @@ const BookingHotel = () => {
             className={cn(
               "w-full flex flex-col items-start justify-start gap-2"
             )}
-          >
-            <div
-              className={cn(
-                "w-[30%] flex  items-center justify-start transition-all duration-300 cursor-pointer hover:underline",
-                "lg:w-[10%]"
-              )}
-              onClick={() => router.back()}
-            >
-              <ChevronLeft className="text-yellow_main" />
-              <span className="ml-2 text-small">Loại lưu trú</span>
-            </div>
-            <div className="text-smallest">
-              <span className="text-blue_main_sub">Bước 1/2</span>
-            </div>
-            <div className={cn("text-medium font-bold", "lg:text-large")}>
-              <h1>{data?.name}</h1>
-            </div>
-            <p className="text-small text-black_sub">
-              Được đảm bảo chất lượng về mọi mặt
-            </p>
-          </div>
+          ></div>
           {/* body */}
           <div
             className={cn(
-              "w-full flex flex-col-reverse items-center justify-center gap-y-5  ",
-              "lg:flex-row lg:justify-between lg:gap-x-10 lg:items-start lg:gap-y-0 lg:h-full "
+              "w-full grid grid-cols-1 gap-y-5  ",
+              "lg:grid-cols-layout-3  lg:gap-x-5 lg:gap-y-0 lg:h-full "
             )}
           >
+            {/* info */}
+            <div className={cn("w-full h-fit grid gap-y-3  ")}>
+              <div
+                className={cn(
+                  "w-full h-full flex items-start justify-start gap-2 border-[0.4px] border-[#999] p-3 rounded-8"
+                )}
+              >
+                {/* <Image
+                  priority
+                  alt="img-booking"
+                  src={data.images[0]}
+                  width={900}
+                  height={600}
+                  sizes="50"
+                  className="min-w-[8rem] w-full h-[8rem] rounded-lg"
+                /> */}
+                <div className="grid text-small font-normal p-1 gap-y-1">
+                  <h4 className="text-medium font-semibold">{data.name}</h4>
+                  <span className="flex items-center justify-start gap-x-1 text-small">
+                    <Star className="size-4 text-yellow_main fill-yellow_main" />
+                    {data.rating}
+                  </span>
+                  <span className=" text-smallest text-black_sub">
+                    {data.comments.length} bình luận
+                  </span>
+                  <address className="text-smallest text-green_main">
+                    {data.location.detail}
+                  </address>
+                  <ul className="w-full flex flex-wrap gap-x-2">
+                    {data.includes.map((include: string, index: number) => {
+                      return (
+                        <li
+                          className="text-smallest flex items-center justify-start gap-x-1 "
+                          key={index}
+                        >
+                          <Check className="size-3 text-green_main" />
+                          {include}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 p-2">
+                <h4 className="text-normal font-semibold">
+                  Chi tiết đặt phòng của bạn
+                </h4>
+                <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium">
+                  <div className="text-center">
+                    <h4 className="text-smallest font-medium">Nhận phòng</h4>
+                    <span className="text-small font-semibold">{dateFrom}</span>
+                  </div>
+                  <div className="text-center border-l-[0.4px] border-[#999]">
+                    <h4 className="text-smallest font-medium">Trả phòng</h4>
+                    <span className="text-small font-semibold">{dateTo}</span>
+                  </div>
+                </div>
+                <div className="w-full flex flex-col items-start justify-start gap-2 text-[1rem]">
+                  <h4 className="text-small font-medium">
+                    Tổng thời gian lưu trú:
+                  </h4>
+                  <span className="text-small font-semibold">1</span>
+                </div>
+                <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
+                  <h4 className="text-small font-medium">Bạn đã chọn</h4>
+                  <span className="text-small font-semibold">{num} phòng</span>
+                </div>
+              </div>
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 ">
+                <div className="p-2">
+                  <h4 className="text-normal font-semibold">
+                    Giá bạn phải thanh toán:
+                  </h4>
+                </div>
+                <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium bg-bg_primary_hover text-black">
+                  <h2 className="text-large font-bold p-2">Tổng cộng </h2>
+                  <span className="text-blue_main_sub  flex items-center font-bold text-medium underline">
+                    VNĐ {convertVND(Number(total))}
+                  </span>
+                </div>
+              </div>
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 p-2">
+                <h4 className="text-normal font-semibold">
+                  Đơn này sẽ được tính
+                </h4>
+                <p className="text-smallest text-black_sub">
+                  Chỗ nghỉ, vé máy bay, xe thuê, taxi hay vé tham quan, mỗi đơn
+                  đặt hoàn tất đều được tính vào tiến trình Genius của bạn.
+                </p>
+
+                <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
+                  <span className="text-small font-semibold">
+                    Chương trình khách hàng thân thiết của KoKoTravel
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/* infoc customer */}
             <div
               className={cn(
-                "w-[100%] flex flex-col items-start justify-start gap-3 "
+                "w-full flex flex-col items-start justify-start gap-3 "
               )}
             >
-              <h3 className={cn("text-medium font-semibold")}>
-                Thông tin của bạn
-              </h3>
               <div className="w-full flex flex-col items-start justify-start gap-2">
+                {user && isAuthenticated && (
+                  <div className="w-full h-auto flex items-center justify-start gap-x-2 p-3 border-0.5 border-[#999] rounded-8">
+                    <div
+                      className={cn(
+                        "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center",
+                        "md:w-[2.8rem] md:h-[2.8rem]"
+                      )}
+                    >
+                      <Image
+                        src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
+                        width={600}
+                        height={600}
+                        alt="avatar-user"
+                        className=" rounded-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="text-normal font-semibold ">
+                        Bạn đã được đăng nhập
+                      </h4>
+                      <span className="text-small font-normal text-black_sub">
+                        {user.email}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <h3 className={cn("text-medium font-semibold")}>
+                  Nhập thông tin chi tiết của bạn
+                </h3>
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(handleButton)}
-                    className="space-y-3"
+                    className="space-y-3 w-full  "
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
+                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
+                        <FormField
+                          control={form.control}
+                          name="firstname"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Họ</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="Họ"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-500" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="lastname"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tên</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="Tên"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-500" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       <FormField
                         control={form.control}
-                        name="firstname"
+                        name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Họ</FormLabel>
+                            <FormLabel>Email</FormLabel>
                             <FormControl>
-                              <Input type="text" placeholder="Họ" {...field} />
+                              <Input
+                                type="email"
+                                placeholder="Email"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage className="text-red-500" />
                           </FormItem>
@@ -216,131 +406,251 @@ const BookingHotel = () => {
                       />
                       <FormField
                         control={form.control}
-                        name="lastname"
+                        name="numberphone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Tên</FormLabel>
+                            <FormLabel>Số ĐT</FormLabel>
                             <FormControl>
-                              <Input type="text" placeholder="Tên" {...field} />
+                              <Input
+                                type="text"
+                                placeholder="Số ĐT"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage className="text-red-500" />
                           </FormItem>
                         )}
                       />
                     </div>
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              placeholder="Email"
-                              {...field}
+                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
+                      <h3 className={cn("text-medium font-semibold")}>
+                        Thông tin thêm
+                      </h3>
+                      <h4 className="text-small font-medium">
+                        Vui lòng chọn địa điểm đón khách
+                      </h4>
+                      <div className="w-full">
+                        <div className="flex items-center justify-start my-1">
+                          <input
+                            className={cn("size-5 mr-2", "lg:size-4")}
+                            type="radio"
+                            value="0"
+                            name="address_choose"
+                            id="0"
+                          />
+                          <label
+                            className="cursor-pointer text-small"
+                            htmlFor="0"
+                          >
+                            Gặp nhà điều hành tour tại điểm khởi hành
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-start my-1">
+                          <input
+                            className={cn("size-5 mr-2", "lg:size-4")}
+                            id="1"
+                            type="radio"
+                            value="1"
+                            name="address_choose"
+                          />
+                          <label
+                            className="cursor-pointer text-small"
+                            htmlFor="1"
+                          >
+                            Chọn địa điểm
+                          </label>
+                        </div>
+                        <div className="flex items-center justify-start my-1">
+                          <input
+                            className={cn("size-5 mr-2", "lg:size-4")}
+                            type="radio"
+                            value="2"
+                            id="2"
+                            name="address_choose"
+                          />
+                          <label
+                            className="cursor-pointer text-small"
+                            htmlFor="2"
+                          >
+                            Tự liên hệ nhà điều hành tour (bạn sẽ nhận thông tin
+                            liên hệ trên voucher của mình)
+                          </label>
+                        </div>
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="special"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Bạn có yêu cầu đặc biệt nào không
+                            </FormLabel>
+                            <FormControl>
+                              <Input placeholder="...aaa" {...field} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
+                      <div className="py-2">
+                        <h4 className="text-small font-medium  ">
+                          Bạn đặt phòng cho ai (không bắt buộc)
+                        </h4>
+                        <div className="w-full">
+                          <div className="flex items-center justify-start my-1">
+                            <input
+                              className={cn("size-5 mr-2", "lg:size-4")}
+                              type="radio"
+                              value="0"
+                              id="0"
+                              name="booking_for_who"
                             />
-                          </FormControl>
-                          <FormMessage className="text-red-500" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="numberphone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Số ĐT</FormLabel>
-                          <FormControl>
-                            <Input type="text" placeholder="Số ĐT" {...field} />
-                          </FormControl>
-                          <FormMessage className="text-red-500" />
-                        </FormItem>
-                      )}
-                    />
-                    <h3 className={cn("text-medium font-semibold")}>
-                      Thông tin thêm
-                    </h3>
-                    <h4 className="text-small">
-                      Vui lòng chọn địa điểm đón khách
-                    </h4>
-                    <div className="w-full">
-                      <div className="flex items-center justify-start my-1">
-                        <input
-                          className={cn("size-5 mr-2", "lg:size-4")}
-                          type="radio"
-                          value="0"
-                          name="address_choose"
-                          id="0"
-                        />
-                        <label
-                          className="cursor-pointer text-[0.95rem]"
-                          htmlFor="0"
-                        >
-                          Gặp nhà điều hành tour tại điểm khởi hành
-                        </label>
+                            <label
+                              className="cursor-pointer text-small"
+                              htmlFor="0"
+                            >
+                              Tôi là khách lưu trú chính
+                            </label>
+                          </div>
+                          <div className="flex items-center justify-start my-1">
+                            <input
+                              className={cn("size-5 mr-2", "lg:size-4")}
+                              id="1"
+                              type="radio"
+                              value="1"
+                              name="booking_for_who"
+                            />
+                            <label
+                              className="cursor-pointer text-small"
+                              htmlFor="1"
+                            >
+                              Đặt phòng này là cho người khác
+                            </label>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-start my-1">
-                        <input
-                          className={cn("size-5 mr-2", "lg:size-4")}
-                          id="1"
-                          type="radio"
-                          value="1"
-                          name="address_choose"
-                        />
-                        <label
-                          className="cursor-pointer text-[0.95rem]"
-                          htmlFor="1"
-                        >
-                          Chọn địa điểm
-                        </label>
-                      </div>
-                      <div className="flex items-center justify-start my-1">
-                        <input
-                          className={cn("size-5 mr-2", "lg:size-4")}
-                          type="radio"
-                          value="2"
-                          id="2"
-                          name="address_choose"
-                        />
-                        <label
-                          className="cursor-pointer text-[0.95rem]"
-                          htmlFor="2"
-                        >
-                          Tự liên hệ nhà điều hành tour (bạn sẽ nhận thông tin
-                          liên hệ trên voucher của mình)
-                        </label>
+                      <div className="py-2">
+                        <h4 className="text-normal font-semibold ">
+                          Thời gian đến dự kiến của bạn
+                        </h4>
+                        <div className="w-full grid gap-y-2 mt-2">
+                          <div className="flex items-center justify-start gap-x-1 font-normal text-small">
+                            <span>
+                              <Check className="text-green_main size-4" />
+                            </span>
+                            Các phòng của bạn sẽ sẵn sàng nhận vào 7h00 hoặc
+                            14h00{" "}
+                          </div>
+                          <div className="flex items-center justify-start gap-x-1 font-normal text-small">
+                            <span>
+                              <Check className="text-green_main size-4" />
+                            </span>
+                            Lễ tân sẵn sàng phục vụ bạn{" "}
+                          </div>
+                          <div className="grid gap-y-1">
+                            <h5 className="text-small font-medium">
+                              Thêm thời gian đến dự kiến của bạn
+                            </h5>
+                            <Popover open={open} onOpenChange={setOpen}>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  className="w-[200px] justify-between font-normal"
+                                >
+                                  {value
+                                    ? timeList.find(
+                                        (time) => time.value === value
+                                      )?.label
+                                    : "Vui lòng chọn..."}
+                                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-[200px] bg-white rounded-8 p-0">
+                                <Command>
+                                  <CommandList>
+                                    <CommandEmpty>No time found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {timeList.map((time) => (
+                                        <CommandItem
+                                          className="hover:cursor-pointer hover:bg-bg_primary_white"
+                                          key={time.value}
+                                          value={time.value}
+                                          onSelect={(currentValue) => {
+                                            setValue(
+                                              currentValue === value
+                                                ? ""
+                                                : currentValue
+                                            );
+                                            setOpen(false);
+                                          }}
+                                        >
+                                          {time.label}
+                                          <CheckIcon
+                                            className={cn(
+                                              "ml-auto h-4 w-4",
+                                              value === time.value
+                                                ? "opacity-100"
+                                                : "opacity-0"
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <FormField
-                      control={form.control}
-                      name="special"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Bạn có yêu cầu đặc biệt nào không
-                          </FormLabel>
-                          <FormControl>
-                            <Input placeholder="...aaa" {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <p className={cn("text-[0.90rem]", "lg:text-[0.95rem]")}>
-                      Bằng việc nhấn &qout; Thanh toán &ldquo; và hoàn tất đơn
-                      đặt, bạn đồng ý với
-                      <span className="text-blue_main_sub">
-                        điều khoản và điều kiện
-                      </span>
-                      của KokoTravel.com cũng như chính sách bảo mật của NtAnn.
-                      <br />
-                      Vui lòng xem Chính sách Bảo mật để hiểu cách chúng tôi sử
-                      dụng và bảo vệ thông tin cá nhân của bạn.
-                      <br />
-                      <span className="text-blue_main_sub">
-                        Chính sách bảo mật
-                      </span>
-                    </p>
+                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
+                      <h4 className="text-black  text-medium font-semibold">
+                        Các phòng đã đặt
+                      </h4>
+                      <div className="grid gap-y-3">
+                        {bookingInfo.chooseInput.map((item, index) => {
+                          const room = data.listRooms[index];
+                          if (item > 0) {
+                            return (
+                              <div
+                                key={index}
+                                className="font-normal text-small"
+                              >
+                                <h4 className="text-normal font-bold">
+                                  {room.name}
+                                </h4>
+                                <div className="ml-2">
+                                  <ul>
+                                    {room.details.map((detailItem, index) => {
+                                      return (
+                                        <li
+                                          key={index}
+                                          className="flex items-center justify-start text-smallest py-1"
+                                        >
+                                          <Check className="text-green_main size-3" />
+                                          <span className="ml-1">
+                                            {detailItem}
+                                          </span>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                  <div className="flex items-center justify-statr gap-x-1">
+                                    <UserRound className="size-4" />
+                                    <h5 className="font-semibold">Khách:</h5>
+                                    <span>{room.numberPeople}</span>
+                                    <span> người lớn</span>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
+                    </div>
                     <Button
                       type="submit"
                       className="bg-bg_primary_blue_sub text-white w-full py-6"
@@ -361,7 +671,7 @@ const BookingHotel = () => {
                   className="bg-bg_black_sub"
                 >
                   <ModalConfirmCode
-                    totalBooking={totalBooking}
+                    totalBooking={total}
                     code={confirm?.code}
                     lastName={user ? user.lastname : ""}
                     email={user ? user.email : ""}
@@ -371,83 +681,6 @@ const BookingHotel = () => {
                   />
                 </DialogContent>
               </Dialog>
-            </div>
-            <div
-              className={cn(
-                "w-[100%]  grid gap-y-3 ",
-                "lg:sticky lg:top-[2rem]"
-              )}
-            >
-              <div
-                className={cn(
-                  "w-full h-full flex items-start justify-start gap-2 border-b-[0.4px] border-[#999] py-4"
-                )}
-              >
-                {data?.images.map((img, index) => {
-                  if (index === 0) {
-                    return (
-                      <Image
-                        priority
-                        key={index}
-                        alt="img-booking"
-                        src={img}
-                        width={900}
-                        height={600}
-                        sizes="50"
-                        className="w-[8rem] h-[8rem] rounded-lg"
-                      />
-                    );
-                  }
-                })}
-                <span className="font-bold text-[1.1rem]">{data?.name}</span>
-              </div>
-              <div className="w-full h-full border-b-[0.4px] border-[#999] flex flex-col items-start justify-start gap-4 py-2">
-                <div className="flex items-center justify-start gap-x-2 text-normal font-medium">
-                  <span>Thời gian: </span>
-                  <span className="underline flex items-center justify-start gap-1 text-blue_main">
-                    Từ {dateFrom}
-                    <Dot />
-                    {dateTo}
-                  </span>
-                </div>
-                <div className="w-full flex flex-col items-start justify-start gap-2 text-[1rem]">
-                  {numberRoom !== "0" && (
-                    <div className="w-full flex items-center justify-between gap-2">
-                      <div>
-                        <span className="font-medium text-[1rem]">
-                          {numberRoom}
-                        </span>
-                        <span className="font-semibold text-[1rem]">
-                          * Phòng đơn
-                        </span>
-                      </div>
-                      <div>{data && formatPrice(data.price[0])} VNĐ</div>
-                    </div>
-                  )}
-                  {numberRoomDouble !== "0" && (
-                    <div className="w-full flex items-center justify-between gap-2">
-                      <div>
-                        <span className="font-medium text-[1rem]">
-                          {numberRoomDouble}
-                        </span>
-                        <span className="font-semibold text-[1rem]">
-                          * Phòng đôi
-                        </span>
-                      </div>
-                      <div>{data && formatPrice(data.price[1])} VNĐ</div>
-                    </div>
-                  )}
-                </div>
-                <div className="w-full flex items-center justify-between gap-2">
-                  <span className="font-semibold">Tổng tiền:</span>
-                  <div>
-                    <span className="font-semibold">{totalBooking()} VNĐ</span>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-black_sub">Đã bao gồm thuế và phí</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

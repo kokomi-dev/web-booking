@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
-import { FaStar } from "react-icons/fa6";
+import { FaCalendarXmark, FaStar } from "react-icons/fa6";
 import Image from "next/image";
 
 import { ratingConvert } from "@/constants";
@@ -25,6 +25,7 @@ const ItemSearchResult = ({
   description,
   ratingsQuantity,
   details,
+  cancelFree,
 }: {
   slug: string;
   name: string;
@@ -35,6 +36,7 @@ const ItemSearchResult = ({
   description?: string;
   ratingsQuantity?: number;
   details?: string;
+  cancelFree?: boolean;
 }) => {
   return (
     <Suspense fallback={<LoadingItemSearch />}>
@@ -70,6 +72,14 @@ const ItemSearchResult = ({
               <span className="text-smallest font-bold">{ratingsQuantity}</span>
               {ratingsQuantity && ratingConvert(ratingsQuantity)}
             </h6>
+            {cancelFree && (
+              <div className="flex items-center ">
+                <FaCalendarXmark className="text-green_main text-small mr-1" />
+                <h4 className="text-smallest text-green_main font-medium">
+                  Có lựa chọn hủy miễn phí
+                </h4>
+              </div>
+            )}
             <h6 className="t_small pt-2">
               <span className="text-smallest pr-1"> Giá từ </span>
               <span className="underline text-blue_main_sub font-semibold">

@@ -46,7 +46,7 @@ const FormLogin: React.FC = () => {
     try {
       setIsLoading(true);
       const result = await reqLogin(data);
-      if (result.code === 401) {
+      if (result.code === 404) {
         toast.error(result.message, {
           className: "toast-error",
         });

@@ -66,6 +66,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
     if (!hour) {
       return toast.error("Chọn giờ đặt lịch");
     }
+
     router.replace(
       "/attractions/booking/" +
         slug +
@@ -79,10 +80,23 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
         children
     );
   };
+
   return (
     <div
-      className={cn("space-y-3 border-[0.5px] border-[#999] rounded-xl p-3")}
+      className={cn(
+        "space-y-3 border-[0.5px] border-[#999] rounded-xl p-3 relative"
+      )}
     >
+      {!isAuthenticated && !user && (
+        <div className="absolute w-full top-0 bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.15)] rounded-8 flex items-center justify-center ">
+          <Link
+            href="/sign-in"
+            className="w-full text-center z-10 shadow-xl bg-bg_primary_active text-white p-2 rounded-8 text-small mx-8 hover:bg-bg_primary_main"
+          >
+            Đăng nhập để tiếp tục
+          </Link>
+        </div>
+      )}
       <h5 className="flex items-center justify-start gap-1">
         <AiOutlineClockCircle className="text-[1.25rem]" />{" "}
         <span>{duration} ngày</span>
@@ -139,7 +153,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-2 text-small"
+            className="space-y-3 text-small"
           >
             <FormField
               control={form.control}
@@ -167,24 +181,20 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
                 </FormItem>
               )}
             />
-            <div className="w-full ">
-              {isAuthenticated && user ? (
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
-                  <Button
-                    type="submit"
-                    className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
-                  >
-                    <span className="text-white text-small font-normal">
-                      Đặt ngay
-                    </span>
-                  </Button>
-                  <Button className="w-full text-small font-normal">
-                    Liên hệ
-                  </Button>
-                </div>
-              ) : (
-                <Link href="/sign-in">Đăng nhập để tiếp tục</Link>
-              )}
+            <div className="w-full  ">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
+                <Button
+                  type="submit"
+                  className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+                >
+                  <span className="text-white text-small font-normal">
+                    Đặt ngay
+                  </span>
+                </Button>
+                <Button className="w-full text-small font-normal">
+                  Liên hệ
+                </Button>
+              </div>
             </div>
           </form>
         </Form>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotels";
+import { HotelData } from "@/constants";
 
 const ListAllHotels = async () => {
   const result = await getAllHotel();
@@ -29,31 +30,22 @@ const ListAllHotels = async () => {
             className="w-full "
           >
             <CarouselContent>
-              {data?.map(
-                (hotel: {
-                  slug: string;
-                  name: string;
-                  images: [string];
-                  location: string;
-                  price: [number];
-                  rating: number;
-                }) => (
-                  <CarouselItem
-                    key={hotel.slug}
-                    className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
-                  >
-                    <ItemCard
-                      route="hotels"
-                      slug={hotel.slug}
-                      name={hotel.name}
-                      images={hotel.images[0]}
-                      location={hotel.location}
-                      price={hotel.price[0]}
-                      rating={hotel.rating}
-                    />
-                  </CarouselItem>
-                )
-              )}
+              {data?.map((hotel: HotelData) => (
+                <CarouselItem
+                  key={hotel.slug}
+                  className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                >
+                  <ItemCard
+                    route="hotels"
+                    slug={hotel.slug}
+                    name={hotel.name}
+                    images={hotel.images[0]}
+                    location={hotel.location.detail}
+                    rating={hotel.rating}
+                    price={hotel.listRooms[0].price}
+                  />
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious className="w-14 h-14 left-2 bg-bg_primary_blue_sub border-none text-white" />
             <CarouselNext className="w-14 h-14 right-2 bg-bg_primary_blue_sub border-none text-white" />

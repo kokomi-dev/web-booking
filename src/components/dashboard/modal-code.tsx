@@ -46,12 +46,11 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
     function removeDots(numberStr: string) {
       return numberStr.replace(/\./g, "");
     }
-    const total = totalBooking();
 
     try {
       if (value == code && user) {
         const result = await createRequestPayment({
-          amount: parseFloat(removeDots(total)),
+          amount: parseFloat(removeDots(totalBooking)),
           userId: user._id,
           tripId,
           category,
