@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShowImages from "./show-images";
 import { cn } from "@/lib/utils";
+import ShowCommentsImage from "./show-comment-image";
 
-const ImagesDetail = ({ data }: { data: any }) => {
+const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
   const [open, setOpen] = useState(false);
+  const [openShowCmt, setOpenShowCmt] = useState(false);
+
   const [loading, setLoading] = useState([true, true, true, true, true]);
 
   const handleImageLoad = (index: number) => {
@@ -16,11 +19,35 @@ const ImagesDetail = ({ data }: { data: any }) => {
       return newLoadingState;
     });
   };
+  const [hoverStartTime, setHoverStartTime] = useState<number | null>(null);
+  const [hoverDuration, setHoverDuration] = useState(0);
 
+  const handleMouseEnter = () => {
+    setHoverStartTime(Date.now());
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverStartTime) {
+      const duration = Date.now() - hoverStartTime;
+      setHoverDuration(duration);
+      setHoverStartTime(null);
+    }
+  };
+
+  useEffect(() => {
+    if (hoverDuration > 500) {
+      console.log("hơn", hoverDuration);
+      return setOpenShowCmt(false);
+    } else {
+      console.log(hoverDuration);
+
+      return setOpenShowCmt(true);
+    }
+  }, [hoverDuration]);
   return (
     <div className="w-full h-auto  ">
       {data && (
-        <div className="w-full h-full grid grid-cols-2 gap-2 rounded-8 overflow-hidden">
+        <div className="w-full h-full grid grid-cols-2 gap-2 rounded-8 overflow-hidden select-none">
           {/* Main Image */}
           <div className="col-span-1 max-h-[400px] h-full">
             <div className="relative w-full h-full">
@@ -32,14 +59,23 @@ const ImagesDetail = ({ data }: { data: any }) => {
                 width={500}
                 height={400}
                 src={data.images[0]}
-                className={`object-cover w-full h-full cursor-pointer transition-opacity duration-300 ${
+                className={`object-cover w-full h-full cursor-pointer select-none transition-opacity duration-300 ${
                   loading[0] ? "opacity-0" : "opacity-100"
                 }`}
                 alt={`Ảnh chính của tour du lịch ${data.name}`}
                 onClick={() => {
                   setOpen(true);
                 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 onLoad={() => handleImageLoad(0)}
+              />
+              <ShowCommentsImage
+                open={openShowCmt}
+                setOpen={setOpenShowCmt}
+                slug={slug}
+                rating={data.rating}
+                comments={data.comments}
               />
             </div>
           </div>

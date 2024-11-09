@@ -1,7 +1,6 @@
 import { GoStarFill } from "react-icons/go";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
-import { MapPin, Share2 } from "lucide-react";
-import { Slash } from "lucide-react";
+import { Heart, MapPin, Share2 } from "lucide-react";
 import dynamic from "next/dynamic";
 
 import { getDetailAttraction } from "@/api/api-attractions";
@@ -66,14 +65,47 @@ const DetailAttractionPage = async ({
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h3 className="text-center my-3 text-normal text-black_main font-medium underline">
-          Lưu ý: tất cả các tour du lịch của chúng tôi đã bao gồm bảo hiểm cho
-          quý khách trong toàn bộ chuyến đi
-        </h3>
+
         {/* info */}
-        <section className="w-full h-full flex flex-col items-start justify-start gap-y-2">
-          <div className="w-full flex items-center justify-between ">
-            <h1 className="text-large font-bold ">{data.name}</h1>
+        <section
+          className={cn(
+            "w-full h-full flex  items-start justify-between gap-y-2 "
+          )}
+        >
+          <div className="grid gap-y-2">
+            <div className="w-full flex items-center justify-between ">
+              <h1 className="text-large font-bold ">{data.name}</h1>
+            </div>
+            <h3 className="w-fit flex items-center justify-center gap-x-2  ">
+              <GoStarFill className="text-yellow_main text-[1.2rem]" />
+              <span className="text-medium ">
+                <span className="text-normal font-semibold">{data.rating}</span>
+                {data?.rating > 4 ? (
+                  <span className="ml-1 text-small font-medium">Rất tốt</span>
+                ) : (
+                  <span className="ml-1 text-small font-medium">Tốt</span>
+                )}
+              </span>
+              <span className="text-small text-black_sub ">
+                ( {data.comments.length} đánh giá )
+              </span>
+            </h3>
+            <address className="text-small font-normal text-black_sub flex items-center justify-start gap-1">
+              <MapPin className="w-5 h-5 text-blue_main_sub" />
+              <address className="text-black">
+                <span className="font-medium">Địa chỉ: </span>
+                {data.location.detail}
+              </address>
+            </address>
+            {data.duration < 2 ? (
+              <p className="bg-yellow_main text-white text-smallest font-normal rounded-xl p-1 px-2 block">
+                Lựa chọn ưa thích của khách du lịch một mình
+              </p>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="w-fit grid gap-y-2 ">
             <div
               className={cn(
                 "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 text-black border-0.5 border-black_sub transition-all duration-300  hover:bg-bg_primary_hover",
@@ -85,38 +117,20 @@ const DetailAttractionPage = async ({
                 Chia sẻ điểm tham quan này
               </span>
             </div>
-          </div>
-          <h3 className="w-fit flex items-center justify-center gap-x-2  ">
-            <GoStarFill className="text-yellow_main text-[1.2rem]" />
-            <span className="text-medium ">
-              <span className="text-normal font-semibold">{data.rating}</span>
-              {data?.rating > 4 ? (
-                <span className="ml-1 text-small font-medium">Rất tốt</span>
-              ) : (
-                <span className="ml-1 text-small font-medium">Tốt</span>
+            <div
+              className={cn(
+                "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 cursor-pointer text-white border-0.5 bg-bg_primary_blue_sub transition-all duration-300  hover:opacity-90"
               )}
-            </span>
-            <span className="text-small text-black_sub ">
-              ( {data.comments.length} đánh giá )
-            </span>
-          </h3>
-          <address className="text-small font-normal text-black_sub flex items-center justify-start gap-1">
-            <MapPin className="w-5 h-5 text-red-500" />
-            <address className="text-black">
-              <span className="font-medium">Địa chỉ: </span>
-              {data.location.detail}
-            </address>
-          </address>
-          {data.duration < 2 ? (
-            <p className="bg-yellow_main text-white text-smallest font-normal rounded-xl p-1 px-2 block">
-              Lựa chọn ưa thích của khách du lịch một mình
-            </p>
-          ) : (
-            <></>
-          )}
+            >
+              <Heart className="w-4 h-4" />
+              <span className="text-smallest font-medium  hidden lg:block">
+                Thêm vào yêu thích
+              </span>
+            </div>
+          </div>
         </section>
         {/* images */}
-        <ImagesDetail data={data} />
+        <ImagesDetail data={data} slug={slug} />
         {/* rules */}
         <div className="w-full h-full flex flex-col items-start justify-start gap-y-4">
           {data.cancelFree && (
