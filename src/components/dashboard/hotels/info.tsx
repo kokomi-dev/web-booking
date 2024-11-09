@@ -2,7 +2,6 @@
 
 import ImagesDetail from "@/components/components/images-detail";
 import { Heart, MapPin, Share2, TriangleAlert } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 import { GoStarFill } from "react-icons/go";
 

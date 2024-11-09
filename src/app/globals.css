@@ -318,3 +318,12 @@ img {
   border-style: solid;
   border-color: #006ce4;
 }
+
+/* progress */
+.progress-bar {
+  background-color: #4caf50; /* Màu của thanh value */
+}
+
+.progress-container {
+  background-color: #e0e0e0; /* Màu nền */
+}

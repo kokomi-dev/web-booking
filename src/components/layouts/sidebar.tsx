@@ -1,4 +1,4 @@
-import Navigation from "./nav";
+import Navigation from "./Nav";
 import { cn } from "@/lib/utils";
 const Sidebar = () => {
   return (

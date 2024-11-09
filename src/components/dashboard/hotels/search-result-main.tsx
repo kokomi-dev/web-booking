@@ -116,10 +116,14 @@ const SearchResultMain: React.FC<ISearchResult> = ({
     ({ data }: IHandleFilterData, value: string) => {
       switch (value) {
         case "lowest-price": {
-          return data.sort((a, b) => a.price[1] - b.price[1]);
+          return data.sort(
+            (a, b) => a.listRooms[0].price - b.listRooms[0].price
+          );
         }
         case "hightest-price": {
-          return data.sort((a, b) => b.price[1] - a.price[1]);
+          return data.sort(
+            (a, b) => b.listRooms[0].price - a.listRooms[0].price
+          );
         }
         case "rating-best": {
           return data.sort((a, b) => b.rating - a.rating);
@@ -237,9 +241,9 @@ const SearchResultMain: React.FC<ISearchResult> = ({
                   slug={hotel.slug}
                   name={hotel.name}
                   images={hotel.images[0]}
-                  price={hotel.price[0]}
+                  price={hotel.listRooms[0].price}
                   route="attractions"
-                  location={hotel.location}
+                  location={hotel.location.detail}
                   details={hotel.details}
                 />
               );

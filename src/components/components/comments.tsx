@@ -24,7 +24,7 @@ import { PopoverTrigger } from "../ui/popover";
 
 interface IComments {
   category: string;
-  initialComments: [];
+  initialComments: [{}];
   initialRating: number;
   slug: string;
 }
@@ -46,16 +46,12 @@ const Comments: React.FC<IComments> = ({
   slug,
 }) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-  const { data, error, isLoading } = useSWR(
-    `${apiUrl}/${category}/${slug}`,
-    fetcher,
-    {
-      fallbackData: {
-        comments: initialComments || [],
-        rating: initialRating,
-      },
-    }
-  );
+  const { data, isLoading } = useSWR(`${apiUrl}/${category}/${slug}`, fetcher, {
+    fallbackData: {
+      comments: initialComments || [],
+      rating: initialRating,
+    },
+  });
   const comments = data?.comments;
   const rating = data?.rating;
 
@@ -108,10 +104,10 @@ const Comments: React.FC<IComments> = ({
         <span className="text-normal font-medium">
           {rating > 4.5 ? "Rất tuyệt vời" : rating > 4.0 ? "Tuyệt vời" : "Tốt"}
         </span>
-        <span>({comments?.length} đánh giá)</span>
+        <span>({comments.length} đánh giá)</span>
       </div>
       <div>
-        {comments?.length === 0 ? (
+        {comments.length === 0 ? (
           <span className="text-normal font-normal">Chưa có đánh giá nào!</span>
         ) : (
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 md:mb-0">
