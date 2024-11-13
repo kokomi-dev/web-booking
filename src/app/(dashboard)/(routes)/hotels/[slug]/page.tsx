@@ -79,6 +79,7 @@ const DetailHotelPage = async ({
         rating={data.rating}
         details={data.details}
         images={data}
+        slug={slug}
       />
       <div
         className="w-full h-full flex flex-col items-start justify-start gap-y-2"

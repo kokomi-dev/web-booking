@@ -68,7 +68,7 @@ const reqCurrentUser = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Lỗi khi lấy thông tin người dùng hiện tại:", error);
+    throw new Error(`Lỗi khi lấy thông tin người dùng hiện tại`);
   }
 };
 const reqUpdateUser = async (id: string | number, data: reqUpdateProp) => {
