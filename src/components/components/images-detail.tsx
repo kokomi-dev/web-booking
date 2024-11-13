@@ -36,11 +36,8 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
 
   useEffect(() => {
     if (hoverDuration > 500) {
-      console.log("hơn", hoverDuration);
       return setOpenShowCmt(false);
     } else {
-      console.log(hoverDuration);
-
       return setOpenShowCmt(true);
     }
   }, [hoverDuration]);

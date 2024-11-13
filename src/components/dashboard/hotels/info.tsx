@@ -11,8 +11,15 @@ interface InfoProps {
   details: [string];
   rating: number;
   images: any;
+  slug: string;
 }
-const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
+const Info: React.FC<InfoProps> = ({
+  name,
+  location,
+  rating,
+  images,
+  slug,
+}) => {
   return (
     <div className="w-full grid ">
       <div className="w-full grid mb-4  " id="overview">
@@ -56,7 +63,7 @@ const Info: React.FC<InfoProps> = ({ name, location, rating, images }) => {
         </h6>
       </div>
       {/* images */}
-      <ImagesDetail data={images} />
+      <ImagesDetail slug={slug} data={images} />
     </div>
   );
 };
