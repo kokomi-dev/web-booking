@@ -23,10 +23,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, MessageCircle } from "lucide-react";
 
 export async function generateStaticParams() {
-  const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
-  return listTours.data.map((hotel: HotelData) => ({
-    slug: hotel.slug,
-  }));
+  try {
+    const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
+    return listTours.data.map((hotel: HotelData) => ({
+      slug: hotel.slug,
+    }));
+  } catch (error) {
+    throw Error("Lỗi khi render server-side");
+  }
 }
 const listQuestion = [
   "Họ có phục vụ bữa sáng không",

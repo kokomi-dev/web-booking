@@ -28,12 +28,16 @@ const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });
 export async function generateStaticParams() {
-  const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
-    res.json()
-  );
-  return listAttraction.data.map((attraction: AttractionData) => ({
-    slug: attraction.slug,
-  }));
+  try {
+    const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
+      res.json()
+    );
+    return listAttraction.data.map((attraction: AttractionData) => ({
+      slug: attraction.slug,
+    }));
+  } catch (error) {
+    throw Error("Lỗi khi thực hiện server side render ring");
+  }
 }
 const DetailAttractionPage = async ({
   params: { slug },
