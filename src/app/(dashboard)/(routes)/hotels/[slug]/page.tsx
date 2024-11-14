@@ -25,6 +25,7 @@ import { ChevronRight, MessageCircle } from "lucide-react";
 export async function generateStaticParams() {
   try {
     const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
+    if (listTours.length === 0) return [];
     return listTours.data.map((hotel: HotelData) => ({
       slug: hotel.slug,
     }));
