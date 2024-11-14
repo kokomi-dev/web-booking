@@ -11,7 +11,6 @@ import BookingContainer from "@/components/components/booking-container";
 import { AttractionData } from "@/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
 import ImagesDetail from "@/components/components/images-detail";
-
 import Comments from "@/components/components/comments";
 import SupportQuestions from "@/components/dashboard/home/support-questions";
 import NotFoundPage from "@/app/account/not-found";
