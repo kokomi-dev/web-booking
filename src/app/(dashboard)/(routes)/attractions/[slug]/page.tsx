@@ -32,7 +32,11 @@ export async function generateStaticParams() {
     const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
       res.json()
     );
-    return listAttraction.data.map((attraction: AttractionData) => ({
+    if (!listAttraction || !Array.isArray(listAttraction.data)) {
+      console.error("Dữ liệu không hợp lệ hoặc không có trường data");
+      return [];
+    }
+    return await listAttraction.data.map((attraction: AttractionData) => ({
       slug: attraction.slug,
     }));
   } catch (error) {

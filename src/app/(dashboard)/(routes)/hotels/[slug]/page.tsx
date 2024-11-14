@@ -25,11 +25,12 @@ import { ChevronRight, MessageCircle } from "lucide-react";
 export async function generateStaticParams() {
   try {
     const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
+    if (!listTours || Array.isArray(listTours)) return [];
     return listTours.data.map((hotel: HotelData) => ({
       slug: hotel.slug,
     }));
   } catch (error) {
-    throw Error("Lỗi khi render server side");
+    throw Error("Lỗi khi server side");
   }
 }
 const listQuestion = [
