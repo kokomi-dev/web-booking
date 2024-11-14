@@ -30,5 +30,15 @@ const nextConfig = {
     ],
   },
 };
-
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/attractions",
+        permanent: true,
+      },
+    ];
+  },
+};
 export default nextConfig;
