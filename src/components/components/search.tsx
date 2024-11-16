@@ -20,6 +20,10 @@ import { getListProvinces } from "@/api/api-attractions";
 import { ChevronDown, Dot, MapPinned, User } from "lucide-react";
 import Link from "next/link";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cx } from "class-variance-authority";
+
 // interface
 interface NumberPersonType {
   className?: string;
@@ -65,9 +69,13 @@ interface IDataProvince {
 export const AddressTravel = ({
   value,
   setValue,
+  error,
+  className,
 }: {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  error: boolean;
+  className?: string;
 }) => {
   const [open, setOpen] = useState(true);
   const [valueSearch, setValueSearch] = useState("");
@@ -93,93 +101,68 @@ export const AddressTravel = ({
   }, [valueSearch]);
 
   return (
-    <div className="w-full relative ">
-      <div className="w-full  min-h-[40px] max-h-[48px] h-full  flex items-center justify-start gap-x-1 bg-bg_primary_white rounded-8 px-2 py-1">
-        <MapPinned className="size-5 text-black_main " />
+    <Popover>
+      <PopoverTrigger>
+        <Button
+          variant="ghost"
+          className={cx(
+            "w-full h-[40px] justify-start text-left font-normal bg-bg_primary_white px-2 py-1 shadow-none mt-2",
+            className
+          )}
+        >
+          <MapPinned className="size-5 text-black_main " />
+          <span className="ml-2 text-small font-medium">
+            Chọn nơi bạn muốn đến!
+          </span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        className="w-full min-w-full p-0 bg-bg_primary_white text-black"
+      >
         <Input
           type="text"
           placeholder="Nhập tên tỉnh thành !"
           className={cn(
-            "w-full  text-normal font-normal shadow-none justify-between   bg-transparent text-black border-none outline-none placeholder-black plac transition-all duration-300",
-            "lg:text-normal ",
-            !open && "placeholder-black_sub"
+            "w-full text-small font-normal shadow-none justify-between   bg-transparent text-black border-none outline-none placeholder-black transition-all duration-300",
+            "lg:text-small "
           )}
           value={valueSearch}
           onChange={(e: any) => {
             setValueSearch(e.target.value);
           }}
-          onFocus={() => {
-            setOpen(false);
-          }}
-          onBlur={() => {
-            setOpen(true);
-          }}
         />
-      </div>
-
-      <div
-        className={cn(
-          "w-full h-auto rounded-8 absolute right-0 top-0 translate-y-[70px] opacity-0 visible   shadow-2xl  text-black transition-all duration-200 ",
-          !open && "opacity-100 translate-y-[50px]"
-        )}
-      >
-        {!valueSearch ? (
-          <div className="w-full max-h-[300px] bg-white h-full p-3 rounded-8 ">
-            <div className="w-full flex-wrap flex gap-x-2">
-              <Link
-                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
-                href="/attractions"
+        <div className="w-full max-h-[300px]  h-full overflow-y-auto bg-white rounded-8">
+          {data && data.length > 0 ? (
+            data.map((item, index) => (
+              <div
+                key={index}
+                className=" px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
+                onMouseDown={() => {
+                  setValue(item.name);
+                  setValueSearch(item.name);
+                }}
               >
-                Địa điểm tham quan
-              </Link>
-              <Link
-                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
-                href="/hotels"
-              >
-                Lưu trú
-              </Link>
-              <Link
-                className=" text-smallest border-0.5 border-black_sub p-2 rounded-8 hover:cursor-pointer"
-                href="/contact"
-              >
-                Liên hệ tư vấn
-              </Link>
-            </div>
-            <div className="mt-2">
-              <h6 className="text-small font-normal">Tìm kiếm gần đây:</h6>
-              <ul className="text-small">
-                <li>Đang cập nhật</li>
-              </ul>
-            </div>
-          </div>
-        ) : (
-          <div className="w-full max-h-[300px]  h-full overflow-y-auto bg-white rounded-8">
-            {data && data.length > 0 ? (
-              data.map((item, index) => (
-                <div
-                  key={index}
-                  className=" px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:bg-bg_black_sub hover:cursor-pointer"
-                  onMouseDown={() => {
-                    setValue(item.name);
-                    setValueSearch(item.name);
-                  }}
-                >
-                  <span className="text-small font-medium">{item.name}</span>
-                </div>
-              ))
-            ) : (
-              <div className="p-2 text-small font-normal">
-                {valueSearch ? (
-                  <span>Nhập chính xác tên tỉnh thành !</span>
-                ) : (
-                  <span></span>
-                )}
+                <span className="text-small font-medium">{item.name}</span>
               </div>
-            )}
+            ))
+          ) : (
+            <div className="p-2 text-small font-normal">
+              {valueSearch ? (
+                <span>Nhập chính xác tên tỉnh thành !</span>
+              ) : (
+                <span></span>
+              )}
+            </div>
+          )}
+        </div>
+        {error && (
+          <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2 text-white text-small">
+            Chọn nơi bạn muốn đến!
           </div>
         )}
-      </div>
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 // date picker
@@ -200,7 +183,7 @@ export const DatePicker: React.FC<IDatePicker> = ({
         <Button
           variant={"ghost"}
           className={cn(
-            "w-full min-h-[40px] max-h-[48px] h-full  justify-start text-left font-normal bg-bg_primary_white px-2 py-1 shadow-none ",
+            "w-full h-[40px] justify-start text-left font-normal bg-bg_primary_white px-2 py-1 shadow-none ",
             !date && "text-muted-foreground",
             className
           )}
@@ -243,7 +226,7 @@ export const DatePickerDou: React.FC<IDatePickerDou> = ({
         id="date"
         variant="ghost"
         className={cn(
-          "w-full  min-h-[40px] max-h-[48px]  h-full bg-bg_primary_white px-2 py-1",
+          "w-full h-[40px] bg-bg_primary_white px-2 py-1",
           !date && "bg-bg_primary_white w-full",
           className
         )}
@@ -307,7 +290,7 @@ export const SelectNumberPerson = ({
         <Button
           variant="ghost"
           className={cn(
-            "w-full  min-h-[40px] max-h-[48px] h-full bg-bg_primary_white px-2 py-1",
+            "w-full h-[40px] bg-bg_primary_white px-2 py-1",
             "hover:cursor-pointer ",
             error && "border-[2px] border-error_color",
             className
@@ -445,7 +428,6 @@ const Search: React.FC<SearchProps> = ({
     to: addDays(new Date(), 2),
   });
   const [date, setDate] = useState<any>();
-  const [popoverOpen, setPopoverOpen] = useState(false);
   const [numberAdults, setNumberAdults] = useState<number>(2);
   const [numberChildren, setNumberChildren] = useState<number>(1);
   const [numberRoom, setNumberRoom] = useState<number>(1);
@@ -470,6 +452,162 @@ const Search: React.FC<SearchProps> = ({
       router.push(`/${page}/searchresult?address=${value}&filter=suggest`);
     }
   };
+  if (page === "") {
+    return (
+      <div>
+        <Tabs
+          defaultValue="attractions"
+          className="w-full bg-bg_primary_white rounded-14"
+        >
+          <TabsList className="grid w-full grid-cols-2 ">
+            <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
+            <TabsTrigger value="hotels">Nơi lưu trú</TabsTrigger>
+          </TabsList>
+          <TabsContent
+            value="attractions"
+            className="border-t-1  border-blue_main_sub"
+          >
+            <Card
+              className={cx(
+                "overflow-hidden border-none h-[200px] ",
+                "lg:h-[120px]"
+              )}
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0 ">
+                  <span className="hidden md:block">
+                    Tìm kiếm điểm tham quan của bạn
+                  </span>
+                  <Link
+                    href="/attractions"
+                    className="text-blue_main_sub underline text-small font-normal"
+                  >
+                    Đến trang gợi ý của chúng tôi
+                  </Link>
+                </CardTitle>
+              </CardHeader>
+              <CardContent
+                className={cx(
+                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6",
+                  "md:flex-row md:items-center md:justify-start"
+                )}
+              >
+                <AddressTravel
+                  value={value}
+                  setValue={setValue}
+                  error={error}
+                  className="!z-[10]"
+                />
+                <DatePickerDou
+                  date={dateDou}
+                  setDate={setDateDou}
+                  className="mt-2 !z-[10] !ml-0 md:!ml-2"
+                />
+                <Button
+                  type="submit"
+                  variant="default"
+                  className={cn(
+                    "w-full !ml-0  h-[40px] text-normal font-medium bg-bg_primary_blue_sub text-white",
+                    "md:!ml-2",
+                    "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
+                    "hover:bg-bg_primary_active"
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!value) {
+                      setError(true);
+                    } else {
+                      router.push(
+                        `/attractions/searchresult?address=${value}&filter=suggest`
+                      );
+                    }
+                  }}
+                >
+                  Tìm
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent
+            value="hotels"
+            className="border-t-1  border-yellow_main"
+          >
+            <Card
+              className={cx(
+                "overflow-hidden border-none h-[246px] ",
+                "lg:h-[120px]"
+              )}
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0">
+                  <span className="hidden md:block">
+                    Tìm kiếm nơi lưu trú hợp lí cho chuyến đi
+                  </span>
+                  <Link
+                    href="/hotels"
+                    className="text-blue_main_sub underline text-small font-normal"
+                  >
+                    Đến trang gợi ý của chúng tôi
+                  </Link>
+                </CardTitle>
+              </CardHeader>
+              <CardContent
+                className={cx(
+                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6",
+                  "lg:flex-row lg:items-center lg:justify-start"
+                )}
+              >
+                <AddressTravel
+                  value={value}
+                  setValue={setValue}
+                  error={error}
+                  className="!z-[10]"
+                />
+                <DatePickerDou
+                  date={dateDou}
+                  setDate={setDateDou}
+                  className="mt-2 !z-[10] !ml-0 md:!ml-2"
+                />
+                <SelectNumberPerson
+                  className="z-[5] !ml-0 md:!ml-2"
+                  error={error}
+                  setError={setError}
+                  numberAdults={numberAdults}
+                  setNumberAdults={setNumberAdults}
+                  numberChildren={numberChildren}
+                  setNumberChildren={setNumberChildren}
+                  numberRoom={numberRoom}
+                  setNumberRoom={setNumberRoom}
+                />
+                <Button
+                  type="submit"
+                  variant="default"
+                  className={cn(
+                    "w-full  h-[40px] !ml-0  text-normal font-medium bg-bg_primary_blue_sub text-white",
+                    "md:!ml-2",
+                    "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
+                    "hover:bg-bg_primary_active"
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!numberAdults || !numberChildren || !numberRoom) {
+                      setError(true);
+                    } else {
+                      router.push(
+                        `/hotels/searchresult?address=${value}&filter=suggest`
+                      );
+                    }
+                  }}
+                >
+                  Tìm
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    );
+  }
   return (
     <form
       className={cn(
@@ -528,12 +666,10 @@ const Search: React.FC<SearchProps> = ({
             " lg:flex  lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
         >
-          <AddressTravel value={value} setValue={setValue} />
-          {error && (
-            <div className="absolute bottom-[-75%] shadow-xl rounded-md px-3 left-0 right-0 bg-red-700 py-2 text-white text-small">
-              Chọn nơi bạn muốn đến!
-            </div>
-          )}
+          {page === "attractions" ||
+            (variant === "search" && (
+              <AddressTravel value={value} setValue={setValue} error={error} />
+            ))}
           {(page === "attractions" || variant === "search") && (
             <DatePicker date={date} setDate={setDate} />
           )}
