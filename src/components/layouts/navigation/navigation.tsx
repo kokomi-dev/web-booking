@@ -14,8 +14,10 @@ const Navigation = () => {
         "w-full h-full transition-all duration-200",
         "lg:w-[100%] ",
         "md:w-[90%]",
-        pathname.includes("hotels" || "contact" || " combos") &&
-          "lg:ml-[-1rem]",
+        pathname.includes("attractions") && " lg:ml-[-1rem]",
+        pathname.includes("hotels") && " lg:ml-[-1rem]",
+        pathname.includes("combos") && " lg:ml-[-1rem]",
+        pathname.includes("contact") && " lg:ml-[-1rem]",
         pathname.includes("booking") && "hidden invisible"
       )}
     >
@@ -25,16 +27,19 @@ const Navigation = () => {
         )}
       >
         {NAVIGATIONS.map(({ title, url, icon }) => {
+          const isActive =
+            (pathname === "/" && url === "/") || pathname.includes("/" + url);
           return (
             <Link
               key={url}
-              href={url}
+              href={"/" + url}
               className={cn(
                 "flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
                 "hover:bg-bg_primary_active  cursor-pointer",
                 "lg:text-white",
-                pathname.includes(url) &&
-                  "lg:bg-bg_primary_active lg:text-white lg:rounded-8 lg:border-1"
+                isActive
+                  ? "lg:bg-bg_primary_active lg:text-white lg:rounded-8 lg:border-1"
+                  : ""
               )}
               onClick={handleClose}
             >
@@ -51,7 +56,7 @@ const Navigation = () => {
                   <path d={icon} fill="currentColor"></path>
                 </svg>
               </div>
-              <span className=" font-normal text-[0.95rem]">{title}</span>
+              <span className=" font-normal text-[0.93rem]">{title}</span>
             </Link>
           );
         })}
