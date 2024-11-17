@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-import { ADDRESS_TRENDING } from "@/constants";
+import { ADDRESS_TRENDING } from "@/utils/constants";
 import { cn } from "@/lib/utils";
 import { LoadingImg } from "@/components/components/loading";
 

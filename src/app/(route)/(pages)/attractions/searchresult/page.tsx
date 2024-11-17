@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-attractions";
 import ShowResult from "@/components/dashboard/home/show-resutl";
 import { cn } from "@/lib/utils";
-import { AttractionData, convertToSlug } from "@/constants";
+import { AttractionData, convertToSlug } from "@/utils/constants";
 
 const SearchResultPage = () => {
   const searchParams = useSearchParams();

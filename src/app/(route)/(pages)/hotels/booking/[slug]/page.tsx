@@ -17,7 +17,7 @@ import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData, convertVND } from "@/constants";
+import { HotelData, convertVND } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { getDetailHotel } from "@/api/api-hotels";
 import { z } from "zod";

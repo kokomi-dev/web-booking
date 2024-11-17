@@ -1,17 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 import { cn } from "@/lib/utils";
-import { HotelData, convertToSlug } from "@/constants";
+import { HotelData, convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
 import SearchResultMain from "@/components/dashboard/hotels/search-result-main";
 import Loading from "./loading";

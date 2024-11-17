@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotels";
-import { HotelData } from "@/constants";
+import { HotelData } from "@/utils/constants";
 
 const ListAllHotels = async () => {
   const result = await getAllHotel();

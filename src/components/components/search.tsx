@@ -111,7 +111,7 @@ export const AddressTravel = ({
         >
           <MapPinned className="size-5 text-black_main " />
           <span className="ml-2 text-small font-medium">
-            {value ?? "Chọn nơi bạn muốn đến"}
+            {value === "" || value === null ? "Chọn nơi bạn muốn đến" : value}
           </span>
         </Button>
       </PopoverTrigger>
@@ -451,7 +451,7 @@ const Search: React.FC<SearchProps> = ({
       router.push(`/${page}/searchresult?address=${value}&filter=suggest`);
     }
   };
-  if (page === "") {
+  if (page === "home") {
     return (
       <div>
         <Tabs

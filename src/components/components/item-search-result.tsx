@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FaCalendarXmark, FaStar } from "react-icons/fa6";
 import Image from "next/image";
 
-import { ratingConvert } from "@/constants";
+import { ratingConvert } from "@/utils/constants";
 import { LoadingItemSearch } from "@/components/components/loading";
 export const formatPrice = (num: number) => {
   const str = num.toString();

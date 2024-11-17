@@ -24,7 +24,6 @@ const HeaderDashboard = () => {
         "w-full h-full container-padding bg-bg_primary_main z-[15]  flex flex-col items-start justify-start gap-2 py-2"
       )}
     >
-      {/* logo, navigation, notify */}
       <div
         className={cn(
           "w-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
@@ -33,7 +32,7 @@ const HeaderDashboard = () => {
       >
         <MobileSidebar />
         <div className="w-full font-bold  flex items-center justify-between text-white  ">
-          <Link href="/attractions" className="text-large e font-mono">
+          <Link href="/home" className="text-large e font-mono">
             KoKoTravel.com
           </Link>
           <div className="flex items-center justify-start gap-x-2">

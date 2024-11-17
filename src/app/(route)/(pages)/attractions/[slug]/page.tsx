@@ -8,7 +8,7 @@ import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/components/booking-container";
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
 import ImagesDetail from "@/components/components/images-detail";
 

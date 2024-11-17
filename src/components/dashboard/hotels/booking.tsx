@@ -13,7 +13,7 @@ import {
   DatePickerDou,
   SelectNumberPerson,
 } from "@/components/components/search";
-import { convertVND } from "@/constants";
+import { convertVND } from "@/utils/constants";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
 const Booking = ({

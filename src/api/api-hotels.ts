@@ -1,4 +1,4 @@
-import { HotelData } from "@/constants";
+import { HotelData } from "@/utils/constants";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 

@@ -13,7 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/lib/utils";
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 import ShowOnMap from "@/components/components/show-on-map";
 import { LoadingItemSearch } from "@/components/components/loading";
 import { Dot } from "lucide-react";
