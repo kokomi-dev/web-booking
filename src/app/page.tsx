@@ -3,7 +3,6 @@ import React from "react";
 import { Check } from "lucide-react";
 import { cx } from "class-variance-authority";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,18 +12,11 @@ import { Button } from "@/components/ui/button";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 function HomePage() {
   const { isAuthenticated, user } = useAuthenticatedStore();
-  const router = useRouter();
-  const text = "Khám phá và Đặt chỗ nghỉ lý tưởng tại Việt Nam";
+
   return (
     <div className=" bg-white flex flex-col w-fulll gap-8 ">
       <section className=" bg-cover bg-center h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
-        <motion.div
-          initial={{ opacity: 0, y: 120 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ duration: 0.8 }}
-          className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8  "
-        >
+        <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8  ">
           <h1
             className={cx(
               "text-medium font-bold text-white",
@@ -36,13 +28,13 @@ function HomePage() {
           <p className="mt-4 text-small md:text-normal text-white ">
             Trải nghiệm những khoảnh khắc khó quên và khung cảnh tuyệt đẹp.
           </p>
-          <button
+          <Link
+            href="/attractions"
             className="mt-6 px-8 py-3 underline text-yellow_main rounded-md"
-            onClick={() => router.push("/attractions")}
           >
             Khám phá ngay
-          </button>
-        </motion.div>
+          </Link>
+        </div>
       </section>
       {/* Điểm đến nổi bật */}
       <section className=" ">
@@ -51,52 +43,28 @@ function HomePage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {listAddressTredingHome.map((e, index) => (
-            <motion.div
-              initial={{ opacity: 0, x: 120 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.8 }}
+            <Link
+              href={e.path}
               key={index}
               className="rounded-lg shadow-lg overflow-hidden hover:cursor-pointer"
-              onClick={() => {
-                router.push(e.path);
-              }}
             >
               <Image alt="img-pre-view" width={500} height={400} src={e.img} />
               <div className="p-4">
                 <h3 className="text-medium font-medium">{e.label}</h3>
                 <p className="mt-2 text-black_sub text-small">{e.des}</p>
               </div>
-            </motion.div>
+            </Link>
           ))}
         </div>
       </section>
-      <motion.section
-        initial={{ opacity: 0, y: 120 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.8 }}
-        className="text-center bg-[rgba(0,0,0,0.5)]  rounded-14 "
-      >
+      <section className="text-center bg-[rgba(0,0,0,0.5)]  rounded-14 ">
         <SlideShowImage />
-      </motion.section>
+      </section>
       {/* chỗ nghỉ */}
       <section className=" py-12 px-6 md:px-12 lg:px-24 rounded-14">
         <div className=" text-center">
           <h1 className="text-large md:text-5xl font-bold text-gray-800 mb-6">
-            {text.split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: 0.05, // Thời gian cho mỗi ký tự
-                  delay: index * 0.05, // Delay để ký tự xuất hiện dần dần
-                }}
-              >
-                {char}
-              </motion.span>
-            ))}
+            Khám phá và Đặt chỗ nghỉ lý tưởng tại Việt Nam
           </h1>
           <p className="text-small md:text-normal text-black_sub mb-8">
             Trải nghiệm dịch vụ đặt chỗ nhanh chóng và tiện lợi cho chuyến du

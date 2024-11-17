@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { Fade, Slide } from "react-slideshow-image";
+import { Fade } from "react-slideshow-image";
 import { listImgSlide } from "./constant";
 import Image from "next/image";
 const SlideShowImage = () => {
   return (
     <div className="slide-container relative w-full rounded-14 overflow-hidden ">
-      <Slide autoplay={true} duration={800}>
+      <Fade autoplay={true} duration={800}>
         {listImgSlide.map((fadeImage, index) => (
           <div key={index}>
             <Image
@@ -20,7 +20,7 @@ const SlideShowImage = () => {
             {/* <h2>{fadeImage.caption}</h2> */}
           </div>
         ))}
-      </Slide>
+      </Fade>
     </div>
   );
 };
