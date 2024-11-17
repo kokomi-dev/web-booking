@@ -1,4 +1,4 @@
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 
 interface ScheduleDisplayProps {
   data: AttractionData;

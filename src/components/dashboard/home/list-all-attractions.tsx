@@ -8,7 +8,7 @@ import {
 } from "../../ui/carousel";
 import { getAllAttraction } from "@/api/api-attractions";
 import { cn } from "@/lib/utils";
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 
 const ListAllTour = async () => {
   const { data } = await getAllAttraction();

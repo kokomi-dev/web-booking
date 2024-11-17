@@ -4,11 +4,8 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-slideshow-image/dist/styles.css";
-import "./globals.css";
-import "../assets/css/toast.css";
-import { Fragment } from "react";
-import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
-import FooterDashboard from "@/components/layouts/default-layout/footer-dashboard";
+import "../styles/globals.css";
+import "../styles/css/toast.css";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],
@@ -29,17 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning style={{}}>
       <body suppressHydrationWarning={true}>
-        <Fragment>
-          <header className="w-full h-full z-[20]">
-            <HeaderDashboard />
-          </header>
-          <main className="w-full h-full container-padding  py-4">
-            {children}
-          </main>
-          <footer>
-            <FooterDashboard />
-          </footer>
-        </Fragment>
+        {children}
         <ToastContainer autoClose={1500} />
       </body>
     </html>

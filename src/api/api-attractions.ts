@@ -1,4 +1,4 @@
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const getAllAttraction = async () => {

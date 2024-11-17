@@ -10,7 +10,7 @@ import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
-import { AttractionData } from "@/constants";
+import { AttractionData } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { z } from "zod";
 import { useForm } from "react-hook-form";

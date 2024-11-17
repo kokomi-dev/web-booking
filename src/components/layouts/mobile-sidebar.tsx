@@ -3,7 +3,7 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NAVIGATIONS } from "@/constants";
+import { NAVIGATIONS } from "@/utils/constants";
 import {
   Sheet,
   SheetContent,

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NAVIGATIONS } from "@/constants";
+import { NAVIGATIONS } from "@/utils/constants";
 import { cn } from "@/lib/utils";
 import { useSidebarStore } from "@/store/sidebar-store";
 const Navigation = () => {
@@ -27,12 +27,11 @@ const Navigation = () => {
         )}
       >
         {NAVIGATIONS.map(({ title, url, icon }) => {
-          const isActive =
-            (pathname === "/" && url === "/") || pathname.includes("/" + url);
+          const isActive = pathname.includes(url);
           return (
             <Link
               key={url}
-              href={"/" + url}
+              href={url}
               className={cn(
                 "flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
                 "hover:bg-bg_primary_active  cursor-pointer",

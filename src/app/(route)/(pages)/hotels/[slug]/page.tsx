@@ -14,11 +14,11 @@ import { cn } from "@/lib/utils";
 
 import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
-import { HotelData } from "@/constants";
+import { HotelData } from "@/utils/constants";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";
-import NotFoundPage from "@/app/(dashboard)/404";
+import NotFoundPage from "@/app/(route)/404";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, MessageCircle } from "lucide-react";
 
