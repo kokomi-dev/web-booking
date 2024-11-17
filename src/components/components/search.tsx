@@ -77,7 +77,6 @@ export const AddressTravel = ({
   error: boolean;
   className?: string;
 }) => {
-  const [open, setOpen] = useState(true);
   const [valueSearch, setValueSearch] = useState("");
   const [data, setData] = useState<IDataProvince[]>([]);
 
@@ -102,7 +101,7 @@ export const AddressTravel = ({
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           variant="ghost"
           className={cx(
@@ -112,7 +111,7 @@ export const AddressTravel = ({
         >
           <MapPinned className="size-5 text-black_main " />
           <span className="ml-2 text-small font-medium">
-            Chọn nơi bạn muốn đến!
+            {value ?? "Chọn nơi bạn muốn đến"}
           </span>
         </Button>
       </PopoverTrigger>
@@ -457,7 +456,7 @@ const Search: React.FC<SearchProps> = ({
       <div>
         <Tabs
           defaultValue="attractions"
-          className="w-full bg-bg_primary_white rounded-14"
+          className="w-full bg-bg_primary_white rounded-8"
         >
           <TabsList className="grid w-full grid-cols-2 ">
             <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
@@ -469,7 +468,7 @@ const Search: React.FC<SearchProps> = ({
           >
             <Card
               className={cx(
-                "overflow-hidden border-none h-[200px] ",
+                "overflow-hidden border-none h-[200px]  ",
                 "lg:h-[120px]"
               )}
             >
@@ -488,7 +487,7 @@ const Search: React.FC<SearchProps> = ({
               </CardHeader>
               <CardContent
                 className={cx(
-                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6",
+                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6 ",
                   "md:flex-row md:items-center md:justify-start"
                 )}
               >
@@ -616,7 +615,11 @@ const Search: React.FC<SearchProps> = ({
         pathname.includes("combos") && "hidden",
         pathname.includes("contact") && "hidden",
         pathname.includes("booking") && "hidden",
-        pathname.includes("pay") && "hidden"
+        pathname.includes("pay") && "hidden",
+        pathname.includes("sign-in") && "hidden",
+        pathname.includes("sign-up") && "hidden",
+
+        pathname.includes("account") && "hidden"
       )}
     >
       <div
