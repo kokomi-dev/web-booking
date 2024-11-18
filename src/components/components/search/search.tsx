@@ -220,7 +220,7 @@ const Search: React.FC<SearchContainerProp> = ({
         pathname.includes("pay") && "hidden",
         pathname.includes("sign-in") && "hidden",
         pathname.includes("sign-up") && "hidden",
-
+        pathname.includes("content") && "hidden",
         pathname.includes("account") && "hidden"
       )}
     >

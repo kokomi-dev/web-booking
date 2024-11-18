@@ -126,9 +126,12 @@ function HomePage() {
           Cam kết dịch vụ chất lượng cao với các hướng dẫn viên chuyên nghiệp và
           lịch trình chi tiết.
         </p>
-        <Button className="text-blue_main">
+        <Link
+          href="/content?activeTab=1"
+          className="text-blue_main text-small underline"
+        >
           Xem thêm về chính sách của chúng tôi
-        </Button>
+        </Link>
       </section>
       {/* Quyền lợi của khách du lịch */}
       <section className="">

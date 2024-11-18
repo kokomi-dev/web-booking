@@ -53,7 +53,7 @@ const FormLogin: React.FC = () => {
       }
       if (result.token) {
         toast.success("Đăng nhập thành công");
-        router.replace("/attractions");
+        router.replace("/home");
         setIsAuthenticated();
         setUserLogined(result);
         localStorage.setItem("token", result.token);
