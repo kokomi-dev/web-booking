@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { addDays } from "date-fns";
 import { Button } from "@/components/ui/button";
 
-import { DateRange } from "react-day-picker";
+import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import { cn } from "@/lib/utils";
 
 import Link from "next/link";

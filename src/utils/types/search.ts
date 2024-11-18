@@ -1,5 +1,5 @@
 import { SetStateAction } from "react";
-import { DateRange } from "react-day-picker";
+import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 export type DataAddressProps = {
   full_name: string;
   full_name_en: string;
@@ -22,12 +22,14 @@ export type SearchDatePickerProps = {
   className?: string;
 };
 export type SearchDatePickerDouProps = {
+  className?: string;
+  date: DateRange | undefined;
+  setDate: SelectRangeEventHandler;
+  // SelectRangeEventHandler | undefined;
+
   // className?: string;
   // date: DateRange | undefined;
-  // setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
-  className?: string;
-  date: { from?: Date; to?: Date } | undefined;
-  setDate: (date: { from?: Date; to?: Date } | undefined) => void;
+  // setDate: (date: DateRange | undefined) => void;
 };
 export type SearchSelectPersonProps = {
   className?: string;

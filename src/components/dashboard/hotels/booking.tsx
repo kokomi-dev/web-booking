@@ -9,10 +9,9 @@ import { toast } from "react-toastify";
 
 import CardText from "@/components/components/card-text";
 import { Button } from "@/components/ui/button";
-import {
-  DatePickerDou,
-  SelectNumberPerson,
-} from "@/components/components/search";
+
+import SearchDatePickerDou from "@/components/components/search/search-date-picker-dou";
+import SearchSelectPerson from "@/components/components/search/search-select-person";
 import { convertVND } from "@/utils/constants";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
@@ -123,12 +122,12 @@ const Booking = ({
             </h5>
           </div>
           <div className="bg-bg_primary_yellow w-fit flex items-center justify-start gap-x-2 p-2 rounded-8">
-            <DatePickerDou
+            <SearchDatePickerDou
               className="text-black w-full h-full text-medium font-medium"
               date={date}
               setDate={setDate}
             />
-            <SelectNumberPerson
+            <SearchSelectPerson
               error={error}
               setError={setError}
               className=" w-full h-full text-medium font-semibold "

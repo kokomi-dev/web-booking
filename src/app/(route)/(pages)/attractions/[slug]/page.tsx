@@ -14,7 +14,7 @@ import ImagesDetail from "@/components/components/images-detail";
 
 import Comments from "@/components/components/comments";
 import SupportQuestions from "@/components/dashboard/home/support-questions";
-import NotFoundPage from "@/app/account/not-found";
+import NotFoundPage from "@/app/not-found";
 import {
   Breadcrumb,
   BreadcrumbItem,
