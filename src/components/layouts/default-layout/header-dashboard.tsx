@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import Account from "@/components/dashboard/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
-import Search from "@/components/components/search";
+import Search from "@/components/components/search/search";
 
 import Notifycation from "@/components/components/notifycation";
 import {
@@ -81,9 +81,8 @@ const HeaderDashboard = () => {
           <Account />
         </div>
       </div>
-      {/* slogan , search */}
       <div className="w-full h-full">
-        <Search currentValue={""} />
+        <Search />
       </div>
     </div>
   );
