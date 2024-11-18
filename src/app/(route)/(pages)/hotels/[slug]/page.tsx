@@ -18,7 +18,7 @@ import { HotelData } from "@/utils/constants";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";
-import NotFoundPage from "@/app/(route)/404";
+import NotFoundPage from "@/app/not-found";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, MessageCircle } from "lucide-react";
 

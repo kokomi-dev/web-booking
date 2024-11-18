@@ -19,10 +19,11 @@ const SidebarContent = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-wrap md:flex-col">
       {LIST_SIDEBAR_ITEM.map((e: string, i: number) => {
         return (
           <div
+            key={i}
             className={cn(
               "text-black_main text-small font-normal py-2 px-1 rounded-8 hover:cursor-pointer pl-5 transition-all duration-150",
               searchParams.get("activeTab") == String(i + 1) &&
