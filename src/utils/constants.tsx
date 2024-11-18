@@ -78,12 +78,8 @@ const scrollToView = (classe: string, cssActive?: string) => {
     scroll.observe(item);
   });
 };
-
-//
 // hidden search in route
 export const HIDDEN_SEARCH = ["booking", "pay"];
-//
-//
 export const ADDRESS_TRENDING = [
   {
     name: "Đà nẵng",
@@ -116,9 +112,6 @@ export const ADDRESS_TRENDING = [
     slug: "tp-ho-chi-minh",
   },
 ];
-//
-//
-// type
 export interface AttractionData {
   _id: string;
   slug: string;
