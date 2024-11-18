@@ -1,6 +1,6 @@
 import FooterAuth from "@/components/layouts/auth/footer-auth";
 import HeaderAuth from "@/components/layouts/auth/header-auth";
-import { AuthLayoutProp } from "@/utils/types/auth/auth";
+import { AuthLayoutProp } from "@/utils/types/auth";
 import React from "react";
 
 export default function AuthLayout({ children }: AuthLayoutProp) {
