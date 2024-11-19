@@ -2,13 +2,13 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
-import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
 import { AttractionData } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
@@ -33,7 +33,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
+const ModalConfirmCode = dynamic(
+  () => import("@/components/dashboard/modal-code")
+);
 const BookingAttraction = () => {
   const { slug } = useParams<{
     slug: string;

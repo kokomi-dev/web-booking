@@ -10,7 +10,6 @@ import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/components/booking-container";
 import { AttractionData } from "@/utils/constants";
 import ScheduleDisplay from "@/components/components/display-schedule";
-import ImagesDetail from "@/components/components/images-detail";
 
 import Comments from "@/components/components/comments";
 import SupportQuestions from "@/components/dashboard/home/support-questions";
@@ -23,7 +22,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
+const ImagesDetail = dynamic(
+  () => import("@/components/components/images-detail"),
+  {
+    ssr: false,
+  }
+);
 const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });

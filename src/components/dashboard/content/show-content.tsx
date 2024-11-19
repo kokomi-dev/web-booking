@@ -34,7 +34,7 @@ const Page1 = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Về KoKoTravel</h2>
         <div
-          className="hide-print flex items-center justify-start gap-1 text-blue_main_sub text-normal font-medium"
+          className="hide-print flex items-center justify-start gap-1 hover:opacity-85 hover: cursor-pointer p-2  text-blue_main_sub text-normal font-medium"
           onClick={printContent}
         >
           <Printer className="size-4" />
@@ -65,7 +65,7 @@ const Page2 = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Thông tin Pháp lý</h2>
         <div
-          className="flex items-center justify-start gap-1 text-blue_main_sub text-normal font-medium"
+          className="flex items-center justify-start hover:opacity-85 hover: cursor-pointer p-2  gap-1 text-blue_main_sub text-normal font-medium"
           onClick={printContent}
         >
           <Printer className="size-4" />
@@ -150,7 +150,7 @@ const Page3 = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Điều khoản và điều kiện</h2>
         <div
-          className="flex items-center justify-start gap-1 text-blue_main_sub text-normal font-medium"
+          className="flex items-center justify-start hover:opacity-85 hover: cursor-pointer p-2  gap-1 text-blue_main_sub text-normal font-medium"
           onClick={printContent}
         >
           <Printer className="size-4" />
@@ -302,7 +302,7 @@ const Page4 = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Liên hệ với chúng tôi</h2>
         <div
-          className="flex items-center justify-start gap-1 text-blue_main_sub text-normal font-medium"
+          className="flex items-center justify-start hover:opacity-85 hover: cursor-pointer p-2  gap-1 text-blue_main_sub text-normal font-medium"
           onClick={printContent}
         >
           <Printer className="size-4" />
@@ -351,7 +351,7 @@ const Page5 = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Trở thành Đối tác Phân phối</h2>
         <div
-          className="flex items-center justify-start gap-1 text-blue_main_sub text-normal font-medium"
+          className="flex items-center justify-start  hover:opacity-85 hover: cursor-pointer p-2 gap-1 text-blue_main_sub text-normal font-medium"
           onClick={printContent}
         >
           <Printer className="size-4" />

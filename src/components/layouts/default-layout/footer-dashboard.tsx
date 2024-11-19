@@ -1,61 +1,32 @@
 import { cn } from "@/lib/utils";
-
-const titles = [
-  "Thay đổi lịch đi của bạn trực tuyến",
-  "Dịch vụ khách hàng",
-  "Trở thành đối tác phân phối",
-  "KoKo Travel for Business",
-  "về chúng tôi",
-];
-const arr1 = [
-  ["Việt nam", "khu vực", "quận / huyện", "địa điểm được quan tâm"],
-  [
-    "thay đổi lịch trình trực tuyến của bạn",
-    "dịch vụ khách hàng",
-    "trở thành đối tác phân phối",
-    "KokoTravel for Business",
-  ],
-  ["Nhà", "Căn hộ", "Các resort", "Các biệt thự", "Các nhà nghỉ"],
-  [
-    "Những chỗ nghỉ độc đáo",
-    "Tất cả các điểm đến",
-    "Đánh giá của khách hàng",
-    "Ưu đãi theo mùa và dịp lễ",
-    "Tất cả địa điểm cho thuê xe",
-    "Khám phá lưu trú theo tháng",
-    "Bài viết về du lịch",
-  ],
-  [
-    "Dịch vụ khách hàng",
-    "Trợ giúp đối tác",
-    "Du lịch bền vững",
-    "Truyền thông",
-    "Trung tâm thông tin bảo mật",
-    "Điều khoản điều kiện",
-    "Thông báo về bảo mật và Cookie",
-    "Liên hệ công ty",
-    "Hướng dẫn và báo cáo nội dung",
-    "Về Koko Travel",
-  ],
-];
-
+import { titles, footerItemList } from "../constant";
+import Link from "next/link";
 interface FooterItemProps {
   title: string;
-  arrItem: string[];
+  arrItem: { label: string; path: string | null }[];
 }
+
 const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
   return (
-    <li className="w-full flex items-start justify-start flex-col gap-2 ">
+    <li className="w-full flex items-start justify-start flex-col gap-2  ">
       <div className="w-full">
         <a className="capitalize text-small font-semibold">{title}</a>
       </div>
-      <ul className="w-full text-smallest font-medium">
+      <ul className="w-full text-smallest font-medium flex items-start justify-start flex-wrap gap-x-1 ">
         {arrItem.map((item, index) => {
-          return (
-            <li className="w-full  " key={index}>
+          return item.path !== null ? (
+            <Link
+              key={index}
+              className="py-[0.1rem]  text-smallest font-normal file:capitalize hover:text-blue_main_sub transiton-all duration-150"
+              href={item.path}
+            >
+              {item.label}
+            </Link>
+          ) : (
+            <li className="w-full py-[0.1rem]" key={index}>
               <a>
-                <span className="text-smallest font-normal capitalize">
-                  {item}
+                <span className="text-smallest font-normal first:capitalize">
+                  {item.label}
                 </span>
               </a>
             </li>
@@ -79,7 +50,11 @@ const FooterDashboard = () => {
         >
           {titles.map((title, index) => {
             return (
-              <FooterItem title={title} key={index} arrItem={arr1[index]} />
+              <FooterItem
+                title={title}
+                key={index}
+                arrItem={footerItemList[index]}
+              />
             );
           })}
         </ul>
@@ -96,8 +71,14 @@ const FooterDashboard = () => {
       </div>
       <div className="px-20 py-5">
         <h6 className="pb-5 text-black text-center text-small">
-          Bản quyền sáng tạo thuộc về KokoMi Dev. Liên hệ
-          nguyenthean12062002@gmail.com
+          Bản quyền sáng tạo thuộc về <strong> AnTenDev</strong>. Liên hệ
+          <a
+            href="mailto: nguyenthean12062002@gmail.com"
+            className="text-blue_main_sub font-medium"
+          >
+            {" "}
+            nguyenthean12062002@gmail.com
+          </a>
         </h6>
         <p className="text-center text-smallest">
           KoKo Travel là một website thương mại điện tử liên quan đến lĩnh vực

@@ -1,10 +1,12 @@
 "use client";
 
-import ImagesDetail from "@/components/components/images-detail";
 import { Heart, MapPin, Share2, TriangleAlert } from "lucide-react";
+import dynamic from "next/dynamic";
 import React from "react";
 import { GoStarFill } from "react-icons/go";
-
+const ImagesDetail = dynamic(
+  () => import("@/components/components/images-detail")
+);
 interface InfoProps {
   name: string;
   location: string;

@@ -82,7 +82,7 @@ const Notifycation = () => {
                 "hover:text-blue_main_sub  hover:cursor-pointer"
               )}
             />
-            <div className="absolute top-[-9px] right-[-10px] bg-yellow_main text-white size-4 rounded-full flex items-center justify-center">
+            <div className="absolute hidden lg:flex top-[-9px] right-[-10px] bg-yellow_main text-white size-4 rounded-full  items-center justify-center">
               <span className="text-smallest">{user.notifys.length}</span>
             </div>
           </PopoverTrigger>
