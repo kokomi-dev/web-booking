@@ -1,6 +1,9 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
 import { Check, Star, UserRound } from "lucide-react";
+import { useParams, useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +12,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useParams, useSearchParams } from "next/navigation";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
-import ModalConfirmCode from "@/components/dashboard/modal-code";
 import { sendEmailConfirm } from "@/api/api-email";
 import { HotelData, convertVND } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
@@ -49,6 +50,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
 import Image from "next/image";
+const ModalConfirmCode = dynamic(
+  () => import("@/components/dashboard/modal-code")
+);
 const timeList = [
   {
     value: "0",

@@ -111,7 +111,12 @@ function HomePage() {
           </blockquote>
           {/* Thêm các phản hồi khác nếu cần */}
         </div>
-        <Button className="text-end bg-yellow_main text-white">Xem thêm</Button>
+        <Link
+          href="/blog/feedback"
+          className=" bg-yellow_main text-white p-1 rounded-8 text-small"
+        >
+          Xem thêm
+        </Link>
       </section>
       {/* Thanh toán và cam kết chất lượng */}
       <section className="text-normal">
