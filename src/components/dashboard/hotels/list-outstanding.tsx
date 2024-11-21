@@ -48,7 +48,7 @@ const ListHotelOutStanding = async () => {
                 }) => (
                   <CarouselItem
                     key={hotel.slug}
-                    className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
                   >
                     <ItemCard
                       route="hotels"
@@ -63,8 +63,8 @@ const ListHotelOutStanding = async () => {
                 )
               )}
             </CarouselContent>
-            <CarouselPrevious className="w-14 h-14 left-2 bg-bg_primary_blue_sub border-none text-white" />
-            <CarouselNext className="w-14 h-14 right-2 bg-bg_primary_blue_sub border-none text-white" />
+            <CarouselPrevious />
+            <CarouselNext />
           </Carousel>
         </div>
       </div>

@@ -18,7 +18,8 @@ import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData, convertVND } from "@/utils/constants";
+import { HotelData } from "@/utils/types";
+import { convertVND } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { getDetailHotel } from "@/api/api-hotels";
 import { z } from "zod";
@@ -51,7 +52,7 @@ import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
 import Image from "next/image";
 const ModalConfirmCode = dynamic(
-  () => import("@/components/dashboard/modal-code")
+  () => import("@/components/components/modal-code")
 );
 const timeList = [
   {

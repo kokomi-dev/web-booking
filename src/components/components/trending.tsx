@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-import { ADDRESS_TRENDING } from "@/utils/constants";
+import { ADDRESS_TRENDING } from "@/components/dashboard/constants";
 import { cn } from "@/lib/utils";
 import { LoadingImg } from "@/components/components/loading";
 
@@ -21,8 +21,8 @@ const Trending: React.FC<ITrending> = ({ page }) => {
       </section>
       <div
         className={cn(
-          " w-full h-full grid grid-col-1 gap-3",
-          "md:grid-cols-2",
+          "w-full max-h-[360px] overflow-auto h-full grid grid-col-1 gap-3",
+          "md:grid-cols-2 md:max-h-full",
           "lg:grid-cols-3"
         )}
       >
@@ -42,12 +42,12 @@ const Trending: React.FC<ITrending> = ({ page }) => {
                   alt="img_trending"
                   width={600}
                   height={400}
-                  className="w-full h-[190px] transition-all duration-300 rounded-14 object-cover hover:brightness-100 brightness-75"
+                  className="w-full h-[190px] transition-all duration-300 rounded-14 object-cover hover:brightness-100 brightness-90"
                 />
               </Suspense>
               <div className="absolute bottom-2 left-2 text-white">
                 <div>
-                  <h3 className="capitalize text-normal font-medium">
+                  <h3 className="capitalize text-normal font-semibold font-mono">
                     {address.name}
                   </h3>
                 </div>

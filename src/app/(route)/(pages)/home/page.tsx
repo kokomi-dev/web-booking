@@ -5,8 +5,8 @@ import { cx } from "class-variance-authority";
 import Link from "next/link";
 import Image from "next/image";
 
-import SlideShowImage from "@/components/homepage/slide-show";
-import { listAddressTredingHome } from "@/components/homepage/constant";
+import SlideShowImage from "@/components/dashboard/homepage/slide-show";
+import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import { Button } from "@/components/ui/button";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 function HomePage() {
@@ -89,7 +89,7 @@ function HomePage() {
             <p className="text-black_sub text-normal font-normal">
               "Trải nghiệm tuyệt vời! Cảnh đẹp và dịch vụ thật sự ấn tượng."
             </p>
-            <footer className="mt-2 text-right text-sm text-black font-medium text-normal">
+            <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Nguyễn Văn An
             </footer>
           </blockquote>
@@ -97,7 +97,7 @@ function HomePage() {
             <p className="text-black_sub text-normal font-normal">
               "Rất đúng với mô tả, chất lượng ổn, có nhiều ưu đãi."
             </p>
-            <footer className="mt-2 text-right text-sm text-black font-medium text-normal">
+            <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Đặng Thanh Huyền
             </footer>
           </blockquote>{" "}
@@ -105,7 +105,7 @@ function HomePage() {
             <p className="text-black_sub text-normal font-normal">
               "Tư vấn hỗ trợ nhanh, giải đáp nhiệt tình...."
             </p>
-            <footer className="mt-2 text-right text-sm text-black font-medium text-normal">
+            <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Lê Thị Mười
             </footer>
           </blockquote>
@@ -113,7 +113,7 @@ function HomePage() {
         </div>
         <Link
           href="/blog/feedback"
-          className=" bg-yellow_main text-white p-1 rounded-8 text-small"
+          className=" bg-yellow_main text-white p-1 px-3 rounded-8 text-small"
         >
           Xem thêm
         </Link>

@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
-import { HotelData } from "@/utils/constants";
+import { HotelData } from "@/utils/types";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";

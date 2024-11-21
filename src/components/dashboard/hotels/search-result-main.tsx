@@ -12,11 +12,12 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 
 import ItemSearchResult from "@/components/components/item-search-result";
-import { HotelData, convertToSlug } from "@/utils/constants";
+import { convertToSlug } from "@/utils/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import ShowOnMap from "@/components/components/show-on-map";
 import { Dot } from "lucide-react";
+import { HotelData } from "@/utils/types";
 
 interface ISearchResult {
   data: HotelData[];

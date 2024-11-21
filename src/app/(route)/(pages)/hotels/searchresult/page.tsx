@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { HotelData, convertToSlug } from "@/utils/constants";
+import { HotelData } from "@/utils/types";
+import { convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
 import SearchResultMain from "@/components/dashboard/hotels/search-result-main";
 import Loading from "./loading";

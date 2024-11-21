@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -27,7 +27,7 @@ import { BookmarkCheck, CalendarCheck, LogOut, UserRound } from "lucide-react";
 import { reqCurrentUser, reqLogout } from "@/api/api-auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { LoadingComponentAccount } from "../components/loading";
+import { LoadingComponentAccount } from "../../components/loading";
 
 const Account = () => {
   const router = useRouter();

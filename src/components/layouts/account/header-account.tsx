@@ -3,7 +3,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import Account from "@/components/dashboard/account";
+import Account from "@/components/layouts/account/account";
 
 type Props = {};
 
