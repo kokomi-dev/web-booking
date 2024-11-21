@@ -1,11 +1,11 @@
 import Intro from "@/components/dashboard/attraction/intro";
 import ListTrendingTour from "@/components/dashboard/attraction/list-trending-attractions";
-import ListAllTour from "@/components/dashboard/attraction/list-all-attractions";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Trending from "@/components/components/trending";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
 import ReceiveFeedback from "@/components/dashboard/attraction/receive-feedback";
+import Link from "next/link";
+import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
@@ -26,19 +26,20 @@ const HomePage = () => {
           <p className="mb-2">
             Khuyến mãi giảm giá đặc biệt dành riêng cho bạn
           </p>
-          <div className="w-full h-auto flex items-center justify-between bg-white p-4 text-black_sub rounded-md">
-            <div className="w-full">
-              <h4 className="w-full text-black_main">
-                Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
-                tiếng của chúng tôi
-              </h4>
-              <p className="text-black_sub">
-                Hãy trải nghiệm nó một cách trọn vẹn
-              </p>
-              <Button className="bg-bg_primary_main text-white mt-2 hover:bg-bg_primary_active ">
-                Khám phá bây giờ
-              </Button>
-            </div>
+          <div className="w-full h-auto flex flex-col items-start justify-start bg-white p-4 text-black_sub rounded-md">
+            <h4 className="w-full text-black_main">
+              Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
+              tiếng của chúng tôi
+            </h4>
+            <p className="text-black_sub">
+              Hãy trải nghiệm nó một cách trọn vẹn
+            </p>
+            <Link
+              href="#list-all-attractions"
+              className="bg-bg_primary_main text-white mt-1 hover:bg-bg_primary_active p-2 py-1 rounded-8 text-small"
+            >
+              Khám phá bây giờ
+            </Link>
           </div>
         </div>
         <h3 className={cn("p-5 text-white underline hidden  ", " lg:block")}>
@@ -54,7 +55,7 @@ const HomePage = () => {
         )}
       >
         <hr className="hr" />
-        <ListAllTour />
+        <ListAttractions />
         <hr className="hr" />
         <ListTrendingTour />
       </div>

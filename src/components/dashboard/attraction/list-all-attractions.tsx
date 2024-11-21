@@ -10,10 +10,10 @@ import { getAllAttraction } from "@/api/api-attractions";
 import { cn } from "@/lib/utils";
 import { AttractionData } from "@/utils/types";
 
-const ListAllTour = async () => {
+const ListAttractions = async () => {
   const { data } = await getAllAttraction();
   return (
-    <div className={cn("w-full ")}>
+    <div id="list-all-attractions" className={cn("w-full ")}>
       <h2 className="text-large font-bold">Khám phá Việt Nam</h2>
       <div>
         <p className="text-black_sub text-small mb-1">
@@ -46,4 +46,4 @@ const ListAllTour = async () => {
   );
 };
 
-export default ListAllTour;
+export default ListAttractions;
