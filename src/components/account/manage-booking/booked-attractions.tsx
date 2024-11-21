@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { getAttractionBooked } from "@/api/api-attractions";
 import { checkOrderPayment } from "@/api/api-payment";
-import { AttractionData } from "@/utils/constants";
+import { AttractionData } from "@/utils/types";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Loading from "@/app/loading";

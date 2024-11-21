@@ -8,7 +8,7 @@ import {
 } from "../../ui/carousel";
 import { getAllAttraction } from "@/api/api-attractions";
 import { cn } from "@/lib/utils";
-import { AttractionData } from "@/utils/constants";
+import { AttractionData } from "@/utils/types";
 
 const ListAllTour = async () => {
   const { data } = await getAllAttraction();
@@ -24,7 +24,7 @@ const ListAllTour = async () => {
             {data?.map((tour: AttractionData) => (
               <CarouselItem
                 key={tour.slug}
-                className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4"
               >
                 <ItemCard
                   route="attractions"
@@ -38,8 +38,8 @@ const ListAllTour = async () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="w-14 h-14 left-2 bg-bg_primary_blue_sub border-none text-white" />
-          <CarouselNext className="w-14 h-14 right-2 bg-bg_primary_blue_sub border-none text-white" />
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </div>
     </div>

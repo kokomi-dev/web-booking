@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import Account from "@/components/dashboard/account";
+import Account from "@/components/layouts/account/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
 import Search from "@/components/components/search/search";

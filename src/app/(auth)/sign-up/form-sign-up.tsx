@@ -14,9 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { reqLogin, reqRegiter } from "@/api/api-auth";
+import { reqRegiter } from "@/api/api-auth";
 import { useRouter } from "next/navigation";
-import { useAuthenticatedStore } from "@/store/authencation-store";
 import { LoadingPage } from "@/components/components/loading";
 import { toast } from "react-toastify";
 import { Label } from "@radix-ui/react-label";
@@ -75,7 +74,7 @@ const FormLogin: React.FC = () => {
     try {
       const result = await reqRegiter(data);
       if (result.code === 401) {
-        toast.error("Lỗi đi tạo mới tài khoản", {
+        return toast.error("Lỗi khi tạo mới tài khoản", {
           className: "toast-error",
         });
       }
@@ -83,7 +82,7 @@ const FormLogin: React.FC = () => {
         toast.success("Tạo tài khoản thành công", {
           className: "toast-success",
         });
-        router.replace("/sign-in");
+        return router.replace("/sign-in");
       }
     } catch (error) {
       console.log(error);

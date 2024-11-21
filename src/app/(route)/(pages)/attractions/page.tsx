@@ -1,11 +1,11 @@
-import Intro from "@/components/dashboard/home/intro";
-import ListTrendingTour from "@/components/dashboard/home/list-trending-attractions";
-import ListAllTour from "@/components/dashboard/home/list-all-attractions";
+import Intro from "@/components/dashboard/attraction/intro";
+import ListTrendingTour from "@/components/dashboard/attraction/list-trending-attractions";
+import ListAllTour from "@/components/dashboard/attraction/list-all-attractions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Trending from "@/components/dashboard/home/trending";
-import ListProvinces from "@/components/dashboard/home/list-provinces";
-import ReceiveFeedback from "@/components/dashboard/home/receive-feedback";
+import Trending from "@/components/components/trending";
+import ListProvinces from "@/components/dashboard/attraction/list-provinces";
+import ReceiveFeedback from "@/components/dashboard/attraction/receive-feedback";
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">

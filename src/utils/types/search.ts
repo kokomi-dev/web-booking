@@ -9,7 +9,6 @@ export type DataAddressProps = {
   name: string;
   name_en: string;
 };
-
 export type SearchAddressProps = {
   value: any;
   setValue: React.Dispatch<React.SetStateAction<string>>;
@@ -25,11 +24,6 @@ export type SearchDatePickerDouProps = {
   className?: string;
   date: DateRange | undefined;
   setDate: SelectRangeEventHandler;
-  // SelectRangeEventHandler | undefined;
-
-  // className?: string;
-  // date: DateRange | undefined;
-  // setDate: (date: DateRange | undefined) => void;
 };
 export type SearchSelectPersonProps = {
   className?: string;
@@ -51,3 +45,5 @@ export type SearchContainerProp = {
   currentValue?: string | null;
   variant?: string;
 };
+
+export const HIDDEN_SEARCH = ["booking", "pay"];

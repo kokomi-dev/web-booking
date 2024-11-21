@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotels";
-import { HotelData } from "@/utils/constants";
+import { HotelData } from "@/utils/types";
 
 const ListAllHotels = async () => {
   const result = await getAllHotel();
@@ -33,7 +33,7 @@ const ListAllHotels = async () => {
               {data?.map((hotel: HotelData) => (
                 <CarouselItem
                   key={hotel.slug}
-                  className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                  className="basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
                   <ItemCard
                     route="hotels"
@@ -47,8 +47,8 @@ const ListAllHotels = async () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="w-14 h-14 left-2 bg-bg_primary_blue_sub border-none text-white" />
-            <CarouselNext className="w-14 h-14 right-2 bg-bg_primary_blue_sub border-none text-white" />
+            <CarouselPrevious />
+            <CarouselNext />
           </Carousel>
         </div>
       </div>

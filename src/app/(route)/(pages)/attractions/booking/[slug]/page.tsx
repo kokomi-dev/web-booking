@@ -10,7 +10,7 @@ import Loading from "@/app/loading";
 import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import { sendEmailConfirm } from "@/api/api-email";
-import { AttractionData } from "@/utils/constants";
+import { AttractionData } from "@/utils/types";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 const ModalConfirmCode = dynamic(
-  () => import("@/components/dashboard/modal-code")
+  () => import("@/components/components/modal-code")
 );
 const BookingAttraction = () => {
   const { slug } = useParams<{

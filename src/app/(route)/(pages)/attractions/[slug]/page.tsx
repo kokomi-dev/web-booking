@@ -8,11 +8,11 @@ import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/components/booking-container";
-import { AttractionData } from "@/utils/constants";
+import { AttractionData } from "@/utils/types";
 import ScheduleDisplay from "@/components/components/display-schedule";
 
 import Comments from "@/components/components/comments";
-import SupportQuestions from "@/components/dashboard/home/support-questions";
+import SupportQuestions from "@/components/dashboard/attraction/support-questions";
 import NotFoundPage from "@/app/not-found";
 import {
   Breadcrumb,
