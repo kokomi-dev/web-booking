@@ -1,6 +1,6 @@
 import { GoStarFill } from "react-icons/go";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
-import { Heart, MapPin, Share2 } from "lucide-react";
+import { Heart, MapPin } from "lucide-react";
 import dynamic from "next/dynamic";
 
 import { getDetailAttraction } from "@/api/api-attractions";
@@ -24,6 +24,12 @@ import {
 } from "@/components/ui/breadcrumb";
 const ImagesDetail = dynamic(
   () => import("@/components/components/images-detail"),
+  {
+    ssr: false,
+  }
+);
+const ShareButton = dynamic(
+  () => import("@/components/components/share-button"),
   {
     ssr: false,
   }
@@ -118,17 +124,7 @@ const DetailAttractionPage = async ({
             )}
           </div>
           <div className="w-fit grid gap-y-2 ">
-            <div
-              className={cn(
-                "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 text-black border-0.5 border-black_sub transition-all duration-300  hover:bg-bg_primary_hover",
-                "hover:cursor-pointer hover:bg-bg_black_sub"
-              )}
-            >
-              <Share2 className="w-4 h-4" />
-              <span className="text-smallest font-medium  hidden lg:block">
-                Chia sẻ điểm tham quan này
-              </span>
-            </div>
+            <ShareButton model="attractions" slug={slug} title={data.name} />
             <div
               className={cn(
                 "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 cursor-pointer text-white border-0.5 bg-bg_primary_blue_sub transition-all duration-300  hover:opacity-90"

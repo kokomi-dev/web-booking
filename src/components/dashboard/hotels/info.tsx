@@ -1,5 +1,6 @@
 "use client";
 
+import ShareButton from "@/components/components/share-button";
 import { Heart, MapPin, Share2, TriangleAlert } from "lucide-react";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -34,7 +35,7 @@ const Info: React.FC<InfoProps> = ({
           <h1 className="text-large font-bold">{name}</h1>
           <div className="flex items-center justify-start gap-x-2">
             <Heart className="text-blue_main_sub  size-5 " />
-            <Share2 className="text-blue_main_sub  size-5 " />
+            <ShareButton model="hotels" slug={slug} title={name} />
           </div>
         </div>
         <div className="w-full flex items-center justify-between">

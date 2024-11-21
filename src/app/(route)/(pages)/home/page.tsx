@@ -62,8 +62,8 @@ function HomePage() {
       {/* chỗ nghỉ */}
       <section className=" py-12 px-6 md:px-12 lg:px-24 rounded-14">
         <div className=" text-center">
-          <h1 className="text-large md:text-5xl font-bold text-gray-800 mb-6">
-            Khám phá và Đặt chỗ nghỉ lý tưởng tại Việt Nam
+          <h1 className="text-largest font-bold text-black mb-6">
+            Đặt chỗ nghỉ lý tưởng tại Việt Nam
           </h1>
           <p className="text-small md:text-normal text-black_sub mb-8">
             Trải nghiệm dịch vụ đặt chỗ nhanh chóng và tiện lợi cho chuyến du
@@ -163,18 +163,30 @@ function HomePage() {
         <h2 className="text-large font-semibold mb-6">
           Ưu đãi cho khách hàng mới
         </h2>
-        <p className="text-gray-700">
-          Đăng ký ngay để nhận được mã giảm giá 10% cho chuyến đi đầu tiên của
-          bạn!
-        </p>
+
         {!isAuthenticated && !user ? (
-          <Button className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md">
-            Đăng ký ngay
-          </Button>
+          <>
+            <p className="text-black text-small">
+              Đăng ký ngay để nhận được mã giảm giá 10% cho chuyến đi đầu tiên
+              của bạn và nhiều ưu đãi đang chờ đón bạn!
+            </p>
+            <Link
+              href="/sign-in"
+              className="mt-4 inline-block px-4 py-1 text-small bg-bg_primary_yellow hover:bg-bg_primary_active text-white rounded-md"
+            >
+              Khám phá ngay thôi nào !
+            </Link>
+          </>
         ) : (
-          <Button className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md">
-            Xem ngay các ưu đãi của bạn
-          </Button>
+          <>
+            <p className="text-black text-small">
+              Hãy xem qua các ưu đãi mà bạn đang có để không bỏ lỡ những chương
+              trình khuyến mãi đặc biệt có hạn này.
+            </p>
+            <Button className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md">
+              Xem ngay các ưu đãi của bạn
+            </Button>
+          </>
         )}
       </section>
       {/* Bài viết & Mẹo du lịch */}

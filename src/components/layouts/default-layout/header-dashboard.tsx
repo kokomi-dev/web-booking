@@ -55,7 +55,9 @@ const HeaderDashboard = () => {
             </div>
             <HoverCard>
               <HoverCardTrigger>
-                <BadgeHelp className="size__icon-small hidden lg:block hover:cursor-pointer" />
+                <Link href="/contact" className="text-smallest font-normal">
+                  <BadgeHelp className="size__icon-small hidden lg:block hover:cursor-pointer" />
+                </Link>
               </HoverCardTrigger>
               <HoverCardContent
                 align="end"

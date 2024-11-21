@@ -46,3 +46,9 @@ export type HotelData = {
   includes: [string];
   comments: [{}];
 };
+export type ShareButtonProps = {
+  children?: string;
+  model: string;
+  slug: string;
+  title: string;
+};
