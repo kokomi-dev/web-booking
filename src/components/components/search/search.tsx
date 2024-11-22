@@ -1,10 +1,9 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { addDays } from "date-fns";
+import { addDays, format } from "date-fns";
 import { Button } from "@/components/ui/button";
 
-import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import { cn } from "@/lib/utils";
 
 import Link from "next/link";
@@ -17,6 +16,7 @@ import SearchDatePicker from "./search-date-picker";
 import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
 import { SearchContainerProp } from "@/utils/types/search";
+import { vi } from "date-fns/locale";
 
 const Search: React.FC<SearchContainerProp> = ({
   className,
@@ -97,7 +97,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   value={value}
                   setValue={setValue}
                   error={error}
-                  className="!z-[10]"
+                  className="!z-[10]  !mr-2 lg:!mr-0"
                 />
                 <SearchDatePicker
                   date={date}
@@ -119,7 +119,11 @@ const Search: React.FC<SearchContainerProp> = ({
                       setError(true);
                     } else {
                       router.push(
-                        `/attractions/searchresult?address=${value}&filter=suggest`
+                        `/attractions/searchresult?address=${value}&date=${format(
+                          date,
+                          "dd/MM/yyyy",
+                          { locale: vi }
+                        )}&filter=suggest`
                       );
                     }
                   }}
@@ -136,6 +140,7 @@ const Search: React.FC<SearchContainerProp> = ({
             <Card
               className={cx(
                 "overflow-hidden border-none h-[246px] ",
+                "md:h-[262px]",
                 "lg:h-[120px]"
               )}
             >
@@ -155,7 +160,7 @@ const Search: React.FC<SearchContainerProp> = ({
               <CardContent
                 className={cx(
                   "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6",
-                  "lg:flex-row lg:items-center lg:justify-start"
+                  "lg:flex-row lg:items-center lg:justify-start "
                 )}
               >
                 <SearchAddress
@@ -167,10 +172,10 @@ const Search: React.FC<SearchContainerProp> = ({
                 <SearchDatePickerDou
                   date={dateDou}
                   setDate={setDateDou}
-                  className="mt-2 !z-[10] !ml-0 md:!ml-2"
+                  className="mt-2 !z-[10] !ml-0 lg:!ml-2"
                 />
                 <SearchSelectPerson
-                  className="z-[5] !ml-0 md:!ml-2"
+                  className="z-[5] !ml-0 lg:!ml-2"
                   error={error}
                   setError={setError}
                   numberAdults={numberAdults}
@@ -185,7 +190,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   variant="default"
                   className={cn(
                     "w-full  h-[40px] !ml-0  text-normal font-medium bg-bg_primary_blue_sub text-white",
-                    "md:!ml-2",
+                    "lg:!ml-2",
                     "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
                     "hover:bg-bg_primary_active"
                   )}
@@ -195,7 +200,13 @@ const Search: React.FC<SearchContainerProp> = ({
                       setError(true);
                     } else {
                       router.push(
-                        `/hotels/searchresult?address=${value}&filter=suggest`
+                        `/hotels/searchresult?address=${value}&dateFrom=${format(
+                          dateDou.from,
+                          "dd/MM/yyyy",
+                          { locale: vi }
+                        )}&dateTo=${format(dateDou.to, "dd/MM/yyyy", {
+                          locale: vi,
+                        })}&numberAdults=${numberAdults}&numberChildren=${numberChildren}&numberRoom=${numberRoom}&filter=suggest`
                       );
                     }
                   }}

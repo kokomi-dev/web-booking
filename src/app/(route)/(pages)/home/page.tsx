@@ -165,20 +165,20 @@ function HomePage() {
         </h2>
 
         {!isAuthenticated && !user ? (
-          <>
+          <div>
             <p className="text-black text-small">
               Đăng ký ngay để nhận được mã giảm giá 10% cho chuyến đi đầu tiên
               của bạn và nhiều ưu đãi đang chờ đón bạn!
             </p>
             <Link
               href="/sign-in"
-              className="mt-4 inline-block px-4 py-1 text-small bg-bg_primary_yellow hover:bg-bg_primary_active text-white rounded-md"
+              className="mt-4 inline-block px-4 py-1 text-small bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md"
             >
               Khám phá ngay thôi nào !
             </Link>
-          </>
+          </div>
         ) : (
-          <>
+          <div>
             <p className="text-black text-small">
               Hãy xem qua các ưu đãi mà bạn đang có để không bỏ lỡ những chương
               trình khuyến mãi đặc biệt có hạn này.
@@ -186,7 +186,7 @@ function HomePage() {
             <Button className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md">
               Xem ngay các ưu đãi của bạn
             </Button>
-          </>
+          </div>
         )}
       </section>
       {/* Bài viết & Mẹo du lịch */}

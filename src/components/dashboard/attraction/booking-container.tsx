@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import SearchDatePicker from "./search/search-date-picker";
-import CardText from "./card-text";
+import SearchDatePicker from "../../components/search/search-date-picker";
+import CardText from "../../components/card-text";
 import CardBookingTicket from "./card-booking-ticket";
-import { FaRegCalendarCheck } from "react-icons/fa";
 
 interface IBookingContainer {
   slug: string;
@@ -17,11 +16,10 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
       <div className="w-full">
         <h3 className="text-medium font-bold">Chọn ngày</h3>
         <div className="w-full bg-bg_primary_blue_sub2 flex items-center justify-start gap-x-2 p-1 px-2 rounded-14">
-          <FaRegCalendarCheck className="text-normal font-normal size-5 " />
           <SearchDatePicker
             date={date}
             setDate={setDate}
-            className="w-full  text-black text-normal "
+            className="w-full  text-black text-normal bg-bg_primary_blue_sub2 "
           />
         </div>
       </div>

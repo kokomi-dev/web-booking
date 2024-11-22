@@ -183,7 +183,7 @@ const ShowResult: React.FC<ShowResultProps> = ({
       </Breadcrumb>
       <div
         className={cn(
-          "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3 mt-1"
+          "w-full max-w-full grid grid-cols-1 overflow-x-auto md:grid-cols-layout-3 md:gap-2 mt-1"
         )}
       >
         <div className="w-full h-full grid gap-y-2">

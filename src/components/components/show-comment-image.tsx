@@ -34,11 +34,12 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
   comments,
   rating,
   slug,
+  open,
 }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [openSheet, setOpenSheet] = React.useState(false);
   React.useEffect(() => {
     if (!api) {
       return;
@@ -52,7 +53,10 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
   }, [api]);
   return (
     <React.Fragment>
-      <div className="absolute top-[25px] left-[30px] bg-bg_primary_white rounded-8  text-black shadow-2xl">
+      <div
+        hidden={open}
+        className="absolute top-[25px] left-[30px] bg-bg_primary_white rounded-8  text-black shadow-2xl transition-all duration-300"
+      >
         <Carousel
           setApi={setApi}
           className="w-full min-w-[16rem] max-w-[17rem] select-none relative p-2 "
@@ -60,7 +64,7 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
           <div
             className="flex items-center justify-start gap-x-1 pt-3 p-2 text-small select-none hover:cursor-pointer"
             onClick={() => {
-              setOpen(true);
+              setOpenSheet(true);
             }}
           >
             <div>
@@ -120,8 +124,8 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
         </div>
       </div>
       <SheetShowComments
-        open={open}
-        setOpen={setOpen}
+        open={openSheet}
+        setOpen={setOpenSheet}
         rating={rating}
         comments={comments}
         slug={slug}
