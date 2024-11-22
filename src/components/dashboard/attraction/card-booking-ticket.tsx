@@ -12,8 +12,8 @@ import {
   AiOutlineCheckCircle,
   AiOutlineClockCircle,
 } from "react-icons/ai";
-import { Button } from "../ui/button";
-import { formatPrice } from "./item-component";
+import { Button } from "../../ui/button";
+import { formatPrice } from "../../components/item-component";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -23,8 +23,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { Input } from "../../ui/input";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import Link from "next/link";
 interface CardBookingTicketProps {

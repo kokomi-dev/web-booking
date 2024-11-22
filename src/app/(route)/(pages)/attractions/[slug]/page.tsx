@@ -7,7 +7,7 @@ import { getDetailAttraction } from "@/api/api-attractions";
 import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/api/api-attractions";
-import BookingContainer from "@/components/components/booking-container";
+import BookingContainer from "@/components/dashboard/attraction/booking-container";
 import { AttractionData } from "@/utils/types";
 import ScheduleDisplay from "@/components/components/display-schedule";
 
@@ -125,7 +125,7 @@ const DetailAttractionPage = async ({
           </div>
           <div className="w-fit grid gap-y-2 ">
             <ShareButton model="attractions" slug={slug} title={data.name} />
-            <div
+            {/* <div
               className={cn(
                 "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 cursor-pointer text-white border-0.5 bg-bg_primary_blue_sub transition-all duration-300  hover:opacity-90"
               )}
@@ -134,7 +134,7 @@ const DetailAttractionPage = async ({
               <span className="text-smallest font-medium  hidden lg:block">
                 Thêm vào yêu thích
               </span>
-            </div>
+            </div> */}
           </div>
         </section>
         {/* images */}

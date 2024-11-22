@@ -34,7 +34,6 @@ const Info: React.FC<InfoProps> = ({
         <div className="flex items-center justify-between">
           <h1 className="text-large font-bold">{name}</h1>
           <div className="flex items-center justify-start gap-x-2">
-            <Heart className="text-blue_main_sub  size-5 " />
             <ShareButton model="hotels" slug={slug} title={name} />
           </div>
         </div>

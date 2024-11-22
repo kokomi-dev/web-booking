@@ -1,7 +1,7 @@
 "use client";
 import { BadgeHelp } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import Account from "@/components/layouts/account/account";
@@ -18,6 +18,7 @@ import {
 
 const HeaderDashboard = () => {
   const pathname = usePathname();
+  const router = useRouter();
   return (
     <div
       className={cn(
@@ -55,9 +56,12 @@ const HeaderDashboard = () => {
             </div>
             <HoverCard>
               <HoverCardTrigger>
-                <Link href="/contact" className="text-smallest font-normal">
-                  <BadgeHelp className="size__icon-small hidden lg:block hover:cursor-pointer" />
-                </Link>
+                <BadgeHelp
+                  onClick={() => {
+                    router.push("/contact");
+                  }}
+                  className="size__icon-small hidden lg:block hover:cursor-pointer"
+                />
               </HoverCardTrigger>
               <HoverCardContent
                 align="end"
