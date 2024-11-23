@@ -121,16 +121,16 @@ const Booking = ({
               nhất !
             </h5>
           </div>
-          <div className="bg-bg_primary_yellow w-fit flex items-center justify-start gap-x-2 p-2 rounded-8">
+          <div className="bg-bg_primary_yellow w-fit flex flex-col lg:flex-row items-center justify-start gap-x-2 p-2 rounded-8">
             <SearchDatePickerDou
-              className="text-black w-full h-full text-medium font-medium"
+              className="text-black w-full h-[36px]  text-medium font-medium"
               date={date}
               setDate={setDate}
             />
             <SearchSelectPerson
               error={error}
               setError={setError}
-              className=" w-full h-full text-medium font-semibold "
+              className=" w-full h-[36px] text-medium font-semibold mt-2 lg:mt-0"
               numberChildren={numberChildren}
               numberAdults={numberAdults}
               setNumberAdults={setNumberAdults}
@@ -142,131 +142,148 @@ const Booking = ({
           </div>
         </CardText>
         {/* booking tickets */}
-        <table className="w-full mt-4 border-collapse border-0.5 border-blue_main_sub">
-          <thead className="w-full h-[36px] bg-bg_primary_main text-white  p-2 text-small font-semibold">
-            <tr className="w-full">
-              <th className="">Loại chỗ nghỉ</th>
-              <th className="">Số lượng khách</th>
-              <th className="">Giá </th>
-              <th className="">Chọn số phòng</th>
-              <th className=""></th>
-            </tr>
-          </thead>
-          <tbody>
-            {listRooms.map((room, index) => {
-              return (
-                <tr key={index} className="w-full table__booking  ">
-                  <td className="p-2 max-w-[30%] w-full ">
-                    <span className="text-blue_main underline font-bold">
-                      {" "}
-                      {room.name}
-                    </span>
-                    <ul className="flex flex-wrap">
-                      {room.details.map((detail, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="text-smallest flex items-center justify-start "
-                          >
-                            <Check className="size-3 text-green_main mr-1" />
-                            <span>{detail}</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </td>
-                  <td className="h-full  p-2 text-small font-normal text-start   ">
-                    <span className="flex items-center justify-start gap-x-1">
-                      <User className="size-4 fill-black" />
-                      <X className="size-4" />
-                      <span className="text-small"> {room.numberPeople}</span>
-                    </span>
-                    {room.isAddChildren && (
-                      <span className="w-full flex items-center justify-start gap-x-1 text-smallest mt-1">
-                        <UserPlus className="size-4" />
-                        trẻ em
+        <div id="booking-hotel-container" className="w-full overflow-x-scroll">
+          <table className="w-full lg:mt-4 border-collapse border-0.5 border-blue_main_sub overflow-auto">
+            <thead className="w-full h-[36px] border-0.5 border-white bg-bg_primary_main text-white  p-2 text-small font-semibold">
+              <tr className="w-full">
+                <th className="min-w-[150px] lg:max-w-[30%] lg:w-full border-0.5 border-white  ">
+                  Loại chỗ nghỉ
+                </th>
+                <th className="w-[80px] lg:w-auto border-0.5 border-white">
+                  Số lượng khách
+                </th>
+                <th className="w-[180px] lg:w-auto border-0.5 border-white">
+                  Giá{" "}
+                </th>
+                <th className="min-w-[80px] text-center border-0.5 border-white">
+                  Chọn số phòng
+                </th>
+                <th className="min-w-[180px] lg:w-auto border-0.5 border-white"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {listRooms.map((room, index) => {
+                return (
+                  <tr key={index} className="w-full table__booking  ">
+                    <td className="p-2 w-[150px] lg:max-w-[30%] lg:w-full ">
+                      <span className="text-blue_main underline font-bold">
+                        {" "}
+                        {room.name}
                       </span>
-                    )}
-                  </td>
-                  <td className="w-full h-full grid grid-cols-1 gap-y-1 p-2  ">
-                    <span className="text-red-400  font-medium text-[0.8rem] line-through">
-                      <span className="mr-1">VNĐ</span>
-                      {convertVND(room.price)}
-                    </span>
-                    <span className="text-black_main text-small  font-semibold">
-                      <span className="mr-1">VNĐ</span>
-                      {convertVND(room.price - (room.price / 100) * room.sale)}
-                    </span>
-                    <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
-                      Tiết kiệm {room.sale} %
-                    </span>
-                  </td>
-                  <td className="text-center w-fit pl-2 " align="center">
-                    <Input
-                      type="number"
-                      placeholder=""
-                      className="max-w-[40px] w-full border-0.5 border-black_main"
-                      value={chooseInput[index]}
-                      min={0}
-                      max={50}
-                      onChange={(e) => {
-                        const { value } = e.target;
-                        setChooseInput((pre) => {
-                          const newChoose = [...pre];
-                          newChoose[index] = Number(value);
-                          return newChoose;
-                        });
-                      }}
-                    />
-                  </td>
-                  {index === 0 && (
-                    <td className="p-2 " rowSpan={listRooms.length}>
-                      {chooseInput && checkHiddenBtn !== true && (
-                        <div className="grid mb-4 gap-y-1">
-                          <div className="line-through text-red-400 text-small font-normal">
-                            <span className="mr-1">VNĐ</span>
-                            <span>{convertVND(total)}</span>
-                          </div>
-                          <div className="text-black_main text-normal font-bold">
-                            <span className="mr-1">VNĐ</span>
-                            <span>{convertVND(totalSale)}</span>
-                          </div>
-                          <div>
-                            {total && totalSale !== 0 ? (
-                              <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
-                                <span>
-                                  Tiết kiệm{" "}
-                                  {(100 - (totalSale / total) * 100).toFixed(2)}{" "}
-                                  %
-                                </span>
-                              </span>
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                          <span className="text-black_sub text-small">
-                            Đã bao gồm thuế và phí
-                          </span>
-                        </div>
-                      )}
-                      <Button
-                        className="w-full h-auto bg-bg_primary_blue_sub text-white select-none"
-                        onClick={handleBooking}
-                        disabled={checkHiddenBtn}
-                      >
-                        Đặt ngay
-                      </Button>
-                      <ul className="text-smallest pl-3 mt-2">
-                        <li>Chỉ mất 2 phút</li>
-                        <li>Xác thực tức thời</li>
+                      <ul className="flex flex-wrap">
+                        {room.details.map((detail, index) => {
+                          return (
+                            <li
+                              key={index}
+                              className="text-smallest grid grid-cols-[5%,95%] gap-x-3 md:gap-x-4 items-center "
+                            >
+                              <Check className="size-3 text-green_main " />
+                              <span className="text-start">{detail}</span>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </td>
-                  )}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    <td className="w-[80px] lg:w-auto  p-2 text-small font-normal text-start   ">
+                      <span className="flex items-center justify-start gap-x-1">
+                        <User className="size-4 fill-black" />
+                        <X className="size-4" />
+                        <span className="text-small"> {room.numberPeople}</span>
+                      </span>
+                      {room.isAddChildren && (
+                        <span className="w-full flex items-center justify-start gap-x-1 text-smallest mt-1">
+                          <UserPlus className="size-4" />
+                          trẻ em
+                        </span>
+                      )}
+                    </td>
+                    <td className="w-[180px] lg:w-auto  grid grid-cols-1 gap-y-1 p-2  ">
+                      <span className="text-red-400  font-medium text-[0.8rem] line-through">
+                        <span className="mr-1">VNĐ</span>
+                        {convertVND(room.price)}
+                      </span>
+                      <span className="text-black_main text-small  font-semibold">
+                        <span className="mr-1">VNĐ</span>
+                        {convertVND(
+                          room.price - (room.price / 100) * room.sale
+                        )}
+                      </span>
+                      <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
+                        Tiết kiệm {room.sale} %
+                      </span>
+                    </td>
+                    <td
+                      className="text-center w-[80px] lg:w-auto pl-2 "
+                      align="center"
+                    >
+                      <Input
+                        type="number"
+                        placeholder=""
+                        className=" border-0.5 border-black_main"
+                        value={chooseInput[index]}
+                        min={0}
+                        max={50}
+                        onChange={(e) => {
+                          const { value } = e.target;
+                          setChooseInput((pre) => {
+                            const newChoose = [...pre];
+                            newChoose[index] = Number(value);
+                            return newChoose;
+                          });
+                        }}
+                      />
+                    </td>
+                    {index === 0 && (
+                      <td className="p-2 lg:w-auto " rowSpan={listRooms.length}>
+                        {chooseInput && checkHiddenBtn !== true && (
+                          <div className="grid mb-4 gap-y-1">
+                            <div className="line-through text-red-400 text-small font-normal">
+                              <span className="mr-1">VNĐ</span>
+                              <span>{convertVND(total)}</span>
+                            </div>
+                            <div className="text-black_main text-normal font-bold">
+                              <span className="mr-1">VNĐ</span>
+                              <span>{convertVND(totalSale)}</span>
+                            </div>
+                            <div>
+                              {total && totalSale !== 0 ? (
+                                <span className="bg-green_main text-white text-[0.7rem] w-fit p-1 rounded-8">
+                                  <span>
+                                    Tiết kiệm{" "}
+                                    {(100 - (totalSale / total) * 100).toFixed(
+                                      2
+                                    )}{" "}
+                                    %
+                                  </span>
+                                </span>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                            <span className="text-black_sub text-small">
+                              Đã bao gồm thuế và phí
+                            </span>
+                          </div>
+                        )}
+                        <Button
+                          className="w-full h-auto bg-bg_primary_blue_sub text-white select-none"
+                          onClick={handleBooking}
+                          disabled={checkHiddenBtn}
+                        >
+                          Đặt ngay
+                        </Button>
+                        <ul className="text-smallest pl-3 mt-2">
+                          <li>Chỉ mất 2 phút</li>
+                          <li>Xác thực tức thời</li>
+                        </ul>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -23,11 +23,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { BookmarkCheck, CalendarCheck, LogOut, UserRound } from "lucide-react";
+import {
+  BookmarkCheck,
+  CalendarCheck,
+  CircleUserIcon,
+  LogOut,
+  UserRound,
+} from "lucide-react";
 import { reqCurrentUser, reqLogout } from "@/api/api-auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { LoadingComponentAccount } from "../../components/loading";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const Account = () => {
   const router = useRouter();
@@ -208,11 +219,29 @@ const Account = () => {
         </Suspense>
       ) : (
         <div className=" flex items-center justify-center">
-          <Link href={"/sign-in"}>
+          <Link href={"/sign-in"} className="hidden md:block">
             <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub">
               Đăng nhập
             </Button>
           </Link>
+          <HoverCard>
+            <HoverCardTrigger>
+              <CircleUserIcon
+                onClick={() => {
+                  router.push("/sign-in");
+                }}
+                className="w-7 h-7 text-white block lg:hidden  hover:cursor-pointer"
+              />
+            </HoverCardTrigger>
+            <HoverCardContent
+              align="end"
+              className="bg-black block lg:hidden text-white border-none p-1 px-2 w-full shadow-2xl z-10"
+            >
+              <Link href="/sign-in" className="text-smallest font-normal">
+                Đăng nhập
+              </Link>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       )}
     </Fragment>

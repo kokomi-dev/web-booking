@@ -21,6 +21,8 @@ import ShowOnMap from "@/components/components/show-on-map";
 import NotFoundPage from "@/app/not-found";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, MessageCircle } from "lucide-react";
+import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   try {
@@ -33,16 +35,7 @@ export async function generateStaticParams() {
     throw Error("Lỗi khi server side");
   }
 }
-const listQuestion = [
-  "Họ có phục vụ bữa sáng không",
-  "có chỗ đỗ xe không",
-  "Có wifi miễn phí không",
-  "có dịch vụ đưa đón sân bay miễn phi không",
-  "có cho mang thú nuôi không",
-  "Chỗ nghỉ có spa không",
-  "ở đây có phòng dịch vụ không",
-  "Họ có phục vụ bữa sáng không",
-];
+
 const DetailHotelPage = async ({
   params: { slug },
 }: {
@@ -52,10 +45,7 @@ const DetailHotelPage = async ({
   if (!data) {
     return <NotFoundPage page="hotels" />;
   }
-  // const scrollToBooking = () => {
-  //   const id = document.getElementById("booking_button");
-  //   id?.scrollIntoView({ behavior: "smooth" });
-  // };
+
   return (
     <section
       className={cn(
@@ -91,18 +81,18 @@ const DetailHotelPage = async ({
         id="info_utilities"
       >
         {data.cancelFree && (
-          <div className="w-full flex items-center">
-            <FaCalendarXmark className="text-blue_main_sub text-[1.3rem] mr-2" />
-            <p className="text-small font-light">
+          <div className="w-full grid grid-cols-[5%,95%] gap-x-2">
+            <FaCalendarXmark className="text-blue_main_sub w-5 h-5 lg:w-7 lg:h-7 mr-2" />
+            <p className="text-small font-light text-justify pr-1">
               Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi hoặc
               trước 2 ngày đến lịch đặt ( ngoài thời gian quy định chúng tôi sẽ
               trừ tiền chiết khấu với quý khách )
             </p>
           </div>
         )}
-        {/* content */}
-        <div className="w-full h-full flex flex-col items-start justify-start gap-y-2 ">
-          <div className="w-full grid grid-cols-layout-2 ">
+        {/* content and booking*/}
+        <div className="w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start gap-y-2 ">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 ">
             <div className="w-full h-auto grid gap-y-4 pr-4">
               <CardText title="Mô tả về chúng tôi ">
                 <p
@@ -132,7 +122,7 @@ const DetailHotelPage = async ({
               )}
             </div>
             {/* highlights */}
-            <div className="w-full h-fit  bg-bg_primary_hover text-black rounded-14 p-4">
+            <div className="l h-fit  bg-bg_primary_hover text-black rounded-14 p-4">
               <CardText title="Điểm nổi bật của chỗ nghỉ">
                 <ul className="pl-3 list-disc">
                   {data.highlights.map((highlight: string, index: number) => {
@@ -146,22 +136,29 @@ const DetailHotelPage = async ({
                     );
                   })}
                 </ul>
-                <Button className="w-full bg-bg_primary_blue_sub text-white mt-4">
+                <Link
+                  href="#booking-hotel-container"
+                  className="min-w-full block text-center w-full bg-bg_primary_blue_sub text-white mt-4 p-1 rounded-8 px-2"
+                >
                   Đặt ngay
-                </Button>
+                </Link>
               </CardText>
             </div>
           </div>
+          {/* booking */}
+          <Booking slug={slug} listRooms={data.listRooms} />
         </div>
-        {/* booking */}
-        <Booking slug={slug} listRooms={data.listRooms} />
+
         {/* location on map */}
-        <CardText title="Vị trí" className="grid grid-cols-2 gap-4">
+        <CardText
+          title="Vị trí"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+        >
           <ShowOnMap address={data.location.detail} />
           <div>
             <h3 className="text-medium font-medium">Các câu hỏi thường gặp</h3>
             <ul className="border-0.5 border-[#999] rounded-8 p-2">
-              {listQuestion.map((question: string, index: number) => {
+              {LIST_QUESTION_HOTELS.map((question: string, index: number) => {
                 return (
                   <li
                     key={index}

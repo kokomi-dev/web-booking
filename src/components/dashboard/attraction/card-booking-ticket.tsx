@@ -66,7 +66,6 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
     if (!hour) {
       return toast.error("Chọn giờ đặt lịch");
     }
-
     router.replace(
       "/attractions/booking/" +
         slug +

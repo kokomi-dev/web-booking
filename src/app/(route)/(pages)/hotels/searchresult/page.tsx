@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { HotelData } from "@/utils/types";
 import { convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
-import SearchResultMain from "@/components/dashboard/hotels/search-result-main";
+import ShowResult from "@/components/dashboard/hotels/show-result";
 import Loading from "./loading";
 
 const SearchResultPageHotel = () => {
@@ -31,7 +31,7 @@ const SearchResultPageHotel = () => {
   if (loading) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <SearchResultMain data={data} search={search} nameValue={nameValue} />
+      <ShowResult data={data} search={search} nameValue={nameValue} />
     </div>
   );
 };

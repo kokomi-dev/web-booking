@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import Account from "@/components/layouts/account/account";
 import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
-import Search from "@/components/components/search/search";
 
 import Notifycation from "@/components/components/notifycation";
 import {
@@ -22,18 +21,18 @@ const HeaderDashboard = () => {
   return (
     <div
       className={cn(
-        "w-full h-full container-padding bg-bg_primary_main z-[15]  flex flex-col items-start justify-start gap-2 py-2"
+        "w-full h-full sticky top-0 lg:relative  z-[15]  flex flex-col items-start justify-start  "
       )}
     >
       <div
         className={cn(
-          "w-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
+          "w-full container-padding p-2 font-medium text-white text-normal bg-bg_primary_main flex items-center justify-between transition-all duration-300",
           " lg:text-normal lg:h-auto lg:block  "
         )}
       >
         <MobileSidebar />
         <div className="w-full font-bold  flex items-center justify-between text-white  ">
-          <Link href="/home" className="text-large e font-mono">
+          <Link href="/home" className="text-normal md:text-large font-mono">
             KoKoTravel.com
           </Link>
           <div className="flex items-center justify-start gap-x-2">
@@ -86,9 +85,6 @@ const HeaderDashboard = () => {
           <Sidebar />
           <Account />
         </div>
-      </div>
-      <div className="w-full h-full">
-        <Search />
       </div>
     </div>
   );

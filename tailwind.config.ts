@@ -115,8 +115,8 @@ const config = {
       const newUtilities = {
         ".container-padding": {
           center: true,
-          paddingLeft: "1rem", // tương đương với px-4
-          paddingRight: "1rem", // tương đương với px-4
+          paddingLeft: "0.5rem", // tương đương với px-4
+          paddingRight: "0.5rem", // tương đương với px-4
           "@screen sm": {
             paddingLeft: "2rem", // sm:px-6
             paddingRight: "2rem", // sm:px-6

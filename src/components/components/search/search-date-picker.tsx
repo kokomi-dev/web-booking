@@ -36,13 +36,13 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
           {date ? (
             format(date, "dd/MM/yyyy", { locale: vi })
           ) : (
-            <span className="text-normal font-normal ">
+            <span className="text-small font-medium ">
               Vui lòng chọn ngày !
             </span>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full min-w-full p-0 bg-bg_primary_white text-black">
+      <PopoverContent className="w-full z-[10] min-w-full p-0 bg-bg_primary_white text-black">
         <Calendar
           disabled={disablePastDates}
           mode="single"

@@ -2,6 +2,13 @@
 
 import React, { useState, useMemo, lazy, Suspense } from "react";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 
 // Lazy load components
 const ShowImages = lazy(() => import("./show-images"));
@@ -39,8 +46,9 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
   if (!data?.images || !Array.isArray(data.images)) return null;
 
   return (
-    <div className="w-full h-auto">
-      <div className="w-full h-full grid grid-cols-2 gap-2 rounded-8 overflow-hidden select-none">
+    <div className="w-full h-[380px] lg:h-auto">
+      {/* show image display > 768px */}
+      <div className="w-full h-full hidden md:grid grid-cols-2 gap-2 rounded-8 overflow-hidden select-none">
         {/* Main Image */}
         <div className="col-span-1 max-h-[400px] h-full">
           <div className="relative w-full h-full">
@@ -57,8 +65,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
               }`}
               alt={`Ảnh chính của tour du lịch ${data.name}`}
               onClick={() => setOpen(true)}
-              onMouseEnter={() => toggleShowCmt(true, 800)}
-              onMouseLeave={() => toggleShowCmt(false, 200)}
               onLoad={() => handleImageLoad(0)}
             />
             <Suspense fallback={<div>Loading...</div>}>
@@ -72,7 +78,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
             </Suspense>
           </div>
         </div>
-
         {/* Sub Images */}
         <div className="w-full max-h-[400px] h-full grid grid-cols-2 grid-rows-2 gap-2 col-span-1">
           {subImages.map((img: string, index: number) => (
@@ -105,6 +110,36 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
             </div>
           ))}
         </div>
+      </div>
+      {/* show img display < 768px */}
+      <div className="block md:hidden">
+        <Carousel opts={{ align: "start" }} className="w-full">
+          <CarouselContent>
+            {data.images.map((e: any, i: number) => (
+              <CarouselItem
+                key={i}
+                className="basis-[86.67%]  md:basis-1/3 lg:basis-1/4"
+              >
+                <Image
+                  priority
+                  width={800}
+                  height={800}
+                  src={e}
+                  className={`object-cover w-full h-[380px] cursor-pointer select-none transition-opacity duration-300 rounded-8 ${
+                    loading[0] ? "opacity-0" : "opacity-100"
+                  }`}
+                  alt={`Ảnh  của tour du lịch ${data.name}`}
+                  onClick={() => setOpen(true)}
+                  onMouseEnter={() => toggleShowCmt(true, 800)}
+                  onMouseLeave={() => toggleShowCmt(false, 200)}
+                  onLoad={() => handleImageLoad(0)}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <ShowImages open={open} data={data} setOpen={setOpen} />

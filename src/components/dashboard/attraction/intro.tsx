@@ -74,33 +74,32 @@ const Intro = () => {
           {arrInfo.map((item, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-1/2 lg:basis-1/3 w-full"
+              className="basic-[66.67%] lg:basis-1/3"
+              autoFocus={index === 1}
             >
-              <div className="p-1 ">
-                <Card
-                  className={cn(
-                    "w-full",
-                    index === 1 && "bg-bg_primary_main text-white"
-                  )}
-                >
-                  <CardContent className=" flex aspect-square items-center justify-center p-6 flex-col">
-                    <div className="text-[2rem] text-yellow_main">
-                      {item.icon}
-                    </div>
-                    <h5 className="text-[1.6rem] font-[600] text-center capitalize my-3">
-                      {item.title}
-                    </h5>
-                    <p
-                      className={cn(
-                        "text-black_sub text-justify",
-                        index === 1 && "text-white"
-                      )}
-                    >
-                      {item.des}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card
+                className={cn(
+                  "w-auto",
+                  index === 1 && "bg-bg_primary_main text-white"
+                )}
+              >
+                <CardContent className=" flex aspect-square items-center justify-center p-6 flex-col">
+                  <div className="text-largest text-yellow_main">
+                    {item.icon}
+                  </div>
+                  <h5 className="text-large font-[600] text-center capitalize my-3">
+                    {item.title}
+                  </h5>
+                  <p
+                    className={cn(
+                      "text-black_sub text-justify",
+                      index === 1 && "text-white"
+                    )}
+                  >
+                    {item.des}
+                  </p>
+                </CardContent>
+              </Card>
             </CarouselItem>
           ))}
         </CarouselContent>

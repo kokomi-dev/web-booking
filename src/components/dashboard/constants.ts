@@ -80,3 +80,40 @@ export const RULES_DEMO = [
       "Miễn phí hủy phòng trước 48 giờ. Hủy sau thời gian này sẽ tính phí 50% giá trị đặt phòng.",
   },
 ];
+
+export const LIST_QUESTION_HOTELS = [
+  "Họ có phục vụ bữa sáng không",
+  "có chỗ đỗ xe không",
+  "Có wifi miễn phí không",
+  "có dịch vụ đưa đón sân bay miễn phi không",
+  "có cho mang thú nuôi không",
+  "Chỗ nghỉ có spa không",
+  "ở đây có phòng dịch vụ không",
+  "Họ có phục vụ bữa sáng không",
+];
+export const filterBar = [
+  { value: "suggest", label: "Đề xuất của chúng tôi" },
+  { value: "hightest-price", label: "Giá cao nhất" },
+  { value: "lowest-price", label: "Giá thấp nhất" },
+  { value: "rating-best", label: "Đánh giá cao nhất" },
+];
+export const filter1 = [
+  "attraction",
+  "thiên nhiên và ngoài trời",
+  "bảo tàng nghệ thuật văn hóa",
+  "hoạt động giải trí, vé",
+  "ăn uống",
+  "dịch vụ & cho thuê",
+];
+export const filter2 = [
+  "0 - 400.000",
+  "400.000 - 1.000.000",
+  "1.000.000 - 3.000.000",
+  " trên 3 triệu",
+];
+export const filter3 = [
+  "từ 4.5 trở lên",
+  "từ 4 trở lên",
+  "từ 3.5 trở lên",
+  "từ 3 trở lên",
+];

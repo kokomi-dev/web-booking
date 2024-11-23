@@ -9,14 +9,14 @@ const scrollToView = (id: string) => {
       behavior: "smooth",
     });
   } else {
-    console.error("Element with id 'info_utilities' not found.");
+    console.error("Không tìm thấy element scroll.");
   }
 };
 const HeadDetail = () => {
   return (
-    <div className="w-full text-small flex items-center justify-between   ">
+    <div className="w-full text-small flex overflow-x-auto items-center justify-between gap-x-3 p-2 lg:p-0   ">
       <div
-        className="text-center scroll-smooth w-full cursor-pointer "
+        className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer "
         onClick={() => {
           scrollToView("overview");
         }}
@@ -24,7 +24,7 @@ const HeadDetail = () => {
         Tổng quan
       </div>
       <div
-        className="text-center scroll-smooth w-full cursor-pointer"
+        className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer"
         onClick={() => {
           scrollToView("info_utilities");
         }}
@@ -32,7 +32,7 @@ const HeadDetail = () => {
         Thông tin và tiện ích
       </div>
       <div
-        className="text-center scroll-smooth w-full cursor-pointer"
+        className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer"
         onClick={() => {
           scrollToView("price");
         }}
@@ -40,7 +40,7 @@ const HeadDetail = () => {
         Giá đặt phòng
       </div>
       <div
-        className="text-center scroll-smooth w-full cursor-pointer"
+        className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer"
         onClick={() => {
           scrollToView("general_rule");
         }}
@@ -48,7 +48,7 @@ const HeadDetail = () => {
         Quy tắc chung
       </div>
       <div
-        className="text-center scroll-smooth w-full cursor-pointer"
+        className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer"
         onClick={() => {
           scrollToView("comments");
         }}

@@ -37,13 +37,13 @@ const Info: React.FC<InfoProps> = ({
             <ShareButton model="hotels" slug={slug} title={name} />
           </div>
         </div>
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full flex flex-col items-start md:flex-row md:items-center justify-start md:justify-between">
           <address className="flex items-center justify-start gap-x-2 text-small ">
             <MapPin className="text-blue_main text-normal" />
             {location}
           </address>
-          <div className="flex items-center justify-center gap-2 p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
-            <TriangleAlert className="text-normal" />
+          <div className="flex items-center justify-center gap-2 my-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
+            <TriangleAlert className="w-4 h-4 lg:text-normal" />
             <span className="capitalize text-small ">
               Chúng tôi luôn khớp giá
             </span>

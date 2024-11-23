@@ -15,7 +15,7 @@ const Rules = () => {
       <div className="w-full">
         <ul
           className={cn(
-            "w-full grid grid-cols-1 gap-3",
+            "w-full grid grid-cols-1 gap-y-6 my-2",
             "md:grid-cols-2 lg:grid-cols-3"
           )}
         >
@@ -33,7 +33,7 @@ const Rules = () => {
                     {rule.title}
                   </h4>
                 </div>
-                <p className="text-small font-normal mt-2 ml-1">
+                <p className="text-small font-normal mt-1 ml-1">
                   {rule.description}
                 </p>
               </li>

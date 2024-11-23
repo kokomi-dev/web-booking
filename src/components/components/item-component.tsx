@@ -34,19 +34,21 @@ const ItemCard = ({
         <Image
           width={1920}
           height={1080}
-          className="rounded-tr-md rounded-tl-md object-cover w-[100%] h-[220px] md:h-[260px] lg:h-[240px] "
+          className="rounded-tr-md rounded-tl-md object-cover w-[100%] h-[200px] md:h-[260px] lg:h-[240px] "
           src={images}
           alt="img_preview_tour"
           loading="lazy"
         />
         <CardContent className="grid gap-x-1 p-2 pt-1 pb-8 text-start ">
-          <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-1 text-start ">
+          <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
             {name}
           </h4>
-          <address className="text-[0.8rem] text-black_sub">{location}</address>
+          <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1">
+            {location}
+          </address>
           <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
-            <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1">
-              <span className="">{rating}</span>
+            <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1 text-small">
+              <span className="text-[0.75rem] md:text-small">{rating}</span>
             </div>
             <GoStarFill className="text-yellow_main text-[1rem]" />
             <h6 className="text-smallest font-normal">

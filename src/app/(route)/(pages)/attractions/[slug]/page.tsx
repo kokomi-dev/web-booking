@@ -150,7 +150,7 @@ const DetailAttractionPage = async ({
             </div>
           )}
           {/* content and book tickets */}
-          <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 lg:grid-cols-layout-2">
+          <div className="w-full h-full flex  flex-col-reverse lg:grid gap-y-4 md:gap-x-4 lg:grid-cols-layout-2">
             {/* left */}
             <div className="w-full flex flex-col items-start justify-start gap-6 ">
               {/* descriptiton */}
@@ -172,10 +172,9 @@ const DetailAttractionPage = async ({
                   {data.included.map((item: string, index: number) => (
                     <li
                       key={index}
-                      className="flex items-center justify-start gap-3 py-1"
+                      className="grid grid-cols-[5%,95%] gap-3 py-1 items-center"
                     >
-                      <FaCheck className="text-normal text-[#018235] " />
-
+                      <FaCheck className="w-4 h-4 md:w-6 md:h-6 text-green_main " />
                       <span className="text-normal">{item}</span>
                     </li>
                   ))}
