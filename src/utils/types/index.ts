@@ -45,6 +45,7 @@ export type HotelData = {
   highlights: [string];
   includes: [string];
   comments: [{}];
+  cancelFree: boolean;
 };
 export type ShareButtonProps = {
   children?: string;

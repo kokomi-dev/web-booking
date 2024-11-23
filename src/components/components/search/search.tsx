@@ -55,10 +55,10 @@ const Search: React.FC<SearchContainerProp> = ({
   };
   if (page === "home") {
     return (
-      <div>
+      <div className="h-full ">
         <Tabs
           defaultValue="attractions"
-          className="w-full bg-bg_primary_white rounded-8"
+          className="w-full  bg-bg_primary_white rounded-8  mt-2"
         >
           <TabsList className="grid w-full grid-cols-2 ">
             <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
@@ -172,7 +172,7 @@ const Search: React.FC<SearchContainerProp> = ({
                 <SearchDatePickerDou
                   date={dateDou}
                   setDate={setDateDou}
-                  className="mt-2 !z-[10] !ml-0 lg:!ml-2"
+                  className="mt-2 !z-[5] !ml-0 lg:!ml-2"
                 />
                 <SearchSelectPerson
                   className="z-[5] !ml-0 lg:!ml-2"
@@ -246,31 +246,46 @@ const Search: React.FC<SearchContainerProp> = ({
       >
         {/* search slogan */}
         {page === "attractions" && !variant && (
-          <div className={cn("hidden", "lg:block  lg:text-white")}>
+          <div className={cn("text-white")}>
             <div className="w-full">
               <h1
                 className={cn(
-                  "w-full hidden",
-                  "lg:block lg:text-largest font-bold"
+                  "w-full hidden ",
+                  "lg:block lg:text-largest lg:font-bold"
                 )}
               >
                 Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
               </h1>
-              <h2 className={cn("hidden", "lg:text-large font-light lg:block")}>
+              <h1
+                className={cn(
+                  "w-full block lg:hidden !text-medium text-black font-semibold"
+                )}
+              >
+                Tìm điểm đến tiếp theo
+              </h1>
+              <p
+                className={cn(
+                  "text-small text-black_sub",
+                  "lg:!text-large lg:text-white font-light lg:block"
+                )}
+              >
                 Khám phá những khung cảnh thơ mộng tại Việt Nam
-              </h2>
+              </p>
             </div>
           </div>
         )}
         {page === "hotels" && (
-          <div className={cn("hidden", "lg:block  lg:text-white")}>
+          <div className={cn("text-white")}>
             <div className="w-full">
-              <h1 className="text-wrap text-largest font-extrabold">
+              <h1 className="hidden lg:block text-wrap text-largest font-extrabold">
                 Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
               </h1>
-              <h2 className="text-large font-light">
+              <h1 className="block lg:hidden text-black text-wrap !text-medium font-semibold">
+                Tìm chỗ nghỉ tiếp theo
+              </h1>
+              <p className="md:text-small text-black_sub lg:text-white lg:text-large font-light">
                 Những khách sạn hàng đầu tại Việt Nam
-              </h2>
+              </p>
             </div>
           </div>
         )}
@@ -297,7 +312,7 @@ const Search: React.FC<SearchContainerProp> = ({
             <Fragment>
               <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
               <SearchSelectPerson
-                className="z-[50]"
+                className=""
                 error={error}
                 setError={setError}
                 numberAdults={numberAdults}
@@ -313,7 +328,7 @@ const Search: React.FC<SearchContainerProp> = ({
             type="submit"
             variant="default"
             className={cn(
-              "w-full max-h-[40px]  h-full  text-normal font-medium bg-bg_primary_blue_sub text-white",
+              "w-full max-h-[40px]  h-full   text-normal font-medium bg-bg_primary_blue_sub text-white",
               "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
               "hover:bg-bg_primary_active"
             )}

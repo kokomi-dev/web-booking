@@ -80,7 +80,7 @@ const SupportQuestions = () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
-          <AccordionTrigger className="text-small">
+          <AccordionTrigger className="text-small text-start">
             Tôi có thể hủy hoặc chỉnh sửa vé của mình không?
           </AccordionTrigger>
           <AccordionContent>

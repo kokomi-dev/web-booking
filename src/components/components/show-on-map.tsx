@@ -46,6 +46,9 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
       mapboxAccessToken={accessToken}
       maxZoom={16}
       minZoom={10}
+      onLoad={() => {
+        <div className="w-full h-[420px] bg-bg_black_sub rounded-8"></div>;
+      }}
     >
       <Marker longitude={location[0]} latitude={location[1]} anchor="bottom">
         <Image
@@ -54,6 +57,7 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
           width={60}
           height={60}
           className="size-9"
+          loading="lazy"
         />
       </Marker>
     </Map>

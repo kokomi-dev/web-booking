@@ -13,9 +13,9 @@ function HomePage() {
   const { isAuthenticated, user } = useAuthenticatedStore();
 
   return (
-    <div className=" bg-white flex flex-col w-fulll gap-8 ">
+    <div className=" bg-white flex flex-col w-fulll gap-8 mt-8 ">
       <section className=" bg-cover bg-center h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
-        <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8  ">
+        <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8 mx-4 md:mx-0  ">
           <h1
             className={cx(
               "text-medium font-bold text-white",
@@ -80,11 +80,11 @@ function HomePage() {
         </div>
       </section>
       {/* Phản hồi từ khách hàng */}
-      <section className=" bg-bg_black_sub p-4 py-6 rounded-14">
+      <section className=" bg-bg_black_sub p-4 py-6 rounded-14 flex flex-col gap-y-3">
         <h2 className="text-large  font-semibold text-start">
           Khách hàng nói gì
         </h2>
-        <div className="mt-8 max-w-3xl mx-auto space-y-4">
+        <div className="mt-8 max-w-3xl mx-auto space-y-2">
           <blockquote className="p-4 bg-white rounded-md shadow">
             <p className="text-black_sub text-normal font-normal">
               "Trải nghiệm tuyệt vời! Cảnh đẹp và dịch vụ thật sự ấn tượng."
@@ -113,7 +113,7 @@ function HomePage() {
         </div>
         <Link
           href="/blog/feedback"
-          className=" bg-yellow_main text-white p-1 px-3 rounded-8 text-small"
+          className="w-fit bg-yellow_main text-white p-1 px-3 rounded-8 text-small "
         >
           Xem thêm
         </Link>

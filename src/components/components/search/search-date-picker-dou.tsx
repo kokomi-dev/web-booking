@@ -22,14 +22,14 @@ const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({
         id="date"
         variant="ghost"
         className={cn(
-          "w-full h-[40px] bg-bg_primary_white px-2 py-1 font-medium",
+          "w-full h-[40px] bg-bg_primary_white px-2 py-1 text-small font-medium",
           !date && "bg-bg_primary_white w-full",
           className
         )}
       >
         {date?.from ? (
           date.to ? (
-            <span className="w-full h-full flex items-center justify-start gap-x-1 text-small">
+            <span className="w-full h-full flex items-center justify-start gap-x-1 text-small font-medium">
               <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
               {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
               {format(date.to, " dd/MM/yyyy", { locale: vi })}

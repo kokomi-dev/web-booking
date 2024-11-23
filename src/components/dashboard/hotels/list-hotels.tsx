@@ -33,7 +33,7 @@ const ListAllHotels = async () => {
               {data?.map((hotel: HotelData) => (
                 <CarouselItem
                   key={hotel.slug}
-                  className="basis-1/2 md:basis-1/3 lg:basis-1/4"
+                  className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"
                 >
                   <ItemCard
                     route="hotels"

@@ -50,7 +50,7 @@ const SearchSelectPerson = ({
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "w-auto  bg-bg_primary_white text-black z-[15] p-2 shadow-2xl mt-1 rounded-8 ",
+          "w-auto bg-bg_primary_white text-black z-[15] p-2 shadow-2xl mt-1 rounded-8 ",
           error && "border-1 border-error_color"
         )}
         align="center"

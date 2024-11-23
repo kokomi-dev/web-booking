@@ -35,7 +35,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ model, slug, title }) => {
     <Drawer>
       <DrawerTrigger className="w-full flex items-center justify-center gap-x-2 p-2 hover:text-blue_main_sub transition-all duration-300 border-0.5 border-black_sub">
         <Share2 className="w-4 h-4" />
-        <span>Chia sẻ</span>
+        <span className="hidden lg:block">Chia sẻ</span>
       </DrawerTrigger>
       <DrawerContent
         className={cn("bg-bg_primary_white w-full  ", "md:px-8", "lg:px-32")}

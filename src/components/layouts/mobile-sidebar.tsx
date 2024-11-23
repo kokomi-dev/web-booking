@@ -20,7 +20,7 @@ const MobileSidebar = () => {
     <div className={cn("w-fit h-full block", "lg:hidden")}>
       <MenuIcon
         onClick={handleCloseOrModal}
-        className="w-7 h-7 mr-4 text-white hover:cursor-pointer transition-all duration-300"
+        className="w-5 h-5 mr-2 text-white hover:cursor-pointer transition-all duration-300"
       />
       <Sheet open={isOpen} onOpenChange={handleClose}>
         <SheetTitle></SheetTitle>
@@ -43,7 +43,7 @@ const MobileSidebar = () => {
                     key={url}
                     href={url}
                     className={cn(
-                      "w-full flex items-center justify-start p-2 transition-all duration-300 select-none text-white",
+                      "w-full flex items-start justify-start p-2 transition-all duration-300 select-none text-white",
                       "lg:text-white",
                       pathname.includes(url) &&
                         "bg-bg_primary_active text-white rounded-14 hover:opacity-100 shadow-xl"
@@ -67,11 +67,6 @@ const MobileSidebar = () => {
                   </Link>
                 );
               })}
-            </div>
-            |
-            <div className="text-[0.95rem] ml-2">
-              <span>Hotline:</span>
-              <a href="tel:09741737">09741737</a>
             </div>
           </div>
         </SheetContent>
