@@ -20,7 +20,7 @@ const MobileSidebar = () => {
     <div className={cn("w-fit h-full block", "lg:hidden")}>
       <MenuIcon
         onClick={handleCloseOrModal}
-        className="w-5 h-5 mr-2 text-white hover:cursor-pointer transition-all duration-300"
+        className="w-6 h-6 ml-4  text-white hover:cursor-pointer transition-all duration-300"
       />
       <Sheet open={isOpen} onOpenChange={handleClose}>
         <SheetTitle></SheetTitle>
@@ -28,12 +28,12 @@ const MobileSidebar = () => {
         <SheetContent
           onClick={handleClose}
           className="w-[65%] h-full bg-bg_primary_main text-white"
-          side="left"
+          side="right"
         >
           <div className={cn("w-full h-full ", "lg:w-[80%]", "md:w-[90%]")}>
             <div
               className={cn(
-                "w-[80%]  text-[0.9rem] font-[500]  flex flex-col items-start justify-start text-black gap-y-6 ",
+                "w-[80%]  text-[0.9rem] font-[500]  flex flex-col items-start justify-start text-black gap-y-3 ",
                 "lg:w-[100%] flex items-center justify-evenly text-white"
               )}
             >

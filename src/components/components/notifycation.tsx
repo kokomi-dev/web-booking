@@ -2,19 +2,14 @@
 import { cn } from "@/lib/utils";
 import { Bell } from "lucide-react";
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +26,7 @@ const ListNotify = ({
   }[];
 }) => {
   return (
-    <div className="w-full text-black text-smallest font-normal ">
+    <div className="w-full text-black text-smallest font-normal rounded-14 ">
       {listNotify.length === 0 ? (
         <span>Chưa có thông báo nào</span>
       ) : (
@@ -56,9 +51,14 @@ const ListNotify = ({
                       height={150}
                       className="size-8 rounded-8"
                     />
-                    <h6 className="text-smallest font-medium">
-                      {notify.title}
-                    </h6>
+                    <div className="flex flex-col">
+                      <h6 className="text-smallest font-medium">
+                        {notify.title}
+                      </h6>
+                      <span className="text-smallest text-black_sub pl-1s">
+                        {format(notify.time, "dd/MM/yyyy", { locale: vi })}
+                      </span>
+                    </div>
                   </Link>
                 </li>
               );
@@ -88,7 +88,7 @@ const Notifycation = () => {
           </PopoverTrigger>
           <PopoverContent
             align="end"
-            className="bg-white z-[10] rounded-14 text-black text-small shadow-2xl"
+            className="bg-white h-[300px] overflow-y-auto z-[10] rounded-14 text-black text-small shadow-2xl"
           >
             <ListNotify listNotify={user.notifys} id={user._id} />
           </PopoverContent>
