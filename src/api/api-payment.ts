@@ -22,7 +22,6 @@ const createRequestPayment = async ({
       },
       body: JSON.stringify({ amount, userId, tripId, category, img }),
     });
-    console.log(result);
     return result.json();
   } catch (error) {
     console.log(error);

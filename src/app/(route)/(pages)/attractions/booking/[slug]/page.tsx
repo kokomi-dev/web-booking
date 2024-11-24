@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Loading from "@/app/loading";
 import { formatPrice } from "@/components/components/item-component";
@@ -33,6 +33,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 const ModalConfirmCode = dynamic(
   () => import("@/components/components/modal-code")
 );
@@ -257,7 +258,7 @@ const BookingAttraction = () => {
                       Vui lòng chọn địa điểm đón khách
                     </h4>
                     <div className="w-full">
-                      <div className="flex items-center justify-start my-1">
+                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           type="radio"
@@ -266,13 +267,13 @@ const BookingAttraction = () => {
                           id="0"
                         />
                         <label
-                          className="cursor-pointer text-[0.95rem]"
+                          className="cursor-pointer text-small"
                           htmlFor="0"
                         >
                           Gặp nhà điều hành tour tại điểm khởi hành
                         </label>
                       </div>
-                      <div className="flex items-center justify-start my-1">
+                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           id="1"
@@ -281,13 +282,13 @@ const BookingAttraction = () => {
                           name="address_choose"
                         />
                         <label
-                          className="cursor-pointer text-[0.95rem]"
+                          className="cursor-pointer text-small"
                           htmlFor="1"
                         >
                           Chọn địa điểm
                         </label>
                       </div>
-                      <div className="flex items-center justify-start my-1">
+                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           type="radio"
@@ -296,7 +297,7 @@ const BookingAttraction = () => {
                           name="address_choose"
                         />
                         <label
-                          className="cursor-pointer text-[0.95rem]"
+                          className="cursor-pointer text-small"
                           htmlFor="2"
                         >
                           Tự liên hệ nhà điều hành tour (bạn sẽ nhận thông tin
@@ -319,19 +320,24 @@ const BookingAttraction = () => {
                       )}
                     />
                     <p className={cn("text-[0.90rem]", "lg:text-[0.95rem]")}>
-                      Bằng việc nhấn &qout; Thanh toán &ldquo; và hoàn tất đơn
-                      đặt, bạn đồng ý với
+                      Bằng việc nhấn &quot; Thanh toán ngay &ldquo; và hoàn tất
+                      đơn đặt, bạn đồng ý với {""}
                       <span className="text-blue_main_sub">
                         điều khoản và điều kiện
-                      </span>
-                      của KokoTravel.com cũng như chính sách bảo mật của NtAnn.
+                      </span>{" "}
+                      của KokoTravel.com cũng như chính sách bảo mật của chúng
+                      tôi.
                       <br />
-                      Vui lòng xem Chính sách Bảo mật để hiểu cách chúng tôi sử
-                      dụng và bảo vệ thông tin cá nhân của bạn.
-                      <br />
-                      <span className="text-blue_main_sub">
+                      Vui lòng xem{" "}
+                      <Link
+                        className="text-blue_main_sub text-small"
+                        href="/content?activeTab=3"
+                      >
                         Chính sách bảo mật
-                      </span>
+                      </Link>{" "}
+                      để hiểu cách chúng tôi sử dụng và bảo vệ thông tin cá nhân
+                      của bạn.
+                      <br />
                     </p>
                     <Button
                       type="submit"
@@ -352,6 +358,7 @@ const BookingAttraction = () => {
                   aria-describedby={undefined}
                   className="bg-bg_black_sub"
                 >
+                  <DialogTitle></DialogTitle>
                   <ModalConfirmCode
                     totalBooking={totalBooking}
                     code={confirm?.code}
@@ -384,13 +391,17 @@ const BookingAttraction = () => {
                   sizes="50"
                   className="w-[8rem] h-[8rem] rounded-lg"
                 />
-
-                <span className="font-bold text-[1.1rem]">{data?.name}</span>
+                <div>
+                  <h4 className="font-bold text-normal">{data?.name}</h4>
+                  <address className="text-smallest text-black_sub">
+                    {data?.location.detail}
+                  </address>
+                </div>
               </div>
               <div className="w-full h-full border-b-[0.4px] border-[#999] flex flex-col items-start justify-start gap-4 py-2">
                 <div className="flex items-center justify-start gap-x-2 text-normal font-medium">
                   <span>Thời gian: </span>
-                  <span className="underline ">
+                  <span className="underline text-blue_main_sub font-semibold">
                     {hour} ngày {date}
                   </span>
                 </div>
@@ -401,7 +412,7 @@ const BookingAttraction = () => {
                         <span className="font-medium text-[1rem]">{adult}</span>
                         <span className="font-semibold text-[1rem]">
                           {" "}
-                          * Người lớn
+                          <span className="text-yellow_main">*</span> Người lớn
                         </span>
                       </div>
                       <div>{data && formatPrice(data.price[0])} VNĐ</div>
@@ -414,21 +425,26 @@ const BookingAttraction = () => {
                           {children}
                         </span>
                         <span className="font-semibold text-[1rem]">
-                          * Trẻ em
+                          {" "}
+                          <span className="text-yellow_main">*</span> Trẻ em
                         </span>
                       </div>
                       <div>{data && formatPrice(data.price[1])} VNĐ</div>
                     </div>
                   )}
                 </div>
-                <div className="w-full flex items-center justify-between gap-2">
-                  <span className="font-semibold">Tổng tiền:</span>
+                <div className="w-full flex items-center justify-between gap-2 text-blue_main_sub">
+                  <span className="font-semibold text-medium">Tổng tiền:</span>
                   <div>
-                    <span className="font-semibold">{totalBooking()} VNĐ</span>
+                    <span className="font-bold text-medium">
+                      {totalBooking()} VNĐ
+                    </span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-black_sub">Đã bao gồm thuế và phí</span>
+                  <span className="text-black_sub text-small">
+                    Đã bao gồm thuế và phí
+                  </span>
                 </div>
               </div>
             </div>

@@ -30,7 +30,6 @@ const HeaderDashboard = () => {
           " lg:text-normal lg:h-auto lg:block  "
         )}
       >
-        <MobileSidebar />
         <div className="w-full font-bold  flex items-center justify-between text-white  ">
           <Link href="/home" className="text-normal md:text-large font-mono">
             KoKoTravel.com
@@ -71,7 +70,6 @@ const HeaderDashboard = () => {
                 </Link>
               </HoverCardContent>
             </HoverCard>
-
             <Notifycation />
           </div>
         </div>
@@ -85,6 +83,7 @@ const HeaderDashboard = () => {
           <Sidebar />
           <Account />
         </div>
+        <MobileSidebar />
       </div>
     </div>
   );

@@ -14,21 +14,13 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { cn, removeDots } from "@/lib/utils";
 import { createRequestPayment } from "@/api/api-payment";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAuthenticatedStore } from "@/store/authencation-store";
+import { ModalConfirmCodeProps } from "@/utils/types/component-types";
 
-interface ModalConfirmCodeProps {
-  lastName: string;
-  email: string;
-  code: string;
-  totalBooking: any;
-  tripId: string;
-  category: string;
-  img: string;
-}
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,
   email,
@@ -42,27 +34,27 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
 
   const [value, setValue] = useState("");
   const router = useRouter();
-  const handleConfirm = async () => {
-    function removeDots(numberStr: string) {
-      return numberStr.replace(/\./g, "");
-    }
 
+  const handleConfirm = async () => {
+    const total = totalBooking();
     try {
       if (value == code && user) {
         const result = await createRequestPayment({
-          amount: parseFloat(removeDots(totalBooking)),
+          amount: parseFloat(removeDots(total)),
           userId: user._id,
           tripId,
           category,
           img,
         });
         if (result && result.data) {
-          router.push(result?.data?.order_url);
+          router.push(result.data.order_url);
         }
       } else {
         toast.error("Nhâp lại mã code");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("lỗi", error);
+    }
   };
   return (
     <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black rounded-14">
@@ -100,7 +92,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           </div>
         </div>
         <div className={cn("w-full flex items-center justify-between gap-2")}>
-          <DialogTrigger className="w-full h-9 px-4 py-2 rounded-lg bg-white text-black border-[1px] border-[#999]">
+          <DialogTrigger className="w-full h-9 flex items-center justify-center px-4 py-2 rounded-lg bg-white text-black border-[1px] border-[#999]">
             Hủy
           </DialogTrigger>
           <Button
