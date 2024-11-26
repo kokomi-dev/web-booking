@@ -23,7 +23,7 @@ const Navigation = () => {
     >
       <div
         className={cn(
-          "w-[80%] text-[0.9rem] font-[500] flex items-start justify-start gap-x-3  "
+          "w-[90%] text-[0.9rem] font-[500] flex items-start justify-start gap-x-3 gap-y-3 flex-wrap "
         )}
       >
         {NAVIGATIONS.map(({ title, url, icon }) => {
@@ -33,7 +33,7 @@ const Navigation = () => {
               key={url}
               href={url}
               className={cn(
-                "flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
+                "min-w-fit flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
                 "hover:bg-bg_primary_active  cursor-pointer",
                 "lg:text-white",
                 isActive

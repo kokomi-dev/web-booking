@@ -82,14 +82,22 @@ const ContactPage = () => {
             >
               <TabsList
                 className={cn(
-                  "w-full h-[60px] border-[#999]  grid  grid-cols-4   ",
-                  "lg:grid-cols-4 lg:h-auto"
+                  "w-full h-[60px] border-[#999]  flex  items-center justify-start gap-x-2  overflow-x-auto   ",
+                  "lg:grid lg:grid-cols-4 lg:h-auto"
                 )}
               >
-                <TabsTrigger value="stay">Lưu trú</TabsTrigger>
-                <TabsTrigger value="address">Địa điểm </TabsTrigger>
-                <TabsTrigger value="hotel">Nhà nghỉ & Khách sạn</TabsTrigger>
-                <TabsTrigger value="privacy">Quyền lợi</TabsTrigger>
+                <TabsTrigger className="w-auto" value="stay">
+                  Lưu trú
+                </TabsTrigger>
+                <TabsTrigger className="w-auto" value="address">
+                  Địa điểm{" "}
+                </TabsTrigger>
+                <TabsTrigger className="w-auto" value="hotel">
+                  Nhà nghỉ & Khách sạn
+                </TabsTrigger>
+                <TabsTrigger className="w-auto" value="privacy">
+                  Quyền lợi
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="stay">
                 {stay.map((item, index) => {

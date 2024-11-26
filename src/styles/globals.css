@@ -89,6 +89,21 @@ input[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
   }
 }
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+}
+.animate-shake {
+  animation: shake 1s ease-in-out infinite;
+}
 .active__scrollX {
   transform: translateX(0px);
   transition: transform 0.5s ease 1;

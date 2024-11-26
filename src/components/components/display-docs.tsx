@@ -3,16 +3,16 @@
 import { DisplayDoc } from "@/utils/types/component-types";
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "../ui/button";
-import { Minimize, Minimize2, MoveDiagonal } from "lucide-react";
+import { Minimize2, MoveDiagonal } from "lucide-react";
+import { removeEmptyLines } from "@/utils/constants";
 
 const DisplayDocs: React.FC<DisplayDoc> = ({ docs }) => {
   const pRef = useRef<HTMLParagraphElement>(null);
-  const [isOverflow, setIsOverflow] = useState(false); // Kiểm tra nội dung có vượt quá không
-  const [showMore, setShowMore] = useState(false); // Trạng thái "Xem thêm"
+  const [isOverflow, setIsOverflow] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     if (pRef.current) {
-      // Kiểm tra nếu chiều cao thực tế lớn hơn 300px
       setIsOverflow(pRef.current.scrollHeight > 290);
     }
   }, [docs]);
@@ -28,7 +28,7 @@ const DisplayDocs: React.FC<DisplayDoc> = ({ docs }) => {
           ref={pRef}
           className="text-normal text-justify transition-all duration-300 whitespace-pre-wrap"
         >
-          {docs}
+          {removeEmptyLines(docs)}
         </p>
       </div>
       {isOverflow && (
