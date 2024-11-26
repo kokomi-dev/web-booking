@@ -1,4 +1,5 @@
 import { AttractionData } from "@/utils/types";
+import DisplayDocs from "./display-docs";
 
 interface ScheduleDisplayProps {
   data: AttractionData;
@@ -14,11 +15,7 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
                 <h4 className="underline text-normal font-semibold">
                   Ngày <span>{index + 1}</span>
                 </h4>
-                <textarea
-                  readOnly
-                  className="w-full min-h-[40vh] text-normal resize-none box-border border-none outline-none mt-1 text-justify"
-                  value={sche}
-                ></textarea>
+                <DisplayDocs docs={sche} />
               </div>
             );
           }

@@ -55,13 +55,7 @@ const LoadingItemSearch = () => {
 const LoadingItemComment = () => {
   return (
     <div className="w-full h-full animate-pulse bg-bg_black_sub rounded-8 ">
-      <Skeleton className="h-full w-full rounded-8 bg-bg_primary_white">
-        <div>
-          <Skeleton className="size-9 rounded-full mr-2  animate-pulse bg-bg_primary_white" />
-          <Skeleton className="h-full w-fit rounded-14 animate-pulse bg-bg_primary_white" />
-        </div>
-        <Skeleton className="h-full w-fit rounded-8 animate-pulse bg-bg_primary_white" />
-      </Skeleton>
+      <Skeleton className="h-full w-full rounded-8 bg-bg_primary_white"></Skeleton>
     </div>
   );
 };

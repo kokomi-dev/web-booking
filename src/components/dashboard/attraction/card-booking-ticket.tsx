@@ -33,6 +33,7 @@ interface CardBookingTicketProps {
   date: Date | undefined;
   hour: string;
   slug: string;
+  name: string;
 }
 const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   duration,
@@ -40,6 +41,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   date,
   hour,
   slug,
+  name,
 }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthenticatedStore();
@@ -83,7 +85,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   return (
     <div
       className={cn(
-        "space-y-3 border-[0.5px] border-[#999] rounded-xl p-3 relative"
+        "space-y-3 border-[2px] border-blue_main_sub rounded-xl p-3 relative "
       )}
     >
       {!isAuthenticated && !user && (
@@ -100,34 +102,15 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
         <AiOutlineClockCircle className="text-[1.25rem]" />{" "}
         <span>{duration} ngày</span>
       </h5>
+      <h3 className="font-semibold text-[1.2rem]">{name}</h3>
       <ol className="w-full">
-        <li className="flex items-center font-normal justify-start gap-1  ">
-          Ngày bắt đầu:
-          <span className="underline italic text-blue_main font-medium">
-            {date ? (
-              format(date, "dd/MM/yyyy", { locale: vi })
-            ) : (
-              <span className="underline italic text-small">
-                Chưa chọn ngày bắt đầu
-              </span>
-            )}
-          </span>
-        </li>
-        <li className="font-normal">
-          Giờ khởi hành :
-          <span className="underline text-small italic text-blue_main font-medium">
-            {hour ? hour : "Chưa chọn giờ khởi hành"}
-          </span>
-        </li>
-      </ol>
-      <ol className="w-full">
-        <li className="flex items-center text-[0.95rem] justify-start gap-1 text-green_main font-normal">
+        <li className="grid grid-cols-[5%,95%] gap-x-2 md:gap-x-2 lg:gap-x-3 items-center  text-black font-normal">
           <AiOutlineCheckCircle className="text-[1.2rem]" />
-          <span>Đầy đủ các dịch vụ đi kèm</span>
+          <span className="text-small">Đầy đủ các dịch vụ đi kèm</span>
         </li>
-        <li className="flex items-center text-[0.95rem] ub justify-start gap-1 text-green_main font-normal">
-          <AiOutlineInfoCircle className="text-[1.5rem]" />
-          <span>
+        <li className="grid grid-cols-[5%,95%] gap-x-2 md:gap-x-2 lg:gap-x-3 items-center   text-black font-normal">
+          <AiOutlineInfoCircle className="text-[1.2rem]" />
+          <span className="text-small">
             Hủy lịch sau 4h khi đặt hoặc tối đa trước 2 ngày tour diễn ra
           </span>
         </li>
@@ -190,7 +173,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
                     Đặt ngay
                   </span>
                 </Button>
-                <Button className="w-full text-small font-normal">
+                <Button type="button" className="w-full text-small font-normal">
                   Liên hệ
                 </Button>
               </div>
