@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-slideshow-image/dist/styles.css";
 import "../styles/globals.css";
 import "../styles/css/toast.css";
+import Chat from "@/components/components/chat";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         {children}
         <ToastContainer autoClose={1500} />
+        <Chat />
       </body>
     </html>
   );

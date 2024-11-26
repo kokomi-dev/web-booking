@@ -1,7 +1,7 @@
 "use client";
 import { Printer } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 const printContent = () => {
   const content = document.querySelector(".grid.gap-4");
   if (content) {
@@ -428,9 +428,11 @@ const Page5 = () => {
 };
 const listPage = [Page1, Page2, Page3, Page4, Page5];
 const ShowContent = () => {
+  const [activeTab, setActiveTab] = useState("1");
   const searchParams = useSearchParams();
-  const activeTab = searchParams.get("activeTab");
-  // border-l-1 border-black_sub border-t-1 rounded-tl-14
+  useEffect(() => {
+    setActiveTab(searchParams.get("activeTab") || "1");
+  }, [searchParams]);
   return (
     <div className="h-full  p-3">
       {listPage.map((Page, i) => {
