@@ -13,7 +13,7 @@ function HomePage() {
   const { isAuthenticated, user } = useAuthenticatedStore();
 
   return (
-    <div className=" bg-white flex flex-col w-fulll gap-8 mt-8 ">
+    <div className=" bg-white flex flex-col w-fulll gap-8  ">
       <section className=" bg-cover bg-center h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
         <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8 mx-4 md:mx-0  ">
           <h1

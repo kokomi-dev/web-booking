@@ -118,7 +118,7 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
             {data.images.map((e: any, i: number) => (
               <CarouselItem
                 key={i}
-                className="basis-[86.67%]  md:basis-1/3 lg:basis-1/4"
+                className="w-full md:basis-1/3 lg:basis-1/4"
               >
                 <Image
                   priority

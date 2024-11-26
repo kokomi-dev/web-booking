@@ -128,7 +128,6 @@ const Comments: React.FC<IComments> = ({
                     key={index}
                     className="w-full h-auto border-0.5 border-black_sub_2 p-2 rounded-8 relative"
                   >
-                    {isLoading && <LoadingItemComment />}
                     <div className="w-full flex items-center justify-start gap-1">
                       <div className="ml-2 size-9 bg-bg_primary_active rounded-full relative">
                         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">

@@ -22,6 +22,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import DisplayDocs from "@/components/components/display-docs";
 const ImagesDetail = dynamic(
   () => import("@/components/components/images-detail"),
   {
@@ -116,7 +117,7 @@ const DetailAttractionPage = async ({
               </address>
             </address>
             {data.duration < 2 ? (
-              <p className="bg-yellow_main text-white text-smallest font-normal rounded-xl p-1 px-2 block">
+              <p className="bg-yellow_main w-fit text-white text-smallest font-normal rounded-8 p-1 px-2 block">
                 Lựa chọn ưa thích của khách du lịch một mình
               </p>
             ) : (
@@ -150,13 +151,11 @@ const DetailAttractionPage = async ({
             </div>
           )}
           {/* content and book tickets */}
-          <div className="w-full h-full flex  flex-col-reverse lg:grid gap-y-4 md:gap-x-4 lg:grid-cols-layout-2">
+          <div className="w-full h-full flex  flex-col-reverse lg:grid gap-y-4 lg:grid-cols-layout-2">
             {/* left */}
-            <div className="w-full flex flex-col items-start justify-start gap-6 ">
+            <div className="w-full flex flex-col items-start justify-start gap-6 lg:pr-2 ">
               {/* descriptiton */}
-              <p className="text-small font-normal text-justify">
-                {data.description}
-              </p>
+              <DisplayDocs docs={data.description} />
               {/* schedule in tour */}
               <div className="w-full h-full ">
                 <h3 className="text-medium font-semibold  text-blue_main  bg-bg_black_sub rounded-8 p-2">

@@ -1,7 +1,5 @@
-import { SetStateAction } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";

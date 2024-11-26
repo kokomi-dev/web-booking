@@ -7,3 +7,6 @@ export type ModalConfirmCodeProps = {
   category: string;
   img: string;
 };
+export type DisplayDoc = {
+  docs: string;
+};
