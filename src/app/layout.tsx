@@ -7,7 +7,7 @@ import "react-slideshow-image/dist/styles.css";
 import "../styles/globals.css";
 import "../styles/css/toast.css";
 import Chat from "@/components/components/chat";
-
+import PingServer from "@/services/connect-server/keep-connect-server";
 const roboto = Roboto({
   subsets: ["vietnamese"],
   weight: ["100", "300", "400", "500", "700"],
@@ -30,6 +30,7 @@ export default function RootLayout({
         {children}
         <ToastContainer autoClose={1500} />
         <Chat />
+        <PingServer />
       </body>
     </html>
   );
