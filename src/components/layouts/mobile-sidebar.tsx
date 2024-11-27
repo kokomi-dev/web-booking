@@ -28,7 +28,7 @@ const MobileSidebar = () => {
         <SheetContent
           onClick={handleClose}
           className="w-[65%] h-full bg-bg_primary_main text-white"
-          side="right"
+          side="left"
         >
           <div className={cn("w-full h-full ", "lg:w-[80%]", "md:w-[90%]")}>
             <div
