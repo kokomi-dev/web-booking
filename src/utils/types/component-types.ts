@@ -10,3 +10,14 @@ export type ModalConfirmCodeProps = {
 export type DisplayDoc = {
   docs: string;
 };
+export type InputDebounceProps = {
+  value: string;
+  onChange: any;
+  placeholder: string;
+  debounceTime?: number;
+  className?: string;
+  width?: number;
+  type?: string;
+  name?: string;
+  ref?: any;
+};

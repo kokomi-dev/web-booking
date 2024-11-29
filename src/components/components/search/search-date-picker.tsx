@@ -1,11 +1,13 @@
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
-import { Button } from "../../ui/button";
+"use client";
+import { SearchDatePickerProps } from "@/utils/types/search";
+import { Fragment, useState } from "react";
+import SearchDatePickerLG from "./search-date-picker/search-date-picker-lg";
+import SearchDatePickerSM from "./search-date-picker/search-date-picker-sm";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import { Calendar } from "@/components/ui/calendar";
-import { SearchDatePickerProps } from "@/utils/types/search";
 
 const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
   date,
@@ -17,42 +19,45 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
     today.setHours(0, 0, 0, 0);
     return current && current < today;
   };
-
+  const [open, setOpen] = useState(false);
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"ghost"}
-          className={cn(
-            "w-full h-[40px] justify-start text-left  bg-bg_primary_white px-2 py-1 shadow-none font-medium",
-            !date && "text-muted-foreground",
-            className
-          )}
-        >
-          <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
+    <div className="flex flex-col w-full">
+      <Button
+        // variant={"ghost"}
+        className={cn(
+          "flex items-center justify-start gap-x-1 w-full h-[40px]  text-left bg-white px-2 py-1 shadow-none font-medium",
+          !date && "text-muted-foreground",
+          className,
+          "lg:hidden xl:hidden"
+        )}
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen(true);
+        }}
+      >
+        <CalendarIcon className="mr-1 text-black size-[1.1rem]" />
 
-          {date ? (
-            format(date, "dd/MM/yyyy", { locale: vi })
-          ) : (
-            <span className="text-small font-medium ">
-              Vui lòng chọn ngày !
-            </span>
-          )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full z-[10] min-w-full p-0 bg-bg_primary_white text-black">
-        <Calendar
-          disabled={disablePastDates}
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-          locale={vi}
-          lang="vi"
-          className="min-w-full w-full bg-bg_primary_white"
-        />
-      </PopoverContent>
-    </Popover>
+        {date ? (
+          format(date, "dd/MM/yyyy", { locale: vi })
+        ) : (
+          <span className="text-small font-medium ">Vui lòng chọn ngày !</span>
+        )}
+      </Button>
+      <SearchDatePickerLG
+        date={date}
+        setDate={setDate}
+        className={className}
+        disablePastDates={disablePastDates}
+      />
+      <SearchDatePickerSM
+        open={open}
+        setOpen={setOpen}
+        date={date}
+        setDate={setDate}
+        className={className}
+        disablePastDates={disablePastDates}
+      />
+    </div>
   );
 };
 export default SearchDatePicker;

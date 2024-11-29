@@ -17,7 +17,20 @@ import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
 import { SearchContainerProp } from "@/utils/types/search";
 import { vi } from "date-fns/locale";
-
+export const ButtonEnd = ({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler;
+}) => {
+  return (
+    <Button
+      onClick={onClick}
+      className="absolute  left-[50%] top-[95%] translate-x-[-50%] translate-y-[-50%]  w-[90%] flex items-center justify-center text-normal font-medium bg-bg_primary_blue_sub text-white rounded-8 mb-8"
+    >
+      Xong
+    </Button>
+  );
+};
 const Search: React.FC<SearchContainerProp> = ({
   className,
   currentValue,
@@ -58,7 +71,7 @@ const Search: React.FC<SearchContainerProp> = ({
       <div className="h-full ">
         <Tabs
           defaultValue="attractions"
-          className="w-full  bg-bg_primary_white rounded-8  mt-2"
+          className="w-full h-auto bg-bg_primary_white rounded-8  mt-2"
         >
           <TabsList className="grid w-full grid-cols-2 ">
             <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
@@ -68,15 +81,10 @@ const Search: React.FC<SearchContainerProp> = ({
             value="attractions"
             className="border-t-1  border-blue_main_sub"
           >
-            <Card
-              className={cx(
-                "overflow-hidden border-none h-[200px]  ",
-                "lg:h-[120px]"
-              )}
-            >
+            <Card className={cx("overflow-hidden border-none h-auto ")}>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0 ">
-                  <span className="hidden md:block">
+                  <span className="hidden md:block text-small text-black_sub">
                     Tìm kiếm điểm tham quan của bạn
                   </span>
                   <Link
@@ -89,29 +97,21 @@ const Search: React.FC<SearchContainerProp> = ({
               </CardHeader>
               <CardContent
                 className={cx(
-                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6 ",
-                  "md:flex-row md:items-center md:justify-start"
+                  "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow_main p-1 ",
+                  "md:flex-row md:items-center md:justify-start lg:gap-x-2 lg:gap-y-0"
                 )}
               >
                 <SearchAddress
                   value={value}
                   setValue={setValue}
                   error={error}
-                  className="!z-[10]  !mr-2 lg:!mr-0"
                 />
-                <SearchDatePicker
-                  date={date}
-                  setDate={setDate}
-                  className="!-ml-[1px] lg:!ml-2"
-                />
+                <SearchDatePicker date={date} setDate={setDate} className="" />
                 <Button
                   type="submit"
                   variant="default"
                   className={cn(
-                    "w-full !ml-0  h-[40px] text-normal font-medium bg-bg_primary_blue_sub text-white",
-                    "md:!ml-2",
-                    "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
-                    "hover:bg-bg_primary_active"
+                    "lg:max-w-[140px] w-full h-[40px] text-normal font-medium bg-bg_primary_blue_sub text-white"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -128,7 +128,7 @@ const Search: React.FC<SearchContainerProp> = ({
                     }
                   }}
                 >
-                  Tìm
+                  <span className="text-medium font-medium">Tìm</span>
                 </Button>
               </CardContent>
             </Card>
@@ -137,16 +137,10 @@ const Search: React.FC<SearchContainerProp> = ({
             value="hotels"
             className="border-t-1  border-yellow_main"
           >
-            <Card
-              className={cx(
-                "overflow-hidden border-none h-[246px] ",
-                "md:h-[262px]",
-                "lg:h-[120px]"
-              )}
-            >
+            <Card className={cx("overflow-hidden  border-none mt-0 ")}>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0">
-                  <span className="hidden md:block">
+                  <span className="hidden text-black_sub text-small md:block">
                     Tìm kiếm nơi lưu trú hợp lí cho chuyến đi
                   </span>
                   <Link
@@ -159,23 +153,17 @@ const Search: React.FC<SearchContainerProp> = ({
               </CardHeader>
               <CardContent
                 className={cx(
-                  "space-y-2 space-x-2 flex flex-col justify-start  bg-yellow_main px-6",
-                  "lg:flex-row lg:items-center lg:justify-start "
+                  "w-full h-auo flex flex-col justify-start  bg-yellow_main p-1 gap-y-2",
+                  "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2  "
                 )}
               >
                 <SearchAddress
                   value={value}
                   setValue={setValue}
                   error={error}
-                  className="!z-[10]"
                 />
-                <SearchDatePickerDou
-                  date={dateDou}
-                  setDate={setDateDou}
-                  className="mt-2 !z-[5] !ml-0 lg:!ml-2"
-                />
+                <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
                 <SearchSelectPerson
-                  className="z-[5] !ml-0 lg:!ml-2"
                   error={error}
                   setError={setError}
                   numberAdults={numberAdults}
@@ -189,10 +177,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   type="submit"
                   variant="default"
                   className={cn(
-                    "w-full  h-[40px] !ml-0  text-normal font-medium bg-bg_primary_blue_sub text-white",
-                    "lg:!ml-2",
-                    "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
-                    "hover:bg-bg_primary_active"
+                    "lg:max-w-[140px] w-full  h-[40px]   bg-bg_primary_blue_sub text-white"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -211,7 +196,7 @@ const Search: React.FC<SearchContainerProp> = ({
                     }
                   }}
                 >
-                  Tìm
+                  <span className="text-medium font-medium">Tìm</span>
                 </Button>
               </CardContent>
             </Card>
@@ -292,19 +277,12 @@ const Search: React.FC<SearchContainerProp> = ({
         {/* search container */}
         <div
           className={cn(
-            "w-full bg-bg_primary_yellow flex flex-col items-center justify-between gap-y-1 p-1 rounded-lg ",
+            "w-full bg-bg_primary_yellow flex flex-col items-center justify-between gap-y-2 p-1 rounded-lg ",
             variant === "search" && "lg:grid lg:grid-flow-row ",
             " lg:flex  lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
         >
-          {(page === "attractions" || variant === "search") && (
-            <SearchAddress
-              value={value}
-              setValue={setValue}
-              error={error}
-              className="!-mt-[0.1rem]"
-            />
-          )}
+          <SearchAddress value={value} setValue={setValue} error={error} />
           {(page === "attractions" || variant === "search") && (
             <SearchDatePicker date={date} setDate={setDate} />
           )}
@@ -312,7 +290,6 @@ const Search: React.FC<SearchContainerProp> = ({
             <Fragment>
               <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
               <SearchSelectPerson
-                className=""
                 error={error}
                 setError={setError}
                 numberAdults={numberAdults}
@@ -334,7 +311,7 @@ const Search: React.FC<SearchContainerProp> = ({
             )}
             onClick={handleSearch}
           >
-            Tìm
+            <span className="text-medium font-medium">Tìm</span>
           </Button>
         </div>
       </div>
