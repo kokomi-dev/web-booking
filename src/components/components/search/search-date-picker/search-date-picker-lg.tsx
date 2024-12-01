@@ -1,36 +1,45 @@
+import { CalendarIcon } from "lucide-react";
+import { useState } from "react";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+
 import { SearchDatePickerLGProps } from "@/utils/types/search";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
-import { Calendar } from "@/components/ui/calendar";
-import React from "react";
 
 const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
   date,
   setDate,
   className,
-  disablePastDates,
 }) => {
+  const [open2, setOpen2] = useState(false);
   return (
-    <Popover>
+    <Popover
+      open={open2}
+      onOpenChange={() => {
+        setOpen2(false);
+      }}
+    >
       <PopoverTrigger asChild>
         <Button
-          variant={"ghost"}
           className={cn(
-            "hidden w-full h-[40px] justify-start text-left  bg-white px-2 py-1 shadow-none font-medium",
+            "hidden button-lg items-center justify-start gap-x-1 w-full h-[40px]  text-left bg-white px-2 py-1 shadow-none font-medium",
             !date && "text-muted-foreground",
             className,
-            "lg:flex xl:flex"
+            "md:flex"
           )}
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen2(!open2);
+          }}
         >
-          <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
+          <CalendarIcon className="mr-1 text-black size-[1.1rem]" />
 
           {date ? (
             format(date, "dd/MM/yyyy", { locale: vi })
@@ -41,16 +50,21 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full z-[10] min-w-full p-0 bg-bwhite text-black">
+      <PopoverContent
+        align="end"
+        className="w-auto flex items-center justify-center z-[10]  p-0 bg-bwhite text-black"
+      >
         <Calendar
-          disabled={disablePastDates}
           mode="single"
           selected={date}
           onSelect={setDate}
+          onDayClick={() => {
+            setOpen2(false);
+          }}
           initialFocus
           locale={vi}
           lang="vi"
-          className="min-w-full w-full bg-white"
+          className="w-full  flex items-center justify-center !bg-white"
         />
       </PopoverContent>
     </Popover>

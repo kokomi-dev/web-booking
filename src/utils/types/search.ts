@@ -30,7 +30,6 @@ export type SearchSelectPersonProps = {
   className?: string;
   isBooking?: boolean;
   handlePopoverChange?: (open: boolean) => void;
-  error: boolean;
   setError: (error: boolean) => void;
   numberAdults: number;
   numberChildren: number;
@@ -65,7 +64,7 @@ export type SearchAddressLGProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
   data: DataAddressProps[];
   error: any;
-  inputRef: any;
+  inputRef?: any;
   className: string | undefined;
 };
 export type SearchDatePickerSMProps = {
@@ -74,31 +73,28 @@ export type SearchDatePickerSMProps = {
   date: Date | undefined;
   setDate: React.Dispatch<SetStateAction<Date | undefined>>;
   className?: string;
-  disablePastDates: any;
 };
 export type SearchDatePickerLGProps = {
   date: Date | undefined;
   setDate: React.Dispatch<SetStateAction<Date | undefined>>;
   className?: string;
-  disablePastDates: any;
 };
 export type SearchDatePickerDouSMProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
   className?: string;
-  date: DateRange | undefined;
-  setDate: SelectRangeEventHandler;
+  date: any;
+  setDate: any;
 };
 export type SearchDatePickerDouLGProps = {
   className?: string;
-  date: DateRange | undefined;
-  setDate: SelectRangeEventHandler;
+  date: any;
+  setDate: any;
 };
 export type SearchSelectPersonSMProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
   className?: string | undefined;
-  error: boolean;
   numberAdults: number;
   numberChildren: number;
   numberRoom: number;
@@ -110,7 +106,6 @@ export type SearchSelectPersonSMProps = {
 };
 export type SearchSelectPersonLGProps = {
   className?: string | undefined;
-  error: boolean;
   numberAdults: number;
   numberChildren: number;
   numberRoom: number;
@@ -119,4 +114,13 @@ export type SearchSelectPersonLGProps = {
   setNumberRoom: (value: number) => void;
   handleIncrease: any;
   handleDecrease: any;
+};
+export type ButtonSearchProps = {
+  error?: boolean;
+  value: any;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  model: string;
+  icon?: any;
+  sm?: boolean;
+  md?: boolean;
 };

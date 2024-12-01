@@ -1,19 +1,19 @@
-import { SearchDatePickerDouSMProps } from "@/utils/types/search";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import React from "react";
+import { vi } from "date-fns/locale";
+
+import { Calendar } from "@/components/ui/calendar";
+import { SearchDatePickerDouSMProps } from "@/utils/types/search";
+
 import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
+  SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ButtonEnd } from "../search";
+import ButtonEnd from "../button-end";
 
 const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
   open,
@@ -31,27 +31,34 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
     >
       <SheetTrigger aria-describedby={undefined}></SheetTrigger>
       <SheetContent
-        className="w-auto p-0 bg-white text-black z-[50] flex flex-col items-center justify-start gap-y-4 px-4 "
+        className="w-auto h-[95vh] overflow-y-auto p-0 bg-white text-black z-[50] flex flex-col items-center justify-start gap-y-4 px-2 "
         side="bottom"
       >
-        {" "}
-        <SheetTitle aria-describedby={undefined}></SheetTitle>
-        <SheetDescription aria-describedby={undefined}></SheetDescription>
+        <SheetHeader className="w-full text-start p-2">
+          <SheetTitle className="text-normal+ font-semibold w-full flex items-start justify-start mt-2 text-start">
+            Chọn ngày đến và đi
+          </SheetTitle>
+          <SheetDescription aria-describedby={undefined}></SheetDescription>
+        </SheetHeader>
         <Calendar
           initialFocus
           mode="range"
           defaultMonth={date?.from}
           selected={date}
-          onSelect={setDate}
+          onSelect={(date) => {
+            setDate(date);
+          }}
           numberOfMonths={2}
           locale={vi}
-          className="text-normal min-h-[95vh] h-full font-normal bg-white flex items-center justify-center"
+          className="text-normal mt-5 h-auto overflow-y-scroll font-normal bg-white flex items-center justify-center"
         />
-        <ButtonEnd
-          onClick={() => {
-            setOpen(false);
-          }}
-        />
+        <SheetFooter>
+          <ButtonEnd
+            onClick={() => {
+              setOpen(false);
+            }}
+          />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

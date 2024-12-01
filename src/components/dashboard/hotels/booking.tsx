@@ -128,7 +128,6 @@ const Booking = ({
               setDate={setDate}
             />
             <SearchSelectPerson
-              error={error}
               setError={setError}
               className=" w-full h-[36px] text-medium font-semibold mt-2 lg:mt-0"
               numberChildren={numberChildren}

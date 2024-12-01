@@ -1,10 +1,12 @@
-import { getListProvinces } from "@/api/api-attractions";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { MapPinned } from "lucide-react";
 
 import { DataAddressProps, SearchAddressProps } from "@/utils/types/search";
-
+import { getListProvinces } from "@/api/api-attractions";
 import SearchAddressSM from "./search-address/search-address-sm";
 import SearchAddressLG from "./search-address/search-address-lg";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const SearchAddress = ({
   value,
@@ -42,9 +44,24 @@ const SearchAddress = ({
     }
   }, [open]);
   return (
-    <Fragment>
+    <section className="flex flex-col items-center justify-start w-full">
+      <Button
+        variant="ghost"
+        className={cn(
+          "flex items-center w-full h-[40px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
+          error && "border-2 border-red-600",
+          "md:hidden xl:hidden"
+        )}
+        onClick={() => {
+          setOpen2(!open2);
+        }}
+      >
+        <MapPinned className="size-4 text-black_main" />
+        <span className="ml-2 text-small font-medium">
+          {value === "" || value === null ? "Chọn nơi bạn muốn đến" : value}
+        </span>
+      </Button>
       <SearchAddressLG
-        inputRef={inputRef}
         data={data}
         value={value}
         valueSearch={valueSearch}
@@ -65,7 +82,7 @@ const SearchAddress = ({
         setOpen2={setOpen2}
         error={error}
       />
-    </Fragment>
+    </section>
   );
 };
 export default SearchAddress;
