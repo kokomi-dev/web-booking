@@ -52,7 +52,7 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="w-auto flex items-center justify-center z-[10]  p-0 bg-bwhite text-black"
+        className="w-full flex flex-col items-center justify-center z-[10]  p-0  text-black"
       >
         <Calendar
           mode="single"
@@ -64,7 +64,7 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
           initialFocus
           locale={vi}
           lang="vi"
-          className="w-full  flex items-center justify-center !bg-white"
+          className="w-full  bg-white"
         />
       </PopoverContent>
     </Popover>

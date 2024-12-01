@@ -28,7 +28,7 @@ function Calendar({
       fromMonth={today}
       disabled={(date) => !isAfter(date, today)}
       className={cn(
-        "p-2 w-auto h-auto flex items-center justify-center text-center ",
+        "p-2 w-full h-full flex items-center justify-center text-center ",
         props.mode === "range" ? "grid grid-cols-2 gap-4" : "",
         className
       )}

@@ -8,6 +8,7 @@ import "../styles/globals.css";
 import "../styles/css/toast.css";
 import Chat from "@/components/components/chat";
 import PingServer from "@/services/connect-server/keep-connect-server";
+import Head from "next/head";
 const roboto = Roboto({
   subsets: ["vietnamese"],
   weight: ["100", "300", "400", "500", "700"],
@@ -26,6 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning style={{}}>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
+      </Head>
       <body suppressHydrationWarning={true}>
         {children}
         <ToastContainer autoClose={1500} />

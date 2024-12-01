@@ -44,7 +44,7 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
           }}
         >
           <MapPinned className="size-4 text-black_main" />
-          <span className="ml-2 text-small font-medium">
+          <span className="ml-1 text-small font-medium">
             {value === "" || value === null ? "Chọn nơi bạn muốn đến" : value}
           </span>
         </Button>

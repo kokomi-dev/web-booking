@@ -60,7 +60,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
               >
                 <span
                   className={cn(
-                    "text-large text-blue_main_sub font-normal p-1",
+                    "!text-large text-blue_main_sub font-normal p-1",
                     numberAdults === 1 &&
                       "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
                   )}
@@ -73,7 +73,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 id="adults"
                 min="1"
                 value={numberAdults}
-                className="h-8 outline-none bg-white  max-w-[60px] text-black text-center shadow-none border-none"
+                className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
                 onChange={(e) =>
                   setNumberAdults(Math.max(1, Number(e.target.value)))
                 }
@@ -116,7 +116,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 id="children"
                 min="0"
                 value={numberChildren}
-                className="h-8 outline-none bg-white  max-w-[60px] text-black text-center shadow-none border-none"
+                className="h-8 outline-none text-normal bg-white  max-w-[60px] text-black text-center shadow-none border-none"
                 onChange={(e) =>
                   setNumberChildren(Math.max(0, Number(e.target.value)))
                 }
@@ -159,7 +159,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 id="numberRoom"
                 min="1"
                 value={numberRoom}
-                className="h-8 outline-none bg-white  max-w-[60px] text-black text-center shadow-none border-none"
+                className="h-8 outline-none text-normal bg-white  max-w-[60px] text-black text-center shadow-none border-none"
                 onChange={(e) =>
                   setNumberRoom(Math.max(1, Number(e.target.value)))
                 }
