@@ -1,13 +1,14 @@
 "use client";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { useState } from "react";
+
 import { SearchDatePickerDouProps } from "@/utils/types/search";
 import SearchDatePickerDouLG from "./search-date-picker-dou/search-date-picker-dou-lg";
 import SearchDatePickerDouSM from "./search-date-picker-dou/search-date-picker-dou-sm";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
-import { useState } from "react";
 
 const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({
   className,
@@ -16,7 +17,7 @@ const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col w-full">
+    <section className="flex flex-col w-full">
       <Button
         id="date"
         variant="ghost"
@@ -24,7 +25,7 @@ const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({
           "flex w-full h-[40px] bg-white px-2 py-1 text-small font-medium",
           !date && "bg-white w-full",
           className,
-          "lg:hidden xl:hidden"
+          "md:hidden lg:hidden xl:hidden"
         )}
         onClick={(e) => {
           e.preventDefault();
@@ -62,7 +63,7 @@ const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({
         setDate={setDate}
         className={className}
       />
-    </div>
+    </section>
   );
 };
 export default SearchDatePickerDou;

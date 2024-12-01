@@ -1,15 +1,15 @@
 "use client";
+import { ChevronDown, Dot, User } from "lucide-react";
+import { useState } from "react";
+
 import { SearchSelectPersonProps } from "@/utils/types/search";
-import { Fragment, useState } from "react";
 import SearchSelectPersonLG from "./search-select-person/search-select-person-lg";
 import SearchSelectPersonSM from "./search-select-person/search-select-person-sm";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Dot, User } from "lucide-react";
 
 const SearchSelectPerson = ({
   className,
-  error,
   numberAdults,
   numberChildren,
   numberRoom,
@@ -28,15 +28,14 @@ const SearchSelectPerson = ({
   };
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col w-full">
+    <section className="flex flex-col w-full">
       <Button
         variant="ghost"
         className={cn(
           "flex items-center justify-center  w-full h-[40px] bg-white px-2 py-1",
           "hover:cursor-pointer ",
-          error && "border-[2px] border-error_color",
           className,
-          "lg:hidden xl:hidden"
+          "md:hidden xl:hidden"
         )}
         onClick={(e) => {
           e.preventDefault();
@@ -54,7 +53,6 @@ const SearchSelectPerson = ({
       </Button>
       <SearchSelectPersonLG
         className={className}
-        error={error}
         numberAdults={numberAdults}
         numberChildren={numberChildren}
         numberRoom={numberRoom}
@@ -68,7 +66,6 @@ const SearchSelectPerson = ({
         open={open}
         setOpen={setOpen}
         className={className}
-        error={error}
         numberAdults={numberAdults}
         numberChildren={numberChildren}
         numberRoom={numberRoom}
@@ -78,7 +75,7 @@ const SearchSelectPerson = ({
         handleDecrease={handleDecrease}
         handleIncrease={handleIncrease}
       />
-    </div>
+    </section>
   );
 };
 

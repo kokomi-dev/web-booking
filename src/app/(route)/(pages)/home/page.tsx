@@ -14,7 +14,7 @@ function HomePage() {
 
   return (
     <div className=" bg-white flex flex-col w-fulll gap-8  ">
-      <section className=" bg-cover bg-center h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
+      <section className=" bg-cover bg-center w-auto h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
         <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8 mx-4 md:mx-0  ">
           <h1
             className={cx(
@@ -40,14 +40,20 @@ function HomePage() {
         <h2 className={cx("text-medium font-semibold mb-6", "lg:text-large")}>
           Điểm đến hàng đầu
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {listAddressTredingHome.map((e, index) => (
             <Link
               href={e.path}
               key={index}
               className="rounded-lg shadow-lg overflow-hidden hover:cursor-pointer"
             >
-              <Image alt="img-pre-view" width={500} height={400} src={e.img} />
+              <Image
+                alt="img-pre-view"
+                width={500}
+                height={400}
+                src={e.img}
+                className="w-full h-[300px] object-cover "
+              />
               <div className="p-4">
                 <h3 className="text-normal font-semibold">{e.label}</h3>
                 <p className="mt-2 text-black_sub text-small">{e.des}</p>

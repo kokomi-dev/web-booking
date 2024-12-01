@@ -2,48 +2,33 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { addDays, format } from "date-fns";
-import { Button } from "@/components/ui/button";
-
-import { cn } from "@/lib/utils";
-
+import { vi } from "date-fns/locale";
 import Link from "next/link";
+import { cx } from "class-variance-authority";
 
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cx } from "class-variance-authority";
 import SearchAddress from "./search-address";
 import SearchDatePicker from "./search-date-picker";
 import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
 import { SearchContainerProp } from "@/utils/types/search";
-import { vi } from "date-fns/locale";
-export const ButtonEnd = ({
-  onClick,
-}: {
-  onClick: React.MouseEventHandler;
-}) => {
-  return (
-    <Button
-      onClick={onClick}
-      className="absolute  left-[50%] top-[95%] translate-x-[-50%] translate-y-[-50%]  w-[90%] flex items-center justify-center text-normal font-medium bg-bg_primary_blue_sub text-white rounded-8 mb-8"
-    >
-      Xong
-    </Button>
-  );
-};
+
 const Search: React.FC<SearchContainerProp> = ({
   className,
   currentValue,
   variant,
 }) => {
-  const [value, setValue] = useState<string>(currentValue || "");
+  const [address, setAddress] = useState<string>(currentValue || "");
   const [dateDou, setDateDou] = useState<any>({
     from: new Date(),
     to: addDays(new Date(), 2),
   });
-  const [date, setDate] = useState<any>();
+  const [date, setDate] = useState<any>(new Date());
   const [numberAdults, setNumberAdults] = useState<number>(2);
-  const [numberChildren, setNumberChildren] = useState<number>(1);
+  const [numberChildren, setNumberChildren] = useState<number>(0);
   const [numberRoom, setNumberRoom] = useState<number>(1);
 
   const [error, setError] = useState(false);
@@ -53,17 +38,18 @@ const Search: React.FC<SearchContainerProp> = ({
   const page = pathname.split("/")[1];
 
   useEffect(() => {
-    if (value) {
+    if (address !== "" || address !== null) {
       setError(false);
     }
-  }, [value]);
+  }, [address, router]);
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("tìm", error);
     e.preventDefault();
-    if (!value) {
+    if (address === "" || address === null) {
       setError(true);
     } else {
-      router.push(`/${page}/searchresult?address=${value}&filter=suggest`);
+      router.push(`/${page}/searchresult?address=${address}&filter=suggest`);
     }
   };
   if (page === "home") {
@@ -98,12 +84,12 @@ const Search: React.FC<SearchContainerProp> = ({
               <CardContent
                 className={cx(
                   "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow_main p-1 ",
-                  "md:flex-row md:items-center md:justify-start lg:gap-x-2 lg:gap-y-0"
+                  "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2 lg:gap-y-0"
                 )}
               >
                 <SearchAddress
-                  value={value}
-                  setValue={setValue}
+                  value={address}
+                  setValue={setAddress}
                   error={error}
                 />
                 <SearchDatePicker date={date} setDate={setDate} className="" />
@@ -115,11 +101,11 @@ const Search: React.FC<SearchContainerProp> = ({
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    if (!value) {
+                    if (address === "" || address === null) {
                       setError(true);
                     } else {
                       router.push(
-                        `/attractions/searchresult?address=${value}&date=${format(
+                        `/attractions/searchresult?address=${address}&date=${format(
                           date,
                           "dd/MM/yyyy",
                           { locale: vi }
@@ -158,13 +144,12 @@ const Search: React.FC<SearchContainerProp> = ({
                 )}
               >
                 <SearchAddress
-                  value={value}
-                  setValue={setValue}
+                  value={address}
+                  setValue={setAddress}
                   error={error}
                 />
                 <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
                 <SearchSelectPerson
-                  error={error}
                   setError={setError}
                   numberAdults={numberAdults}
                   setNumberAdults={setNumberAdults}
@@ -181,11 +166,11 @@ const Search: React.FC<SearchContainerProp> = ({
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    if (!numberAdults || !numberChildren || !numberRoom) {
+                    if (address === "" || address === null) {
                       setError(true);
                     } else {
                       router.push(
-                        `/hotels/searchresult?address=${value}&dateFrom=${format(
+                        `/hotels/searchresult?address=${address}&dateFrom=${format(
                           dateDou.from,
                           "dd/MM/yyyy",
                           { locale: vi }
@@ -231,7 +216,7 @@ const Search: React.FC<SearchContainerProp> = ({
       >
         {/* search slogan */}
         {page === "attractions" && !variant && (
-          <div className={cn("text-white")}>
+          <section className={cn("text-white")}>
             <div className="w-full">
               <h1
                 className={cn(
@@ -257,10 +242,10 @@ const Search: React.FC<SearchContainerProp> = ({
                 Khám phá những khung cảnh thơ mộng tại Việt Nam
               </p>
             </div>
-          </div>
+          </section>
         )}
         {page === "hotels" && (
-          <div className={cn("text-white")}>
+          <section className={cn("text-white")}>
             <div className="w-full">
               <h1 className="hidden lg:block text-wrap text-largest font-extrabold">
                 Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
@@ -272,7 +257,7 @@ const Search: React.FC<SearchContainerProp> = ({
                 Những khách sạn hàng đầu tại Việt Nam
               </p>
             </div>
-          </div>
+          </section>
         )}
         {/* search container */}
         <div
@@ -282,7 +267,7 @@ const Search: React.FC<SearchContainerProp> = ({
             " lg:flex  lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
         >
-          <SearchAddress value={value} setValue={setValue} error={error} />
+          <SearchAddress value={address} setValue={setAddress} error={error} />
           {(page === "attractions" || variant === "search") && (
             <SearchDatePicker date={date} setDate={setDate} />
           )}
@@ -290,7 +275,6 @@ const Search: React.FC<SearchContainerProp> = ({
             <Fragment>
               <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
               <SearchSelectPerson
-                error={error}
                 setError={setError}
                 numberAdults={numberAdults}
                 setNumberAdults={setNumberAdults}

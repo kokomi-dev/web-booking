@@ -1,20 +1,17 @@
-"use state";
-import { Button } from "@/components/ui/button";
+"use client";
+import { vi } from "date-fns/locale";
+
 import { Calendar } from "@/components/ui/calendar";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
+  SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 import { SearchDatePickerSMProps } from "@/utils/types/search";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
-import React, { useState } from "react";
-import { ButtonEnd } from "../search";
+import ButtonEnd from "../button-end";
 
 const SearchDatePickerSM: React.FC<SearchDatePickerSMProps> = ({
   open,
@@ -22,7 +19,6 @@ const SearchDatePickerSM: React.FC<SearchDatePickerSMProps> = ({
   date,
   setDate,
   className,
-  disablePastDates,
 }) => {
   return (
     <Sheet
@@ -33,25 +29,32 @@ const SearchDatePickerSM: React.FC<SearchDatePickerSMProps> = ({
     >
       <SheetContent
         side="bottom"
-        className=" z-[50] p-0 bg-white text-black flex flex-col items-center justify-center px-4"
+        className="flex flex-col items-center justify-start h-[65vh] w-full z-[50] md:hidden md:invisible  bg-white text-black  mt-4 p-1"
       >
-        <SheetTitle aria-describedby={undefined}></SheetTitle>
-        <SheetDescription aria-describedby={undefined}></SheetDescription>
+        <SheetHeader className="text-start  w-full p-2">
+          <SheetTitle className="text-normal+ font-semibold text-start w-full flex items-start justify-start">
+            Chọn ngày
+          </SheetTitle>
+          <SheetDescription aria-describedby={undefined}></SheetDescription>
+        </SheetHeader>
         <Calendar
-          disabled={disablePastDates}
           mode="single"
           selected={date}
           onSelect={setDate}
+          onDayClick={() => {
+            setOpen(false);
+          }}
           initialFocus={true}
           locale={vi}
           lang="vi"
-          className="w-auto h-[70vh] bg-white flex text-normal  items-center justify-center "
         />
-        <ButtonEnd
-          onClick={() => {
-            setOpen(false);
-          }}
-        />
+        <SheetFooter>
+          <ButtonEnd
+            onClick={() => {
+              setOpen(false);
+            }}
+          />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
