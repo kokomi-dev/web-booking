@@ -60,7 +60,7 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
               >
                 <span
                   className={cn(
-                    "text-large text-blue_main_sub font-normal p-1",
+                    "!text-large text-blue_main_sub font-normal p-1",
                     numberAdults === 1 &&
                       "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
                   )}

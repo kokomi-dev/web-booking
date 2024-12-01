@@ -58,10 +58,9 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             type="text"
             placeholder="Bạn muốn đi đâu !"
             className={cn(
-              "min-w-max w-full h-[36px] text-small  font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black ",
-              "lg:text-small "
+              "min-w-max w-full h-[36px] text-normal font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black "
             )}
-            debounceTime={300}
+            debounceTime={400}
             value={valueSearch}
             onChange={(e: any) => {
               setValueSearch(e.target.value);
