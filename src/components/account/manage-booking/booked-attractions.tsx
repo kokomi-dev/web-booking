@@ -48,7 +48,7 @@ const BookedAttractions = () => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
-        const result = await getAttractionBooked({ arr }); // Chỉ gọi API khi arr có giá trị
+        const result = await getAttractionBooked({ arr });
         setData(result);
         await fetchOrderStatuses(arrOrderId);
       } catch (error) {
@@ -63,7 +63,7 @@ const BookedAttractions = () => {
       for (const orderId of orderIds) {
         try {
           const result = await checkOrderPayment({ orderId });
-          statusArray.push(result.result.return_code); // Điều chỉnh theo API response
+          statusArray.push(result.result.return_code);
         } catch (error) {}
       }
       setStatuses(statusArray);
@@ -79,11 +79,11 @@ const BookedAttractions = () => {
       );
     } else if (status === 2) {
       return (
-        <div className="">
-          <Button className="bg-bg_primary_yellow text-white p-2">
-            Hết hạn thanh toán
+        <div className="flex flex-col gap-y-2 w-fit">
+          <Button className="w-[70px] bg-bg_primary_yellow text-white p-2">
+            Hết hạn
           </Button>
-          <Button className="bg-bg_primary_green text-white p-2 ml-2">
+          <Button className="w-[70px] bg-bg_primary_green text-white p-2 ">
             <Link href={`/attractions/${data[index].slug}`}>Đặt lại</Link>
           </Button>
         </div>
@@ -105,64 +105,79 @@ const BookedAttractions = () => {
       <h3 className="text-medium font-semibold text-black">
         Địa điểm tham quan đã đặt chỗ
       </h3>
-      {user && user.bookedAttractions && user.bookedAttractions.length > 0 ? (
-        <section className="w-full h-full grid gap-y-4">
-          <div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>STT</TableHead>
-                  <TableHead>Ảnh</TableHead>
-                  <TableHead>Tên</TableHead>
-                  <TableHead className="text-right">Giá-VNĐ</TableHead>
-                  <TableHead className="text-right">Ngày đặt</TableHead>
-                  <TableHead className="text-right">Trạng thái</TableHead>
+      <div className="w-full h-full overflow-x-auto">
+        <Table className="min-w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-12 sm:w-16">STT</TableHead>
+              <TableHead className="w-[100px] ">Ảnh</TableHead>
+              <TableHead className="min-w-[120px] sm:min-w-[200px]">
+                Tên
+              </TableHead>
+              <TableHead className="text-right min-w-[100px] sm:w-32">
+                Giá-VNĐ
+              </TableHead>
+              <TableHead className="text-right min-w-[120px] sm:w-40">
+                Ngày đặt
+              </TableHead>
+              <TableHead className="text-right min-w-[100px] sm:w-32">
+                Trạng thái
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {user &&
+            user.bookedAttractions &&
+            user.bookedAttractions.length > 0 ? (
+              data?.map((item, index) => (
+                <TableRow key={index}>
+                  {/* STT */}
+                  <TableCell className="text-center">{index + 1}</TableCell>
+                  {/* Ảnh */}
+                  <TableCell className="flex justify-center">
+                    <Image
+                      src={item.images[0]}
+                      alt="attraction booked"
+                      width={64}
+                      height={64}
+                      className="rounded-8 object-cover w-16 h-16 md:w-20 md:h-20"
+                    />
+                  </TableCell>
+                  {/* Tên */}
+                  <TableCell className="text-small sm:text-normal text-blue_main font-semibold">
+                    {item.name}
+                  </TableCell>
+                  {/* Giá */}
+                  <TableCell className="text-right text-yellow_main font-medium underline">
+                    {formatPrice(user.bookedAttractions[index].amount)}
+                  </TableCell>
+                  {/* Ngày đặt */}
+                  <TableCell className="text-right text-small sm:text-normal">
+                    {format(
+                      user.bookedAttractions[index].bookingDate,
+                      "dd/MM/yyyy",
+                      { locale: vi }
+                    )}
+                  </TableCell>
+                  {/* Trạng thái */}
+                  <TableCell className="text-end  text-small sm:text-normal ">
+                    {checkStatusBtn(statuses[index], index) || "Checking..."}
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data?.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>
-                      <Image
-                        src={item.images[0]}
-                        alt="attraction booked"
-                        width={300}
-                        height={300}
-                        className="size-16 rounded-8"
-                      />
-                    </TableCell>
-                    <TableCell className="text-small text-blue_main font-semibold">
-                      {item.name}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className="text-yellow_main font-medium underline">
-                        {formatPrice(user.bookedAttractions[index].amount)}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {format(
-                        user.bookedAttractions[index].bookingDate,
-                        "dd/MM/yyyy",
-                        {
-                          locale: vi,
-                        }
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {checkStatusBtn(statuses[index], index) || "Checking..."}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </section>
-      ) : (
-        <TableRow className="text-black font-normal">
-          Chưa có điểm tham quan nào được đặt
-        </TableRow>
-      )}
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={6}
+                  className="text-center text-black font-normal"
+                >
+                  Chưa có điểm tham quan nào được đặt
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

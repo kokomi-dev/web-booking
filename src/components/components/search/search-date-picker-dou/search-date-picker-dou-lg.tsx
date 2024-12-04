@@ -45,29 +45,28 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
             setOpen(!open);
           }}
           className={cn(
-            "hidden w-full h-[40px] bg-white px-2 py-1 text-small font-medium",
-            !date && "bg-white w-full",
+            "hidden w-full h-[44px] bg-white px-2 py-1 text-normal font-light",
             className,
             "md:flex"
           )}
         >
           {date?.from ? (
             date.to ? (
-              <span className="w-full h-full flex items-center justify-start gap-x-1 text-small font-medium">
-                <CalendarIcon className="mr-3 text-black size-[1.1rem]" />
+              <span className="w-full h-full flex items-center justify-start gap-x-1 text-normal font-light">
+                <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
                 {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
                 {format(date.to, "dd/MM/yyyy", { locale: vi })}
               </span>
             ) : (
-              <span className="w-full h-full flex items-center justify-start gap-x-1 text-small font-medium">
-                <CalendarIcon className="mr-1 text-black size-[1.1rem]" />
+              <span className="w-full h-full flex items-center justify-start gap-x-1 text-normal font-light">
+                <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
                 {format(date.from, "dd/MM/yyyy", { locale: vi })}
               </span>
             )
           ) : (
             <div className="w-full flex items-center justify-start gap-x-1">
-              <CalendarIcon className="mr-1 text-black size-[1.1rem]" />
-              <span className="w-full h-full text-start">
+              <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
+              <span className="w-full h-full text-start text-normal font-light">
                 Chọn ngày đi và trả phòng
               </span>
             </div>

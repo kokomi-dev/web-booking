@@ -35,7 +35,7 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
         <Button
           variant="ghost"
           className={cn(
-            "hidden items-center w-full h-[40px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
+            "hidden items-center w-full h-[44px] z-[40] gap-x-1  justify-start  bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
             error && "border-2 border-red-600",
             "md:flex xl:flex"
           )}
@@ -43,9 +43,9 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
             setOpen(!open);
           }}
         >
-          <MapPinned className="size-4 text-black_main" />
-          <span className="ml-1 text-small font-medium">
-            {value === "" || value === null ? "Chọn nơi bạn muốn đến" : value}
+          <MapPinned className="size-[1.2rem] text-black_sub" />
+          <span className="ml-1 text-normal font-light">
+            {value === "" || value === null ? "Chọn nơi bạn muốn đến ?" : value}
           </span>
         </Button>
       </PopoverTrigger>
@@ -85,7 +85,7 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
                     }}
                   >
                     <MapPinned className="size-5" />
-                    <span className="text-small font-medium capitalize">
+                    <span className="text-small font-normal capitalize">
                       {address.name}
                     </span>
                   </li>

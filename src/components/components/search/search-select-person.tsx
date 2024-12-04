@@ -32,7 +32,7 @@ const SearchSelectPerson = ({
       <Button
         variant="ghost"
         className={cn(
-          "flex items-center justify-center  w-full h-[40px] bg-white px-2 py-1",
+          "flex items-center justify-center  w-full h-[44px] bg-white px-2 py-1",
           "hover:cursor-pointer ",
           className,
           "md:hidden xl:hidden"
@@ -42,9 +42,9 @@ const SearchSelectPerson = ({
           setOpen(!open);
         }}
       >
-        <User className="size-5 font-medium text-black mr-2 " />
+        <User className="size-5 font-medium text-black_sub mr-2 " />
         <span className="w-full h-full flex items-center justify-start gap-x-1 ">
-          <span className="w-full flex items-center justify-start gap-x-1 text-small font-medium whitespace-nowrap">
+          <span className="w-full flex items-center justify-start gap-x-1 text-normal font-light whitespace-nowrap">
             {numberAdults} người lớn <Dot /> {numberChildren} trẻ em <Dot />{" "}
             {numberRoom} phòng
           </span>

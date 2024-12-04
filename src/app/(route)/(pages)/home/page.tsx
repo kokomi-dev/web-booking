@@ -9,12 +9,16 @@ import SlideShowImage from "@/components/dashboard/homepage/slide-show";
 import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import { Button } from "@/components/ui/button";
 import { useAuthenticatedStore } from "@/store/authencation-store";
+import feedBack1 from "@/assets/images/feedback-1.jpeg";
+import feedBack2 from "@/assets/images/feedback-2.jpeg";
+import feedBack3 from "@/assets/images/feedback-3.jpeg";
+
 function HomePage() {
   const { isAuthenticated, user } = useAuthenticatedStore();
 
   return (
-    <div className=" bg-white flex flex-col w-fulll gap-8  ">
-      <section className=" bg-cover bg-center w-auto h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-4 lg:-mx-[10rem]">
+    <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
+      <section className=" bg-cover bg-center w-auto h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-[1rem] md:-mx-[8rem] lg:-mx-[10rem]">
         <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8 mx-4 md:mx-0  ">
           <h1
             className={cx(
@@ -66,12 +70,12 @@ function HomePage() {
         <SlideShowImage />
       </section>
       {/* chỗ nghỉ */}
-      <section className=" py-12 px-6 md:px-12 lg:px-24 rounded-14">
+      <section className="py-5 md:py-8 lg:py-12 px-2 md:px-12 lg:px-24 rounded-14">
         <div className=" text-center">
           <h1 className="text-largest font-bold text-black mb-6">
             Đặt chỗ nghỉ lý tưởng tại Việt Nam
           </h1>
-          <p className="text-small md:text-normal text-black_sub mb-8">
+          <p className="text-small text-justify md:text-normal text-black_sub mb-8">
             Trải nghiệm dịch vụ đặt chỗ nhanh chóng và tiện lợi cho chuyến du
             lịch của bạn. Tìm kiếm và lựa chọn từ hàng ngàn khách sạn, homestay,
             và khu nghỉ dưỡng trên khắp Việt Nam, từ những thành phố sôi động
@@ -86,31 +90,58 @@ function HomePage() {
         </div>
       </section>
       {/* Phản hồi từ khách hàng */}
-      <section className=" bg-bg_black_sub p-4 py-6 rounded-14 flex flex-col gap-y-3">
+      <section className=" bg-bg_black_sub p-2 py-6 rounded-14 flex flex-col gap-y-3">
         <h2 className="text-large  font-semibold text-start">
           Khách hàng nói gì
         </h2>
-        <div className="mt-8 max-w-3xl mx-auto space-y-2">
+        <div className="mt-2 md:mt-5 lg:mt-8 max-w-3xl mx-auto space-y-2">
           <blockquote className="p-4 bg-white rounded-md shadow">
-            <p className="text-black_sub text-normal font-normal">
-              "Trải nghiệm tuyệt vời! Cảnh đẹp và dịch vụ thật sự ấn tượng."
-            </p>
+            <div className="grid grid-cols-[15%,85%] gap-x-1">
+              <Image
+                src={feedBack1}
+                alt="img-feedback"
+                width={400}
+                height={400}
+                className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full"
+              />
+              <p className="text-black_sub text-normal font-normal">
+                "Trải nghiệm tuyệt vời! Cảnh đẹp và dịch vụ thật sự ấn tượng."
+              </p>
+            </div>
             <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Nguyễn Văn An
             </footer>
           </blockquote>
           <blockquote className="p-4 bg-white rounded-md shadow">
-            <p className="text-black_sub text-normal font-normal">
-              "Rất đúng với mô tả, chất lượng ổn, có nhiều ưu đãi."
-            </p>
+            <div className="grid grid-cols-[15%,85%] gap-x-1">
+              <Image
+                src={feedBack3}
+                alt="img-feedback"
+                width={400}
+                height={400}
+                className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full"
+              />
+              <p className="text-black_sub text-normal font-normal">
+                "Rất đúng với mô tả, chất lượng ổn, có nhiều ưu đãi."
+              </p>
+            </div>
             <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Đặng Thanh Huyền
             </footer>
           </blockquote>{" "}
           <blockquote className="p-4 bg-white rounded-md shadow">
-            <p className="text-black_sub text-normal font-normal">
-              "Tư vấn hỗ trợ nhanh, giải đáp nhiệt tình...."
-            </p>
+            <div className="grid grid-cols-[15%,85%] gap-x-1">
+              <Image
+                src={feedBack2}
+                alt="img-feedback"
+                width={400}
+                height={400}
+                className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full"
+              />
+              <p className="text-black_sub text-normal font-normal">
+                "Tư vấn hỗ trợ nhanh, giải đáp nhiệt tình...."
+              </p>
+            </div>
             <footer className="mt-2 text-right text-sm text-blue_main_sub font-medium text-normal">
               - Lê Thị Mười
             </footer>
@@ -138,7 +169,7 @@ function HomePage() {
           lịch trình chi tiết.
         </p>
         <Link
-          href="/content?activeTab=1"
+          href="/content/privacy?activeTab=1"
           className="text-blue_main text-small underline"
         >
           Xem thêm về chính sách của chúng tôi
@@ -165,14 +196,14 @@ function HomePage() {
         </ul>
       </section>
       {/* Ưu đãi cho khách hàng mới */}
-      <section className=" bg-bg_black_sub rounded-14 p-4 py-6">
+      <section className=" bg-bg_black_sub rounded-14 p-2 lg:p-4 py-6">
         <h2 className="text-large font-semibold mb-6">
           Ưu đãi cho khách hàng mới
         </h2>
 
         {!isAuthenticated && !user ? (
           <div>
-            <p className="text-black text-small">
+            <p className="text-black text-justify text-small">
               Đăng ký ngay để nhận được mã giảm giá 10% cho chuyến đi đầu tiên
               của bạn và nhiều ưu đãi đang chờ đón bạn!
             </p>
@@ -185,7 +216,7 @@ function HomePage() {
           </div>
         ) : (
           <div>
-            <p className="text-black text-small">
+            <p className="text-black text-justify text-small">
               Hãy xem qua các ưu đãi mà bạn đang có để không bỏ lỡ những chương
               trình khuyến mãi đặc biệt có hạn này.
             </p>

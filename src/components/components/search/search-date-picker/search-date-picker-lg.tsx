@@ -29,8 +29,7 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            "hidden button-lg items-center justify-start gap-x-1 w-full h-[40px]  text-left bg-white px-2 py-1 shadow-none font-medium",
-            !date && "text-muted-foreground",
+            "hidden button-lg items-center justify-start gap-x-1 w-full h-[44px]  text-left bg-white px-2 py-1 shadow-none text-normal font-light",
             className,
             "md:flex"
           )}
@@ -39,12 +38,14 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
             setOpen2(!open2);
           }}
         >
-          <CalendarIcon className="mr-1 text-black size-[1.1rem]" />
+          <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
 
           {date ? (
-            format(date, "dd/MM/yyyy", { locale: vi })
+            <span className="text-normal font-light">
+              {format(date, "dd/MM/yyyy", { locale: vi })}
+            </span>
           ) : (
-            <span className="text-small font-medium ">
+            <span className="text-normal font-light ">
               Vui lòng chọn ngày !
             </span>
           )}

@@ -13,18 +13,18 @@ export default function HeaderAccount({}: Props) {
     <div>
       <div
         className={cn(
-          "w-full h-full container-padding bg-bg_primary_main z-[15]  flex flex-col items-start justify-start gap-2 py-2"
+          "w-full h-[70px] lg:h-full container-padding bg-bg_primary_main z-[15]  flex flex-col items-center justify-start gap-2 py-2"
         )}
       >
         <div
           className={cn(
-            "w-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
+            "w-full h-full font-medium text-white text-normal  flex items-center justify-between transition-all duration-300",
             " lg:text-normal lg:h-auto lg:block  "
           )}
         >
           <div className="w-full font-bold  flex items-center justify-between text-white  ">
-            <Link href="/home" className="text-large e font-mono">
-              KoKoTravel.com
+            <Link href="/home" className="text-medium lg:text-large font-mono">
+              KoKoTravel
             </Link>
             {isAuthenticated && user && (
               <div>

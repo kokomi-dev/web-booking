@@ -197,61 +197,73 @@ CarouselItem.displayName = "CarouselItem";
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+>(
+  (
+    { className, variant = "outline", size = "icon", hidden, ...props },
+    ref
+  ) => {
+    const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
-  return (
-    <Button
-      ref={ref}
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute h-11 w-11 border-none bg-white rounded-full !left-2 text-blue_main_sub shadow-2xl",
-        orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        !canScrollPrev && " hidden",
-        className
-      )}
-      disabled={!canScrollPrev}
-      onClick={scrollPrev}
-      {...props}
-    >
-      <CaretLeftIcon className="h-8 w-8" />
-      <span className="sr-only">Previous slide</span>
-    </Button>
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        variant={variant}
+        size={size}
+        className={cn(
+          "absolute h-11 w-11 border-none bg-white rounded-full !left-2 text-blue_main_sub shadow-2xl",
+          orientation === "horizontal"
+            ? "-left-12 top-1/2 -translate-y-1/2"
+            : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          !canScrollPrev && " hidden",
+          className,
+          hidden && "hidden invisible lg:block lg:visible"
+        )}
+        disabled={!canScrollPrev}
+        onClick={scrollPrev}
+        {...props}
+      >
+        <CaretLeftIcon className="h-8 w-8" />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+    );
+  }
+);
 CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+>(
+  (
+    { className, variant = "outline", size = "icon", hidden, ...props },
+    ref
+  ) => {
+    const { orientation, scrollNext, canScrollNext } = useCarousel();
 
-  return (
-    <Button
-      ref={ref}
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute h-11 w-11 border-none bg-white rounded-full !right-2 text-blue_main_sub shadow-2xl",
-        orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        !canScrollNext && " hidden",
-        className
-      )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
-      {...props}
-    >
-      <CaretRightIcon className="h-8 w-8" />
-      <span className="sr-only">Next slide</span>
-    </Button>
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        variant={variant}
+        size={size}
+        className={cn(
+          "  absolute h-11 w-11 border-none bg-white rounded-full !right-2 text-blue_main_sub shadow-2xl",
+          orientation === "horizontal"
+            ? "-right-12 top-1/2 -translate-y-1/2"
+            : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          !canScrollNext && " hidden",
+          className,
+          hidden && "hidden invisible lg:block lg:visible"
+        )}
+        disabled={!canScrollNext}
+        onClick={scrollNext}
+        {...props}
+      >
+        <CaretRightIcon className="h-8 w-8" />
+        <span className="sr-only">Next slide</span>
+      </Button>
+    );
+  }
+);
 CarouselNext.displayName = "CarouselNext";
 
 export {

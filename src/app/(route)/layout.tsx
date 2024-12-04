@@ -13,11 +13,11 @@ export default function DefaultLayout({
       <header className="w-full h-full z-[50]  sticky top-0 lg:relative">
         <HeaderDashboard />
       </header>
-      <main className="w-full h-full ">
-        <div className="w-full h-full bg-transparent lg:bg-bg_primary_main p-2 container-padding  ">
+      <main className="w-full h-full">
+        <div className="w-full h-full bg-transparent lg:bg-bg_primary_main  container-padding py-2 ">
           <Search />
         </div>
-        <div className="container-padding py-4">{children}</div>{" "}
+        <div className="container-padding py-4 ">{children}</div>{" "}
       </main>
       <footer>
         <FooterDashboard />

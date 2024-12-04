@@ -64,10 +64,10 @@ const DetailAttractionPage = async ({
     return <NotFoundPage page="attractions" />;
   }
   return (
-    <section className="w-full h-full">
+    <div className="w-full h-full">
       <div
         className={cn(
-          "w-full h-full flex flex-col items-start justify-start gap-y-4 "
+          "w-full h-full flex flex-col items-start justify-start gap-y-4"
         )}
       >
         {/* head */}
@@ -84,18 +84,17 @@ const DetailAttractionPage = async ({
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-
         {/* info */}
         <section
           className={cn(
-            "w-full h-full flex  items-start justify-between gap-y-2 "
+            "w-full h-full flex  items-start justify-between gap-y-3 "
           )}
         >
           <div className="grid gap-y-2">
             <div className="w-full flex items-center justify-between ">
               <h1 className="text-large font-bold ">{data.name}</h1>
             </div>
-            <h3 className="w-fit flex items-center justify-center gap-x-2  ">
+            <h3 className="w-fit flex items-center justify-center gap-x-1  ">
               <GoStarFill className="text-yellow_main text-[1.2rem]" />
               <span className="text-medium ">
                 <span className="text-normal font-semibold">{data.rating}</span>
@@ -109,8 +108,8 @@ const DetailAttractionPage = async ({
                 ( {data.comments.length} đánh giá )
               </span>
             </h3>
-            <address className="text-small font-normal text-black_sub flex items-center justify-start gap-1">
-              <MapPin className="w-5 h-5 text-blue_main_sub" />
+            <address className="text-small font-normal text-black_sub flex items-start lg:items-center justify-start gap-x-1">
+              <MapPin className="w-6 h-6 text-blue_main_sub" />
               <address className="text-black">
                 <span className="font-medium">Địa chỉ: </span>
                 {data.location.detail}
@@ -151,9 +150,9 @@ const DetailAttractionPage = async ({
             </div>
           )}
           {/* content and book tickets */}
-          <div className="w-full h-full flex  flex-col-reverse lg:grid gap-y-4 lg:grid-cols-layout-2">
+          <div className="w-full h-full flex  flex-col-reverse lg:grid gap-4 lg:grid-cols-layout-2">
             {/* left */}
-            <div className="w-full flex flex-col items-start justify-start gap-6 lg:pr-2 ">
+            <div className="w-full flex flex-col items-start justify-start gap-y-4 lg:pr-2 ">
               {/* descriptiton */}
               <DisplayDocs docs={data.description} />
               {/* schedule in tour */}
@@ -237,7 +236,7 @@ const DetailAttractionPage = async ({
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

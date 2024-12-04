@@ -20,18 +20,18 @@ const HeaderDashboard = () => {
   return (
     <div
       className={cn(
-        "w-full h-full sticky top-0 lg:relative  z-[15]  flex flex-col items-start justify-start  "
+        "w-full h-[70px] lg:h-full sticky top-0 lg:relative  z-[15]  flex flex-col items-start justify-start   "
       )}
     >
       <div
         className={cn(
-          "w-full container-padding p-2 font-medium text-white text-normal bg-bg_primary_main flex items-center justify-between transition-all duration-300",
+          "w-full h-full container-padding p-2 font-medium text-white text-normal bg-bg_primary_main flex items-center justify-between transition-all duration-300",
           " lg:text-normal lg:h-auto lg:block  "
         )}
       >
         <div className="w-full font-bold  flex items-center justify-between text-white  ">
-          <Link href="/home" className="text-normal md:text-large font-mono">
-            KoKoTravel.com
+          <Link href="/home" className="text-medium md:text-large font-mono">
+            KoKoTravel
           </Link>
           <div className="flex items-center justify-start gap-x-2">
             <div

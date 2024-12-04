@@ -29,9 +29,9 @@ const SearchDatePickerSM: React.FC<SearchDatePickerSMProps> = ({
     >
       <SheetContent
         side="bottom"
-        className="flex flex-col items-center justify-start h-auto w-full z-[50] md:hidden md:invisible  bg-white text-black "
+        className="flex flex-col items-center justify-start h-[70vh] w-full z-[50] md:hidden md:invisible  bg-white text-black p-1"
       >
-        <SheetHeader className="text-start  w-full p-2">
+        <SheetHeader className="text-start w-full p-2">
           <SheetTitle className="text-normal+ font-semibold text-start w-full flex items-start justify-start">
             Chọn ngày
           </SheetTitle>

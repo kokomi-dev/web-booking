@@ -45,7 +45,7 @@ const Intro = () => {
     >
       <h1
         className={cn(
-          " mt-10  text-center py-5  font-medium text-large",
+          "mt-4  text-center py-4  font-medium text-large",
           "lg:text-largest lg:mt-0 lg:font-bold"
         )}
       >
@@ -68,13 +68,13 @@ const Intro = () => {
         opts={{
           align: "start",
         }}
-        className="w-[90%] md:w-[90%] lg:w-[90%] xl:w-[80%] "
+        className="w-[97%] md:w-[90%] lg:w-[90%] xl:w-[80%] "
       >
         <CarouselContent>
           {arrInfo.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basic-[66.67%] lg:basis-1/3"
+              className="basis-[74.67%] lg:basis-1/3"
               autoFocus={index === 1}
             >
               <Card
@@ -106,7 +106,7 @@ const Intro = () => {
         {/* <CarouselPrevious />
         <CarouselNext /> */}
       </Carousel>
-      <div className="w-full pt-5 text-small  grid grid-cols-2 lg:grid-cols-4 gap-2 mt-10 border-t-[2px] border-blue_main">
+      <div className="w-full py-4 text-small  grid grid-cols-2 lg:grid-cols-4 gap-2 mt-10 border-t-[2px] border-blue_main">
         <div className="flex flex-col items-center justify-center text-center ">
           <span className="text-black_sub mb-1">Địa điểm</span>
           <span className="uppercase">Việt Nam</span>

@@ -81,7 +81,7 @@ const DetailHotelPage = async ({
         id="info_utilities"
       >
         {data.cancelFree && (
-          <div className="w-full grid grid-cols-[5%,95%] gap-x-2">
+          <div className="w-full grid grid-cols-[5%,93%] gap-x-2">
             <FaCalendarXmark className="text-blue_main_sub w-5 h-5 lg:w-7 lg:h-7 mr-2" />
             <p className="text-small font-light text-justify pr-1">
               Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi hoặc
@@ -179,7 +179,7 @@ const DetailHotelPage = async ({
         </CardText>
         {/* regulations */}
         <div
-          className="w-full border-1 rounded-8 p-4 my-3 border-blue_main_sub"
+          className="w-full flex flex-col gap-y-4 border-1 rounded-8 p-4 my-3 border-blue_main_sub"
           id="general_rule"
         >
           <h3 className="text-medium font-semibold">Quy định về chỗ nghỉ</h3>
@@ -191,7 +191,7 @@ const DetailHotelPage = async ({
               chào đón.
             </p>
           </div>
-          <div className="w-full  grid grid-cols-1 md:grid-cols-2 gap-x-2 mt-3">
+          <div className="w-full  grid grid-cols-1 gap-y-3 md:grid-cols-2 gap-x-2 ">
             <div className="border_div_card h-[120px]">
               <div>
                 <h3 className="text-normal">

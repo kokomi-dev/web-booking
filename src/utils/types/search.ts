@@ -1,6 +1,15 @@
 import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import { Dispatch, SetStateAction } from "react";
-export const HIDDEN_SEARCH = ["booking", "pay"];
+export const HIDDEN_SEARCH = [
+  "booking",
+  "pay",
+  "combos",
+  "contact",
+  "sign-in",
+  "sign-up",
+  "content",
+  "account",
+];
 export type DataAddressProps = {
   full_name: string;
   full_name_en: string;
@@ -115,12 +124,15 @@ export type SearchSelectPersonLGProps = {
   handleIncrease: any;
   handleDecrease: any;
 };
-export type ButtonSearchProps = {
+export type ButtonModelProps = {
   error?: boolean;
   value: any;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  // onClick?: SetStateAction<boolean>;
   model: string;
   icon?: any;
   sm?: boolean;
   md?: boolean;
+  props: any;
+  onClick: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  ref?: any;
 };

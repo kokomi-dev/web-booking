@@ -10,17 +10,17 @@ import { RULES_DEMO } from "@/components/dashboard/constants";
 import ReceiveFeedback from "@/components/dashboard/attraction/receive-feedback";
 const HotelPage = () => {
   return (
-    <div className="w-full h-full flex  flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
+    <div className="w-full h-full flex  flex-col items-center justify-between gap-4  lg:gap-6 ">
       <Trending page="hotels" />
       <hr className="hr" />
       <Rules />
       <hr className="hr" />
       <div className="w-full h-full bg-fixed bg-no-repeat rounded-14 bg-cover bg-[url('../assets/images/banner-hotel.jpg')]">
         <section className={cn("p-4  text-white", "lg:p-10")}>
-          <div className="w-full h-auto flex items-center justify-between bg-white p-4 text-black_sub rounded-md">
+          <div className="w-full h-auto flex items-center justify-between gap-y-2 bg-white p-4 text-black_sub rounded-md">
             <div>
-              <h3 className="text-black text-normal font-medium">
-                Để khám phá được một nơi đẹp thì bạn cần một chỗ nghỉ tốt
+              <h3 className="text-black text-small lg:text-normal font-normal">
+                Để khám phá được một nơi đẹp, bạn cần một chỗ nghỉ tốt
               </h3>
               <Button className="bg-bg_primary_blue_sub text-white mt-2">
                 Đặt phòng ngay bây giờ
@@ -29,7 +29,7 @@ const HotelPage = () => {
             <Image
               src={bannerSearch}
               alt="img_preview"
-              className="min-w-[18%] min-h-[80%] w-[25%] h-[100%] object-cover rounded-md"
+              className="min-w-[18%] min-h-[80%]  w-[35%] lg:w-[25%] h-[100%] object-cover rounded-md"
             />
           </div>
         </section>
@@ -46,14 +46,14 @@ const HotelPage = () => {
         <ListAllHotels />
         {/* trending */}
       </div>
-      <section className="mt-10">
+      <section className="mt-4">
         <h2 className="text-large font-bold text-gray-800 mb-4">
           Quy định{" "}
           <span className="text-medium">
             (có thể thay đổi theo từng nơi lưu trú)
           </span>
         </h2>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-y-3 md:grid-cols-2">
           {RULES_DEMO.map((rule, index) => (
             <div key={index} className="bg-bg_black_sub p-2 rounded-14">
               <h3 className="text-normal font-semibold text-black">

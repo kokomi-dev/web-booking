@@ -1,7 +1,7 @@
 "use client";
 
 import ShareButton from "@/components/components/share-button";
-import { Heart, MapPin, Share2, TriangleAlert } from "lucide-react";
+import { MapPin, TriangleAlert } from "lucide-react";
 import dynamic from "next/dynamic";
 import React from "react";
 import { GoStarFill } from "react-icons/go";
@@ -24,9 +24,9 @@ const Info: React.FC<InfoProps> = ({
   slug,
 }) => {
   return (
-    <div className="w-full grid ">
-      <div className="w-full grid mb-4  " id="overview">
-        <div className="w-fit mb-2">
+    <div className="w-full flex flex-col gap-y-4 ">
+      <div className="w-full flex flex-col gap-y-3   " id="overview">
+        <div className="w-fit ">
           <h5 className="text-smallest bg-bg_primary_yellow text-black p-1 rounded-8">
             Đặt phòng với chúng tôi !
           </h5>
@@ -38,12 +38,12 @@ const Info: React.FC<InfoProps> = ({
           </div>
         </div>
         <div className="w-full flex flex-col items-start md:flex-row md:items-center justify-start md:justify-between">
-          <address className="flex items-center justify-start gap-x-2 text-small ">
+          <address className="w-full flex items-center justify-start gap-x-2 text-small ">
             <MapPin className="text-blue_main text-normal" />
             {location}
           </address>
-          <div className="flex items-center justify-center gap-2 my-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
-            <TriangleAlert className="w-4 h-4 lg:text-normal" />
+          <div className="w-full hidden lg:flex items-center justify-end gap-x-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
+            <TriangleAlert className="w-5 h-5 " />
             <span className="capitalize text-small ">
               Chúng tôi luôn khớp giá
             </span>
