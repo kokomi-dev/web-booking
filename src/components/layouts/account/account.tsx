@@ -42,6 +42,7 @@ import {
 
 const Account = () => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const {
     setUserLogined,
@@ -89,7 +90,12 @@ const Account = () => {
     <Fragment>
       {isAuthenticated && user ? (
         <Suspense fallback={<LoadingComponentAccount />}>
-          <DropdownMenu>
+          <DropdownMenu
+            open={open}
+            onOpenChange={() => {
+              setOpen(false);
+            }}
+          >
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
@@ -97,10 +103,13 @@ const Account = () => {
                   "bg-bg_primary_active cursor-pointer",
                   "md:p-2 md:px-3"
                 )}
+                onClick={() => {
+                  setOpen(!open);
+                }}
               >
                 <div
                   className={cn(
-                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center",
+                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden",
                     "md:w-[2.8rem] md:h-[2.8rem]"
                   )}
                 >
@@ -109,7 +118,7 @@ const Account = () => {
                     width={600}
                     height={600}
                     alt="avatar-user"
-                    className=" rounded-full object-contain"
+                    className="rounded-full object-contain h-[40px] lg:h-auto"
                   />
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
@@ -137,6 +146,9 @@ const Account = () => {
             <DropdownMenuContent className="w-56 h-auto bg-white text-black rounded-14 p-0 ">
               <DropdownMenuGroup className="w-full">
                 <DropdownMenuItem
+                  onClick={() => {
+                    setOpen(false);
+                  }}
                   className={cn(
                     "cursor-pointer p-2 py-3",
                     "hover:bg-bg_primary_hover"
@@ -151,6 +163,9 @@ const Account = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                  onClick={() => {
+                    setOpen(false);
+                  }}
                   className={cn(
                     "cursor-pointer p-2 py-3",
                     "hover:bg-bg_primary_hover"
@@ -165,6 +180,9 @@ const Account = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                  onClick={() => {
+                    setOpen(false);
+                  }}
                   className={cn(
                     "cursor-pointer p-2 py-3",
                     "hover:bg-bg_primary_hover"
@@ -200,8 +218,13 @@ const Account = () => {
                         nhập tiếp
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active">
+                    <AlertDialogFooter className="flex flex-col gap-y-3 lg:flex-row">
+                      <AlertDialogCancel
+                        onClick={() => {
+                          setOpen(false);
+                        }}
+                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
+                      >
                         Hủy
                       </AlertDialogCancel>
                       <AlertDialogAction

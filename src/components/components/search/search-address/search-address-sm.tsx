@@ -43,22 +43,22 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
     >
       <SheetContent
         side="bottom"
-        className="h-[90vh] w-full z-[50]  bg-white text-black flex flex-col items-center justify-start mt-4 p-4"
+        className="h-auto w-full z-[50]  overflow-y-auto  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
       >
-        <SheetHeader className="text-start  w-full ">
-          <SheetTitle className="text-normal+ font-semibold text-start w-full flex items-start justify-start">
+        <SheetHeader className="text-start w-full ">
+          <SheetTitle className="text-normal+ font-semibold text-start w-fit flex items-start justify-start">
             Tìm
           </SheetTitle>
           <SheetDescription aria-describedby={undefined}></SheetDescription>
         </SheetHeader>
-        <div className="w-full mt-2 flex items-center justify-start gap-x-2 border-1 border-black_sub outline-blue_main_sub p-1 rounded-8 text-black">
+        <div className="absolute top-10 left-0 right-0 translate-x-[5%] translate-y-[30%] w-[90%]  mt-2 flex overflow-y-auto items-center justify-start gap-x-2 border-1 border-black_sub outline-blue_main_sub p-1 rounded-8 text-black">
           <Search className="w-5 h-5 ml-1" />
           <InputDebounce
             ref={inputRef}
             type="text"
             placeholder="Bạn muốn đi đâu !"
             className={cn(
-              "min-w-max w-full h-[36px] text-normal font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black "
+              "w-full h-[36px] text-normal font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black_sub "
             )}
             debounceTime={400}
             value={valueSearch}
@@ -67,36 +67,8 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             }}
           />
         </div>
-        <h5 className="w-full text-start text-small text-black_sub my-2">
-          Điểm đến lân cận
-        </h5>
-        {value === "" && (
-          <ul className="w-full flex flex-col gap-y-3 overflow-y-auto">
-            {ADDRESS_TRENDING.map((item, i) => {
-              return (
-                <li
-                  key={i}
-                  className="flex items-center justify-start gap-x-2"
-                  onClick={() => {
-                    setValueSearch(item.name);
-                    setValue(item.name);
-                    setOpen2(false);
-                  }}
-                >
-                  <Image
-                    src={item.img}
-                    width={100}
-                    height={100}
-                    alt="img-suggestion-address "
-                    className="rounded-8 w-[40px] h-[40px]"
-                  />
-                  <span className="text-smallest capitalize">{item.name}</span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        <div className="w-full max-h-[300px] overflow-y-auto  bg-white rounded-8 mt-2">
+
+        <div className="w-full max-h-[300px] overflow-y-auto  bg-white rounded-8 mt-[15%]">
           {data && data.length > 0 ? (
             data.map((item, index) => (
               <div
@@ -108,7 +80,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
                   setOpen2(false);
                 }}
               >
-                <span className="text-small font-medium">{item.name}</span>
+                <span className="text-normal font-medium">{item.name}</span>
               </div>
             ))
           ) : (

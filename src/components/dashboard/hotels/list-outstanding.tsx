@@ -14,7 +14,7 @@ const ListHotelOutStanding = async () => {
   const result = await getHotelOutStanding();
   const data = await result?.data;
   return (
-    <div className={cn("w-full")}>
+    <div className={cn("w-full flex flex-col gap-y-2")}>
       <h2 className="text-large font-bold">
         Khách sạn ( nhà nghỉ ) nổi bật của chúng tôi
       </h2>
@@ -28,46 +28,42 @@ const ListHotelOutStanding = async () => {
           Gói dịch vụ
         </Link>
       </h4>
-      <div className="">
-        <div className="">
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full "
-          >
-            <CarouselContent>
-              {data?.map(
-                (hotel: {
-                  slug: string;
-                  name: string;
-                  images: [string];
-                  location: string;
-                  price: [number];
-                  rating: number;
-                }) => (
-                  <CarouselItem
-                    key={hotel.slug}
-                    className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"
-                  >
-                    <ItemCard
-                      route="hotels"
-                      slug={hotel.slug}
-                      name={hotel.name}
-                      images={hotel.images[0]}
-                      location={hotel.location}
-                      price={hotel.price[0]}
-                      rating={hotel.rating}
-                    />
-                  </CarouselItem>
-                )
-              )}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
-      </div>
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="w-full "
+      >
+        <CarouselContent>
+          {data?.map(
+            (hotel: {
+              slug: string;
+              name: string;
+              images: [string];
+              location: string;
+              price: [number];
+              rating: number;
+            }) => (
+              <CarouselItem
+                key={hotel.slug}
+                className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"
+              >
+                <ItemCard
+                  route="hotels"
+                  slug={hotel.slug}
+                  name={hotel.name}
+                  images={hotel.images[0]}
+                  location={hotel.location}
+                  price={hotel.price[0]}
+                  rating={hotel.rating}
+                />
+              </CarouselItem>
+            )
+          )}
+        </CarouselContent>
+        <CarouselPrevious hidden />
+        <CarouselNext hidden />
+      </Carousel>
     </div>
   );
 };

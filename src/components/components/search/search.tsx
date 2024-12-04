@@ -14,7 +14,7 @@ import SearchAddress from "./search-address";
 import SearchDatePicker from "./search-date-picker";
 import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
-import { SearchContainerProp } from "@/utils/types/search";
+import { HIDDEN_SEARCH, SearchContainerProp } from "@/utils/types/search";
 
 const Search: React.FC<SearchContainerProp> = ({
   className,
@@ -52,9 +52,13 @@ const Search: React.FC<SearchContainerProp> = ({
       router.push(`/${page}/searchresult?address=${address}&filter=suggest`);
     }
   };
+  const isDetailPage =
+    (pathname.startsWith("/hotels/") && pathname !== "/hotels") ||
+    (pathname.startsWith("/attractions/") && pathname !== "/attractions");
+
   if (page === "home") {
     return (
-      <div className="h-full ">
+      <div className="w-full h-full ">
         <Tabs
           defaultValue="attractions"
           className="w-full h-auto bg-bg_primary_white rounded-8  mt-2"
@@ -97,7 +101,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   type="submit"
                   variant="default"
                   className={cn(
-                    "lg:max-w-[140px] w-full h-[40px] text-normal font-medium bg-bg_primary_blue_sub text-white"
+                    "lg:max-w-[140px] w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub text-white"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -162,7 +166,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   type="submit"
                   variant="default"
                   className={cn(
-                    "lg:max-w-[140px] w-full  h-[40px]   bg-bg_primary_blue_sub text-white"
+                    "lg:max-w-[140px] w-full  h-[44px]   bg-bg_primary_blue_sub text-white"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -193,16 +197,11 @@ const Search: React.FC<SearchContainerProp> = ({
   return (
     <form
       className={cn(
-        "w-full h-full  flex items-center justify-center py-4",
+        "w-full h-full flex items-center justify-center py-4",
         className,
-        pathname.includes("combos") && "hidden",
-        pathname.includes("contact") && "hidden",
-        pathname.includes("booking") && "hidden",
-        pathname.includes("pay") && "hidden",
-        pathname.includes("sign-in") && "hidden",
-        pathname.includes("sign-up") && "hidden",
-        pathname.includes("content") && "hidden",
-        pathname.includes("account") && "hidden"
+        isDetailPage && "hidden lg:flex",
+        HIDDEN_SEARCH.some((value) => pathname.includes(value)) &&
+          "!hidden invisible"
       )}
     >
       <div
@@ -289,7 +288,7 @@ const Search: React.FC<SearchContainerProp> = ({
             type="submit"
             variant="default"
             className={cn(
-              "w-full max-h-[40px]  h-full   text-normal font-medium bg-bg_primary_blue_sub text-white",
+              "w-full   h-[44px]   text-normal font-medium bg-bg_primary_blue_sub text-white",
               "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
               "hover:bg-bg_primary_active"
             )}

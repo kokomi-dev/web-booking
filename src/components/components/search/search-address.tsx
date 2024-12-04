@@ -48,17 +48,18 @@ const SearchAddress = ({
       <Button
         variant="ghost"
         className={cn(
-          "flex items-center w-full h-[40px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
+          "flex items-center w-full h-[44px] rounded-[4px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
           error && "border-2 border-red-600",
           "md:hidden xl:hidden"
         )}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           setOpen2(!open2);
         }}
       >
-        <MapPinned className="size-4 text-black_main" />
-        <span className="ml-1 text-small font-medium">
-          {value === "" || value === null ? "Chọn nơi bạn muốn đến" : value}
+        <MapPinned className="size-[1.2rem] text-black_sub" />
+        <span className="ml-1 text-normal font-light">
+          {value === "" || value === null ? "Chọn nơi bạn muốn đến ?" : value}
         </span>
       </Button>
       <SearchAddressLG

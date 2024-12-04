@@ -12,7 +12,7 @@ const ManageBooking = () => {
   return (
     <div className="w-full h-full py-4">
       {(user && user.bookedAttractions) || user?.bookedHotels ? (
-        <section className="w-full h-full grid gap-y-4">
+        <section className="w-full h-full flex flex-col items-center justify-start gap-y-4 ">
           <BookedAttractions />
           <hr className="hr" />
           <BookedHotels />

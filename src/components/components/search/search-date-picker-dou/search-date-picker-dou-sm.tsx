@@ -31,7 +31,7 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
     >
       <SheetTrigger aria-describedby={undefined}></SheetTrigger>
       <SheetContent
-        className="w-auto h-full overflow-y-auto p-2 bg-white text-black z-[50] flex flex-col items-center justify-start "
+        className="w-auto h-full overflow-y-scroll p-1 bg-white text-black z-[50] flex flex-col items-center justify-start "
         side="bottom"
       >
         <SheetHeader className="w-full text-start p-2">
@@ -40,7 +40,7 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
           </SheetTitle>
           <SheetDescription aria-describedby={undefined}></SheetDescription>
         </SheetHeader>
-        <div className="w-full flex-1 overflow-y-auto">
+        <div className="w-full pb-4 flex-1 overflow-y-scroll">
           <Calendar
             mode="range"
             defaultMonth={date?.from}
@@ -50,7 +50,7 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
             }}
             numberOfMonths={2}
             locale={vi}
-            className="text-normal w-full mt-5 h-auto font-normal bg-white flex items-center justify-center"
+            className="text-normal w-full my-5 h-auto font-normal bg-white flex items-center justify-center"
           />
         </div>
         <SheetFooter>

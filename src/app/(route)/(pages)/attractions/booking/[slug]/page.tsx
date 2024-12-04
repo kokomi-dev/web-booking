@@ -161,9 +161,6 @@ const BookingAttraction = () => {
               </BreadcrumbList>
             </Breadcrumb>
 
-            <div className="text-small">
-              <span className="text-blue_main_sub font-medium">Bước 1/2</span>
-            </div>
             <div className={cn("text-medium font-bold", "lg:text-large")}>
               <h1>{data?.name}</h1>
             </div>
@@ -258,7 +255,7 @@ const BookingAttraction = () => {
                       Vui lòng chọn địa điểm đón khách
                     </h4>
                     <div className="w-full">
-                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
+                      <div className="grid grid-cols-[10%,90%] lg:grid-cols-[5%,93%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           type="radio"
@@ -273,7 +270,7 @@ const BookingAttraction = () => {
                           Gặp nhà điều hành tour tại điểm khởi hành
                         </label>
                       </div>
-                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
+                      <div className="grid grid-cols-[10%,90%] lg:grid-cols-[5%,93%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           id="1"
@@ -288,7 +285,7 @@ const BookingAttraction = () => {
                           Chọn địa điểm
                         </label>
                       </div>
-                      <div className="grid grid-cols-[10%,90%] items-center my-1 text-small">
+                      <div className="grid grid-cols-[10%,90%] lg:grid-cols-[5%,93%] items-center my-1 text-small">
                         <input
                           className={cn("size-5 mr-2", "lg:size-4")}
                           type="radio"
@@ -418,7 +415,7 @@ const BookingAttraction = () => {
                       <div>{data && formatPrice(data.price[0])} VNĐ</div>
                     </div>
                   )}{" "}
-                  {children !== "0" && (
+                  {children !== "0" && children !== "" && (
                     <div className="w-full flex items-center justify-between gap-2">
                       <div>
                         <span className="font-medium text-[1rem]">

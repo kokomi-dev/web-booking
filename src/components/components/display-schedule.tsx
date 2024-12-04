@@ -12,7 +12,7 @@ const ScheduleDisplay = ({ data }: ScheduleDisplayProps) => {
           if (sche.length > 7) {
             return (
               <div key={index} className="w-full ">
-                <h4 className="underline text-normal font-semibold">
+                <h4 className="underline text-normal font-semibold mb-2">
                   Ngày <span>{index + 1}</span>
                 </h4>
                 <DisplayDocs docs={sche} />

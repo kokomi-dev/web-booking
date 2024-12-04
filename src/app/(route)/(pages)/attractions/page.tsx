@@ -8,7 +8,7 @@ import Link from "next/link";
 import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
 const HomePage = () => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between gap-2 md:gap-4 lg:gap-6 ">
+    <div className="w-full h-full flex flex-col items-center justify-between gap-4 lg:gap-6 ">
       <Trending page="attractions" />
       <hr className="hr" />
       <Intro />
@@ -26,12 +26,12 @@ const HomePage = () => {
           <p className="mb-2">
             Khuyến mãi giảm giá đặc biệt dành riêng cho bạn
           </p>
-          <div className="w-full h-auto flex flex-col items-start justify-start bg-white p-4 text-black_sub rounded-md">
-            <h4 className="w-full text-black_main">
+          <div className="w-full h-auto flex flex-col items-start justify-start gap-y-2 bg-white p-4 text-black_sub rounded-md">
+            <h4 className="w-full text-black_main text-normal font-light">
               Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
               tiếng của chúng tôi
             </h4>
-            <p className="text-black_sub">
+            <p className="text-black_sub text-small font-light">
               Hãy trải nghiệm nó một cách trọn vẹn
             </p>
             <Link

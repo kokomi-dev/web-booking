@@ -109,25 +109,25 @@ const MySetingPage = () => {
       <div className={cn("w-full h-full text-small text-black py-4 ")}>
         <div className="w-full flex flex-col items-start justify-start gap-4">
           <div>
-            <h1 className="text-largest font-bold ">Cài đặt tài khoản</h1>
+            <h1 className="text-large font-bold ">Cài đặt tài khoản</h1>
             <p className="text-black_sub text-small">
               Quản lí trải nhiệm KoKoTravel của bạn
             </p>
           </div>
           <section className="w-full h-full flex flex-col items-start justify-start gap-2 ">
-            <div className="text-large font-semibold flex items-center justify-start gap-1">
-              <UserPen className="w-6 h-6" />
+            <div className="text-medium font-semibold flex items-center justify-start gap-1">
+              <UserPen className="w-5 h-5" />
               <h3>Thông tin tài khoản</h3>
             </div>
             {user && user.firstname && (
               <div className="w-full grid gap-2 ">
                 <div
                   className={cn(
-                    "w-full flex flex-col items-start justify-start gap-y-2 border-0.5 border-black_sub rounded-8 p-1",
+                    "w-full flex flex-col items-start justify-start gap-y-4 border-0.5 border-black_sub rounded-8 p-2",
                     "md:flex-row md:items-start md:justify-between md:gap-x-6 md:p-4"
                   )}
                 >
-                  <div className="w-full">
+                  <div className="w-full flex flex-col items-start justify-start gap-2">
                     <Label
                       htmlFor="email"
                       className="text-right text-small font-normal"
@@ -178,7 +178,7 @@ const MySetingPage = () => {
                     "md:flex-row md:justify-between md:items-start md:p-4 md:gap-x-6"
                   )}
                 >
-                  <div className="w-full flex flex-col items-center justify-between gap-2 ">
+                  <div className="w-full flex flex-col items-center justify-between gap-y-2 p-2 ">
                     <FormInput
                       className="text-smallest "
                       title="họ"
@@ -205,7 +205,7 @@ const MySetingPage = () => {
                       <span className="text-white"> Lưu thay đổi</span>
                     </Button>
                   </div>
-                  <div className="w-full flex flex-col items-start justify-start gap-2">
+                  <div className="w-full flex flex-col items-start justify-start gap-y-2 p-2  ">
                     <FormInput
                       className="text-smallest"
                       title="Mật khẩu hiện tại"
@@ -215,7 +215,6 @@ const MySetingPage = () => {
                       }}
                       type="password"
                     />
-                    {/*  */}
                     <hr className="hr" />
                     <h4 className="text-smallest text-blue_main">
                       Mật khấu phải có 8 kí tự, 1 chữ số, 1 kí tự
@@ -254,11 +253,11 @@ const MySetingPage = () => {
           </section>
 
           <section className="w-full h-full flex flex-col items-start justify-start gap-2 border-0.5 border-black_sub rounded-8 p-1 md:p-4">
-            <div className="text-large font-semibold flex items-center justify-start gap-1">
-              <Bell className="w-6 h-6" />
+            <div className="text-medium font-semibold flex items-center justify-start gap-1">
+              <Bell className="w-5 h-5" />
               <h3>Thông báo tài khoản</h3>
             </div>
-            <div className="w-full flex flex-col items-start justify-start gap-1">
+            <div className="w-full flex flex-col items-start justify-start gap-1 p-2">
               <div className="flex items-center justify-start gap-x-2">
                 <input type="checkbox" id="checkox-send-email" />
                 <label

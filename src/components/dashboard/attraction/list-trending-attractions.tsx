@@ -16,41 +16,39 @@ const fechData = async () => {
 const ListTrendingTour = async () => {
   const data = await fechData();
   return (
-    <div className={cn("w-full")}>
-      <h2 className="text-large font-bold">Địa điểm tham quan nổi bật</h2>
-      <div className="">
-        <p className="text-black_sub text-small mb-1">
-          Khám phá các điểm đến hàng đầu theo cách bạn thich tại Việt Nam chúng
-          tôi
-        </p>
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full "
-        >
-          <CarouselContent>
-            {data?.map((tour: AttractionData) => (
-              <CarouselItem
-                key={tour.slug}
-                className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"
-              >
-                <ItemCard
-                  route="attractions"
-                  slug={tour.slug}
-                  name={tour.name}
-                  images={tour.images[0]}
-                  location={tour.location.detail}
-                  price={tour.price[0]}
-                  rating={tour.rating}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
+    <div className={cn("w-full flex flex-col gap-y-2")}>
+      <h2 className="text-large font-bold ">Địa điểm tham quan nổi bật</h2>
+      <p className="text-black_sub text-small  ">
+        Khám phá các điểm đến hàng đầu theo cách bạn thich tại Việt Nam chúng
+        tôi
+      </p>
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="w-full "
+      >
+        <CarouselContent>
+          {data?.map((tour: AttractionData) => (
+            <CarouselItem
+              key={tour.slug}
+              className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"
+            >
+              <ItemCard
+                route="attractions"
+                slug={tour.slug}
+                name={tour.name}
+                images={tour.images[0]}
+                location={tour.location.detail}
+                price={tour.price[0]}
+                rating={tour.rating}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious hidden />
+        <CarouselNext hidden />
+      </Carousel>
     </div>
   );
 };
