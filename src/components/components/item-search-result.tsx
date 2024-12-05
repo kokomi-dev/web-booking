@@ -45,17 +45,17 @@ const ItemSearchResult = ({
         className="w-full border_div_card "
         key={slug}
       >
-        <div className="w-full grid grid-cols-layout-4 p-1">
+        <div className="w-full grid grid-cols-[30%,70%] lg:grid-cols-layout-4 p-1">
           <Image
             width={400}
             height={400}
-            className="rounded-md object-cover w-[180px] h-[190px]"
+            className="rounded-md object-cover w-[180px] h-full lg:h-[190px]"
             src={images}
             alt="img_preview_tour"
             loading="lazy"
           />
-          <div className="flex flex-col gap-y-1 text-start  items-start justify-center p-4 pt-0">
-            <h4 className="text-medium font-bold w-[100%] h-[38px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
+          <div className="flex flex-col gap-y-[0.1rem] lg:gap-y-1 text-start  items-start justify-center p-4 pt-0">
+            <h4 className="text-normal md:text-normal+ lg:text-medium font-bold w-[100%] h-[24px] md:h-[30px] lg:h-[38px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
               {name}
             </h4>
             <address className="text-smallest font-light text-black_sub  ">
@@ -67,20 +67,20 @@ const ItemSearchResult = ({
             <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-light">
               {details}
             </p>
-            <h6 className=" flex items-center justify-start gap-1 ">
+            <h6 className=" flex items-center justify-start gap-x-1 ">
               <FaStar className="text-yellow-400" />
               <span className="text-smallest font-bold">{ratingsQuantity}</span>
               {ratingsQuantity && ratingConvert(ratingsQuantity)}
             </h6>
             {cancelFree && (
-              <div className="flex items-center ">
+              <div className="items-center hidden lg:flex">
                 <FaCalendarXmark className="text-green_main text-small mr-1" />
                 <h4 className="text-smallest text-green_main font-medium">
                   Có lựa chọn hủy miễn phí
                 </h4>
               </div>
             )}
-            <h6 className="t_small pt-2">
+            <h6 className="t_small pt-0 lg:pt-2">
               <span className="text-smallest pr-1"> Giá từ </span>
               <span className="underline text-blue_main_sub font-semibold">
                 {formatPrice(price)}

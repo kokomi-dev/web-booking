@@ -58,10 +58,10 @@ const Search: React.FC<SearchContainerProp> = ({
 
   if (page === "home") {
     return (
-      <div className="w-full h-full ">
+      <div className="w-full h-full py-4 container-padding bg-transparent lg:bg-bg_primary_main ">
         <Tabs
           defaultValue="attractions"
-          className="w-full h-auto bg-bg_primary_white rounded-8  mt-2"
+          className="w-full h-auto bg-bg_primary_white rounded-8 "
         >
           <TabsList className="grid w-full grid-cols-2 ">
             <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
@@ -197,11 +197,11 @@ const Search: React.FC<SearchContainerProp> = ({
   return (
     <form
       className={cn(
-        "w-full h-full flex items-center justify-center py-4",
+        "w-full h-full flex items-center justify-center py-4 !container-padding  bg-transparent lg:bg-bg_primary_main",
         className,
         isDetailPage && "hidden lg:flex",
         HIDDEN_SEARCH.some((value) => pathname.includes(value)) &&
-          "!hidden invisible"
+          "!hidden !invisible"
       )}
     >
       <div

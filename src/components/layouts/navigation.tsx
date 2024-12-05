@@ -11,9 +11,10 @@ const Navigation = () => {
   return (
     <div
       className={cn(
-        "w-full h-full transition-all duration-200",
-        "lg:w-[100%] ",
-        "md:w-[90%]",
+        "w-[100%] h-full transition-all duration-200 mt-[18px]",
+        "md:mt-[4px]",
+        "lg:mt-[8px]  ",
+
         pathname.includes("attractions") && " lg:ml-[-1rem]",
         pathname.includes("hotels") && " lg:ml-[-1rem]",
         pathname.includes("combos") && " lg:ml-[-1rem]",
@@ -23,7 +24,7 @@ const Navigation = () => {
     >
       <div
         className={cn(
-          "w-[90%] text-[0.9rem] font-[500] flex items-start justify-start gap-x-3 gap-y-3 flex-wrap "
+          "w-[100%] text-small font-medium flex flex-row items-start justify-start gap-x-3 gap-y-3 overflow-x-auto scrollbar-hide "
         )}
       >
         {NAVIGATIONS.map(({ title, url, icon }) => {
@@ -33,11 +34,10 @@ const Navigation = () => {
               key={url}
               href={url}
               className={cn(
-                "min-w-fit flex items-center justify-start py-1 px-2 transition-all duration-300 select-none rounded-14",
-                "hover:bg-bg_primary_active  cursor-pointer",
-                "lg:text-white",
+                "min-w-fit flex text-white items-center justify-start p-1 lg:p-2 transition-all duration-300 select-none rounded-14 border-1 border-transparent",
+                "hover:bg-bg_primary_active cursor-pointer",
                 isActive
-                  ? "lg:bg-bg_primary_active lg:text-white lg:rounded-8 lg:border-1"
+                  ? "bg-bg_primary_active text-white rounded-14  border-1 border-blue-50"
                   : ""
               )}
               onClick={handleClose}

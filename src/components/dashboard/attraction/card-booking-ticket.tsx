@@ -173,7 +173,13 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
                     Đặt ngay
                   </span>
                 </Button>
-                <Button type="button" className="w-full text-small font-normal">
+                <Button
+                  onClick={() => {
+                    router.push("/contact");
+                  }}
+                  type="button"
+                  className="w-full text-small font-normal"
+                >
                   Liên hệ
                 </Button>
               </div>

@@ -31,6 +31,14 @@ body {
 html {
   scroll-behavior: smooth;
 }
+.scrollbar-hide {
+  scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trên IE và Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn trên Chrome, Safari và Edge mới */
+}
 @media print {
   .hide-print {
     display: none;

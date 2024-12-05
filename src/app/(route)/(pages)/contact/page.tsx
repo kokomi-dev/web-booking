@@ -82,7 +82,7 @@ const ContactPage = () => {
             >
               <TabsList
                 className={cn(
-                  "w-full h-[60px] border-[#999]  flex  items-center justify-start gap-x-2  overflow-x-auto   ",
+                  "w-full h-[60px] border-[#999]  flex  items-center justify-start gap-x-2  overflow-x-auto scrollbar-hide ",
                   "lg:grid lg:grid-cols-4 lg:h-auto"
                 )}
               >

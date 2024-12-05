@@ -319,16 +319,19 @@ const BookingAttraction = () => {
                     <p className={cn("text-[0.90rem]", "lg:text-[0.95rem]")}>
                       Bằng việc nhấn &quot; Thanh toán ngay &ldquo; và hoàn tất
                       đơn đặt, bạn đồng ý với {""}
-                      <span className="text-blue_main_sub">
+                      <Link
+                        href="/content/privacy?activeTab=3"
+                        className="text-blue_main_sub"
+                      >
                         điều khoản và điều kiện
-                      </span>{" "}
+                      </Link>{" "}
                       của KokoTravel.com cũng như chính sách bảo mật của chúng
                       tôi.
                       <br />
                       Vui lòng xem{" "}
                       <Link
                         className="text-blue_main_sub text-small"
-                        href="/content?activeTab=3"
+                        href="/content/privacy?activeTab=2"
                       >
                         Chính sách bảo mật
                       </Link>{" "}

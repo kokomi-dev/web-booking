@@ -7,7 +7,7 @@ import ListAllHotels from "@/components/dashboard/hotels/list-hotels";
 import Trending from "@/components/components/trending";
 import Rules from "@/components/dashboard/hotels/rules";
 import { RULES_DEMO } from "@/components/dashboard/constants";
-import ReceiveFeedback from "@/components/dashboard/attraction/receive-feedback";
+import ReceiveFeedback from "@/components/components/receive-feedback";
 const HotelPage = () => {
   return (
     <div className="w-full h-full flex  flex-col items-center justify-between gap-4  lg:gap-6 ">
@@ -53,13 +53,13 @@ const HotelPage = () => {
             (có thể thay đổi theo từng nơi lưu trú)
           </span>
         </h2>
-        <div className="grid gap-y-3 md:grid-cols-2">
+        <div className="grid gap-y-3 md:grid-cols-2 gap-x-2">
           {RULES_DEMO.map((rule, index) => (
             <div key={index} className="bg-bg_black_sub p-2 rounded-14">
-              <h3 className="text-normal font-semibold text-black">
+              <h3 className="text-normal font-medium text-black">
                 {rule.title}
               </h3>
-              <p className="text-black-main text-small mt-1">
+              <p className="text-black-main text-small font-light lg:font-normal mt-1">
                 {rule.description}
               </p>
             </div>

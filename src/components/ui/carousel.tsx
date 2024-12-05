@@ -214,9 +214,9 @@ const CarouselPrevious = React.forwardRef<
           orientation === "horizontal"
             ? "-left-12 top-1/2 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-          !canScrollPrev && " hidden",
           className,
-          hidden && "hidden invisible lg:block lg:visible"
+          hidden && "hidden invisible lg:flex lg:visible",
+          !canScrollPrev && "!hidden"
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
@@ -250,9 +250,9 @@ const CarouselNext = React.forwardRef<
           orientation === "horizontal"
             ? "-right-12 top-1/2 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-          !canScrollNext && " hidden",
           className,
-          hidden && "hidden invisible lg:block lg:visible"
+          hidden && "hidden invisible lg:flex lg:visible",
+          !canScrollNext && "!hidden"
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}

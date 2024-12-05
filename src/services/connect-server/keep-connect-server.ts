@@ -10,7 +10,6 @@ export default function PingServer() {
     document.addEventListener("mousemove", resetIdleTimer);
     document.addEventListener("keydown", resetIdleTimer);
     document.addEventListener("scroll", resetIdleTimer);
-
     idleTimeout = setTimeout(keepServerAwake, 14.5 * 60 * 1000);
 
     return () => {
@@ -27,16 +26,16 @@ export default function PingServer() {
 
 function resetIdleTimer() {
   if (idleTimeout) clearTimeout(idleTimeout);
-  idleTimeout = setTimeout(keepServerAwake, 14.5 * 60 * 1000);
+  idleTimeout = setTimeout(keepServerAwake, 14 * 60 * 1000);
 }
 
 function keepServerAwake() {
   fetch(`${apiUrl}/attraction/keep-server-live`)
     .then((response) => {
-      if (response.ok) {
+      if (response) {
         console.log("Server is awake!");
       } else {
-        console.error("Server response error:", response.status);
+        console.error("Server response error:", response);
       }
     })
     .catch((error) => console.error("Error pinging server:", error));
