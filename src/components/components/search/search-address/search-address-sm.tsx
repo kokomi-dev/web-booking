@@ -67,8 +67,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             }}
           />
         </div>
-
-        <div className="w-full max-h-[300px] overflow-y-auto  bg-white rounded-8 mt-[15%]">
+        <div className="w-full max-h-[300px] overflow-y-scroll  bg-white rounded-8 mt-[15%] mb-[10%]">
           {data && data.length > 0 ? (
             data.map((item, index) => (
               <div
@@ -93,7 +92,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             </div>
           )}
         </div>
-        <SheetFooter>
+        <SheetFooter className="absolute bottom-8">
           <ButtonEnd
             onClick={() => {
               setOpen2(false);

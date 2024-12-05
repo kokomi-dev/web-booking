@@ -3,7 +3,7 @@ import ListTrendingTour from "@/components/dashboard/attraction/list-trending-at
 import { cn } from "@/lib/utils";
 import Trending from "@/components/components/trending";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
-import ReceiveFeedback from "@/components/dashboard/attraction/receive-feedback";
+import ReceiveFeedback from "@/components/components/receive-feedback";
 import Link from "next/link";
 import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
 const HomePage = () => {

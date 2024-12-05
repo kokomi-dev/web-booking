@@ -99,9 +99,10 @@ const Account = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
-                  "w-fit h-full flex items-start justify-center gap-2 p-1  rounded-lg",
-                  "bg-bg_primary_active cursor-pointer",
-                  "md:p-2 md:px-3"
+                  "w-fit h-full flex items-start justify-center gap-2 p-1 shadow-none  rounded-lg",
+                  "cursor-pointer",
+                  "md:p-2 md:px-3",
+                  "hover:bg-bg_primary_active"
                 )}
                 onClick={() => {
                   setOpen(!open);
@@ -109,8 +110,7 @@ const Account = () => {
               >
                 <div
                   className={cn(
-                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden",
-                    "md:w-[2.8rem] md:h-[2.8rem]"
+                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
                   <Image
@@ -124,7 +124,7 @@ const Account = () => {
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                   <div
                     className={cn(
-                      " flex items-center justify-start gap-x-1 text-white font-bold text-small select-none",
+                      " flex items-center justify-start gap-x-1 text-white font-bold text-smallest select-none",
                       ""
                     )}
                   >
@@ -136,7 +136,7 @@ const Account = () => {
                     </span>
                   </div>
                   <div className="text-start">
-                    <span className="text-[0.8rem] text-yellow_main">
+                    <span className="text-[0.7rem] text-yellow_main">
                       Genius Cấp 1
                     </span>
                   </div>

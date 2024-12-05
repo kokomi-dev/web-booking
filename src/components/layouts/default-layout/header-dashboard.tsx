@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import Account from "@/components/layouts/account/account";
-import Sidebar from "../sidebar";
 import MobileSidebar from "../mobile-sidebar";
 
 import Notifycation from "@/components/components/notifycation";
@@ -14,26 +13,26 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import Navigation from "../navigation";
 const HeaderDashboard = () => {
   const pathname = usePathname();
   const router = useRouter();
   return (
     <div
       className={cn(
-        "w-full h-[70px] lg:h-full sticky top-0 lg:relative  z-[15]  flex flex-col items-start justify-start   "
+        "w-full h-[116px] bg-bg_primary_main lg:h-full sticky top-0 lg:relative  z-[15]  flex flex-col items-start justify-start   "
       )}
     >
       <div
         className={cn(
-          "w-full h-full container-padding p-2 font-medium text-white text-normal bg-bg_primary_main flex items-center justify-between transition-all duration-300",
-          " lg:text-normal lg:h-auto lg:block  "
+          "w-full h-full container-padding p-2 font-medium text-white text-normal  flex flex-col items-center justify-between transition-all duration-300"
         )}
       >
-        <div className="w-full font-bold  flex items-center justify-between text-white  ">
+        <div className="w-full font-bold  flex items-center justify-between text-white lg:mb-3 ">
           <Link href="/home" className="text-medium md:text-large font-mono">
             KoKoTravel
           </Link>
-          <div className="flex items-center justify-start gap-x-2">
+          <div className="flex items-center justify-start gap-x-4">
             <div
               className={cn(
                 "hidden p-2 rounded-lg transition-all duration-300",
@@ -70,19 +69,11 @@ const HeaderDashboard = () => {
               </HoverCardContent>
             </HoverCard>
             <Notifycation />
+            <Account />
+            <MobileSidebar />
           </div>
         </div>
-        <div
-          className={cn(
-            "md:mt-2",
-            "lg:mt-3",
-            "xl:mt-4 lg:w-full lg:flex lg:items-center lg:justify-between"
-          )}
-        >
-          <Sidebar />
-          <Account />
-        </div>
-        <MobileSidebar />
+        <Navigation />
       </div>
     </div>
   );

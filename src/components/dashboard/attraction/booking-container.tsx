@@ -21,8 +21,12 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
       </div>
       <CardText title="Chọn giờ">
         <div className="flex items-center justify-start gap-x-2">
-          <div className="border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-2">
+          <label
+            htmlFor="time1"
+            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+          >
             <input
+              id="time1"
               className="button hover:cursor-pointer"
               name="picktime"
               type="radio"
@@ -30,13 +34,16 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
               checked={hour === "7h00"}
               onChange={(e) => setHour(e.target.value)}
             />
-            <label className="ml-1 text-smallest font-medium hover:cursor-pointer">
-              7h00
-            </label>
-          </div>
-
-          <div className="border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-2">
+            <span className="ml-1 text-smallest font-medium hover:cursor-pointer">
+              7:00
+            </span>
+          </label>
+          <label
+            htmlFor="time2"
+            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+          >
             <input
+              id="time2"
               className="button hover:cursor-pointer"
               name="picktime"
               type="radio"
@@ -44,10 +51,10 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
               checked={hour === "13h00"}
               onChange={(e) => setHour(e.target.value)}
             />
-            <label className="ml-1 text-smallest font-medium hover:cursor-pointer">
+            <span className="ml-1 text-smallest font-medium hover:cursor-pointer">
               13h00
-            </label>
-          </div>
+            </span>
+          </label>
         </div>
       </CardText>
       {/* booking tickets */}

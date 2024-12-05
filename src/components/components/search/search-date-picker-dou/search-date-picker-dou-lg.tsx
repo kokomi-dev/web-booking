@@ -36,7 +36,7 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           id="date"
           variant="ghost"

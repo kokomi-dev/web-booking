@@ -33,7 +33,7 @@ const Rules = () => {
                     {rule.title}
                   </h4>
                 </div>
-                <p className="text-small font-normal mt-1 ml-1">
+                <p className="text-small font-light lg:font-normal mt-1 ml-1">
                   {rule.description}
                 </p>
               </li>

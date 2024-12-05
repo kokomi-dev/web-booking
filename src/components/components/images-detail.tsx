@@ -129,9 +129,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
                     loading[0] ? "opacity-0" : "opacity-100"
                   }`}
                   alt={`Ảnh  của tour du lịch ${data.name}`}
-                  onClick={() => setOpen(true)}
-                  onMouseEnter={() => toggleShowCmt(true, 800)}
-                  onMouseLeave={() => toggleShowCmt(false, 200)}
                   onLoad={() => handleImageLoad(0)}
                 />
               </CarouselItem>

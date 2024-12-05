@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, MessageCircle } from "lucide-react";
 import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
 import Link from "next/link";
+import DisplayDocs from "@/components/components/display-docs";
+import ReceiveFeedback from "@/components/components/receive-feedback";
 
 export async function generateStaticParams() {
   try {
@@ -99,7 +101,7 @@ const DetailHotelPage = async ({
                   title="Chi tiêt"
                   className="list-none text-justify text-small "
                 >
-                  {data.details}
+                  <DisplayDocs docs={data.details} />
                 </p>
               </CardText>
               {/* healthy */}
@@ -148,35 +150,6 @@ const DetailHotelPage = async ({
           {/* booking */}
           <Booking slug={slug} listRooms={data.listRooms} />
         </div>
-
-        {/* location on map */}
-        <CardText
-          title="Vị trí"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
-        >
-          <ShowOnMap address={data.location.detail} />
-          <div>
-            <h3 className="text-medium font-medium">Các câu hỏi thường gặp</h3>
-            <ul className="border-0.5 border-[#999] rounded-8 p-2">
-              {LIST_QUESTION_HOTELS.map((question: string, index: number) => {
-                return (
-                  <li
-                    key={index}
-                    className="flex items-center justify-between gap-x-1 text-small py-2 pt-3 border-b-0.5 border-[#999] hover:cursor-pointer rounded-8 p-2"
-                  >
-                    <span className="flex items-center justify-center gap-x-2">
-                      <MessageCircle className="size-4 text-black" />
-                      <span className="first:uppercase ">
-                        {question.charAt(0).toUpperCase() + question.slice(1)}
-                      </span>
-                    </span>
-                    <ChevronRight className="size- text-black" />
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </CardText>
         {/* regulations */}
         <div
           className="w-full flex flex-col gap-y-4 border-1 rounded-8 p-4 my-3 border-blue_main_sub"
@@ -226,6 +199,36 @@ const DetailHotelPage = async ({
           initialRating={data.rating}
           slug={slug}
         />
+        {/* location on map */}
+        <CardText
+          title="Vị trí"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+        >
+          <ShowOnMap address={data.location.detail} />
+          {/* question */}
+          <div className="w-full">
+            <h3 className="text-medium font-medium">Các câu hỏi thường gặp</h3>
+            <ul className="border-0.5 border-[#999] rounded-8 p-2">
+              {LIST_QUESTION_HOTELS.map((question: string, index: number) => {
+                return (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between gap-x-1 text-small py-2 pt-3 border-b-0.5 border-[#999] hover:cursor-pointer rounded-8 p-2"
+                  >
+                    <span className="flex items-center justify-center gap-x-2">
+                      <MessageCircle className="size-4 text-black" />
+                      <span className="first:uppercase ">
+                        {question.charAt(0).toUpperCase() + question.slice(1)}
+                      </span>
+                    </span>
+                    <ChevronRight className="size- text-black" />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </CardText>
+        <ReceiveFeedback />
       </div>
     </section>
   );

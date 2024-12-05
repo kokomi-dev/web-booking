@@ -110,7 +110,7 @@ const Comments: React.FC<IComments> = ({
         {comments.length === 0 ? (
           <span className="text-normal font-normal">Chưa có đánh giá nào!</span>
         ) : (
-          <div className="w-full h-full max-h-[500px] lg:max-h-[700px] overflow-auto grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 md:mb-0">
+          <div className="w-full h-full max-h-[500px] lg:max-h-[700px] overflow-auto grid grid-cols-1 p-1 md:grid-cols-2 gap-x-2 gap-y-2 md:mb-0">
             {comments.map(
               (
                 comment: {
@@ -126,7 +126,7 @@ const Comments: React.FC<IComments> = ({
                 return (
                   <div
                     key={index}
-                    className="w-full h-fit border-0.5 border-black_sub_2 p-2 rounded-8 relative"
+                    className="w-[100%] h-fit border-0.5 border-black_sub_2 p-2 rounded-8 relative"
                   >
                     <div className="w-full flex items-center justify-start gap-1">
                       <div className="ml-2 size-9 bg-bg_primary_active rounded-full relative">
@@ -215,6 +215,7 @@ const Comments: React.FC<IComments> = ({
                 onChange={(e) => {
                   setComment(e.target.value);
                 }}
+                className="!text-normal font-normal"
               />
               <Button
                 className={cn(

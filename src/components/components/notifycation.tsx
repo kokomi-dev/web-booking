@@ -88,7 +88,7 @@ const Notifycation = () => {
           </PopoverTrigger>
           <PopoverContent
             align="end"
-            className="bg-white h-[300px] overflow-y-auto z-[10] rounded-14 text-black text-small shadow-2xl"
+            className="bg-white h-[300px] overflow-y-auto z-[70] rounded-14 text-black text-small shadow-2xl"
           >
             <ListNotify listNotify={user.notifys} id={user._id} />
           </PopoverContent>

@@ -49,11 +49,11 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
         </SheetHeader>
         <div className="min-w-[100%] grid gap-y-6 mt-8  p-4 rounded-8">
           {/* Người lớn */}
-          <div className="grid grid-cols-[50%,50%] items-center gap-4">
+          <div className="grid grid-cols-[50%,50%] items-center gap-4 shadow-none border-none">
             <Label className="text-[1rem] font-normal" htmlFor="adults">
               Người lớn
             </Label>
-            <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
+            <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
               <Button
                 onClick={() => handleDecrease(setNumberAdults, numberAdults)}
                 className="bg-white text-black shadow-none border-none p-0"

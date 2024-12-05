@@ -14,9 +14,7 @@ export default function DefaultLayout({
         <HeaderDashboard />
       </header>
       <main className="w-full h-full">
-        <div className="w-full h-full bg-transparent lg:bg-bg_primary_main  container-padding py-2 ">
-          <Search />
-        </div>
+        <Search />
         <div className="container-padding py-4 ">{children}</div>{" "}
       </main>
       <footer>

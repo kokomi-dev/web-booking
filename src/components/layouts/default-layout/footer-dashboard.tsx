@@ -69,7 +69,7 @@ const FooterDashboard = () => {
         <ul></ul>
         <ul></ul> <ul></ul> <ul></ul>
       </div>
-      <div className="px-20 py-5">
+      <div className="px-0 md:px-10 lg:px-20 py-5">
         <h6 className="pb-5 text-black text-center text-small">
           Bản quyền sáng tạo thuộc về <strong> AnTenDev</strong>. Liên hệ
           <a
