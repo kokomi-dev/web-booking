@@ -56,7 +56,7 @@ function HomePage() {
                 width={500}
                 height={400}
                 src={e.img}
-                className="w-full h-[300px] object-cover "
+                className="w-full h-[220px] md:h-[250px] lg:h-[300px] object-cover "
               />
               <div className="p-4">
                 <h3 className="text-normal font-semibold">{e.label}</h3>

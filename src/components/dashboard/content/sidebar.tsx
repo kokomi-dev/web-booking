@@ -31,7 +31,7 @@ const SidebarContent = () => {
         <div
           key={i}
           className={cn(
-            "text-black_main text-small font-normal py-2 px-1 rounded-8 hover:cursor-pointer pl-5 transition-all duration-150",
+            "text-black_main flex items-center justify-center md:justify-start text-small font-normal p-2 rounded-8 hover:cursor-pointer transition-all duration-150",
             activeTab === String(i + 1) &&
               " bg-bg_primary_hover !text-small text-blue_main_sub"
           )}

@@ -99,10 +99,10 @@ const Account = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
-                  "w-fit h-full flex items-start justify-center gap-2 p-1 shadow-none  rounded-lg",
+                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none  rounded-lg",
                   "cursor-pointer",
-                  "md:p-2 md:px-3",
-                  "hover:bg-bg_primary_active"
+                  "md:p-1 md:px-2",
+                  "bg-bg_primary_active"
                 )}
                 onClick={() => {
                   setOpen(!open);
@@ -242,7 +242,7 @@ const Account = () => {
         </Suspense>
       ) : (
         <div className=" flex items-center justify-center">
-          <Link href={"/sign-in"} className="hidden md:block">
+          <Link href={"/sign-in"} className="hidden lg:block">
             <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub">
               Đăng nhập
             </Button>

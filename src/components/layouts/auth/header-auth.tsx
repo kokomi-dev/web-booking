@@ -23,7 +23,7 @@ export default function HeaderAuth({}: Props) {
         >
           <div className="w-full font-bold  flex items-center justify-between text-white  ">
             <Link href="/home" className="text-medium lg:text-large  font-mono">
-              KoKoTravel.com
+              KoKoTravel
             </Link>
             {pathname === "/sign-in" ? (
               <Link
