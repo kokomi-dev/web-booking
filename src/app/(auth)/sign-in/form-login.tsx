@@ -42,30 +42,35 @@ const FormLogin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setIsAuthenticated, setUserLogined } = useAuthenticatedStore();
+
   const onSubmit = async (data: SignupFormData) => {
     try {
       setIsLoading(true);
       const result = await reqLogin(data);
+
       if (result.code === 404) {
         toast.error(result.message, {
           className: "toast-error",
         });
+        return;
       }
       if (result.token) {
         toast.success("Đăng nhập thành công");
-        router.replace("/home");
         setIsAuthenticated();
         setUserLogined(result);
         localStorage.setItem("token", result.token);
+        router.replace("/home");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }
   };
+
   if (isLoading) {
-    <LoadingPage />;
+    return <LoadingPage />;
   }
   return (
     <Form {...form}>
@@ -75,9 +80,9 @@ const FormLogin: React.FC = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-normal">Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="Email" className="" {...field} />
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -88,7 +93,7 @@ const FormLogin: React.FC = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mật khẩu</FormLabel>
+              <FormLabel className="text-normal">Mật khẩu</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="Mật khẩu" {...field} />
               </FormControl>
@@ -101,7 +106,7 @@ const FormLogin: React.FC = () => {
           type="submit"
           className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
         >
-          <span className="text-white text-normal font-medium"> Đăng nhập</span>
+          <span className="text-white text-normal font-medium">Đăng nhập</span>
         </Button>
         <div className="w-full flex items-center justify-between">
           <h4 className="text-small ">

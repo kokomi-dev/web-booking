@@ -114,8 +114,10 @@ const DetailHotelPage = async ({
                           key={index}
                           className="flex items-center justify-start gap-x-1 py-2"
                         >
-                          <FaCheck className="text-[1rem] text-[#4cce80]" />
-                          {include}
+                          <FaCheck className="text-[1rem] text-[#4cce80] " />
+                          <span className="!first:uppercase block text-normal">
+                            {include.charAt(0).toUpperCase() + include.slice(1)}
+                          </span>
                         </li>
                       );
                     })}

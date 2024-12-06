@@ -34,7 +34,7 @@ const ItemCard = ({
         <Image
           width={1920}
           height={1080}
-          className="rounded-tr-md rounded-tl-md object-cover w-[100%] h-[200px] md:h-[260px] lg:h-[240px] "
+          className="rounded-tr-md rounded-tl-md object-cover w-[100%] h-[200px] md:h-[230px] lg:h-[240px] "
           src={images}
           alt="img_preview_tour"
           loading="lazy"
