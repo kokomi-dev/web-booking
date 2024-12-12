@@ -5,39 +5,20 @@ import { cx } from "class-variance-authority";
 import Link from "next/link";
 import Image from "next/image";
 
-import SlideShowImage from "@/components/dashboard/homepage/slide-show";
 import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import { Button } from "@/components/ui/button";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import feedBack1 from "@/assets/images/feedback-1.jpeg";
 import feedBack2 from "@/assets/images/feedback-2.jpeg";
 import feedBack3 from "@/assets/images/feedback-3.jpeg";
-
+import SlideShowImage from "@/components/dashboard/homepage/slide-show";
 function HomePage() {
   const { isAuthenticated, user } = useAuthenticatedStore();
 
   return (
-    <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6 overflow-hidden  ">
-      <section className=" bg-cover bg-center w-auto h-[400px] md:h-[600px] -mt-4 flex items-center justify-center text-black bg-[url('../assets/images/banner2.jpg')]  bg-no-repeat -mx-[1rem] md:-mx-[8rem] lg:-mx-[10rem]">
-        <div className="text-center bg-[rgba(0,0,0,0.5)] rounded-14 p-4 px-8 mx-4 md:mx-0  ">
-          <h1
-            className={cx(
-              "text-medium font-bold text-white",
-              "lg:text-largest"
-            )}
-          >
-            Khám phá vẻ đẹp của Việt Nam
-          </h1>
-          <p className="mt-4 text-small md:text-normal text-white ">
-            Trải nghiệm những khoảnh khắc khó quên và khung cảnh tuyệt đẹp.
-          </p>
-          <Link
-            href="/attractions"
-            className="mt-6 px-8 py-3 underline text-yellow_main rounded-md"
-          >
-            Khám phá ngay
-          </Link>
-        </div>
+    <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
+      <section className="min-w-full h-full text-center relative -mt-4  rounded-14 px-[-10rem] no-container-padding">
+        <SlideShowImage />
       </section>
       {/* Điểm đến nổi bật */}
       <section className=" ">
@@ -56,7 +37,7 @@ function HomePage() {
                 width={500}
                 height={400}
                 src={e.img}
-                className="w-full h-[220px] md:h-[250px] lg:h-[300px] object-cover "
+                className="w-full h-[220px] md:h-[250px] lg:h-[280px] object-cover "
               />
               <div className="p-4">
                 <h3 className="text-normal font-semibold">{e.label}</h3>
@@ -66,9 +47,7 @@ function HomePage() {
           ))}
         </div>
       </section>
-      <section className="text-center bg-[rgba(0,0,0,0.5)]  rounded-14 ">
-        <SlideShowImage />
-      </section>
+
       {/* chỗ nghỉ */}
       <section className="py-5 md:py-8 lg:py-12 px-2 md:px-12 lg:px-24 rounded-14">
         <div className=" text-center">
