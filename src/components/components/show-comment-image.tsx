@@ -53,76 +53,84 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
   }, [api]);
   return (
     <React.Fragment>
-      <div
-        hidden={open}
-        className="absolute top-[25px] left-[30px] bg-bg_primary_white rounded-8  text-black shadow-2xl transition-all duration-300"
-      >
-        <Carousel
-          setApi={setApi}
-          className="w-full min-w-[16rem] max-w-[17rem] select-none relative p-2 "
+      {comments.length > 0 && (
+        <div
+          hidden={open}
+          className="absolute top-[25px] left-[30px] bg-white rounded-8  text-black shadow-2xl transition-all duration-300"
         >
-          <div
-            className="flex items-center justify-start gap-x-1 pt-3 p-2 text-small select-none hover:cursor-pointer"
-            onClick={() => {
-              setOpenSheet(true);
-            }}
+          <Carousel
+            setApi={setApi}
+            className="w-full min-w-[16rem] max-w-[17rem] select-none relative p-2 "
           >
-            <div>
-              <Star className="size-6 text-yellow_main fill-yellow_main" />
+            <div
+              className="flex items-center justify-start gap-x-1 pt-3 p-2 text-small select-none hover:cursor-pointer"
+              onClick={() => {
+                setOpenSheet(true);
+              }}
+            >
+              <div>
+                <Star className="size-6 text-yellow_main fill-yellow_main" />
+              </div>
+              <h4 className="text-normal font-semibold">{rating}</h4>
+              <Dot />
+              <span className="text-small text-blue_main_sub font-normal">
+                {comments.length} đánh giá
+              </span>
             </div>
-            <h4 className="text-normal font-semibold">{rating}</h4>
-            <Dot />
-            <span className="text-small text-blue_main_sub font-normal">
-              {comments.length} đánh giá
-            </span>
-          </div>
-          <h5 className="text-small font-semibold p-2 ">Đánh giá gần đầy</h5>
-          <CarouselContent>
-            {comments &&
-              comments.length > 0 &&
-              comments.map((comment, index) => (
-                <CarouselItem key={index} className="">
-                  <Card>
-                    <CardContent className="w-full grid gap-y-1 p-2  shadow-none border-none ">
-                      <div className="w-full flex  items-center justify-start gap-x-1  ">
-                        <div className=" size-9 bg-bg_primary_active rounded-full  relative">
-                          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-                            <span className="text-white capitalize font-medium text-small">
-                              {comment.nameShow}
-                            </span>
+            <h5 className="text-small font-semibold p-2 ">Đánh giá gần đầy</h5>
+            <CarouselContent>
+              {comments &&
+                comments.length > 0 &&
+                comments.map((comment, index) => (
+                  <CarouselItem key={index} className="">
+                    <Card>
+                      <CardContent className="w-full grid gap-y-1 p-2  shadow-none border-none ">
+                        <div className="w-full flex  items-center justify-start gap-x-1  ">
+                          <div className=" size-9 bg-bg_primary_active rounded-full  relative">
+                            <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+                              <span className="text-white capitalize font-medium text-small">
+                                {comment.nameShow}
+                              </span>
+                            </div>
                           </div>
+                          <h5 className="text-smallest font-semibold capitalize">
+                            {comment.name}
+                          </h5>
                         </div>
-                        <h5 className="text-smallest font-semibold capitalize">
-                          {comment.name}
-                        </h5>
-                      </div>
-                      <p className="text-smallest font-normal first:uppercase pl-3 text-justify">
-                        {comment.content}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-          </CarouselContent>
-          <div className="max-w-[80%] w-full h-[45px] absolute bottom-[-60px] left-[50%] right-0 translate-x-[-50%] translate-y-[-50%]  flex items-center gap-x-2">
-            <CarouselPrevious className="absolute left-0 bg-bg_primary_blue_sub text-white" />
-            <CarouselNext className="absolute right-0 bg-bg_primary_blue_sub text-white" />
-          </div>
-        </Carousel>
-        <div className="p-2 flex items-center justify-center text-small min-w-[50%]">
-          {Array.from({ length: comments.length }).map((_, index) => {
-            return (
-              <Dot
-                key={index}
-                className={cn(
-                  "size-6",
-                  current === index + 1 && "text-yellow_main size-7"
-                )}
+                        <p className="text-smallest font-normal first:uppercase pl-3 text-justify">
+                          {comment.content}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+            </CarouselContent>
+            <div className="max-w-[80%] w-full h-[45px] absolute bottom-[-60px] left-[50%] right-0 translate-x-[-50%] translate-y-[-50%]  flex items-center gap-x-2">
+              <CarouselPrevious
+                hidden
+                className="absolute left-0 bg-bg_primary_blue_sub text-white w-7 h-7"
               />
-            );
-          })}
+              <CarouselNext
+                hidden
+                className="absolute right-0 bg-bg_primary_blue_sub text-white w-7 h-7"
+              />
+            </div>
+          </Carousel>
+          <div className="p-2 flex items-center justify-center text-small min-w-[50%]">
+            {Array.from({ length: comments.length }).map((_, index) => {
+              return (
+                <Dot
+                  key={index}
+                  className={cn(
+                    "size-6",
+                    current === index + 1 && "text-yellow_main size-7"
+                  )}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
       <SheetShowComments
         open={openSheet}
         setOpen={setOpenSheet}

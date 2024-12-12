@@ -138,6 +138,31 @@ const config = {
             paddingRight: "22rem",
           },
         },
+        ".no-container-padding": {
+          center: true,
+          marginLeft: "-0.8rem", // tương đương với px-4
+          marginRight: "-0.8rem", // tương đương với px-4
+          "@screen sm": {
+            marginLeft: "-2rem", // sm:px-6
+            marginRight: "-2rem", // sm:px-6
+          },
+          "@screen md": {
+            marginLeft: "-4rem", // md:px-12
+            marginRight: "-4rem", // md:px-12
+          },
+          "@screen lg": {
+            marginLeft: "-7rem", // lg:px-24
+            marginRight: "-7rem", // lg:px-24
+          },
+          "@screen xl": {
+            marginLeft: "-10rem", // xl:px-36
+            marginRight: "-10rem", // xl:px-36
+          },
+          "@screen 2xl": {
+            marginLeft: "-22rem",
+            marginRight: "-22rem",
+          },
+        },
       };
 
       addUtilities(newUtilities, ["responsive"]);
