@@ -17,13 +17,13 @@ const LoadingComponentAccount = () => {
       className={cn(
         "flex items-center justify-center  gap-2 p-1 z-[80] rounded-lg w-[45px]  h-[45px] animate-pulse bg-bg_primary_blue_sub ",
         "md:w-[60px] md:h-[60px]",
-        "lg:justify-start lg:w-[250px] lg:h-[60px] lg:pl-2"
+        "lg:justify-start lg:w-[155px] lg:h-[45px] lg:pl-2"
       )}
     >
-      <Skeleton className="w-[2.3rem] h-[2.3rem] rounded-full bg-bg_primary_blue_sub2" />
+      <Skeleton className="w-[2.1rem] h-[2.1rem] rounded-full bg-bg_primary_blue_sub2" />
       <div className="hidden lg:flex flex-col justify-center space-y-1">
-        <Skeleton className="w-[140px] h-[16px] rounded bg-bg_primary_blue_sub2" />
-        <Skeleton className="w-[100px] h-[12px] rounded bg-bg_primary_blue_sub2" />
+        <Skeleton className="w-[90px] h-[16px] rounded bg-bg_primary_blue_sub2" />
+        <Skeleton className="w-[90px] h-[12px] rounded bg-bg_primary_blue_sub2" />
       </div>
     </div>
   );

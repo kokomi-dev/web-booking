@@ -149,12 +149,12 @@ const BookedAttractions = () => {
                   </TableCell>
                   {/* Giá */}
                   <TableCell className="text-right text-yellow_main font-medium underline">
-                    {formatPrice(user.bookedAttractions[index].amount)}
+                    {formatPrice(user?.bookedAttractions[index].amount)}
                   </TableCell>
                   {/* Ngày đặt */}
                   <TableCell className="text-right text-small sm:text-normal">
                     {format(
-                      user.bookedAttractions[index].bookingDate,
+                      user?.bookedAttractions[index].bookingDate,
                       "dd/MM/yyyy",
                       { locale: vi }
                     )}

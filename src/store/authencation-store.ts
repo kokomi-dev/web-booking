@@ -1,29 +1,36 @@
 import { create } from "zustand";
 
 export interface User {
-  _id: number;
-  token: string;
+  source: string;
+  _id: number | string;
+  token: string | null;
   firstname: string;
+  hasImge?: boolean;
+  images?: string;
   lastname: string;
   email: string;
   numberPhone: string;
-  bookedAttractions: [
-    {
-      tripId: string;
-      orderId: string;
-      bookingDate: Date;
-      amount: number;
-    }
-  ];
-  bookedHotels: [
-    {
-      tripId: string;
-      orderId: string;
-      bookingDate: Date;
-      amount: number;
-    }
-  ];
-  notifys: [
+  bookedAttractions:
+    | [
+        {
+          tripId: string;
+          orderId: string;
+          bookingDate: Date;
+          amount: number;
+        }
+      ]
+    | [];
+  bookedHotels:
+    | [
+        {
+          tripId: string;
+          orderId: string;
+          bookingDate: Date;
+          amount: number;
+        }
+      ]
+    | [];
+  notifys?: [
     {
       title: string;
       time: string;

@@ -10,9 +10,7 @@ export default function AuthLayout({ children }: AuthLayoutProp) {
         <HeaderAuth />
       </header>
       <main className="w-full h-full container-padding py-4 flex items-center justify-center">
-        <div className="w-[90%] md:w-[70%] lg:w-[60%] b-red-400">
-          {children}
-        </div>
+        <div className="w-[100%]  b-red-400">{children}</div>
       </main>
       <footer>
         <FooterAuth />

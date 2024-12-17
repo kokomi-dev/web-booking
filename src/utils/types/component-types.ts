@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export type ModalConfirmCodeProps = {
   lastName: string;
   email: string;
@@ -20,4 +22,8 @@ export type InputDebounceProps = {
   type?: string;
   name?: string;
   ref?: any;
+};
+export type ButtonShowPassWordProps = {
+  show: boolean;
+  setShow: React.Dispatch<SetStateAction<boolean>>;
 };
