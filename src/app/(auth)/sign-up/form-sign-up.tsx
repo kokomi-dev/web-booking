@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { LoadingPage } from "@/components/components/loading";
 import { toast } from "react-toastify";
 import { Label } from "@radix-ui/react-label";
+import ButtonShowPassWord from "@/components/auth/button-show-password";
 
 const signUpBody = z
   .object({
@@ -28,11 +29,15 @@ const signUpBody = z
     email: z.string().email("Vui lòng nhập email"),
     password: z
       .string()
-      .min(6, "Nhập đúng mật khẩu")
-      .max(100, "Mật khẩu không quá 100 kí tự"),
+      .min(8, "Mật khẩu phải đủ 8 kí tự")
+      .max(100, "Mật khẩu không quá 100 kí tự")
+      .regex(/[a-zA-Z]/, "Mật khẩu phải chứa ít nhất 1 chữ cái")
+      .regex(/\d/, "Mật khẩu phải chứa ít nhất 1 chữ số")
+      .regex(/[^a-zA-Z0-9]/, "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt"),
+
     confirmPassword: z
       .string()
-      .min(6, "Nhập đúng mật khẩu")
+      .min(8, "Nhập đúng mật khẩu")
       .max(100, "Mật khẩu không quá 100 kí tự"),
   })
   .strict()
@@ -47,7 +52,7 @@ const signUpBody = z
   });
 type SignupFormData = z.infer<typeof signUpBody>;
 
-const FormLogin: React.FC = () => {
+const FormSignUp: React.FC = () => {
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signUpBody),
     defaultValues: {
@@ -61,6 +66,7 @@ const FormLogin: React.FC = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -72,18 +78,18 @@ const FormLogin: React.FC = () => {
     }
     setIsLoading(true);
     try {
-      const result = await reqRegiter(data);
-      if (result.code === 401) {
-        return toast.error("Lỗi khi tạo mới tài khoản", {
-          className: "toast-error",
-        });
-      }
-      if (result) {
-        toast.success("Tạo tài khoản thành công", {
-          className: "toast-success",
-        });
-        return router.replace("/sign-in");
-      }
+      // const result = await reqRegiter(data);
+      // if (result.code === 401) {
+      //   return toast.error("Lỗi khi tạo mới tài khoản", {
+      //     className: "toast-error",
+      //   });
+      // }
+      // if (result) {
+      //   toast.success("Tạo tài khoản thành công", {
+      //     className: "toast-success",
+      //   });
+      //   return router.replace("/sign-in");
+      // }
     } catch (error) {
       console.log(error);
     } finally {
@@ -97,7 +103,7 @@ const FormLogin: React.FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4  w-full"
+        className="space-y-4  w-full "
         noValidate
       >
         <div className="w-full grid gap-x-4 md:grid-cols-2 md:gap-x-2">
@@ -155,8 +161,8 @@ const FormLogin: React.FC = () => {
           )}
         />
         <h5 className="text-small text-blue_main_sub font-normal">
-          Lưu ý: Mật khẩu phải tối thiểu 8 kí tự,1 chữ số, 1 chữ cái và 1 kí tự
-          đặc biệt
+          <span className="text-red-600 font-medium"> Lưu ý:</span> Mật khẩu
+          phải tối thiểu 8 kí tự,1 chữ số, 1 chữ cái và 1 kí tự đặc biệt
         </h5>
         <FormField
           control={form.control}
@@ -165,7 +171,17 @@ const FormLogin: React.FC = () => {
             <FormItem>
               <FormLabel>Mật khẩu</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Mật khẩu" {...field} />
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Mật khẩu"
+                    {...field}
+                  />
+                  <ButtonShowPassWord
+                    show={showPassword}
+                    setShow={setShowPassword}
+                  />
+                </div>
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -178,7 +194,17 @@ const FormLogin: React.FC = () => {
             <FormItem>
               <FormLabel>Nhập lại Mật khẩu</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="" {...field} />
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Nhập lại mật khẩu"
+                    {...field}
+                  />
+                  <ButtonShowPassWord
+                    show={showPassword}
+                    setShow={setShowPassword}
+                  />
+                </div>
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -188,14 +214,27 @@ const FormLogin: React.FC = () => {
           <Input
             type="checkbox"
             id="checkBox"
-            className="size-4"
+            className="size-4 hover:cursor-pointer"
             onChange={(e) => {
               setChecked(e.target.checked);
             }}
           />
           <Label htmlFor="checkBox" className="text-small hover:cursor-pointer">
-            Đồng ý vơi điều khoản dịch vụ và quyền riêng tư bảo mật của chúng
-            tôi
+            Đồng ý với{" "}
+            <Link
+              href="/content/privacy?activeTab=3"
+              className="text-blue_main_sub underline"
+            >
+              điều khoản dịch vụ
+            </Link>{" "}
+            và{" "}
+            <Link
+              href="/content/privacy?activeTab=2"
+              className="text-blue_main_sub underline"
+            >
+              quyền riêng tư bảo mật
+            </Link>{" "}
+            của chúng tôi
           </Label>
         </div>
         <Button
@@ -206,10 +245,10 @@ const FormLogin: React.FC = () => {
         </Button>
         <div className="w-full flex items-center justify-between">
           <h4 className="text-small ">
-            Bạn đã có tài khoản
+            Bạn đã có tài khoản!
             <Link
               href="/sign-in"
-              className="text-blue_main_sub ml-1 underline "
+              className="text-blue_main_sub ml-1 underline text-small font-semibold"
             >
               Đăng nhập
             </Link>
@@ -220,4 +259,4 @@ const FormLogin: React.FC = () => {
   );
 };
 
-export default FormLogin;
+export default FormSignUp;

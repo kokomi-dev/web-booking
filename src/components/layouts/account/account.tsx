@@ -39,8 +39,11 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { SignOutButton, useUser, useClerk } from "@clerk/nextjs";
 
 const Account = () => {
+  const { signOut } = useClerk();
+  const { isLoaded, isSignedIn, user: userClerk } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -53,17 +56,30 @@ const Account = () => {
   } = useAuthenticatedStore();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const getCurrentUser = async () => {
       setLoading(true);
       try {
-        if (localStorage.getItem("token")) {
+        if (isSignedIn) {
+          setUserLogined({
+            source: "clerk",
+            _id: userClerk.id,
+            token: null,
+            firstname: userClerk.firstName || "",
+            lastname: userClerk.lastName || "",
+            email: userClerk.emailAddresses[0].emailAddress,
+            numberPhone: null || "",
+            hasImge: userClerk.hasImage,
+            images: userClerk.imageUrl,
+            bookedAttractions: [],
+            bookedHotels: [],
+          });
+        } else if (token) {
           const fetchData = await reqCurrentUser();
           if (fetchData) {
-            setUserLogined(fetchData.user);
+            setUserLogined({ ...fetchData.user, source: "normal" });
             setIsAuthenticated();
           }
-        } else {
-          console.log("Hiện tại chưa đăng nhập");
         }
       } catch (error) {
       } finally {
@@ -71,7 +87,7 @@ const Account = () => {
       }
     };
     getCurrentUser();
-  }, []);
+  }, [isSignedIn]);
 
   const handleLogout = async () => {
     const data = await reqLogout();
@@ -83,49 +99,51 @@ const Account = () => {
     }
   };
 
-  if (loading) {
+  if (loading || !isLoaded) {
     return <LoadingComponentAccount />;
   }
   return (
     <Fragment>
       {isAuthenticated && user ? (
         <Suspense fallback={<LoadingComponentAccount />}>
-          <DropdownMenu
-            open={open}
-            onOpenChange={() => {
-              setOpen(false);
-            }}
-          >
+          <DropdownMenu open={open} onOpenChange={() => setOpen(false)}>
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
-                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none  rounded-lg",
+                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
                   "bg-bg_primary_active"
                 )}
-                onClick={() => {
-                  setOpen(!open);
-                }}
+                onClick={() => setOpen(!open)}
               >
                 <div
                   className={cn(
                     "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
-                  <Image
-                    src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
-                    width={600}
-                    height={600}
-                    alt="avatar-user"
-                    className="rounded-full object-contain h-[40px] lg:h-auto"
-                  />
+                  {user.hasImge && user.images ? (
+                    <Image
+                      src={user.images}
+                      width={600}
+                      height={600}
+                      alt="avatar-user"
+                      className="rounded-full object-contain h-[40px] lg:h-auto"
+                    />
+                  ) : (
+                    <Image
+                      src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
+                      width={600}
+                      height={600}
+                      alt="avatar-user"
+                      className="rounded-full object-contain h-[40px] lg:h-auto"
+                    />
+                  )}
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                   <div
                     className={cn(
-                      " flex items-center justify-start gap-x-1 text-white font-bold text-smallest select-none",
-                      ""
+                      " flex items-center justify-start gap-x-1 text-white font-bold text-smallest select-none"
                     )}
                   >
                     <span className="capitalize text-white">
@@ -146,30 +164,20 @@ const Account = () => {
             <DropdownMenuContent className="w-56 h-auto bg-white text-black rounded-14 p-0 ">
               <DropdownMenuGroup className="w-full">
                 <DropdownMenuItem
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
+                  onClick={() => setOpen(false)}
+                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
                 >
                   <Link
                     className="w-full flex items-center justify-start"
                     href={`/account/mysetting/${user._id}?do=manage-account`}
                   >
                     <UserRound className="w-5 h-5 mr-2" />
-                    <span> Quản lí tài khoản</span>
+                    <span>Quản lí tài khoản</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
+                  onClick={() => setOpen(false)}
+                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
                 >
                   <Link
                     className="w-full flex items-center justify-start"
@@ -180,17 +188,12 @@ const Account = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "cursor-pointer p-2 py-3",
-                    "hover:bg-bg_primary_hover"
-                  )}
+                  onClick={() => setOpen(false)}
+                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
                 >
                   <Link
                     className="w-full flex items-center justify-start"
-                    href={`/account/saved/${user._id}-${user._id} ?do=saved`}
+                    href={`/account/saved/${user._id}`}
                   >
                     <BookmarkCheck className="w-5 h-5 mr-2" />
                     <span>Đã lưu</span>
@@ -198,12 +201,7 @@ const Account = () => {
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <div
-                      className={cn(
-                        "flex items-center justify-start w-full cursor-pointer px-[0.65rem] py-3",
-                        "hover:bg-bg_primary_hover"
-                      )}
-                    >
+                    <div className="flex items-center justify-start w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover">
                       <LogOut className="w-5 h-5 mr-[0.3rem]" />
                       <span className="text-smallest">Đăng xuất</span>
                     </div>
@@ -211,28 +209,42 @@ const Account = () => {
                   <AlertDialogContent className="bg-bg_black_sub text-black rounded-14">
                     <AlertDialogHeader>
                       <AlertDialogTitle>
-                        Bạn chắc chắn muốn Đăng Xuất
+                        Bạn chắc chắn muốn Đăng Xuất?
                       </AlertDialogTitle>
                       <AlertDialogDescription className="text-black_sub text-smallest">
                         Mọi thông tin sẽ được lưu trữ lại phục vụ cho lần đăng
-                        nhập tiếp
+                        nhập tiếp theo.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="flex flex-col gap-y-3 lg:flex-row">
                       <AlertDialogCancel
-                        onClick={() => {
-                          setOpen(false);
-                        }}
+                        onClick={() => setOpen(false)}
                         className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
                       >
                         Hủy
                       </AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={handleLogout}
-                        className="bg-bg_black_sub text-black_sub hover:text-black"
-                      >
-                        Đăng xuất
-                      </AlertDialogAction>
+                      {isSignedIn && user.source === "clerk" ? (
+                        <AlertDialogAction
+                          onClick={async () => {
+                            try {
+                              await setLogout();
+                              await signOut();
+                            } catch (error) {
+                              toast.error("Lỗi khi đăng nhập" + error);
+                            }
+                          }}
+                          className="bg-bg_black_sub text-black_sub hover:text-black"
+                        >
+                          Đăng xuất
+                        </AlertDialogAction>
+                      ) : (
+                        <AlertDialogAction
+                          onClick={handleLogout}
+                          className="bg-bg_black_sub text-black_sub hover:text-black"
+                        >
+                          Đăng xuất
+                        </AlertDialogAction>
+                      )}
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -241,7 +253,7 @@ const Account = () => {
           </DropdownMenu>
         </Suspense>
       ) : (
-        <div className=" flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <Link href={"/sign-in"} className="hidden lg:block">
             <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub">
               Đăng nhập
@@ -250,10 +262,8 @@ const Account = () => {
           <HoverCard>
             <HoverCardTrigger>
               <CircleUserIcon
-                onClick={() => {
-                  router.push("/sign-in");
-                }}
-                className="w-7 h-7 text-white block lg:hidden  hover:cursor-pointer"
+                onClick={() => router.push("/sign-in")}
+                className="w-7 h-7 text-white block lg:hidden hover:cursor-pointer"
               />
             </HoverCardTrigger>
             <HoverCardContent

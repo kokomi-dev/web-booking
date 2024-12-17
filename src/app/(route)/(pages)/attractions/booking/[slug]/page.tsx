@@ -80,10 +80,10 @@ const BookingAttraction = () => {
     }
     if (user) {
       form.reset({
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        numberphone: user.numberPhone,
+        firstname: user.firstname || "",
+        lastname: user.lastname || "",
+        email: user.email || "",
+        numberphone: user.numberPhone || "",
         special: "",
       });
     }

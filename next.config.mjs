@@ -33,6 +33,11 @@ const nextConfig = {
         hostname: "t-cf.bstatic.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+        port: "",
+      },
     ],
   },
 };
