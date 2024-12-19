@@ -227,8 +227,9 @@ const Account = () => {
                         <AlertDialogAction
                           onClick={async () => {
                             try {
-                              await setLogout();
-                              await signOut();
+                              Promise.all([setLogout(), signOut()]).then(() => {
+                                toast.success("Đăng xuất thành công");
+                              });
                             } catch (error) {
                               toast.error("Lỗi khi đăng nhập" + error);
                             }

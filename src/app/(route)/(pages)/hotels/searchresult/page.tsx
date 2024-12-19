@@ -6,9 +6,8 @@ import { cn } from "@/lib/utils";
 import { HotelData } from "@/utils/types";
 import { convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
-import ShowResult from "@/components/dashboard/hotels/show-result";
 import Loading from "./loading";
-
+import ShowResult from "@/components/dashboard/hotels/show-result";
 const SearchResultPageHotel = () => {
   const searchParams = useSearchParams();
   const nameValue = searchParams.get("address");
@@ -31,7 +30,7 @@ const SearchResultPageHotel = () => {
   if (loading) return <Loading />;
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <ShowResult data={data} search={search} nameValue={nameValue} />
+      <ShowResult isLoading={loading} data={data} nameValue={nameValue} />
     </div>
   );
 };

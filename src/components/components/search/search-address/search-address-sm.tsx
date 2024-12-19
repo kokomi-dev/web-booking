@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 import { Search } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import InputDebounce from "../../input-debounce";
-import { ADDRESS_TRENDING } from "@/components/dashboard/constants";
 import {
   Sheet,
   SheetContent,
@@ -43,9 +41,9 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
     >
       <SheetContent
         side="bottom"
-        className="h-auto w-full z-[50]  overflow-y-auto  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
+        className="h-[80vh] w-full  z-[50]  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
       >
-        <SheetHeader className="text-start w-full ">
+        <SheetHeader className="text-start w-full">
           <SheetTitle className="text-normal+ font-semibold text-start w-fit flex items-start justify-start">
             Tìm
           </SheetTitle>
@@ -92,7 +90,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             </div>
           )}
         </div>
-        <SheetFooter className="absolute bottom-8">
+        <SheetFooter>
           <ButtonEnd
             onClick={() => {
               setOpen2(false);

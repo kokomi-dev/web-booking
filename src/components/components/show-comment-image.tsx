@@ -97,7 +97,7 @@ const ShowCommentsImage: React.FC<IShowCommentsImage> = ({
                             {comment.name}
                           </h5>
                         </div>
-                        <p className="text-smallest font-normal first:uppercase pl-3 text-justify">
+                        <p className="h-[66px] scrollbar-hide  overflow-scroll text-smallest font-normal first:uppercase pl-3 text-justify">
                           {comment.content}
                         </p>
                       </CardContent>

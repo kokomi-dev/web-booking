@@ -20,7 +20,7 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({ open, setOpen }) => {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side="left"
-        className="bg-white text-black lg:max-w-[50%] h-full p-6"
+        className="bg-white text-black h-full p-4 overflow-auto"
       >
         <SheetHeader className="w-full text-start">
           <SheetTitle className="text-start text-medium font-semibold">
@@ -30,17 +30,17 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({ open, setOpen }) => {
             Hãy chọn các yếu tố mà bạn muốn tìm kiếm
           </SheetDescription>
         </SheetHeader>
-        <div className="w-full h-full mt-5  text-small font-normal overflow-y-scroll">
+        <div className="w-full h-auto my-3  text-small font-normal overflow-y-auto">
           <FilterComponent title="hạng mục" arrayFilterItem={filter1} />
           <FilterComponent title="giá" arrayFilterItem={filter2} />
           <FilterComponent title="điểm đánh giá" arrayFilterItem={filter3} />
         </div>
-        <SheetFooter className="absolute w-full bottom-2 left-0 right-0 text-center flex items-center justify-center">
+        <SheetFooter className="w-full h-[44px]  flex items-center justify-center ">
           <Button
             onClick={() => {
               setOpen(false);
             }}
-            className="bg-bg_primary_active w-[90%] text-white"
+            className="bg-bg_primary_active w-[100%] text-white"
           >
             Áp dụng
           </Button>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-attractions";
-import ShowResult from "@/components/dashboard/attraction/show-result";
+import ShowResult from "@/components/components/show-result";
 import { cn } from "@/lib/utils";
 import { AttractionData } from "@/utils/types";
 import { convertToSlug } from "@/utils/constants";
@@ -30,12 +30,7 @@ const SearchResultPage = () => {
 
   return (
     <div className={cn("search_result w-full h-full ")}>
-      <ShowResult
-        data={data}
-        search={search}
-        isLoading={isLoading}
-        nameValue={nameValue}
-      />
+      <ShowResult data={data} isLoading={isLoading} nameValue={nameValue} />
     </div>
   );
 };

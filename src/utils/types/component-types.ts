@@ -1,4 +1,5 @@
 import { SetStateAction } from "react";
+import { AttractionData, HotelData } from ".";
 
 export type ModalConfirmCodeProps = {
   lastName: string;
@@ -26,4 +27,14 @@ export type InputDebounceProps = {
 export type ButtonShowPassWordProps = {
   show: boolean;
   setShow: React.Dispatch<SetStateAction<boolean>>;
+};
+export type ShowResultPropsAttraction = {
+  data: AttractionData[];
+  isLoading: boolean;
+  nameValue: string | null;
+};
+export type ShowResultPropsHotel = {
+  data: HotelData[];
+  isLoading: boolean;
+  nameValue: string | null;
 };

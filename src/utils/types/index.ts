@@ -53,3 +53,11 @@ export type ShareButtonProps = {
   slug: string;
   title: string;
 };
+export type CommentProps = {
+  _id: string;
+  idUser: string;
+  content: string;
+  name: string;
+  nameShow: string;
+  commentDate: Date;
+};

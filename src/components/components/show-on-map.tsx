@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Map, { Marker } from "react-map-gl";
 import Image from "next/image";
 
@@ -14,18 +14,22 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
 
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
   const fetchLocation = async () => {
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-        address
-      )}.json?access_token=${accessToken}`
-    );
-    const data = await response.json();
-    if (!data) {
-      return setLocation([0, 0]);
-    }
-    if (data.features && data.features.length > 0) {
-      const [longitude, latitude] = data.features[0].center;
-      setLocation([parseFloat(longitude), parseFloat(latitude)]);
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          address
+        )}.json?access_token=${accessToken}`
+      );
+      const data = await response.json();
+      if (!data) {
+        return setLocation([0, 0]);
+      }
+      if (data.features && data.features.length > 0) {
+        const [longitude, latitude] = data.features[0].center;
+        setLocation([parseFloat(longitude), parseFloat(latitude)]);
+      }
+    } catch (error) {
+    } finally {
     }
   };
   useEffect(() => {

@@ -16,24 +16,21 @@ import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/lib/utils";
 import { AttractionData } from "@/utils/types";
 import ShowOnMap from "@/components/components/show-on-map";
-import { LoadingItemSearch } from "@/components/components/loading";
+import {
+  LoadingItemSearch,
+  LoadingPage,
+} from "@/components/components/loading";
 import SheetShowFilter from "@/components/components/sheet-show-filter";
 import FilterComponent from "@/components/components/filter-item";
-import { filterBar, filter1, filter2, filter3 } from "../constants";
+import { filterBar, filter1, filter2, filter3 } from "../dashboard/constants";
+import { ShowResultPropsAttraction } from "@/utils/types/component-types";
 
-interface ShowResultProps {
-  data: AttractionData[];
-  search: any;
-  isLoading: boolean;
-  nameValue: string | null;
-}
 interface IHandleFilterData {
   data: AttractionData[];
 }
 
-const ShowResult: React.FC<ShowResultProps> = ({
+const ShowResult: React.FC<ShowResultPropsAttraction> = ({
   data,
-  search,
   isLoading,
   nameValue,
 }) => {
@@ -80,6 +77,7 @@ const ShowResult: React.FC<ShowResultProps> = ({
     }
   };
   const [openSheetFilter, setOpenSheetFilter] = useState(false);
+
   return (
     <div className={cn("w-full h-full grid grid-y-4")}>
       {/* head */}
@@ -102,7 +100,7 @@ const ShowResult: React.FC<ShowResultProps> = ({
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="w-full max-w-full grid grid-cols-1 gap-2 mt-1">
+      <div className="w-full h-full max-w-full grid grid-cols-1 gap-2 mt-1">
         <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
           <span className="capitalize">{nameValue}</span>
           <Dot />
@@ -110,24 +108,29 @@ const ShowResult: React.FC<ShowResultProps> = ({
             tìm thấy {data?.length} điểm tham quan
           </span>
         </h2>
-        <div className="w-full h-full flex flex-col-reverse lg:grid lg:grid-cols-layout-3 gap-4">
-          <ShowOnMap address={nameValue || ""} />
-          {/* filter attraction and show */}
-          <div className="flex flex-col gap-2">
-            <h3 className="text-normal font-semibold">Lọc theo</h3>
+        <div className="w-full h-full flex flex-col-reverse lg:grid lg:grid-cols-layout-3">
+          <div className="flex flex-col gap-y-3">
+            <ShowOnMap address={nameValue || ""} />
             <div
               className={cn(
-                "w-full h-full border_div_card hidden ",
-                "lg:flex items-start justify-between  overflow-y-auto"
+                "w-full h-auto border_div_card hidden !p-0 ",
+                "lg:flex flex-col items-start justify-between overflow-y-auto"
               )}
             >
-              <FilterComponent title="hạng mục" arrayFilterItem={filter1} />
-              <FilterComponent title="giá" arrayFilterItem={filter2} />
-              <FilterComponent
-                title="điểm đánh giá"
-                arrayFilterItem={filter3}
-              />
+              <h3 className="w-full h-auto   flex items-center justify-start text-normal+ font-semibold border-b-0.5 p-2 py-3 border-b-black_sub">
+                Lọc theo
+              </h3>
+              <div className="w-full p-2">
+                <FilterComponent title="hạng mục" arrayFilterItem={filter1} />
+                <FilterComponent title="giá" arrayFilterItem={filter2} />
+                <FilterComponent
+                  title="điểm đánh giá"
+                  arrayFilterItem={filter3}
+                />
+              </div>
             </div>
+          </div>
+          <div className="flex flex-col gap-2">
             {/* show result */}
             <div
               className={cn(
@@ -144,7 +147,7 @@ const ShowResult: React.FC<ShowResultProps> = ({
                   onClick={() => {
                     setOpenSheetFilter(!openSheetFilter);
                   }}
-                  className="flex py-6 px-2 mx-2  items-center justify-center gap-x-1 text-small  bg-bg_primary_blue_sub2 lg:hidden"
+                  className="flex py-6 px-4 mx-2  items-center justify-center gap-x-1 text-small  bg-bg_primary_blue_sub2 lg:hidden"
                 >
                   <SlidersHorizontal className="size-4" />
                 </Button>
