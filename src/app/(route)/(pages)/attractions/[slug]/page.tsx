@@ -166,14 +166,11 @@ const DetailAttractionPage = async ({
               </div>
               {/* included */}
               <CardText title="Dịch vụ bao gồm">
-                <ul className="list-none ">
+                <ul className="list-none w-full">
                   {data.included.map((item: string, index: number) => (
-                    <li
-                      key={index}
-                      className="grid grid-cols-[5%,95%] gap-3 py-1 items-center"
-                    >
-                      <FaCheck className="w-4 h-4 md:w-6 md:h-6 text-green_main " />
-                      <span className="text-normal">{item}</span>
+                    <li key={index} className="flex gap-3 py-1 items-center">
+                      <FaCheck className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5 text-green_main" />
+                      <span className="text-normal break-words">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -221,16 +218,14 @@ const DetailAttractionPage = async ({
             <BookingContainer slug={slug} data={data} />
           </div>
           <hr className="hr" />
-          <div className="w-full h-full grid grid-cols-1 gap-y-4 md:gap-x-4 md:grid-cols-layout-2">
+          <div className="w-full h-full lg:grid flex flex-col gap-y-4 lg:gap-x-4 lg:grid-cols-layout-2">
             {/* evaluate */}
-            <div className="">
-              <Comments
-                category="attraction"
-                initialComments={data.comments}
-                initialRating={data.rating}
-                slug={slug}
-              />
-            </div>
+            <Comments
+              category="attraction"
+              initialComments={data.comments}
+              initialRating={data.rating}
+              slug={slug}
+            />
             {/* question */}
             <SupportQuestions />
           </div>

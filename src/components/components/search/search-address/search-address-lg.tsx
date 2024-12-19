@@ -82,6 +82,8 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
                     className="w-full p-1 flex items-center justify-start gap-x-2 hover:cursor-pointer hover:text-blue_main_sub transition-all duration-150"
                     onClick={() => {
                       setValueSearch(address.name);
+                      setValue(address.name);
+                      setOpen(false);
                     }}
                   >
                     <MapPinned className="size-5" />

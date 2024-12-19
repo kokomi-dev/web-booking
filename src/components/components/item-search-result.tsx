@@ -44,6 +44,7 @@ const ItemSearchResult = ({
         href={`/${route}/${slug}`}
         className="w-full border_div_card "
         key={slug}
+        target="_blank"
       >
         <div className="w-full grid grid-cols-[30%,70%] lg:grid-cols-layout-4 p-1">
           <Image

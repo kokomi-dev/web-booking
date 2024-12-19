@@ -107,166 +107,167 @@ const Booking = ({
   }, [chooseInput]);
 
   return (
-    <div className="w-full">
+    <div
+      className="w-full h-full flex items-start justify-start flex-col gap-2  p-3 bg-sub rounded-xl text-normal"
+      id="price"
+    >
+      {/* choose person and room */}
+      <CardText title="Thông tin đặt phòng">
+        <div className="hidden lg:flex items-center justify-start gap-x-2">
+          <TriangleAlert className="text-yellow_main" />
+          <h5 className="text-small mb-2">
+            Vui lòng chọn đúng đủ số người cho phòng để có trải nghiệm tốt nhất
+            !
+          </h5>
+        </div>
+        <div className="bg-bg_primary_yellow w-full flex flex-col lg:flex-row items-center justify-start gap-x-2 p-2 rounded-8">
+          <SearchDatePickerDou
+            className="text-black w-full h-[36px]  text-medium font-medium"
+            date={date}
+            setDate={setDate}
+          />
+          <SearchSelectPerson
+            setError={setError}
+            className=" w-full h-[36px] text-medium font-semibold mt-2 lg:mt-0"
+            numberChildren={numberChildren}
+            numberAdults={numberAdults}
+            setNumberAdults={setNumberAdults}
+            numberRoom={numberRoom}
+            setNumberChildren={setNumberChildren}
+            setNumberRoom={setNumberRoom}
+            handlePopoverChange={handlePopoverChange}
+          />
+        </div>
+      </CardText>
+      {/* booking tickets */}
       <div
-        className="w-full flex items-start justify-start flex-col gap-2 h-full p-3 bg-sub rounded-xl text-normal"
-        id="price"
+        id="booking-hotel-container"
+        className="w-full h-full  overflow-x-scroll !bg-sub scrollbar-hide"
       >
-        {/* choose person and room */}
-        <CardText title="Thông tin đặt phòng">
-          <div className="hidden lg:flex items-center justify-start gap-x-2">
-            <TriangleAlert className="text-yellow_main" />
-            <h5 className="text-small mb-1">
-              Vui lòng chọn đúng đủ số người cho phòng để có trải nghiệm tốt
-              nhất !
-            </h5>
-          </div>
-          <div className="bg-bg_primary_yellow w-full flex flex-col lg:flex-row items-center justify-start gap-x-2 p-2 rounded-8">
-            <SearchDatePickerDou
-              className="text-black w-full h-[36px]  text-medium font-medium"
-              date={date}
-              setDate={setDate}
-            />
-            <SearchSelectPerson
-              setError={setError}
-              className=" w-full h-[36px] text-medium font-semibold mt-2 lg:mt-0"
-              numberChildren={numberChildren}
-              numberAdults={numberAdults}
-              setNumberAdults={setNumberAdults}
-              numberRoom={numberRoom}
-              setNumberChildren={setNumberChildren}
-              setNumberRoom={setNumberRoom}
-              handlePopoverChange={handlePopoverChange}
-            />
-          </div>
-        </CardText>
-        {/* booking tickets */}
-        <div id="booking-hotel-container" className="w-full overflow-x-scroll">
-          <table className="w-full lg:mt-4 border border-blue_main_sub border-collapse overflow-x-auto lg:overflow-visible">
-            <thead className="bg-bg_primary_main text-white text-small font-semibold">
-              <tr>
-                <th className="min-w-[150px] lg:max-w-[30%] border border-blue_main_sub px-2 py-1">
-                  Loại chỗ nghỉ
-                </th>
-                <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
-                  Số lượng khách
-                </th>
-                <th className="min-w-[180px] text-center border border-blue_main_sub px-2 py-1">
-                  Giá
-                </th>
-                <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
-                  Chọn số phòng
-                </th>
-                <th className="min-w-[180px] border border-blue_main_sub"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {listRooms.map((room, index) => (
-                <tr key={index} className="border border-blue_main_sub">
-                  <td className="p-2 border border-blue_main_sub text-start">
-                    <span className="text-blue_main underline font-bold">
-                      {room.name}
+        <table className="w-full  bg-sub border border-blue_main_sub border-collapse overflow-x-auto lg:overflow-visible">
+          <thead className="bg-bg_primary_main text-white text-small font-semibold">
+            <tr>
+              <th className="min-w-[150px] lg:max-w-[30%] border border-blue_main_sub px-2 py-1">
+                Loại chỗ nghỉ
+              </th>
+              <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
+                Số lượng khách
+              </th>
+              <th className="min-w-[180px] text-center border border-blue_main_sub px-2 py-1">
+                Giá
+              </th>
+              <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
+                Chọn số phòng
+              </th>
+              <th className="min-w-[180px] border border-blue_main_sub"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {listRooms.map((room, index) => (
+              <tr key={index} className="border border-blue_main_sub">
+                <td className="p-2 border border-blue_main_sub text-start">
+                  <span className="text-blue_main underline font-bold">
+                    {room.name}
+                  </span>
+                  <ul className="flex flex-wrap gap-1 mt-1">
+                    {room.details.map((detail, i) => (
+                      <li
+                        key={i}
+                        className="flex gap-2 text-smallest items-center"
+                      >
+                        <Check className="size-3 flex-shrink-0  text-green_main" />
+                        <span className="break-words">{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td className="p-2 border border-blue_main_sub text-center">
+                  <span className="flex items-center justify-center gap-1">
+                    <User className="size-4 fill-black" />
+                    <X className="size-4" />
+                    <span>{room.numberPeople}</span>
+                  </span>
+                  {room.isAddChildren && (
+                    <span className="flex items-center justify-center text-smallest mt-1">
+                      <UserPlus className="size-4" /> trẻ em
                     </span>
-                    <ul className="flex flex-wrap gap-1 mt-1">
-                      {room.details.map((detail, i) => (
-                        <li
-                          key={i}
-                          className="text-smallest flex items-center gap-2"
-                        >
-                          <Check className="size-3 text-green_main" />
-                          <span>{detail}</span>
-                        </li>
-                      ))}
+                  )}
+                </td>
+                <td className="p-2 border border-blue_main_sub text-center">
+                  <div className="line-through text-red-400 text-[0.8rem]">
+                    <span className="mr-1">VNĐ</span>
+                    {convertVND(room.price)}
+                  </div>
+                  <div className="text-black_main text-small font-semibold">
+                    <span className="mr-1">VNĐ</span>
+                    {convertVND(room.price - (room.price / 100) * room.sale)}
+                  </div>
+                  <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
+                    Tiết kiệm {room.sale} %
+                  </span>
+                </td>
+                <td className="pl-[2%] ">
+                  <Input
+                    type="number"
+                    className="border border-black_main w-[70px] text-center"
+                    value={chooseInput[index]}
+                    min={0}
+                    max={50}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setChooseInput((prev) => {
+                        const newChoose = [...prev];
+                        newChoose[index] = Number(value);
+                        return newChoose;
+                      });
+                    }}
+                  />
+                </td>
+                {index === 0 && (
+                  <td
+                    className="p-2 align-top border border-blue_main_sub"
+                    rowSpan={listRooms.length}
+                  >
+                    {chooseInput && !checkHiddenBtn && (
+                      <div className="mb-4">
+                        <div className="line-through text-red-400 text-small">
+                          <span className="mr-1">VNĐ</span>
+                          {convertVND(total)}
+                        </div>
+                        <div className="text-black_main text-normal font-bold">
+                          <span className="mr-1">VNĐ</span>
+                          {convertVND(totalSale)}
+                        </div>
+                        <div>
+                          {total && totalSale !== 0 && (
+                            <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
+                              Tiết kiệm{" "}
+                              {(100 - (totalSale / total) * 100).toFixed(2)} %
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-black_sub text-small">
+                          Đã bao gồm thuế và phí
+                        </span>
+                      </div>
+                    )}
+                    <Button
+                      className="w-full bg-bg_primary_blue_sub text-white"
+                      onClick={handleBooking}
+                      disabled={checkHiddenBtn}
+                    >
+                      Đặt ngay
+                    </Button>
+                    <ul className="text-smallest pl-3 mt-2">
+                      <li>Chỉ mất 2 phút</li>
+                      <li>Xác thực tức thời</li>
                     </ul>
                   </td>
-                  <td className="p-2 border border-blue_main_sub text-center">
-                    <span className="flex items-center justify-center gap-1">
-                      <User className="size-4 fill-black" />
-                      <X className="size-4" />
-                      <span>{room.numberPeople}</span>
-                    </span>
-                    {room.isAddChildren && (
-                      <span className="flex items-center justify-center text-smallest mt-1">
-                        <UserPlus className="size-4" /> trẻ em
-                      </span>
-                    )}
-                  </td>
-                  <td className="p-2 border border-blue_main_sub text-center">
-                    <div className="line-through text-red-400 text-[0.8rem]">
-                      <span className="mr-1">VNĐ</span>
-                      {convertVND(room.price)}
-                    </div>
-                    <div className="text-black_main text-small font-semibold">
-                      <span className="mr-1">VNĐ</span>
-                      {convertVND(room.price - (room.price / 100) * room.sale)}
-                    </div>
-                    <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
-                      Tiết kiệm {room.sale} %
-                    </span>
-                  </td>
-                  <td className="pl-[2%] ">
-                    <Input
-                      type="number"
-                      className="border border-black_main w-[70px] text-center"
-                      value={chooseInput[index]}
-                      min={0}
-                      max={50}
-                      onChange={(e) => {
-                        const { value } = e.target;
-                        setChooseInput((prev) => {
-                          const newChoose = [...prev];
-                          newChoose[index] = Number(value);
-                          return newChoose;
-                        });
-                      }}
-                    />
-                  </td>
-                  {index === 0 && (
-                    <td
-                      className="p-2 align-top border border-blue_main_sub"
-                      rowSpan={listRooms.length}
-                    >
-                      {chooseInput && !checkHiddenBtn && (
-                        <div className="mb-4">
-                          <div className="line-through text-red-400 text-small">
-                            <span className="mr-1">VNĐ</span>
-                            {convertVND(total)}
-                          </div>
-                          <div className="text-black_main text-normal font-bold">
-                            <span className="mr-1">VNĐ</span>
-                            {convertVND(totalSale)}
-                          </div>
-                          <div>
-                            {total && totalSale !== 0 && (
-                              <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
-                                Tiết kiệm{" "}
-                                {(100 - (totalSale / total) * 100).toFixed(2)} %
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-black_sub text-small">
-                            Đã bao gồm thuế và phí
-                          </span>
-                        </div>
-                      )}
-                      <Button
-                        className="w-full bg-bg_primary_blue_sub text-white"
-                        onClick={handleBooking}
-                        disabled={checkHiddenBtn}
-                      >
-                        Đặt ngay
-                      </Button>
-                      <ul className="text-smallest pl-3 mt-2">
-                        <li>Chỉ mất 2 phút</li>
-                        <li>Xác thực tức thời</li>
-                      </ul>
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

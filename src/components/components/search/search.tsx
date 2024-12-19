@@ -41,7 +41,7 @@ const Search: React.FC<SearchContainerProp> = ({
     if (address !== "" || address !== null) {
       setError(false);
     }
-  }, [address, router]);
+  }, [address, pathname]);
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log("tìm", error);

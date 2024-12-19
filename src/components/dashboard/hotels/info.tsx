@@ -42,9 +42,9 @@ const Info: React.FC<InfoProps> = ({
             <MapPin className="text-blue_main text-normal" />
             {location}
           </address>
-          <div className="w-full hidden lg:flex items-center justify-end gap-x-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
+          <div className="hidden lg:flex items-center justify-end gap-x-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
             <TriangleAlert className="w-5 h-5 " />
-            <span className="capitalize text-small ">
+            <span className="capitalize text-small text-nowrap  ">
               Chúng tôi luôn khớp giá
             </span>
           </div>

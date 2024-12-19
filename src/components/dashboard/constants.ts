@@ -8,19 +8,19 @@ import trendingImg6 from "@/assets/images/trending-hagiang.jpg";
 import { BookmarkCheck, CalendarCheck2, PhoneCall } from "lucide-react";
 export const ADDRESS_TRENDING = [
   {
-    name: "Đà nẵng",
+    name: "Đà Nẵng",
     img: trendingImg1,
     slug: "da-nang",
   },
   {
-    name: "Hội an",
+    name: "Hội An",
     img: trendingImg2,
     slug: "hoi-an",
   },
   {
-    name: "nha trang",
+    name: "Khánh Hòa",
     img: trendingImg3,
-    slug: "nha-trang",
+    slug: "khanh-hoa",
   },
   {
     name: "Huế",
