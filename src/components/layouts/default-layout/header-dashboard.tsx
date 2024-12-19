@@ -28,7 +28,7 @@ const HeaderDashboard = () => {
           "w-full h-full container-padding p-2 mt-2 font-medium text-white text-normal  flex flex-col items-center justify-between transition-all duration-300"
         )}
       >
-        <div className="w-full h-[44px] lg:h-auto font-bold  flex items-center justify-between text-white py-1 ">
+        <div className="w-full h-[46px] lg:h-auto font-bold  flex items-center justify-between text-white py-1 ">
           <Link href="/home" className="text-medium md:text-large font-mono">
             KoKoTravel
           </Link>

@@ -1,4 +1,5 @@
 import { ChevronRight, MailWarning } from "lucide-react";
+import { Metadata } from "next";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,10 @@ const Item = ({ title }: { title: string }) => {
       <ChevronRight className="text-small font-light" />
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Trợ giúp - KoKoTravel",
 };
 const ContactPage = () => {
   return (

@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
-import { HotelData } from "@/utils/types";
+import { HotelData, PropsGenerateMetaData } from "@/utils/types";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";
@@ -25,6 +25,26 @@ import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
 import Link from "next/link";
 import DisplayDocs from "@/components/components/display-docs";
 import ReceiveFeedback from "@/components/components/receive-feedback";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: PropsGenerateMetaData): Promise<Metadata> {
+  const slug = (await params).slug;
+  try {
+    const attraciton = await fetch(`${apiUrl}/hotel/${slug}`);
+    const data = await attraciton.json();
+    if (data.data) {
+      return {
+        title: data.data.name,
+        description: data.data.details,
+      };
+    }
+    return {};
+  } catch (error) {
+    throw new Error("Lỗi khi generateMetadata");
+  }
+}
 
 export async function generateStaticParams() {
   try {

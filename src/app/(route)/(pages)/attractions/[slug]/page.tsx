@@ -1,14 +1,15 @@
 import { GoStarFill } from "react-icons/go";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
-import { Heart, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
 import { getDetailAttraction } from "@/api/api-attractions";
 import CardText from "@/components/components/card-text";
 import { cn } from "@/lib/utils";
 import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/dashboard/attraction/booking-container";
-import { AttractionData } from "@/utils/types";
+import { AttractionData, PropsGenerateMetaData } from "@/utils/types";
 import ScheduleDisplay from "@/components/components/display-schedule";
 
 import Comments from "@/components/components/comments";
@@ -38,6 +39,26 @@ const ShareButton = dynamic(
 const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });
+
+export async function generateMetadata({
+  params,
+}: PropsGenerateMetaData): Promise<Metadata> {
+  const slug = (await params).slug;
+  try {
+    const attraciton = await fetch(`${apiUrl}/attraction/${slug}`);
+    const data = await attraciton.json();
+    if (data.data) {
+      return {
+        title: data.data.name,
+        description: data.data.description,
+      };
+    }
+    return {};
+  } catch (error) {
+    throw new Error("Lỗi khi generateMetadata");
+  }
+}
+
 export async function generateStaticParams() {
   try {
     const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
