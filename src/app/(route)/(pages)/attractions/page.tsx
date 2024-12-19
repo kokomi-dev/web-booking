@@ -1,11 +1,18 @@
+import { Metadata } from "next";
+import Link from "next/link";
+
 import Intro from "@/components/dashboard/attraction/intro";
 import ListTrendingTour from "@/components/dashboard/attraction/list-trending-attractions";
 import { cn } from "@/lib/utils";
 import Trending from "@/components/components/trending";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
 import ReceiveFeedback from "@/components/components/receive-feedback";
-import Link from "next/link";
 import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
+
+export const metadata: Metadata = {
+  title: "Địa điểm du lịch - KoKoTravel",
+};
+
 const HomePage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-4 lg:gap-6 ">

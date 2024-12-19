@@ -119,7 +119,7 @@ const Account = () => {
               >
                 <div
                   className={cn(
-                    "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
+                    "w-7 h-7 lg:w-8 lg:h-8 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
                   {user.hasImge && user.images ? (
@@ -128,7 +128,7 @@ const Account = () => {
                       width={600}
                       height={600}
                       alt="avatar-user"
-                      className="rounded-full object-contain h-[40px] lg:h-auto"
+                      className="rounded-full object-contain h-[39px] lg:h-auto"
                     />
                   ) : (
                     <Image
@@ -136,7 +136,7 @@ const Account = () => {
                       width={600}
                       height={600}
                       alt="avatar-user"
-                      className="rounded-full object-contain h-[40px] lg:h-auto"
+                      className="rounded-full  object-contain h-[39px] lg:h-auto"
                     />
                   )}
                 </div>

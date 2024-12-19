@@ -2,6 +2,12 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 import FormLogin from "../form-login";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Đăng nhập - KoKoTravel",
+};
+
 const SignInPage = () => {
   return (
     <div

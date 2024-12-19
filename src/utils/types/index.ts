@@ -61,3 +61,6 @@ export type CommentProps = {
   nameShow: string;
   commentDate: Date;
 };
+export type PropsGenerateMetaData = {
+  params: Promise<{ slug: string }>;
+};

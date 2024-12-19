@@ -41,7 +41,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
     >
       <SheetContent
         side="bottom"
-        className="h-[80vh] w-full  z-[50]  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
+        className="h-full w-full z-[50] overflow-y-auto  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
       >
         <SheetHeader className="text-start w-full">
           <SheetTitle className="text-normal+ font-semibold text-start w-fit flex items-start justify-start">
@@ -65,7 +65,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             }}
           />
         </div>
-        <div className="w-full max-h-[300px] overflow-y-scroll  bg-white rounded-8 mt-[15%] mb-[10%]">
+        <div className="w-full max-h-[300px] overflow-y-scroll  bg-white rounded-8 mt-[15%] mb-[5%]">
           {data && data.length > 0 ? (
             data.map((item, index) => (
               <div

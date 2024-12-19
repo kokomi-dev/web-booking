@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Metadata } from "next";
 
 import bannerSearch from "@/assets/images/pre-hotel.jpg";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,11 @@ import Trending from "@/components/components/trending";
 import Rules from "@/components/dashboard/hotels/rules";
 import { RULES_DEMO } from "@/components/dashboard/constants";
 import ReceiveFeedback from "@/components/components/receive-feedback";
+
+export const metadata: Metadata = {
+  title: "Lưu trú - KoKoTravel",
+};
+
 const HotelPage = () => {
   return (
     <div className="w-full h-full flex  flex-col items-center justify-between gap-4  lg:gap-6 ">
