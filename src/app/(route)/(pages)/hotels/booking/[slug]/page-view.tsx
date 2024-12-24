@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Check, Star, UserRound } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 
 import {
   Breadcrumb,
@@ -19,7 +19,7 @@ import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import { sendEmailConfirm } from "@/api/api-email";
 import { HotelData } from "@/utils/types";
-import { convertVND } from "@/utils/constants";
+import { convertVND, timeListBooking } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { getDetailHotel } from "@/api/api-hotels";
 import { z } from "zod";
@@ -50,48 +50,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
-import Image from "next/image";
-const ModalConfirmCode = dynamic(
-  () => import("@/components/components/modal-code")
-);
-const timeList = [
-  {
-    value: "0",
-    label: "Tôi chưa rõ",
-  },
-  {
-    value: "01.00 - 05.00",
-    label: "01.00 - 05.00",
-  },
-  {
-    value: "05.00 - 07.00",
-    label: "05.00 - 07.00",
-  },
-  {
-    value: "07.00 - 10.00",
-    label: "07.00 - 10.00",
-  },
-  {
-    value: "10.00 - 13.00",
-    label: "10.00 - 13.00",
-  },
-  {
-    value: "13.00 - 15.00",
-    label: "13.00 - 15.00",
-  },
-  {
-    value: "15.00 - 17.00",
-    label: "15.00 - 17.00",
-  },
-  {
-    value: "17.00 - 20.00",
-    label: "17.00 - 20.00",
-  },
-  {
-    value: "20.00 - 24.00",
-    label: "20.00 - 24.00",
-  },
-];
+import ModalConfirmCode from "@/components/components/modal-code";
 
 const BookingHotel = () => {
   const { slug } = useParams<{
@@ -565,7 +524,7 @@ const BookingHotel = () => {
                                   className="w-[200px] justify-between font-normal"
                                 >
                                   {value
-                                    ? timeList.find(
+                                    ? timeListBooking.find(
                                         (time) => time.value === value
                                       )?.label
                                     : "Vui lòng chọn..."}
@@ -577,7 +536,7 @@ const BookingHotel = () => {
                                   <CommandList>
                                     <CommandEmpty>No time found.</CommandEmpty>
                                     <CommandGroup>
-                                      {timeList.map((time) => (
+                                      {timeListBooking.map((time) => (
                                         <CommandItem
                                           className="hover:cursor-pointer hover:bg-bg_primary_white"
                                           key={time.value}

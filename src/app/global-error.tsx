@@ -14,10 +14,13 @@ export default function GlobalError({
       <body>
         <div className="w-full h-full flex items-center justify-center">
           <div className="w-[400px] h-[200px] ">
-            <h2 className="text-largest text-blue_main_sub font-semibold">
+            <h2 className="text-largest text-blue_main_sub font-semibold text-center">
               Đã xảy ra lỗi!
             </h2>
-            <Button onClick={() => reset()} className="text-black text-medium">
+            <Button
+              onClick={() => reset()}
+              className="text-black text-medium text-center"
+            >
               Thử lại
             </Button>
           </div>

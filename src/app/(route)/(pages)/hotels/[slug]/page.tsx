@@ -117,12 +117,7 @@ const DetailHotelPage = async ({
           <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 ">
             <div className="w-full h-auto grid gap-y-4 pr-4">
               <CardText title="Mô tả về chúng tôi ">
-                <p
-                  title="Chi tiêt"
-                  className="list-none text-justify text-small "
-                >
-                  <DisplayDocs docs={data.details} />
-                </p>
+                <DisplayDocs docs={data.details} />
               </CardText>
               {/* healthy */}
               {data.includes.length > 0 && (

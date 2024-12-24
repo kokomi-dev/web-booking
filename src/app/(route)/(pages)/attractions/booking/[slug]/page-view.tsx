@@ -34,9 +34,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-const ModalConfirmCode = dynamic(
-  () => import("@/components/components/modal-code")
-);
+import ModalConfirmCode from "@/components/components/modal-code";
 const BookingAttraction = () => {
   const { slug } = useParams<{
     slug: string;
@@ -360,7 +358,7 @@ const BookingAttraction = () => {
                 >
                   <DialogTitle></DialogTitle>
                   <ModalConfirmCode
-                    totalBooking={totalBooking}
+                    totalBooking={totalBooking()}
                     code={confirm?.code}
                     lastName={user ? user.lastname : ""}
                     email={user ? user.email : ""}
