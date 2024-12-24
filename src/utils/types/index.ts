@@ -64,3 +64,9 @@ export type CommentProps = {
 export type PropsGenerateMetaData = {
   params: Promise<{ slug: string }>;
 };
+export type ItemBookedProps = {
+  index: number;
+  booked: any;
+  data: any;
+  status: any;
+};

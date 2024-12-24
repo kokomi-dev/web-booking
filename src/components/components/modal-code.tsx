@@ -34,13 +34,11 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
 
   const [value, setValue] = useState("");
   const router = useRouter();
-
   const handleConfirm = async () => {
-    const total = totalBooking();
     try {
       if (value == code && user) {
         const result = await createRequestPayment({
-          amount: parseFloat(removeDots(total)),
+          amount: parseFloat(removeDots(totalBooking)),
           userId: user._id,
           tripId,
           category,

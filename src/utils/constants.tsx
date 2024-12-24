@@ -84,11 +84,49 @@ const removeEmptyLines = (text: string) => {
     .filter((line) => line.trim() !== "")
     .join("\n");
 };
-
+const timeListBooking = [
+  {
+    value: "0",
+    label: "Tôi chưa rõ",
+  },
+  {
+    value: "01.00 - 05.00",
+    label: "01.00 - 05.00",
+  },
+  {
+    value: "05.00 - 07.00",
+    label: "05.00 - 07.00",
+  },
+  {
+    value: "07.00 - 10.00",
+    label: "07.00 - 10.00",
+  },
+  {
+    value: "10.00 - 13.00",
+    label: "10.00 - 13.00",
+  },
+  {
+    value: "13.00 - 15.00",
+    label: "13.00 - 15.00",
+  },
+  {
+    value: "15.00 - 17.00",
+    label: "15.00 - 17.00",
+  },
+  {
+    value: "17.00 - 20.00",
+    label: "17.00 - 20.00",
+  },
+  {
+    value: "20.00 - 24.00",
+    label: "20.00 - 24.00",
+  },
+];
 export {
   ratingConvert,
   convertVND,
   isValidEmail,
   scrollToView,
   removeEmptyLines,
+  timeListBooking,
 };

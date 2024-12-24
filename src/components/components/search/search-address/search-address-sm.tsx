@@ -37,11 +37,15 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
       open={open2}
       onOpenChange={(isOpen) => {
         setOpen2(isOpen);
+        if (isOpen === false) {
+          setValue("");
+          setValueSearch("");
+        }
       }}
     >
       <SheetContent
-        side="bottom"
-        className="h-full w-full z-[50] overflow-y-auto  bg-white text-black flex flex-col items-center justify-start  p-4 pb-6"
+        side="top"
+        className="min-h-[60vh] h-auto w-full z-[50] overflow-y-auto  bg-white text-black flex flex-col items-center justify-start p-4 pb-6"
       >
         <SheetHeader className="text-start w-full">
           <SheetTitle className="text-normal+ font-semibold text-start w-fit flex items-start justify-start">
@@ -49,7 +53,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
           </SheetTitle>
           <SheetDescription aria-describedby={undefined}></SheetDescription>
         </SheetHeader>
-        <div className="absolute top-10 left-0 right-0 translate-x-[5%] translate-y-[30%] w-[90%]  mt-2 flex overflow-y-auto items-center justify-start gap-x-2 border-1 border-black_sub outline-blue_main_sub p-1 rounded-8 text-black">
+        <div className=" w-full h-full  mt-2 flex overflow-y-auto items-center justify-start gap-x-2 border-1 border-black_sub outline-blue_main_sub p-1 rounded-8 text-black">
           <Search className="w-5 h-5 ml-1" />
           <InputDebounce
             ref={inputRef}
