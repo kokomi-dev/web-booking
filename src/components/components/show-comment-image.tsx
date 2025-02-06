@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { Dot, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import SheetShowComments from "./sheet-show";
 
 interface IShowCommentsImage {

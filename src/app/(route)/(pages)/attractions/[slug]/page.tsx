@@ -6,10 +6,10 @@ import type { Metadata } from "next";
 
 import { getDetailAttraction } from "@/api/api-attractions";
 import CardText from "@/components/components/card-text";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { apiUrl } from "@/api/api-attractions";
 import BookingContainer from "@/components/dashboard/attraction/booking-container";
-import { AttractionData, PropsGenerateMetaData } from "@/utils/types";
+import { AttractionData, PropsGenerateMetaData } from "@/types";
 import ScheduleDisplay from "@/components/components/display-schedule";
 
 import Comments from "@/components/components/comments";

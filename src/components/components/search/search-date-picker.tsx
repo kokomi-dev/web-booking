@@ -4,11 +4,11 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 
-import { SearchDatePickerProps } from "@/utils/types/search";
+import { SearchDatePickerProps } from "@/types/search";
 import SearchDatePickerLG from "./search-date-picker/search-date-picker-lg";
 import SearchDatePickerSM from "./search-date-picker/search-date-picker-sm";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
   date,

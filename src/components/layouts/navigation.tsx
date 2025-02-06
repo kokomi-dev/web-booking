@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { NAVIGATIONS } from "@/utils/constants";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { useSidebarStore } from "@/store/sidebar-store";
 import { useRef } from "react";
 const Navigation = () => {

@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 const ratingConvert = (rating: number) => {
   if (rating >= 5) {
     return <span className="font-bold text-smallest ">Rất tuyệt vời</span>;
@@ -122,6 +125,13 @@ const timeListBooking = [
     label: "20.00 - 24.00",
   },
 ];
+const cn = (...inputs: ClassValue[]) => {
+  return twMerge(clsx(inputs));
+};
+const removeDots = (numberStr: string) => {
+  return numberStr.replace(/\./g, "");
+};
+
 export {
   ratingConvert,
   convertVND,
@@ -129,4 +139,6 @@ export {
   scrollToView,
   removeEmptyLines,
   timeListBooking,
+  cn,
+  removeDots,
 };

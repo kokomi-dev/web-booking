@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { SearchDatePickerSMProps } from "@/utils/types/search";
+import { SearchDatePickerSMProps } from "@/types/search";
 import ButtonEnd from "../button-end";
 
 const SearchDatePickerSM: React.FC<SearchDatePickerSMProps> = ({

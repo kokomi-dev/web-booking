@@ -3,7 +3,7 @@ import React from "react";
 import { DebounceInput } from "react-debounce-input";
 import clsx from "clsx";
 
-import { InputDebounceProps } from "@/utils/types/component-types";
+import { InputDebounceProps } from "@/types/component-types";
 
 const InputDebounce = React.forwardRef<HTMLInputElement, InputDebounceProps>(
   (

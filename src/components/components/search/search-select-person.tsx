@@ -2,11 +2,11 @@
 import { ChevronDown, Dot, User } from "lucide-react";
 import { useState } from "react";
 
-import { SearchSelectPersonProps } from "@/utils/types/search";
+import { SearchSelectPersonProps } from "@/types/search";
 import SearchSelectPersonLG from "./search-select-person/search-select-person-lg";
 import SearchSelectPersonSM from "./search-select-person/search-select-person-sm";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const SearchSelectPerson = ({
   className,

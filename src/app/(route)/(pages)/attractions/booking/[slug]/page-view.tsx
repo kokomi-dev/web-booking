@@ -5,12 +5,12 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Loading from "@/app/loading";
 import { formatPrice } from "@/components/components/item-component";
 import { Button } from "@/components/ui/button";
 import { sendEmailConfirm } from "@/api/api-email";
-import { AttractionData } from "@/utils/types";
+import { AttractionData } from "@/types";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { z } from "zod";
 import { useForm } from "react-hook-form";

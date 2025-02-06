@@ -1,28 +1,31 @@
 "use client";
 
-import * as Clerk from "@clerk/elements/common";
-import * as SignIn from "@clerk/elements/sign-in";
-import React, { useState } from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { reqLogin } from "@/api/api-auth";
+import ButtonShowPassWord from "@/components/auth/button-show-password";
+import { LoadingPage } from "@/components/components/loading";
+import { Button } from "@/components/ui/button";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "react-toastify";
-import { reqLogin } from "@/api/api-auth";
-import { useAuthenticatedStore } from "@/store/authencation-store";
-import { useRouter } from "next/navigation";
-import { LoadingPage } from "@/components/components/loading";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+import * as Clerk from "@clerk/elements/common";
+import * as SignIn from "@clerk/elements/sign-in";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
+import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { z } from "zod";
 
 const signInBody = z
   .object({
@@ -43,43 +46,41 @@ export default function SignInPage() {
       password: "",
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { setIsAuthenticated, setUserLogined } = useAuthenticatedStore();
-
+  const mutationLogin = useMutation({
+    mutationFn: reqLogin,
+  });
   const onSubmit = async (data: SignupFormData) => {
     try {
-      setIsLoading(true);
-      const result = await reqLogin(data);
-
-      if (result.code === 404) {
-        toast.error(result.message, {
-          className: "toast-error",
-        });
-        return;
-      }
-      if (result.token) {
-        toast.success("Đăng nhập thành công");
-        setIsAuthenticated();
-        setUserLogined(result);
-        localStorage.setItem("token", result.token);
-        if (remember) {
-          localStorage.setItem("email-remember", result.user.email);
-        } else {
-          localStorage.removeItem("email-remember");
-        }
-        router.replace("/home");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Có lỗi xảy ra, vui lòng thử lại.");
-    } finally {
-      setIsLoading(false);
-    }
+      mutationLogin.mutate(data, {
+        onSuccess: async (res) => {
+          const userData = res.data.user;
+          setIsAuthenticated();
+          setUserLogined({
+            id: userData._id,
+            name: userData.firstname + " " + userData.lastname,
+            accessToken: res.data.accessToken,
+            refreshToken: res.data.refreshToken,
+            ...userData,
+          }),
+            localStorage.setItem("accessToken", res.data.accessToken);
+          Cookies.set("refreshToken", res.data.refreshToken);
+          Cookies.set("userId", userData._id);
+          router.push("/home");
+          toast.success("Đăng nhập thành công!");
+        },
+        onError: async (err) => {
+          console.log(err);
+          toast.error("Lỗi khi đăng nhập. Liên hệ quản trị viên!");
+        },
+      });
+    } catch (err) {}
   };
 
-  if (isLoading) {
+  if (mutationLogin.isPending) {
     return <LoadingPage />;
   }
   return (
@@ -110,7 +111,17 @@ export default function SignInPage() {
                 <FormItem>
                   <FormLabel className="text-normal">Mật khẩu</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Mật khẩu" {...field} />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Nhập lại mật khẩu"
+                        {...field}
+                      />
+                      <ButtonShowPassWord
+                        show={showPassword}
+                        setShow={setShowPassword}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>

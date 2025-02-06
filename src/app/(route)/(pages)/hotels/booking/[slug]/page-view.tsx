@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
 import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData } from "@/utils/types";
+import { HotelData } from "@/types";
 import { convertVND, timeListBooking } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { getDetailHotel } from "@/api/api-hotels";

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-attractions";
 import ShowResult from "@/components/components/show-result";
-import { cn } from "@/lib/utils";
-import { AttractionData } from "@/utils/types";
+import { cn } from "@/utils/constants";
+import { AttractionData } from "@/types";
 import { convertToSlug } from "@/utils/constants";
 
 const SearchResultPage = () => {

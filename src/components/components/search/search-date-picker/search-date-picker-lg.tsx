@@ -3,7 +3,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 
-import { SearchDatePickerLGProps } from "@/utils/types/search";
+import { SearchDatePickerLGProps } from "@/types/search";
 import {
   Popover,
   PopoverContent,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
   date,

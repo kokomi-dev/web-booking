@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { ButtonShowPassWordProps } from "@/utils/types/component-types";
+import { ButtonShowPassWordProps } from "@/types/component-types";
 const ButtonShowPassWord: React.FC<ButtonShowPassWordProps> = ({
   show,
   setShow,

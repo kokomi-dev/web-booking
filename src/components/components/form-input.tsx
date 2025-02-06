@@ -2,7 +2,7 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { Asterisk } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 interface FormInputProps {
   title: string;

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotels";
-import { HotelData } from "@/utils/types";
+import { HotelData } from "@/types";
 
 const ListAllHotels = async () => {
   const result = await getAllHotel();

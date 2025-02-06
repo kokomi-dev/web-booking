@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 
 import { ADDRESS_TRENDING } from "@/components/dashboard/constants";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { LoadingImg } from "@/components/components/loading";
 
 interface ITrending {

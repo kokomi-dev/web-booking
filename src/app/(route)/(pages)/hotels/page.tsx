@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 import bannerSearch from "@/assets/images/pre-hotel.jpg";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import ListAllHotels from "@/components/dashboard/hotels/list-hotels";
 import Trending from "@/components/components/trending";
 import Rules from "@/components/dashboard/hotels/rules";

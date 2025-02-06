@@ -5,7 +5,7 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 
 import { getAttractionBooked } from "@/api/api-attractions";
 import { checkOrderPayment } from "@/api/api-payment";
-import { AttractionData } from "@/utils/types";
+import { AttractionData } from "@/types";
 import Loading from "@/app/loading";
 import { Accordion } from "@/components/ui/accordion";
 import ItemBooked from "./item-booked";

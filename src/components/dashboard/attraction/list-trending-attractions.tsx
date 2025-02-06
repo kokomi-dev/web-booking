@@ -7,8 +7,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import ItemCard from "../../components/item-component";
-import { cn } from "@/lib/utils";
-import { AttractionData } from "@/utils/types";
+import { cn } from "@/utils/constants";
+import { AttractionData } from "@/types";
 const fechData = async () => {
   const data = await getAttractionTrending();
   return data.data;

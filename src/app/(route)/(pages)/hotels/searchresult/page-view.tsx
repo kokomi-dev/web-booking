@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-import { cn } from "@/lib/utils";
-import { HotelData } from "@/utils/types";
+import { cn } from "@/utils/constants";
+import { HotelData } from "@/types";
 import { convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
 import ShowResult from "@/components/dashboard/hotels/show-result";

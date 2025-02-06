@@ -2,7 +2,7 @@ import { ChevronRight, MailWarning } from "lucide-react";
 import { Metadata } from "next";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const stay = [

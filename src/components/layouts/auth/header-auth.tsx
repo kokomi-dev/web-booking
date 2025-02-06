@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type Props = {};
-
-export default function HeaderAuth({}: Props) {
+export default function HeaderAuth() {
   const pathname = usePathname();
   return (
     <div>

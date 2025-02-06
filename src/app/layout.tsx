@@ -12,6 +12,8 @@ import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
 import Head from "next/head";
 import { LoadingPage } from "@/components/components/loading";
+import { DialogSales } from "@/components/components/dialog-sales";
+import QueryProvider from "@/configs/providerQuery";
 const roboto = Roboto({
   subsets: ["vietnamese"],
   weight: ["100", "300", "400", "500", "700"],
@@ -30,24 +32,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={viVN}>
-      <html lang="en" suppressHydrationWarning style={{}}>
-        <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
-          />
-        </Head>
-        <body suppressHydrationWarning={true}>
-          <ClerkLoading>
-            <LoadingPage />
-          </ClerkLoading>
-          {children}
-          <ToastContainer autoClose={1500} />
-          <Chat />
-          <PingServer />
-        </body>
-      </html>
-    </ClerkProvider>
+    <QueryProvider>
+      <ClerkProvider localization={viVN}>
+        <html lang="en" suppressHydrationWarning style={{}}>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+            />
+          </Head>
+          <body suppressHydrationWarning={true}>
+            <ClerkLoading>
+              <LoadingPage />
+            </ClerkLoading>
+            {/* <DialogSales /> */}
+            {children}
+            <ToastContainer autoClose={1500} />
+            <Chat />
+            <PingServer />
+          </body>
+        </html>
+      </ClerkProvider>
+    </QueryProvider>
   );
 }

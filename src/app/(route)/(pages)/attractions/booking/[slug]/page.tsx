@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 
 import BookingAttraction from "./page-view";
-import { PropsGenerateMetaData } from "@/utils/types";
+import { PropsGenerateMetaData } from "@/types";
 import { apiUrl } from "@/api/api-attractions";
 
 export async function generateMetadata({

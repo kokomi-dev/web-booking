@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FormInput from "./form-input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { reqUpdateUser } from "@/api/api-auth";
 import { useState } from "react";
 import { toast } from "react-toastify";

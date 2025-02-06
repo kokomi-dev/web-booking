@@ -1,6 +1,6 @@
 import React from "react";
 import BookingHotel from "./page-view";
-import { PropsGenerateMetaData } from "@/utils/types";
+import { PropsGenerateMetaData } from "@/types";
 import { Metadata } from "next";
 import { apiUrl } from "@/api/api-hotels";
 

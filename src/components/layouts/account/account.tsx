@@ -1,17 +1,6 @@
 "use client";
-import Link from "next/link";
-import { Button } from "../../ui/button";
-import { useAuthenticatedStore } from "@/store/authencation-store";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Fragment, Suspense, useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { reqCurrentUser } from "@/api/api-auth";
+import { LoadingComponentAccount } from "@/components/components/loading";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,30 +12,47 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+import { cn } from "@/utils/constants";
+import { useClerk, useUser } from "@clerk/nextjs";
+import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import {
+  BadgeDollarSign,
   BookmarkCheck,
   CalendarCheck,
   CircleUserIcon,
   LogOut,
   UserRound,
 } from "lucide-react";
-import { reqCurrentUser, reqLogout } from "@/api/api-auth";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Fragment, Suspense, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { LoadingComponentAccount } from "../../components/loading";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { SignOutButton, useUser, useClerk } from "@clerk/nextjs";
 
 const Account = () => {
+  const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
+
   const { signOut } = useClerk();
   const { isLoaded, isSignedIn, user: userClerk } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const userId = Cookies.get("userId");
   const {
     setUserLogined,
     user,
@@ -54,9 +60,7 @@ const Account = () => {
     isAuthenticated,
     setLogout,
   } = useAuthenticatedStore();
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const getCurrentUser = async () => {
       setLoading(true);
       try {
@@ -73,13 +77,20 @@ const Account = () => {
             images: userClerk.imageUrl,
             bookedAttractions: [],
             bookedHotels: [],
+            isNewbie: true,
+            isActive: true,
           });
-        } else if (token) {
-          const fetchData = await reqCurrentUser();
-          if (fetchData) {
-            setUserLogined({ ...fetchData.user, source: "normal" });
-            setIsAuthenticated();
-          }
+        } else if (userId) {
+          mutaionDataUser.mutate(userId, {
+            onSuccess: async (res) => {
+              const userData = res.data.user;
+              setUserLogined({ ...userData });
+              setIsAuthenticated();
+            },
+            onError: async (error) => {
+              console.log(error);
+            },
+          });
         }
       } catch (error) {
       } finally {
@@ -90,16 +101,15 @@ const Account = () => {
   }, [isSignedIn]);
 
   const handleLogout = async () => {
-    const data = await reqLogout();
-    if (data && data.code === 200) {
-      setLogout();
-      localStorage.removeItem("token");
-      router.refresh();
-      toast.success("Đăng xuất thành công");
-    }
+    localStorage.removeItem("accessToken");
+    Cookies.remove("userId");
+    Cookies.remove("refreshToken");
+    router.push("/home");
+    setLogout();
+    toast.success("Đăng xuất thành công!");
   };
 
-  if (loading || !isLoaded) {
+  if (loading || !isLoaded || mutaionDataUser.isPending) {
     return <LoadingComponentAccount />;
   }
   return (
@@ -154,7 +164,7 @@ const Account = () => {
                     </span>
                   </div>
                   <div className="text-start">
-                    <span className="text-[0.7rem] text-yellow_main">
+                    <span className="text-[0.7rem] text-yellow_main selec">
                       Genius Cấp 1
                     </span>
                   </div>
@@ -197,6 +207,18 @@ const Account = () => {
                   >
                     <BookmarkCheck className="w-5 h-5 mr-2" />
                     <span>Đã lưu</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setOpen(false)}
+                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
+                >
+                  <Link
+                    className="w-full flex items-center justify-start"
+                    href={`home/genius/${user._id}`}
+                  >
+                    <BadgeDollarSign className="w-5 h-5 mr-2" />
+                    <span>Ưu đãi của bạn</span>
                   </Link>
                 </DropdownMenuItem>
                 <AlertDialog>

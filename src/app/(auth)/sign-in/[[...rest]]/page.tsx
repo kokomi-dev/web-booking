@@ -1,6 +1,6 @@
 import React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import FormLogin from "../form-login";
 import { Metadata } from "next";
 

@@ -22,7 +22,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useSidebarStore } from "@/store/sidebar-store";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 const MobileSidebar = () => {
   const { isOpen, handleClose, handleCloseOrModal } = useSidebarStore();
   const pathname = usePathname();

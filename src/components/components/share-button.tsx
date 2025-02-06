@@ -13,7 +13,7 @@ import {
 } from "react-share";
 
 import React from "react";
-import { ShareButtonProps } from "@/utils/types";
+import { ShareButtonProps } from "@/types";
 import { Button } from "../ui/button";
 import { Share2 } from "lucide-react";
 import {
@@ -26,7 +26,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const ShareButton: React.FC<ShareButtonProps> = ({ model, slug, title }) => {
   const shareUrl = process.env.NEXT_PUBLIC_BASE_URL + "/" + model + "/" + slug;
