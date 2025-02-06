@@ -1,6 +1,6 @@
 import FooterAccount from "@/components/layouts/account/footer-account";
 import HeaderAccount from "@/components/layouts/account/header-account";
-import { AuthLayoutProp } from "@/utils/types/auth";
+import { AuthLayoutProp } from "@/types/auth";
 import React from "react";
 
 const AccountLayout: React.FC<AuthLayoutProp> = ({ children }) => {

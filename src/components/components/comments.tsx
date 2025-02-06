@@ -15,7 +15,7 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { deleteComment, sendComment } from "@/api/api-comment";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { LoadingItemComment } from "./loading";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
@@ -28,7 +28,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { CommentProps } from "@/utils/types";
+import { CommentProps } from "@/types";
 import { Card } from "../ui/card";
 
 interface IComments {

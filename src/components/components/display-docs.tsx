@@ -1,6 +1,6 @@
 "use client";
 
-import { DisplayDoc } from "@/utils/types/component-types";
+import { DisplayDoc } from "@/types/component-types";
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Minimize2, MoveDiagonal } from "lucide-react";

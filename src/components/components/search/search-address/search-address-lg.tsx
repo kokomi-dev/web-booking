@@ -1,13 +1,13 @@
 import React from "react";
 import { MapPinned, Search } from "lucide-react";
 
-import { SearchAddressLGProps } from "@/utils/types/search";
+import { SearchAddressLGProps } from "@/types/search";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { Button } from "@/components/ui/button";
 import InputDebounce from "../../input-debounce";
 import { ADDRESS_TRENDING } from "@/components/dashboard/constants";

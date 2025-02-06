@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ItemBookedProps } from "@/utils/types";
+import { ItemBookedProps } from "@/types";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Button } from "@/components/ui/button";

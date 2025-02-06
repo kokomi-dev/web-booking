@@ -3,7 +3,7 @@ import { BadgeHelp } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Account from "@/components/layouts/account/account";
 import MobileSidebar from "../mobile-sidebar";
 

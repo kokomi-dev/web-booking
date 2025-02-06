@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
-import { cn } from "@/lib/utils";
-import { AttractionData } from "@/utils/types";
+import { cn } from "@/utils/constants";
+import { AttractionData } from "@/types";
 import ShowOnMap from "@/components/components/show-on-map";
 import {
   LoadingItemSearch,
@@ -23,7 +23,7 @@ import {
 import SheetShowFilter from "@/components/components/sheet-show-filter";
 import FilterComponent from "@/components/components/filter-item";
 import { filterBar, filter1, filter2, filter3 } from "../dashboard/constants";
-import { ShowResultPropsAttraction } from "@/utils/types/component-types";
+import { ShowResultPropsAttraction } from "@/types/component-types";
 
 interface IHandleFilterData {
   data: AttractionData[];

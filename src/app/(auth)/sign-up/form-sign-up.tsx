@@ -1,26 +1,26 @@
 "use client";
-import React, { useState } from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import ButtonShowPassWord from "@/components/auth/button-show-password";
+import { LoadingPage } from "@/components/components/loading";
+import { Button } from "@/components/ui/button";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { reqRegiter } from "@/api/api-auth";
-import { useRouter } from "next/navigation";
-import { LoadingPage } from "@/components/components/loading";
-import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
-import ButtonShowPassWord from "@/components/auth/button-show-password";
-
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { reqRegiter } from "@/api/api-auth";
 const signUpBody = z
   .object({
     firstname: z.string().min(6, "Vui lòng nhập họ, tên đệm ").max(100),
@@ -64,40 +64,43 @@ const FormSignUp: React.FC = () => {
       confirmPassword: "",
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
-
+  const mutationRegister = useMutation({
+    mutationFn: reqRegiter,
+  });
   const onSubmit = async (data: SignupFormData) => {
     if (checked === false) {
       return toast.warning("Điều khoản dịch vụ của chúng tôi", {
         className: "toast-warning",
       });
     }
-    setIsLoading(true);
     try {
-      // const result = await reqRegiter(data);
-      // if (result.code === 401) {
-      //   return toast.error("Lỗi khi tạo mới tài khoản", {
-      //     className: "toast-error",
-      //   });
-      // }
-      // if (result) {
-      //   toast.success("Tạo tài khoản thành công", {
-      //     className: "toast-success",
-      //   });
-      //   return router.replace("/sign-in");
-      // }
+      mutationRegister.mutate(
+        { ...data, groupId: ["6"], roles: "custommer" },
+        {
+          onSuccess: async (res) => {
+            if (res.status === 200) {
+              console.log(res);
+              toast.success("Tạo tài khoản thành công");
+              router.push("/sign-in");
+            }
+          },
+          onError: async (err) => {
+            toast.error(
+              "Lỗi khi tạo tài khoản. Liên hệ quản trị viên qua hotline"
+            );
+          },
+        }
+      );
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
-  if (isLoading) {
-    <LoadingPage />;
+  if (mutationRegister.isPending) {
+    return <LoadingPage />;
   }
   return (
     <Form {...form}>

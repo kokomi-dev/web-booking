@@ -38,6 +38,8 @@ export interface User {
       img: string;
     }
   ];
+  isActive: boolean;
+  isNewbie: boolean;
 }
 
 interface AuthenticatedStoreProps {

@@ -14,7 +14,7 @@ import {
 } from "react-icons/ai";
 import { Button } from "../../ui/button";
 import { formatPrice } from "../../components/item-component";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,

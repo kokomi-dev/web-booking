@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 import React from "react";
 import { RULES_HOTEL } from "../constants";

@@ -10,11 +10,11 @@ import {
 
 import { apiUrl, getDetailHotel } from "@/api/api-hotels";
 import CardText from "@/components/components/card-text";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 import Info from "@/components/dashboard/hotels/info";
 import Booking from "@/components/dashboard/hotels/booking";
-import { HotelData, PropsGenerateMetaData } from "@/utils/types";
+import { HotelData, PropsGenerateMetaData } from "@/types";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Comments from "@/components/components/comments";
 import ShowOnMap from "@/components/components/show-on-map";

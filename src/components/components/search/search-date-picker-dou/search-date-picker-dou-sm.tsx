@@ -2,7 +2,7 @@ import React from "react";
 import { vi } from "date-fns/locale";
 
 import { Calendar } from "@/components/ui/calendar";
-import { SearchDatePickerDouSMProps } from "@/utils/types/search";
+import { SearchDatePickerDouSMProps } from "@/types/search";
 
 import {
   Sheet,

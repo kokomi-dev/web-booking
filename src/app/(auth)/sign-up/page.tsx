@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 
 import FormSignUp from "./form-sign-up";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 export const metadata: Metadata = {
   title: "Đăng ký - KoKoTravel",

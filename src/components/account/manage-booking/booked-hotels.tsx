@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 
 import { checkOrderPayment } from "@/api/api-payment";
-import { HotelData } from "@/utils/types";
+import { HotelData } from "@/types";
 import Loading from "@/app/loading";
 import { getHotelBooked } from "@/api/api-hotels";
 import { Accordion } from "@/components/ui/accordion";

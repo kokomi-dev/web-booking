@@ -7,8 +7,8 @@ import {
   CarouselPrevious,
 } from "../../ui/carousel";
 import { getAllAttraction } from "@/api/api-attractions";
-import { cn } from "@/lib/utils";
-import { AttractionData } from "@/utils/types";
+import { cn } from "@/utils/constants";
+import { AttractionData } from "@/types";
 
 const ListAttractions = async () => {
   const { data } = await getAllAttraction();

@@ -4,10 +4,10 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { useState } from "react";
 
-import { SearchDatePickerDouProps } from "@/utils/types/search";
+import { SearchDatePickerDouProps } from "@/types/search";
 import SearchDatePickerDouLG from "./search-date-picker-dou/search-date-picker-dou-lg";
 import SearchDatePickerDouSM from "./search-date-picker-dou/search-date-picker-dou-sm";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { Button } from "@/components/ui/button";
 
 const SearchDatePickerDou: React.FC<SearchDatePickerDouProps> = ({

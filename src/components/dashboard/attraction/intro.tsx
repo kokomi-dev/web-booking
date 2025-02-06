@@ -10,7 +10,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 const arrInfo: {
   id: number;
   icon: any;

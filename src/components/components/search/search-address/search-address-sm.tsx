@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { Search } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import InputDebounce from "../../input-debounce";
 import {
   Sheet,
@@ -13,7 +13,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-import { SearchAddressSMProps } from "@/utils/types/search";
+import { SearchAddressSMProps } from "@/types/search";
 import ButtonEnd from "../button-end";
 
 const SearchAddressSM: React.FC<SearchAddressSMProps> = ({

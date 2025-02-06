@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { titles, footerItemList } from "../constant";
 import Link from "next/link";
 interface FooterItemProps {

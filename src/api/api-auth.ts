@@ -1,75 +1,16 @@
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-
-interface reqRegisterProp {
-  firstname: string;
-  lastname: string;
-  email: string;
-  numberPhone: string;
-  password: string;
-}
-interface reqLoginProp {
-  email: string;
-  password: string;
-}
-
-interface reqUpdateProp {
-  firstname?: string | undefined;
-  lastname?: string | undefined;
-  password?: string;
-  passwordNew?: string;
-  passwordNewConfirm?: string;
-}
+import axiosClient from "@/configs/axiosClient/axiosClient";
+import { reqLoginProp, reqRegisterProp, reqUpdateProp } from "@/types/auth";
 
 const reqRegiter = async (data: reqRegisterProp) => {
-  try {
-    const response = await fetch(apiUrl + "/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
-
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return axiosClient.post("/auth/register", data);
 };
 
 const reqLogin = async (data: reqLoginProp) => {
-  try {
-    const response = await fetch(apiUrl + "/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return axiosClient.post("/auth/login", data);
 };
-const reqCurrentUser = async () => {
-  const token = localStorage.getItem("token");
-  try {
-    const response = await fetch(apiUrl + "/auth/get-current-user", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Lỗi HTTP! status: ${response.status}`);
-    }
-
-    // Chuyển đổi phản hồi thành JSON
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error(`Lỗi khi lấy thông tin người dùng hiện tại`);
-  }
+const reqCurrentUser = async (userId: string) => {
+  return axiosClient.post("/auth/get-current-user", { userId });
 };
 const reqUpdateUser = async (id: string | number, data: reqUpdateProp) => {
   try {

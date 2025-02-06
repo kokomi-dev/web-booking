@@ -19,7 +19,7 @@ import { createRequestPayment } from "@/api/api-payment";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { ModalConfirmCodeProps } from "@/utils/types/component-types";
+import { ModalConfirmCodeProps } from "@/types/component-types";
 
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   lastName,

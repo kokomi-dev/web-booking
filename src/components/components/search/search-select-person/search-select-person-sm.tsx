@@ -1,10 +1,10 @@
 import React from "react";
 
-import { SearchSelectPersonSMProps } from "@/utils/types/search";
+import { SearchSelectPersonSMProps } from "@/types/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import {
   Sheet,
   SheetContent,

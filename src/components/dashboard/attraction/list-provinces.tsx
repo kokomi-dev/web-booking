@@ -1,5 +1,5 @@
 import { getListProvinces } from "@/api/api-attractions";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Link from "next/link";
 import React from "react";
 

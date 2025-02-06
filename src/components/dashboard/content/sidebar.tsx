@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { LIST_SIDEBAR_ITEM } from "./constant";
 import { useRouter, useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const SidebarContent = () => {
   const router = useRouter();

@@ -2,12 +2,12 @@ import React from "react";
 import { ChevronDown, Dot, User } from "lucide-react";
 
 import { PopoverContent } from "@radix-ui/react-popover";
-import { SearchSelectPersonLGProps } from "@/utils/types/search";
+import { SearchSelectPersonLGProps } from "@/types/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
   className,
   numberAdults,

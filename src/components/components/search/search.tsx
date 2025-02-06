@@ -7,14 +7,14 @@ import Link from "next/link";
 import { cx } from "class-variance-authority";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SearchAddress from "./search-address";
 import SearchDatePicker from "./search-date-picker";
 import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
-import { HIDDEN_SEARCH, SearchContainerProp } from "@/utils/types/search";
+import { HIDDEN_SEARCH, SearchContainerProp } from "@/types/search";
 
 const Search: React.FC<SearchContainerProp> = ({
   className,
@@ -56,7 +56,7 @@ const Search: React.FC<SearchContainerProp> = ({
     (pathname.startsWith("/hotels/") && pathname !== "/hotels") ||
     (pathname.startsWith("/attractions/") && pathname !== "/attractions");
 
-  if (page === "home") {
+  if (page === "home" && !pathname.includes("genius")) {
     return (
       <div className="w-full h-full py-4 container-padding bg-transparent lg:bg-bg_primary_main ">
         <Tabs

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import { Skeleton } from "../ui/skeleton";
 
 const LoadingPage = () => {

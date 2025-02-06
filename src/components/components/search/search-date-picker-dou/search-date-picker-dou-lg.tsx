@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 
-import { SearchDatePickerDouLGProps } from "@/utils/types/search";
+import { SearchDatePickerDouLGProps } from "@/types/search";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 
 const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
   date,

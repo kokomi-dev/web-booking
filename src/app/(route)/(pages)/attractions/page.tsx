@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Intro from "@/components/dashboard/attraction/intro";
 import ListTrendingTour from "@/components/dashboard/attraction/list-trending-attractions";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/constants";
 import Trending from "@/components/components/trending";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
 import ReceiveFeedback from "@/components/components/receive-feedback";
