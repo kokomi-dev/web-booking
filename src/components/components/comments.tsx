@@ -1,4 +1,11 @@
 "use client";
+import { deleteComment, sendComment } from "@/api/api-comment";
+import { useAuthenticatedStore } from "@/store/authencation-store";
+import { CommentProps } from "@/types";
+import { cn } from "@/utils/constants";
+import { Popover, PopoverContent } from "@radix-ui/react-popover";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
 import {
   Dot,
   EllipsisVertical,
@@ -7,20 +14,12 @@ import {
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
-import React, { useCallback, useState } from "react";
 import Link from "next/link";
+import React, { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import useSWR, { mutate } from "swr";
 import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
-import { useAuthenticatedStore } from "@/store/authencation-store";
-import { deleteComment, sendComment } from "@/api/api-comment";
-import { cn } from "@/utils/constants";
-import { LoadingItemComment } from "./loading";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
-import { Popover, PopoverContent } from "@radix-ui/react-popover";
-import { PopoverTrigger } from "../ui/popover";
+import { Card } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -28,8 +27,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { CommentProps } from "@/types";
-import { Card } from "../ui/card";
+import { PopoverTrigger } from "../ui/popover";
+import { Textarea } from "../ui/textarea";
 
 interface IComments {
   category: string;

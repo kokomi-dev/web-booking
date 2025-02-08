@@ -10,100 +10,138 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
-    extend: {
-      colors: {
-        yellow_main: "#FFB700",
-        blue_main: "#003B96",
-        blue_main_sub: "#006CE4",
-        blue_sub: "#1E50A0",
-        black_main: "#111",
-        green_main: "#018235",
-        black_sub: "#4C4C4C",
-        black_sub_2: "#595959",
-        error_color: "#DB0200",
-      },
-      // backgroundImage: {
-      // 	bannerfix: 'url('../assets/images/banner2.jpg')',
-      // 	bannerfix_hotel: 'url('../assets/images/banner-hotel.jpg')'
-      // },
-      backgroundColor: {
-        bg_primary_main: "#003B96",
-        bg_primary_active: "#1E50A0",
-        bg_primary_hover: "#F1F6FE",
-        bg_primary_blue_sub: "#006CE4",
-        bg_primary_blue_sub2: "#F1F6FE",
-
-        bg_primary_yellow: "#FFB700",
-        bg_primary_green: "#018235",
-        bg_primary_white: "#f0f0f0",
-        bg_black_sub: "#F5F5F5",
-        sub: "#f0f0f0",
-      },
-      borderRadius: {
-        "8": "8px",
-        "14": "14px",
-        "24": "24px",
-      },
-      borderWidth: {
-        "1": "1px",
-        "0.5": "0.5px",
-        "1.2": "1.2px",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
-        "typing ": {
-          from: {
-            width: "0%",
-          },
-          to: {
-            width: "100%",
-          },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 1s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        typing: "typing 1s infinite",
-      },
-      gridTemplateColumns: {
-        "layout-2": "65% 35%",
-        "layout-3": "35% 65%",
-        "layout-4": "25% 75%",
-      },
-      fontSize: {
-        smallest: "0.82rem",
-        small: "0.92rem",
-        normal: "1rem",
-        "normal+": "1.1rem",
-        medium: "1.3rem",
-        large: "1.45rem",
-        largest: "2.2rem",
-      },
-      padding: {},
-      margin: {},
-    },
+  	container: {
+  		center: true,
+  		padding: '2rem',
+  		screens: {
+  			'2xl': '1400px'
+  		}
+  	},
+  	extend: {
+  		colors: {
+  			yellow_main: '#FFB700',
+  			blue_main: '#003B96',
+  			blue_main_sub: '#006CE4',
+  			blue_sub: '#1E50A0',
+  			black_main: '#111',
+  			green_main: '#018235',
+  			black_sub: '#4C4C4C',
+  			black_sub_2: '#595959',
+  			error_color: '#DB0200',
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		backgroundColor: {
+  			bg_primary_main: '#003B96',
+  			bg_primary_active: '#1E50A0',
+  			bg_primary_hover: '#F1F6FE',
+  			bg_primary_blue_sub: '#006CE4',
+  			bg_primary_blue_sub2: '#F1F6FE',
+  			bg_primary_yellow: '#FFB700',
+  			bg_primary_green: '#018235',
+  			bg_primary_white: '#f0f0f0',
+  			bg_black_sub: '#F5F5F5',
+  			sub: '#f0f0f0'
+  		},
+  		borderRadius: {
+  			'8': '8px',
+  			'14': '14px',
+  			'24': '24px',
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		borderWidth: {
+  			'1': '1px',
+  			'0.5': '0.5px',
+  			'1.2': '1.2px'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			},
+  			'typing ': {
+  				from: {
+  					width: '0%'
+  				},
+  				to: {
+  					width: '100%'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 1s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			typing: 'typing 1s infinite'
+  		},
+  		gridTemplateColumns: {
+  			'layout-2': '65% 35%',
+  			'layout-3': '35% 65%',
+  			'layout-4': '25% 75%'
+  		},
+  		fontSize: {
+  			smallest: '0.82rem',
+  			small: '0.92rem',
+  			normal: '1rem',
+  			'normal+': '1.1rem',
+  			medium: '1.3rem',
+  			large: '1.45rem',
+  			largest: '2.2rem'
+  		},
+  		padding: {},
+  		margin: {}
+  	}
   },
   plugins: [
     require("tailwind-scrollbar"),

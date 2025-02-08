@@ -40,6 +40,8 @@ export interface User {
   ];
   isActive: boolean;
   isNewbie: boolean;
+  roles: string;
+  groupId: [string];
 }
 
 interface AuthenticatedStoreProps {
