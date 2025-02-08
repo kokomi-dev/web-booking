@@ -10,6 +10,7 @@ export const HIDDEN_SEARCH = [
   "content",
   "account",
   "genius",
+  "blogs",
 ];
 export type DataAddressProps = {
   full_name: string;

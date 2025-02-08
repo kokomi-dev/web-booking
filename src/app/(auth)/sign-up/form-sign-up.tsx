@@ -83,7 +83,6 @@ const FormSignUp: React.FC = () => {
         {
           onSuccess: async (res) => {
             if (res.status === 200) {
-              console.log(res);
               toast.success("Tạo tài khoản thành công");
               router.push("/sign-in");
             }

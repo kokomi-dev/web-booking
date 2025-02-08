@@ -1,15 +1,15 @@
-import React from "react";
+import { cn } from "@/utils/constants";
 import { Check } from "lucide-react";
-import { cx } from "class-variance-authority";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
-import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import feedBack1 from "@/assets/images/feedback-1.jpeg";
 import feedBack2 from "@/assets/images/feedback-2.jpeg";
 import feedBack3 from "@/assets/images/feedback-3.jpeg";
-import SlideShowImage from "@/components/dashboard/homepage/slide-show";
+import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
+import ListBlogsTrending from "@/components/dashboard/blog/list-blogs-trending";
 import SalesCustommer from "@/components/dashboard/homepage/sales-custommer";
+import SlideShowImage from "@/components/dashboard/homepage/slide-show";
 function HomePage() {
   return (
     <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
@@ -18,7 +18,7 @@ function HomePage() {
       </section>
       {/* Điểm đến nổi bật */}
       <section className=" ">
-        <h2 className={cx("text-medium font-semibold mb-6", "lg:text-large")}>
+        <h2 className={cn("text-medium font-semibold mb-6", "lg:text-large")}>
           Điểm đến hàng đầu
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -173,42 +173,7 @@ function HomePage() {
       {/* Ưu đãi cho khách hàng mới */}
 
       {/* Bài viết & Mẹo du lịch */}
-      <section className="">
-        <h2 className="text-large font-semibold mb-6">
-          Mẹo du lịch & Bài viết
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="rounded-lg shadow-lg p-4 bg-white">
-            <h3 className="text-normal font-medium">
-              Thời điểm lý tưởng để thăm Việt Nam ?
-            </h3>
-            <p className="mt-2 text-small text-black_sub">
-              Tìm hiểu thời điểm và địa điểm tốt nhất để khám phá.
-            </p>
-            <button className="mt-4 text-blue-500 text-small">Đọc thêm</button>
-          </div>
-          <div className="rounded-lg shadow-lg p-4 bg-white">
-            <h3 className="text-normal font-medium">
-              Nên mang những gì để sang du lịch Việt Nam ?
-            </h3>
-            <p className="mt-2 text-small text-black_sub">
-              Nên xem trước khí hậu, địa hình nơi mà bạn muốn đến để sắp xếp đồ
-              đạc một cách hợp lí
-            </p>
-            <button className="mt-4 text-blue-500 text-small">Đọc thêm</button>
-          </div>{" "}
-          <div className="rounded-lg shadow-lg p-4 bg-white">
-            <h3 className="text-normal font-medium">
-              Đồ ăn Việt Nam hợp với mọi khách du lịch không ?
-            </h3>
-            <p className="mt-2 text-small text-black_sub">
-              Theo hầu hết đa số khách du lịch đến Việt Nam đều cho rằng ẩm thực
-              ở đây rất dễ ăn và ngon.
-            </p>
-            <button className="mt-4 text-blue-500 text-small">Đọc thêm</button>
-          </div>{" "}
-        </div>
-      </section>
+      <ListBlogsTrending />
     </div>
   );
 }

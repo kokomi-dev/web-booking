@@ -38,3 +38,13 @@ export type ShowResultPropsHotel = {
   isLoading: boolean;
   nameValue: string | null;
 };
+export interface BreadcrumbItemType {
+  label: string;
+  href?: string;
+}
+export interface IconProps {
+  children: React.ReactNode;
+  level?: number;
+  className?: string;
+  tooltip?: string;
+}

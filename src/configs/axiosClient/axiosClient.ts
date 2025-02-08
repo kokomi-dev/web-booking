@@ -9,7 +9,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   async (config) => {
-    const token = localStorage.getItem("accessToken");
+    const token = Cookies.get("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -42,7 +42,9 @@ axiosClient.interceptors.response.use(
         Cookies.remove("refreshToken");
         Cookies.remove("userId");
         localStorage.removeItem("accessToken");
-        window.location.href = "/login";
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
 
         return Promise.reject(error);
       }

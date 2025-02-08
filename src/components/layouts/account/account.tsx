@@ -43,6 +43,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, Suspense, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { CircleUser } from "lucide-react";
 
 const Account = () => {
   const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
@@ -79,6 +80,8 @@ const Account = () => {
             bookedHotels: [],
             isNewbie: true,
             isActive: true,
+            groupId: ["6"],
+            roles: "custommer",
           });
         } else if (userId) {
           mutaionDataUser.mutate(userId, {
@@ -104,8 +107,10 @@ const Account = () => {
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
     Cookies.remove("refreshToken");
-    router.push("/home");
     setLogout();
+    if (typeof window === undefined) {
+      window.location.reload();
+    }
     toast.success("Đăng xuất thành công!");
   };
 
@@ -123,7 +128,7 @@ const Account = () => {
                   "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
-                  "bg-bg_primary_active"
+                  "bg-bg_primary_active hover:bg-bg_primary_blue_sub"
                 )}
                 onClick={() => setOpen(!open)}
               >
@@ -132,23 +137,7 @@ const Account = () => {
                     "w-7 h-7 lg:w-8 lg:h-8 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
-                  {user.hasImge && user.images ? (
-                    <Image
-                      src={user.images}
-                      width={600}
-                      height={600}
-                      alt="avatar-user"
-                      className="rounded-full object-contain h-[39px] lg:h-auto"
-                    />
-                  ) : (
-                    <Image
-                      src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
-                      width={600}
-                      height={600}
-                      alt="avatar-user"
-                      className="rounded-full  object-contain h-[39px] lg:h-auto"
-                    />
-                  )}
+                  <CircleUser />
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                   <div
@@ -278,7 +267,7 @@ const Account = () => {
       ) : (
         <div className="flex items-center justify-center">
           <Link href={"/sign-in"} className="hidden lg:block">
-            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub">
+            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active">
               Đăng nhập
             </Button>
           </Link>

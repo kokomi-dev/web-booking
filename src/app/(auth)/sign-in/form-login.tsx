@@ -66,9 +66,11 @@ export default function SignInPage() {
             refreshToken: res.data.refreshToken,
             ...userData,
           }),
-            localStorage.setItem("accessToken", res.data.accessToken);
+            Cookies.set("accessToken", res.data.accessToken);
           Cookies.set("refreshToken", res.data.refreshToken);
           Cookies.set("userId", userData._id);
+          Cookies.set("roles", userData.roles);
+
           router.push("/home");
           toast.success("Đăng nhập thành công!");
         },
