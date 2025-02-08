@@ -23,7 +23,7 @@ const InputDebounce = React.forwardRef<HTMLInputElement, InputDebounceProps>(
     return (
       <DebounceInput
         autoFocus={true}
-        ref={ref}
+        // ref={ref}
         name={name}
         type={type ?? "text"}
         minLength={1}

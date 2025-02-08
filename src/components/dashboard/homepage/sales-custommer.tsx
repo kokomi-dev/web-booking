@@ -34,9 +34,9 @@ const SalesCustommer = () => {
           </p>
           <Button
             onClick={() => {
-              router.push("home/genius/" + user?._id);
+              router.push("genius/" + user?._id);
             }}
-            className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white rounded-md"
+            className="mt-4 px-6 py-2 bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white hover:text-white rounded-md"
           >
             Xem ngay các ưu đãi của bạn
           </Button>

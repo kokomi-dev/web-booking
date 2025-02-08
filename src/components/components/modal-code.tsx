@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "../ui/button";
-import { cn, removeDots } from "@/lib/utils";
+import { removeDots, cn } from "@/utils/constants";
 import { createRequestPayment } from "@/api/api-payment";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";

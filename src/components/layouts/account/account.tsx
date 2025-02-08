@@ -73,7 +73,7 @@ const Account = () => {
             firstname: userClerk.firstName || "",
             lastname: userClerk.lastName || "",
             email: userClerk.emailAddresses[0].emailAddress,
-            numberPhone: null || "",
+            numberPhone: "",
             hasImge: userClerk.hasImage,
             images: userClerk.imageUrl,
             bookedAttractions: [],
@@ -125,7 +125,7 @@ const Account = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
-                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg",
+                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg text-white",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
                   "bg-bg_primary_active hover:bg-bg_primary_blue_sub"
@@ -137,7 +137,7 @@ const Account = () => {
                     "w-7 h-7 lg:w-8 lg:h-8 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
-                  <CircleUser />
+                  <CircleUser className="text-white" />
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                   <div
