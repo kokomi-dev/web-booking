@@ -1,4 +1,3 @@
-import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,25 +6,25 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 
 import { apiUrl, getDetailHotel } from "@/api/api-hotels";
 import CardText from "@/components/components/card-text";
 import { cn } from "@/utils/constants";
 
-import Info from "@/components/dashboard/hotels/info";
-import Booking from "@/components/dashboard/hotels/booking";
-import { HotelData, PropsGenerateMetaData } from "@/types";
-import HeadDetail from "@/components/dashboard/hotels/head-detail";
-import Comments from "@/components/components/comments";
-import ShowOnMap from "@/components/components/show-on-map";
 import NotFoundPage from "@/app/not-found";
-import { Button } from "@/components/ui/button";
-import { ChevronRight, MessageCircle } from "lucide-react";
-import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
-import Link from "next/link";
+import Comments from "@/components/components/comments";
 import DisplayDocs from "@/components/components/display-docs";
 import ReceiveFeedback from "@/components/components/receive-feedback";
+import ShowOnMap from "@/components/components/show-on-map";
+import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
+import Booking from "@/components/dashboard/hotels/booking";
+import HeadDetail from "@/components/dashboard/hotels/head-detail";
+import Info from "@/components/dashboard/hotels/info";
+import { HotelData, PropsGenerateMetaData } from "@/types";
+import { ChevronRight, MessageCircle } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -50,9 +49,11 @@ export async function generateStaticParams() {
   try {
     const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
     if (!listTours || Array.isArray(listTours)) return [];
-    return listTours.data.map((hotel: HotelData) => ({
-      slug: hotel.slug,
-    }));
+    return listTours.data
+      .filter((item: HotelData) => item.slug)
+      .map((hotel: HotelData) => ({
+        slug: hotel.slug,
+      }));
   } catch (error) {
     throw Error("Lỗi khi server side");
   }

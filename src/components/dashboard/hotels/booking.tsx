@@ -1,10 +1,10 @@
 "use client";
 
-import { vi } from "date-fns/locale";
-import React, { useEffect, useState } from "react";
-import { Check, TriangleAlert, User, UserPlus, X } from "lucide-react";
 import { addDays, format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { Check, TriangleAlert, User, UserPlus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import CardText from "@/components/components/card-text";
@@ -12,9 +12,9 @@ import { Button } from "@/components/ui/button";
 
 import SearchDatePickerDou from "@/components/components/search/search-date-picker-dou";
 import SearchSelectPerson from "@/components/components/search/search-select-person";
-import { convertVND } from "@/utils/constants";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
+import { convertVND } from "@/utils/constants";
 const Booking = ({
   slug,
   listRooms,
@@ -170,15 +170,16 @@ const Booking = ({
                     {room.name}
                   </span>
                   <ul className="flex flex-wrap gap-1 mt-1">
-                    {room.details.map((detail, i) => (
-                      <li
-                        key={i}
-                        className="flex gap-2 text-smallest items-center"
-                      >
-                        <Check className="size-3 flex-shrink-0  text-green_main" />
-                        <span className="break-words">{detail}</span>
-                      </li>
-                    ))}
+                    {Array.isArray(room.details) &&
+                      room.details.map((detail, i) => (
+                        <li
+                          key={i}
+                          className="flex gap-2 text-smallest items-center"
+                        >
+                          <Check className="size-3 flex-shrink-0  text-green_main" />
+                          <span className="break-words">{detail}</span>
+                        </li>
+                      ))}
                   </ul>
                 </td>
                 <td className="p-2 border border-blue_main_sub text-center">

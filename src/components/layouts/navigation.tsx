@@ -27,7 +27,10 @@ const Navigation = () => {
         ref={containerRef}
       >
         {NAVIGATIONS.map(({ title, url, icon }, index) => {
-          const isActive = pathname.includes(url);
+          const isActive =
+            pathname.includes("genius") && index == 0
+              ? true
+              : pathname.includes(url);
           if (isActive) {
             itemRefs.current[index]?.scrollIntoView({
               behavior: "smooth",

@@ -48,3 +48,12 @@ export interface IconProps {
   className?: string;
   tooltip?: string;
 }
+export interface IVoucherProp {
+  title: string;
+  key: string;
+  idCode: string;
+  quanlity: number;
+  category: string;
+  description: string;
+  expiryDate: string;
+}

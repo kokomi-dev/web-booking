@@ -40,7 +40,7 @@ export async function generateStaticParams() {
     throw new Error("Lỗi khi server-side-rendering");
   }
 }
-export const fetchBlogDetail = async (slug: string) => {
+const fetchBlogDetail = async (slug: string) => {
   const res = await fetch(`${apiUrl}/blog/${slug}`, { cache: "no-store" });
   return res.json();
 };

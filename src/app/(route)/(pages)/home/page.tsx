@@ -36,8 +36,8 @@ function HomePage() {
                 className="w-full h-[220px] md:h-[250px] lg:h-[280px] object-cover "
               />
               <div className="p-4">
-                <h3 className="text-normal font-semibold">{e.label}</h3>
-                <p className="mt-2 text-black_sub text-small">{e.des}</p>
+                <h3 className="text-normal font-bold">{e.label}</h3>
+                <p className=" text-black_sub text-small">{e.des}</p>
               </div>
             </Link>
           ))}

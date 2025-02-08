@@ -24,8 +24,8 @@ const ModalAccount = ({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [firstname, setFirstname] = useState("" || user?.firstname);
-  const [lastname, setLastname] = useState("" || user?.lastname);
+  const [firstname, setFirstname] = useState(user?.firstname);
+  const [lastname, setLastname] = useState(user?.lastname);
   const [password, setPassword] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");

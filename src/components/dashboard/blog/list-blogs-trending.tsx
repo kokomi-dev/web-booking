@@ -3,6 +3,7 @@ import { getAllBlogTrending } from "@/api/api-blog";
 import QUERY_KEY_BLOG from "@/services/queryKeyStore/blogQueryKeyStore";
 import { IBlog } from "@/types/blog";
 import { useQuery } from "@tanstack/react-query";
+import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
 const ListBlogsTrending = () => {
@@ -42,7 +43,7 @@ const ListBlogsTrending = () => {
               <Link
                 key={i}
                 href={`/blogs/${e.slug}`}
-                className="rounded-lg shadow-lg p-4 bg-white"
+                className="rounded-lg shadow-lg p-4 bg-white space-y-3"
               >
                 <div className="flex flex-col items-start justify-start gap-y-2 lg:flex-row lg:items-center lg:justify-between ">
                   <h3 className="text-normal font-semibold capitalize line-clamp-1">
@@ -53,12 +54,15 @@ const ListBlogsTrending = () => {
                   </h4>
                 </div>
 
-                <p
-                  className="mt-2 text-small text-black_main line-clamp-2 first-letter:uppercase"
-                  dangerouslySetInnerHTML={{
-                    __html: e.content,
-                  }}
-                ></p>
+                <div className="flex items-start justify-start space-x-2">
+                  <BookOpen className="size-6 text-blue_main_sub" />
+                  <p
+                    className=" text-small text-black_main line-clamp-2 first-letter:uppercase"
+                    dangerouslySetInnerHTML={{
+                      __html: e.content,
+                    }}
+                  ></p>
+                </div>
                 <button className="mt-4 text-blue_main text-small underline">
                   Đọc thêm
                 </button>

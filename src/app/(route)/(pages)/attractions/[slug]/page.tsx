@@ -47,7 +47,7 @@ export async function generateMetadata({
   try {
     const attraciton = await fetch(`${apiUrl}/attraction/${slug}`);
     const data = await attraciton.json();
-    if (data.data) {
+    if (data && data.data) {
       return {
         title: data.data.name,
         description: data.data.description,
@@ -68,7 +68,11 @@ export async function generateStaticParams() {
       console.error("Dữ liệu không hợp lệ hoặc không có trường data");
       return [];
     }
-    return await listAttraction.data.map((attraction: AttractionData) => ({
+    return (
+      await listAttraction.data.filter(
+        (attraction: AttractionData) => attraction.slug
+      )
+    ).map((attraction: AttractionData) => ({
       slug: attraction.slug,
     }));
   } catch (error) {

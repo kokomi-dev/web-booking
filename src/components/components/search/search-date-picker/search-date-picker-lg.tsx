@@ -33,6 +33,7 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
             className,
             "md:flex"
           )}
+          variant={"ghost"}
           onClick={(e) => {
             e.preventDefault();
             setOpen2(!open2);
