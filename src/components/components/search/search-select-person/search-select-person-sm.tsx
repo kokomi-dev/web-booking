@@ -1,10 +1,9 @@
+"use client";
 import React from "react";
 
-import { SearchSelectPersonSMProps } from "@/types/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/utils/constants";
 import {
   Sheet,
   SheetContent,
@@ -13,6 +12,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { SearchSelectPersonSMProps } from "@/types/search";
+import { cn } from "@/utils/constants";
 import ButtonEnd from "../button-end";
 
 const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
@@ -55,8 +56,13 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
             </Label>
             <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
               <Button
+                disabled={numberAdults === 1}
+                type="button"
                 onClick={() => handleDecrease(setNumberAdults, numberAdults)}
-                className="bg-white text-black shadow-none border-none p-0"
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberAdults === 1 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
@@ -80,8 +86,9 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() => handleIncrease(setNumberAdults, numberAdults)}
-                className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
+                className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
               >
                 <span className="text-large text-blue_main_sub font-light">
                   +
@@ -96,10 +103,15 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
             </Label>
             <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
               <Button
+                disabled={numberChildren === 0}
+                type="button"
                 onClick={() =>
                   handleDecrease(setNumberChildren, numberChildren)
                 }
-                className="bg-white text-black shadow-none border-none p-0"
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberChildren === 0 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
@@ -123,6 +135,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() =>
                   handleIncrease(setNumberChildren, numberChildren)
                 }
@@ -141,8 +154,13 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
             </Label>
             <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
               <Button
+                disabled={numberRoom === 1}
+                type="button"
                 onClick={() => handleDecrease(setNumberRoom, numberRoom)}
-                className="bg-white text-black shadow-none border-none p-0"
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberRoom === 1 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
@@ -166,6 +184,7 @@ const SearchSelectPersonSM: React.FC<SearchSelectPersonSMProps> = ({
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() => handleIncrease(setNumberRoom, numberRoom)}
                 className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
               >

@@ -48,7 +48,7 @@ function Calendar({
         table: "w-full h-full border-collapse space-y-1",
         head_row: "flex border-t-1 border-blue_main_sub py-1",
         head_cell: "w-full text-small lg:text-small font-medium rounded-md w-8",
-        row: "flex w-full mt-2",
+        row: "flex w-full mt-2 mx-1",
         cell: cn(
           "relative p-0 w-full text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-white [&:has([aria-selected].day-outside)]:bg-white/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
@@ -62,13 +62,14 @@ function Calendar({
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-bg_black_sub  hover:bg-bg_yellow_main focus:bg-primary focus:text-primary-foreground text-blue_main_sub font-semibold border-2 border-blue_main_sub",
-        day_today: "bg-white text-black",
+          "bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white  text-white font-semibold",
+        day_today:
+          "bg-white font-semibold text-yellow_main border-black_sub border-1 pointer-events-none",
         day_outside:
           "day-outside text-muted-foreground opacity-50  aria-selected:bg-white/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground opacity-10 cursor-none",
         day_range_middle:
-          "aria-selected:bg-white aria-selected:text-white-foreground",
+          "aria-selected:bg-bg_primary_blue_sub hover:bg-bg_primary_active aria-selected:text-white",
         day_hidden: "invisible",
         ...classNames,
       }}

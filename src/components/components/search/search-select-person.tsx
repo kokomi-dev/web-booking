@@ -2,11 +2,11 @@
 import { ChevronDown, Dot, User } from "lucide-react";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { SearchSelectPersonProps } from "@/types/search";
+import { cn } from "@/utils/constants";
 import SearchSelectPersonLG from "./search-select-person/search-select-person-lg";
 import SearchSelectPersonSM from "./search-select-person/search-select-person-sm";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/constants";
 
 const SearchSelectPerson = ({
   className,
@@ -22,14 +22,13 @@ const SearchSelectPerson = ({
   };
 
   const handleDecrease = (setter: (value: number) => void, value: number) => {
-    if (value > 1) {
-      setter(value - 1);
-    }
+    setter(value - 1);
   };
   const [open, setOpen] = useState(false);
   return (
     <section className="flex flex-col w-full">
       <Button
+        type="button"
         variant="ghost"
         className={cn(
           "flex items-center justify-center  w-full h-[44px] bg-white px-2 py-1",

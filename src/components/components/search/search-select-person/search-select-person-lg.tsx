@@ -1,13 +1,14 @@
-import React from "react";
+"use client";
 import { ChevronDown, Dot, User } from "lucide-react";
+import React from "react";
 
-import { PopoverContent } from "@radix-ui/react-popover";
-import { SearchSelectPersonLGProps } from "@/types/search";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { SearchSelectPersonLGProps } from "@/types/search";
 import { cn } from "@/utils/constants";
+import { PopoverContent } from "@radix-ui/react-popover";
 const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
   className,
   numberAdults,
@@ -23,6 +24,7 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
     <Popover>
       <PopoverTrigger asChild>
         <Button
+          type="button"
           variant="ghost"
           className={cn(
             "hidden w-full h-[44px] bg-white px-2 py-1",
@@ -55,14 +57,19 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
             </Label>
             <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
               <Button
+                disabled={numberAdults === 1}
+                type="button"
                 onClick={() => handleDecrease(setNumberAdults, numberAdults)}
-                className="bg-white text-black shadow-none border-none p-0"
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberAdults === 1 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
-                    "!text-large text-blue_main_sub font-normal p-1",
+                    "!text-large text-blue_main_sub font-normal p-1 ",
                     numberAdults === 1 &&
-                      "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
+                      "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main pointer-events-none"
                   )}
                 >
                   -
@@ -73,13 +80,14 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
                 id="adults"
                 min="1"
                 value={numberAdults}
-                className="h-8 outline-none bg-white  max-w-[60px] text-black text-center shadow-none border-none"
+                className="h-8 outline-none bg-white   max-w-[60px] text-black text-center shadow-none border-none"
                 onChange={(e) =>
                   setNumberAdults(Math.max(1, Number(e.target.value)))
                 }
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() => handleIncrease(setNumberAdults, numberAdults)}
                 className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
               >
@@ -96,10 +104,15 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
             </Label>
             <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
               <Button
-                onClick={() =>
-                  handleDecrease(setNumberChildren, numberChildren)
-                }
-                className="bg-white text-black shadow-none border-none p-0"
+                disabled={numberChildren === 0}
+                type="button"
+                onClick={() => {
+                  handleDecrease(setNumberChildren, numberChildren);
+                }}
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberChildren === 0 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
@@ -123,6 +136,7 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() =>
                   handleIncrease(setNumberChildren, numberChildren)
                 }
@@ -141,8 +155,13 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
             </Label>
             <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
               <Button
+                disabled={numberRoom === 1}
+                type="button"
                 onClick={() => handleDecrease(setNumberRoom, numberRoom)}
-                className="bg-white text-black shadow-none border-none p-0"
+                className={cn(
+                  "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                  numberRoom === 1 && "pointer-events-none"
+                )}
               >
                 <span
                   className={cn(
@@ -166,6 +185,7 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
                 onMouseDown={(e) => e.stopPropagation()}
               />
               <Button
+                type="button"
                 onClick={() => handleIncrease(setNumberRoom, numberRoom)}
                 className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
               >

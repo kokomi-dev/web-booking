@@ -42,7 +42,7 @@ const ItemSearchResult = ({
     <Suspense fallback={<LoadingItemSearch />}>
       <Link
         href={`/${route}/${slug}`}
-        className="w-full border_div_card "
+        className="w-full"
         key={slug}
         target="_blank"
       >
