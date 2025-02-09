@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { searchResult } from "@/api/api-attractions";
-import ShowResult from "@/components/components/show-result";
+import ShowResult from "@/components/dashboard/attraction/show-result";
 import { cn } from "@/utils/constants";
 import { AttractionData } from "@/types";
 import { convertToSlug } from "@/utils/constants";

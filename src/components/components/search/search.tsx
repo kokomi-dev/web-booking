@@ -1,32 +1,38 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { addDays, format } from "date-fns";
+import { cx } from "class-variance-authority";
+import { addDays, format, nextDay } from "date-fns";
 import { vi } from "date-fns/locale";
 import Link from "next/link";
-import { cx } from "class-variance-authority";
+import { usePathname, useRouter } from "next/navigation";
+import React, { Fragment, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/constants";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HIDDEN_SEARCH, SearchContainerProp } from "@/types/search";
+import { cn } from "@/utils/constants";
 import SearchAddress from "./search-address";
 import SearchDatePicker from "./search-date-picker";
 import SearchDatePickerDou from "./search-date-picker-dou";
 import SearchSelectPerson from "./search-select-person";
-import { HIDDEN_SEARCH, SearchContainerProp } from "@/types/search";
 
 const Search: React.FC<SearchContainerProp> = ({
   className,
   currentValue,
   variant,
 }) => {
+  const nextToday = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow;
+  };
+  const tomorrow = addDays(new Date(), 1);
   const [address, setAddress] = useState<string>(currentValue || "");
   const [dateDou, setDateDou] = useState<any>({
-    from: new Date(),
-    to: addDays(new Date(), 2),
+    from: tomorrow,
+    to: addDays(tomorrow, 2),
   });
-  const [date, setDate] = useState<any>(new Date());
+  const [date, setDate] = useState<any>(nextToday);
   const [numberAdults, setNumberAdults] = useState<number>(2);
   const [numberChildren, setNumberChildren] = useState<number>(0);
   const [numberRoom, setNumberRoom] = useState<number>(1);
@@ -63,15 +69,29 @@ const Search: React.FC<SearchContainerProp> = ({
           defaultValue="attractions"
           className="w-full h-auto bg-bg_primary_white rounded-8 "
         >
-          <TabsList className="grid w-full grid-cols-2 ">
-            <TabsTrigger value="attractions">Địa điểm tham quan</TabsTrigger>
-            <TabsTrigger value="hotels">Nơi lưu trú</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 gap-x-2">
+            <TabsTrigger
+              value="attractions"
+              className="text-black_main font-medium text-small"
+            >
+              Địa điểm tham quan
+            </TabsTrigger>
+            <TabsTrigger
+              value="hotels"
+              className="text-black_main font-medium text-small"
+            >
+              Lưu trú
+            </TabsTrigger>
           </TabsList>
           <TabsContent
             value="attractions"
             className="border-t-1  border-blue_main_sub"
           >
-            <Card className={cx("overflow-hidden border-none h-auto ")}>
+            <Card
+              className={cx(
+                "overflow-hidden border-none h-auto rounded-none rounded-br-8 rounded-bl-8"
+              )}
+            >
               <CardHeader>
                 <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0 ">
                   <span className="hidden md:block text-small text-black_sub">
@@ -101,7 +121,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   type="submit"
                   variant="default"
                   className={cn(
-                    "lg:max-w-[140px] w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub text-white"
+                    "lg:max-w-[140px] w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white text-white"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -286,15 +306,15 @@ const Search: React.FC<SearchContainerProp> = ({
           )}
           <Button
             type="submit"
-            variant="default"
+            variant="ghost"
             className={cn(
-              "w-full   h-[44px]   text-normal font-medium bg-bg_primary_blue_sub text-white",
+              "w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub text-white",
               "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
-              "hover:bg-bg_primary_active"
+              "hover:bg-bg_primary_active hover:text-white "
             )}
             onClick={handleSearch}
           >
-            <span className="text-medium font-medium">Tìm</span>
+            Tìm
           </Button>
         </div>
       </div>

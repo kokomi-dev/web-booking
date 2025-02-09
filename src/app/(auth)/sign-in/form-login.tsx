@@ -57,22 +57,24 @@ export default function SignInPage() {
     try {
       mutationLogin.mutate(data, {
         onSuccess: async (res) => {
-          const userData = res.data.user;
-          setIsAuthenticated();
-          setUserLogined({
-            id: userData._id,
-            name: userData.firstname + " " + userData.lastname,
-            accessToken: res.data.accessToken,
-            refreshToken: res.data.refreshToken,
-            ...userData,
-          }),
-            Cookies.set("accessToken", res.data.accessToken);
-          Cookies.set("refreshToken", res.data.refreshToken);
-          Cookies.set("userId", userData._id);
-          Cookies.set("roles", userData.roles);
+          if (res.status === 200) {
+            const userData = res.data.user;
+            setIsAuthenticated();
+            setUserLogined({
+              id: userData._id,
+              name: userData.firstname + " " + userData.lastname,
+              accessToken: res.data.accessToken,
+              refreshToken: res.data.refreshToken,
+              ...userData,
+            }),
+              Cookies.set("accessToken", res.data.accessToken);
+            Cookies.set("refreshToken", res.data.refreshToken);
+            Cookies.set("userId", userData._id);
+            Cookies.set("roles", userData.roles);
 
-          router.push("/home");
-          toast.success("Đăng nhập thành công!");
+            router.push("/home");
+            toast.success("Đăng nhập thành công!");
+          }
         },
         onError: async (err) => {
           console.log(err);

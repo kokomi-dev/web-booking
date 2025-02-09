@@ -128,7 +128,7 @@ const Account = () => {
                   "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg text-white",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
-                  "bg-bg_primary_active hover:bg-bg_primary_blue_sub"
+                  "bg-bg_primary_active hover:bg-bg_primary_blue_sub select-none"
                 )}
                 onClick={() => setOpen(!open)}
               >
@@ -267,7 +267,7 @@ const Account = () => {
       ) : (
         <div className="flex items-center justify-center">
           <Link href={"/sign-in"} className="hidden lg:block">
-            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active">
+            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white">
               Đăng nhập
             </Button>
           </Link>

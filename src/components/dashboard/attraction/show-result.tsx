@@ -1,33 +1,25 @@
 "use client";
-import React, { useCallback, useState } from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { useRouter, useSearchParams } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
-import ItemSearchResult from "@/components/components/item-search-result";
-import { cn } from "@/utils/constants";
-import { HotelData } from "@/types";
-import ShowOnMap from "@/components/components/show-on-map";
-import { LoadingItemSearch } from "@/components/components/loading";
 import { Dot, SlidersHorizontal } from "lucide-react";
-import SheetShowFilter from "@/components/components/sheet-show-filter";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useState } from "react";
+
 import FilterComponent from "@/components/components/filter-item";
-import { filterBar, filter1, filter2, filter3 } from "../constants";
-import { ShowResultPropsHotel } from "@/types/component-types";
-import BreadcrumbHead from "@/components/components/breadcrumb";
+import ItemSearchResult from "@/components/components/item-search-result";
+import { LoadingItemSearch } from "@/components/components/loading";
+import SheetShowFilter from "@/components/components/sheet-show-filter";
+import ShowOnMap from "@/components/components/show-on-map";
+import { Button } from "@/components/ui/button";
+import { AttractionData } from "@/types";
+import { ShowResultPropsAttraction } from "@/types/component-types";
+import { cn } from "@/utils/constants";
+import { filter1, filter2, filter3, filterBar } from "../constants";
+import BreadcrumbHead from "../../components/breadcrumb";
 
 interface IHandleFilterData {
-  data: HotelData[];
+  data: AttractionData[];
 }
 
-const ShowResult: React.FC<ShowResultPropsHotel> = ({
+const ShowResult: React.FC<ShowResultPropsAttraction> = ({
   data,
   isLoading,
   nameValue,
@@ -40,14 +32,10 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
     ({ data }: IHandleFilterData, value: string) => {
       switch (value) {
         case "lowest-price": {
-          return data.sort(
-            (a, b) => a.listRooms[0].price - b.listRooms[0].price
-          );
+          return data.sort((a, b) => a.price[1] - b.price[1]);
         }
         case "hightest-price": {
-          return data.sort(
-            (a, b) => b.listRooms[0].price - a.listRooms[0].price
-          );
+          return data.sort((a, b) => b.price[1] - a.price[1]);
         }
         case "rating-best": {
           return data.sort((a, b) => b.rating - a.rating);
@@ -67,7 +55,7 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
 
     currentParams.set("filter", newFilter);
     const newValue = currentParams.toString();
-    router.push(`/hotels/searchresult?${newValue}`);
+    router.push(`/attractions/searchresult?${newValue}`);
     handleFilterData({ data }, newValue.split("&filter=")[1]);
   };
   const handleChangeFilterBar = (
@@ -79,24 +67,24 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
     }
   };
   const [openSheetFilter, setOpenSheetFilter] = useState(false);
+
   return (
     <div className={cn("w-full h-full posing-vertical-1")}>
-      {/* head */}
       <BreadcrumbHead
         items={[
-          { label: "Lưu trú", href: "/hotels" },
+          { label: "Địa điểm du lịch", href: "/attractions" },
           { label: `Tìm kiếm ở ${nameValue}` },
         ]}
       />
-      <div className="w-full max-w-full posing-vertical-2">
+      <div className="w-full h-full max-w-full posing-vertical-2">
         <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
           <span className="capitalize">{nameValue}</span>
           <Dot />
           <span className="text-normal font-medium">
-            tìm thấy {data?.length} nơi lưu trú
+            tìm thấy {data?.length} điểm tham quan
           </span>
         </h2>
-        <div className="w-full h-full flex flex-col-reverse lg:grid lg:grid-cols-layout-3 posing-vertical-3">
+        <div className="w-full h-full flex flex-col-reverse posing-vertical-3 lg:grid lg:grid-cols-layout-3">
           <div className="posing-vertical-4">
             <ShowOnMap address={nameValue || ""} />
             <div
@@ -118,21 +106,20 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
               </div>
             </div>
           </div>
-
           {/* show result */}
           <div
-            className={cn("w-full h-full posing-vertical-4 pl-1", "lg:pl-3 ")}
+            className={cn("w-full h-full posing-vertical-4  pl-1", "lg:pl-3 ")}
           >
             <div
               className={cn(
-                "w-full flex items-center justify-between bg-bg_black_sub rounded-8 overflow-x-auto p-2 "
+                "w-full flex items-center justify-between bg-bg_black_sub rounded-8 overflow-x-auto p-2  "
               )}
             >
               <Button
                 onClick={() => {
                   setOpenSheetFilter(!openSheetFilter);
                 }}
-                className="flex py-6 px-2 mx-2  items-center justify-center gap-x-1 text-small  bg-bg_primary_blue_sub2 lg:hidden"
+                className="flex py-6 px-4 mx-2  items-center justify-center gap-x-1 text-small  bg-bg_primary_blue_sub2 lg:hidden"
               >
                 <SlidersHorizontal className="size-4" />
               </Button>
@@ -145,9 +132,9 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
                   key={index}
                   value={item.value}
                   className={cn(
-                    "py-5 px-2 text-smallest font-normal rounded-8 shadow-none bg-white border-1 border-transparent hover:border-blue_main_sub hover:bg-white",
+                    "py-5 px-2 text-smallest border-1 border-transparent font-normal rounded-8 shadow-none bg-white hover:border-1 hover:border-blue_main_sub hover:bg-white",
                     filterBarValue === item.value &&
-                      "border-1 border-black bg-bg_primary_blue_sub2"
+                      "border-1 border-black bg-bg_primary_blue_sub2 hover:bg-bg_primary_blue_sub2"
                   )}
                   data-value={item.value}
                   onClick={handleChangeFilterBar}
@@ -158,18 +145,18 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
             </div>
             <div className="posing-vertical-5">
               {!isLoading && data.length > 0 ? (
-                data.map((hotel, index) => (
+                data.map((attraction, index) => (
                   <ItemSearchResult
                     key={index}
-                    slug={hotel.slug}
-                    name={hotel.name}
-                    images={hotel.images[0]}
-                    price={hotel.listRooms[0].price}
-                    route="hotels"
-                    location={hotel.location.detail}
-                    description={hotel.details}
-                    ratingsQuantity={hotel.rating}
-                    cancelFree={hotel.cancelFree}
+                    slug={attraction.slug}
+                    name={attraction.name}
+                    images={attraction.images[0]}
+                    price={attraction.price[0]}
+                    route="attractions"
+                    location={attraction.location.detail}
+                    description={attraction.description}
+                    ratingsQuantity={attraction.rating}
+                    cancelFree={attraction.cancelFree}
                   />
                 ))
               ) : (
