@@ -76,12 +76,11 @@ const Account = () => {
             numberPhone: "",
             hasImge: userClerk.hasImage,
             images: userClerk.imageUrl,
-            bookedAttractions: [],
-            bookedHotels: [],
             isNewbie: true,
             isActive: true,
             groupId: ["6"],
             roles: "custommer",
+            idCode: "",
           });
         } else if (userId) {
           mutaionDataUser.mutate(userId, {
@@ -134,10 +133,10 @@ const Account = () => {
               >
                 <div
                   className={cn(
-                    "w-7 h-7 lg:w-8 lg:h-8 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
+                    "w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
                   )}
                 >
-                  <CircleUser className="text-white" />
+                  <CircleUser className="text-white size-6 !w-6 !h-6" />
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
                   <div
@@ -146,7 +145,9 @@ const Account = () => {
                     )}
                   >
                     <span className="capitalize text-white">
-                      {user.firstname}
+                      {user.firstname.length > 11
+                        ? user.firstname.slice(0, 11) + ".."
+                        : user.firstname}
                     </span>
                     <span className="capitalize text-white">
                       {user.lastname}

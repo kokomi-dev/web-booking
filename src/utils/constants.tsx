@@ -134,6 +134,12 @@ const removeDots = (numberStr: string) => {
 const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+const formatDate = (date: Date | string): string => {
+  if (!date) return "";
+
+  const parsedDate = new Date(date);
+  return parsedDate.toLocaleDateString("vi-VN");
+};
 
 export {
   ratingConvert,
@@ -145,4 +151,5 @@ export {
   cn,
   removeDots,
   capitalizeFirstLetter,
+  formatDate,
 };

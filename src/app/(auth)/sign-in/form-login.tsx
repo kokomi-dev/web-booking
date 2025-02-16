@@ -81,7 +81,9 @@ export default function SignInPage() {
           toast.error("Lỗi khi đăng nhập. Liên hệ quản trị viên!");
         },
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (mutationLogin.isPending) {

@@ -12,16 +12,16 @@ interface ITrending {
 }
 const Trending: React.FC<ITrending> = ({ page }) => {
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start gap-4">
-      <section className="flex flex-col items-start justify-start gap-2">
+    <section className="w-full h-full posing-vertical-2">
+      <div className="posing-vertical-6">
         <h2 className="text-large font-bold">Điểm đến được gợi ý</h2>
         <h3 className="text-normal text-black_sub">
           Những trải nhiệm hàng đầu ở Việt Nam để bạn bắt đầu
         </h3>
-      </section>
+      </div>
       <div
         className={cn(
-          "w-full max-h-[360px] overflow-auto h-full grid grid-col-1 gap-3",
+          "w-full max-h-[360px] overflow-auto h-full grid grid-col-1 gap-4",
           "md:grid-cols-2 md:max-h-full",
           "lg:grid-cols-3"
         )}
@@ -56,7 +56,7 @@ const Trending: React.FC<ITrending> = ({ page }) => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

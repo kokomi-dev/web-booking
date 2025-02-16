@@ -1,7 +1,6 @@
 import { getListProvinces } from "@/api/api-attractions";
 import { cn } from "@/utils/constants";
 import Link from "next/link";
-import React from "react";
 
 const convertToSlug = (text: string) => {
   return text.toLowerCase().replace(/ /g, "-");
@@ -10,7 +9,7 @@ const convertToSlug = (text: string) => {
 const ListProvinces = async () => {
   const { data } = await getListProvinces();
   return (
-    <div className="w-full h-auto flex items-start justify-start flex-col gap-x-2">
+    <section className="w-full h-auto flex items-start justify-start flex-col gap-x-2">
       <h3 className="text-large font-semibold">
         Khám phá thêm nhiều điểm đến khác
       </h3>
@@ -39,7 +38,7 @@ const ListProvinces = async () => {
             );
           })}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,22 +1,3 @@
-export type AttractionData = {
-  _id: string;
-  slug: string;
-  name: string;
-  description: string;
-  location: {
-    province: object;
-    district: object;
-    detail: string;
-  };
-  rating: number;
-  duration: number;
-  images: string[];
-  schedule: string[];
-  included: string[];
-  price: [number, number];
-  city: string;
-  cancelFree: boolean;
-};
 export type HotelData = {
   _id: string;
   slug: string;
@@ -59,7 +40,7 @@ export type CommentProps = {
   content: string;
   name: string;
   nameShow: string;
-  commentDate: Date;
+  commentDate: string;
 };
 export type PropsGenerateMetaData = {
   params: Promise<{ slug: string }>;
