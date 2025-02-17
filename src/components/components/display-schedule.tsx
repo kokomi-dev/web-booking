@@ -1,4 +1,4 @@
-import { AttractionData } from "@/types";
+import { AttractionData } from "@/types/attraction.type";
 import DisplayDocs from "./display-docs";
 
 interface ScheduleDisplayProps {

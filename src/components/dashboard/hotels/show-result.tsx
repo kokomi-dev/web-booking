@@ -13,7 +13,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import ItemSearchResult from "@/components/components/item-search-result";
 import { cn } from "@/utils/constants";
-import { HotelData } from "@/types";
 import ShowOnMap from "@/components/components/show-on-map";
 import { LoadingItemSearch } from "@/components/components/loading";
 import { Dot, SlidersHorizontal } from "lucide-react";
@@ -22,9 +21,10 @@ import FilterComponent from "@/components/components/filter-item";
 import { filterBar, filter1, filter2, filter3 } from "../constants";
 import { ShowResultPropsHotel } from "@/types/component-types";
 import BreadcrumbHead from "@/components/components/breadcrumb";
+import { IHotel } from "@/types/hotel.type";
 
 interface IHandleFilterData {
-  data: HotelData[];
+  data: IHotel[];
 }
 
 const ShowResult: React.FC<ShowResultPropsHotel> = ({
