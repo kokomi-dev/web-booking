@@ -13,25 +13,20 @@ import { Button } from "@/components/ui/button";
 import SearchDatePickerDou from "@/components/components/search/search-date-picker-dou";
 import SearchSelectPerson from "@/components/components/search/search-select-person";
 import { Input } from "@/components/ui/input";
+import { useAuthenticatedStore } from "@/store/authencation-store";
 import { useBookingInfoStore } from "@/store/booking-info";
 import { convertVND } from "@/utils/constants";
+import { IHotelRoom } from "@/types/hotel.type";
+import Link from "next/link";
 const Booking = ({
   slug,
   listRooms,
 }: {
   slug: string;
-  listRooms: [
-    {
-      name: string;
-      details: string[];
-      price: number;
-      sale: number;
-      isAddChildren: boolean;
-      numberPeople: number;
-    }
-  ];
+  listRooms: [IHotelRoom];
 }) => {
   const router = useRouter();
+  const { user, isAuthenticated } = useAuthenticatedStore();
   const { setBookingInfo } = useBookingInfoStore();
   const [date, setDate] = React.useState<any>({
     from: new Date(),
@@ -108,7 +103,7 @@ const Booking = ({
 
   return (
     <div
-      className="w-full h-full flex items-start justify-start flex-col gap-2  p-3 bg-sub rounded-xl text-normal"
+      className="w-full h-full posing-vertical-4  p-3 bg-sub rounded-xl text-normal"
       id="price"
     >
       {/* choose person and room */}
@@ -168,6 +163,9 @@ const Booking = ({
                 <td className="p-2 border border-blue_main_sub text-start">
                   <span className="text-blue_main underline font-bold">
                     {room.name}
+                    {room?.numberRoom === 0 && (
+                      <span className="text-red-600">Hết phòng</span>
+                    )}
                   </span>
                   <ul className="flex flex-wrap gap-1 mt-1">
                     {Array.isArray(room.details) &&
@@ -222,47 +220,60 @@ const Booking = ({
                         return newChoose;
                       });
                     }}
+                    disabled={room.numberRoom === 0}
                   />
                 </td>
                 {index === 0 && (
-                  <td
-                    className="p-2 align-top border border-blue_main_sub"
-                    rowSpan={listRooms.length}
-                  >
-                    {chooseInput && !checkHiddenBtn && (
-                      <div className="mb-4">
-                        <div className="line-through text-red-400 text-small">
-                          <span className="mr-1">VNĐ</span>
-                          {convertVND(total)}
-                        </div>
-                        <div className="text-black_main text-normal font-bold">
-                          <span className="mr-1">VNĐ</span>
-                          {convertVND(totalSale)}
-                        </div>
-                        <div>
-                          {total && totalSale !== 0 && (
-                            <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
-                              Tiết kiệm{" "}
-                              {(100 - (totalSale / total) * 100).toFixed(2)} %
+                  <td>
+                    {!user && !isAuthenticated ? (
+                      <Link
+                        href="/sign-in"
+                        className="text-blue_main_sub hover:underline text-small font-normal"
+                      >
+                        Đăng nhập để tiếp tục
+                      </Link>
+                    ) : (
+                      <div
+                        className="p-2 align-top border border-blue_main_sub"
+                        // rowSpan={listRooms.length}
+                      >
+                        {chooseInput && !checkHiddenBtn && (
+                          <div className="mb-4">
+                            <div className="line-through text-red-400 text-small">
+                              <span className="mr-1">VNĐ</span>
+                              {convertVND(total)}
+                            </div>
+                            <div className="text-black_main text-normal font-bold">
+                              <span className="mr-1">VNĐ</span>
+                              {convertVND(totalSale)}
+                            </div>
+                            <div>
+                              {total && totalSale !== 0 && (
+                                <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
+                                  Tiết kiệm{" "}
+                                  {(100 - (totalSale / total) * 100).toFixed(2)}{" "}
+                                  %
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-black_sub text-small">
+                              Đã bao gồm thuế và phí
                             </span>
-                          )}
-                        </div>
-                        <span className="text-black_sub text-small">
-                          Đã bao gồm thuế và phí
-                        </span>
+                          </div>
+                        )}
+                        <Button
+                          className="w-full bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
+                          onClick={handleBooking}
+                          disabled={checkHiddenBtn}
+                        >
+                          Đặt ngay
+                        </Button>
+                        <ul className="text-smallest pl-3 mt-2">
+                          <li>Chỉ mất 2 phút</li>
+                          <li>Xác thực tức thời</li>
+                        </ul>
                       </div>
                     )}
-                    <Button
-                      className="w-full bg-bg_primary_blue_sub text-white"
-                      onClick={handleBooking}
-                      disabled={checkHiddenBtn}
-                    >
-                      Đặt ngay
-                    </Button>
-                    <ul className="text-smallest pl-3 mt-2">
-                      <li>Chỉ mất 2 phút</li>
-                      <li>Xác thực tức thời</li>
-                    </ul>
                   </td>
                 )}
               </tr>

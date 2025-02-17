@@ -8,6 +8,7 @@ import Trending from "@/components/components/trending";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
 import ReceiveFeedback from "@/components/components/receive-feedback";
 import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Địa điểm du lịch - KoKoTravel",
@@ -16,6 +17,12 @@ export const metadata: Metadata = {
 const HomePage = () => {
   return (
     <div className="w-full h-full posing-vertical-1 ">
+      <BreadcrumbHead
+        items={[
+          { label: "Trang chủ", href: "/home" },
+          { label: "Địa điểm du lịch" },
+        ]}
+      />
       <Trending page="attractions" />
       <hr className="hr" />
       <Intro />

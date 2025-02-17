@@ -6,39 +6,37 @@ import Icon from "@/components/components/icon";
 
 const Rules = () => {
   return (
-    <div className="w-full h-full flex flex-col items-start justify-start gap-y-2">
-      <div className="w-full h-full">
-        <h2 className="text-large font-bold">
-          Bạn cứ vô tư khám phá, những thứ khác chúng tôi lo
+    <div className="w-full h-full posing-vertical-3">
+      <div className="w-full h-full text-center mb-6">
+        <h2 className="text-large lg:text-largest font-bold text-gray-900">
+          "Bạn cứ vô tư khám phá, những thứ khác đã có{" "}
+          <span className="text-blue_main_sub">KoKoTravel</span> lo!"
         </h2>
+        <p className="text-gray-600 mt-2 text-sm lg:text-base">
+          Uy tín - Chất lượng - Tiện lợi cho mọi chuyến đi 🌍
+        </p>
       </div>
+
+      {/* Danh sách lợi ích */}
       <div className="w-full">
-        <ul
-          className={cn(
-            "w-full grid grid-cols-1 gap-y-6 my-2",
-            "md:grid-cols-2 lg:grid-cols-3"
-          )}
-        >
-          {RULES_HOTEL.map((rule, index) => {
-            return (
-              <li
-                key={index}
-                className="flex flex-col items-start justify-start gap-1"
-              >
-                <div className="flex items-start justify-center gap-x-3">
-                  <Icon>
-                    <rule.icon className="text-green_main" />
-                  </Icon>
-                  <h4 className="text-black_main text-normal font-semibold">
-                    {rule.title}
-                  </h4>
-                </div>
-                <p className="text-small font-light lg:font-normal mt-1 ml-1">
-                  {rule.description}
-                </p>
-              </li>
-            );
-          })}
+        <ul className="grid grid-cols-1 gap-y-6 my-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-5">
+          {RULES_HOTEL.map((rule, index) => (
+            <li
+              key={index}
+              className="flex flex-col items-start gap-2 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <Icon className="text-green-600 w-6 h-6">
+                  <rule.icon />
+                </Icon>
+
+                <h4 className="text-black_main text-lg font-semibold">
+                  {rule.title}
+                </h4>
+              </div>
+              <p className="text-gray-700 text-sm">{rule.description}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

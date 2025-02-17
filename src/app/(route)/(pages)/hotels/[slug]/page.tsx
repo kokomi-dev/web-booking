@@ -1,11 +1,3 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 
 import { apiUrl, getDetailHotel } from "@/api/api-hotels";
@@ -13,6 +5,7 @@ import CardText from "@/components/components/card-text";
 import { cn } from "@/utils/constants";
 
 import NotFoundPage from "@/app/not-found";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 import Comments from "@/components/components/comments";
 import DisplayDocs from "@/components/components/display-docs";
 import ReceiveFeedback from "@/components/components/receive-feedback";
@@ -21,10 +14,17 @@ import { LIST_QUESTION_HOTELS } from "@/components/dashboard/constants";
 import Booking from "@/components/dashboard/hotels/booking";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Info from "@/components/dashboard/hotels/info";
-import { HotelData, PropsGenerateMetaData } from "@/types";
-import { ChevronRight, MessageCircle } from "lucide-react";
+import { PropsGenerateMetaData } from "@/types";
+import {
+  Baby,
+  Bed,
+  ChevronRight,
+  MessageCircle,
+  UserCheck,
+} from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { IHotel } from "@/types/hotel.type";
 
 export async function generateMetadata({
   params,
@@ -50,8 +50,8 @@ export async function generateStaticParams() {
     const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
     if (!listTours || Array.isArray(listTours)) return [];
     return listTours.data
-      .filter((item: HotelData) => item.slug)
-      .map((hotel: HotelData) => ({
+      .filter((item: IHotel) => item.slug)
+      .map((hotel: IHotel) => ({
         slug: hotel.slug,
       }));
   } catch (error) {
@@ -70,23 +70,15 @@ const DetailHotelPage = async ({
   }
 
   return (
-    <section
-      className={cn(
-        "w-full h-full flex flex-col items-start justify-start gap-y-4 "
-      )}
-    >
+    <section className={cn("w-full h-full posing-vertical-1 ")}>
       {/* head */}
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/hotels">Lưu trú</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>{data?.name}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <BreadcrumbHead
+        items={[
+          { label: "Trang chủ", href: "/home" },
+          { label: "Lưu trú", href: "/hotels" },
+          { label: `${data.name}` },
+        ]}
+      />
 
       <HeadDetail />
       <hr className="hr" />
@@ -99,13 +91,10 @@ const DetailHotelPage = async ({
         images={data}
         slug={slug}
       />
-      <div
-        className="w-full h-full flex flex-col items-start justify-start gap-y-2"
-        id="info_utilities"
-      >
+      <div className="w-full h-full posing-vertical-2" id="info_utilities">
         {data.cancelFree && (
-          <div className="w-full grid grid-cols-[5%,93%] gap-x-2">
-            <FaCalendarXmark className="text-blue_main_sub w-5 h-5 lg:w-7 lg:h-7 mr-2" />
+          <div className="w-full flex items-center justify-start">
+            <FaCalendarXmark className="text-blue_main_sub w-5 h-5 lg:w-7 lg:h-7 mr-2 flex-shrink-0" />
             <p className="text-small font-light text-justify pr-1">
               Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi hoặc
               trước 2 ngày đến lịch đặt ( ngoài thời gian quy định chúng tôi sẽ
@@ -114,7 +103,7 @@ const DetailHotelPage = async ({
           </div>
         )}
         {/* content and booking*/}
-        <div className="w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start gap-y-2 ">
+        <div className="w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start posing-vertical-3 ">
           <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 ">
             <div className="w-full h-auto grid gap-y-4 pr-4">
               <CardText title="Mô tả về chúng tôi ">
@@ -142,9 +131,9 @@ const DetailHotelPage = async ({
               )}
             </div>
             {/* highlights */}
-            <div className="l h-fit  bg-bg_primary_hover text-black rounded-14 p-4">
+            <div className=" h-fit bg-bg_primary_hover text-black rounded-14 p-4">
               <CardText title="Điểm nổi bật của chỗ nghỉ">
-                <ul className="pl-3 list-disc">
+                <ul className="pl-1 list-disc">
                   {data.highlights.map((highlight: string, index: number) => {
                     return (
                       <li
@@ -169,43 +158,48 @@ const DetailHotelPage = async ({
           <Booking slug={slug} listRooms={data.listRooms} />
         </div>
         {/* regulations */}
-        <div
-          className="w-full flex flex-col gap-y-4 border-1 rounded-8 p-4 my-3 border-blue_main_sub"
-          id="general_rule"
-        >
-          <h3 className="text-medium font-semibold">Quy định về chỗ nghỉ</h3>
-          <div className="w-full h-atuo">
-            <h5 className="text-normal">Trẻ em và giường phụ</h5>
-            <p className="text-small text-black_sub">
+        <div className="w-full bg-white border border-blue-200 rounded-lg p-6 shadow-md posing-vertical-3">
+          <h3 className="text-lg font-semibold text-black_main flex items-center gap-2">
+            <UserCheck className="text-blue-500 w-5 h-5" />
+            Quy định về chỗ nghỉ
+          </h3>
+          <div>
+            <h5 className="text-md font-medium text-black_main">
+              Trẻ em và giường phụ
+            </h5>
+            <p className="text-sm text-black_sub mt-1">
               Giường phụ tùy thuộc vào loại phòng bạn chọn, xin vui lòng kiểm
               tra thông tin phòng để biết thêm chi tiết. Tất cả trẻ em đều được
               chào đón.
             </p>
           </div>
-          <div className="w-full  grid grid-cols-1 gap-y-3 md:grid-cols-2 gap-x-2 ">
-            <div className="border_div_card h-[120px]">
-              <div>
-                <h3 className="text-normal">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Trẻ em 0-2 tuổi */}
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <Baby className="text-blue-600 w-5 h-5" />
+                <h3 className="text-md font-semibold text-black_main">
                   Trẻ em 0-2 tuổi [bao gồm cả bé 2 tuổi]
                 </h3>
               </div>
-              <hr />
-              <div className="mt-2 text-small font-light">
-                <h5 className="">Ở miễn phí nếu sử dụng giường có sẵn</h5>
-                <p className="">Nếu cần một giường phụ thì sẽ phụ thu thêm.</p>
+              <hr className="border-gray-300" />
+              <div className="text-sm text-black_sub mt-2">
+                <p>Ở miễn phí nếu sử dụng giường có sẵn.</p>
+                <p>Nếu cần một giường phụ thì sẽ phụ thu thêm.</p>
               </div>
             </div>
-            <div className="border_div_card h-[120px]">
-              <div>
-                <h3 className="text-normal">
+
+            {/* Khách từ 3 tuổi trở lên */}
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <Bed className="text-blue-600 w-5 h-5" />
+                <h3 className="text-md font-semibold text-black_main">
                   Những khách từ 3 tuổi trở lên tính là người lớn
                 </h3>
               </div>
-              <hr />
-              <div className="mt-2 text-small font-light">
-                <p className="">
-                  Cần đặt thêm một giường phụ và sẽ phụ thu thêm.
-                </p>
+              <hr className="border-gray-300" />
+              <div className="text-sm text-black_sub mt-2">
+                <p>Cần đặt thêm một giường phụ và sẽ phụ thu thêm.</p>
               </div>
             </div>
           </div>

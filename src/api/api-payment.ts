@@ -7,10 +7,13 @@ interface ICreatePayment {
   category: string;
   img: string;
   unitCode: string;
-  numberTicketAdult: number | null | undefined;
-  numberTicketChildren: number | null | undefined;
+  numberTicketAdult?: number | null | undefined;
+  numberTicketChildren?: number | null | undefined;
   startDate?: Date;
   hour?: string | undefined | null;
+  numberRoom: any;
+  dateFrom: any;
+  dateTo: any;
 }
 const createRequestPayment = async ({
   amount,
@@ -23,6 +26,9 @@ const createRequestPayment = async ({
   numberTicketChildren,
   hour,
   startDate,
+  numberRoom,
+  dateFrom,
+  dateTo,
 }: ICreatePayment) => {
   try {
     const result = await fetch(apiUrl + "/pay/create-payment-url", {
@@ -41,6 +47,9 @@ const createRequestPayment = async ({
         numberTicketChildren,
         hour,
         startDate,
+        numberRoom,
+        dateFrom,
+        dateTo,
       }),
     });
     return result.json();
