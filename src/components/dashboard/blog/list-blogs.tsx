@@ -96,6 +96,7 @@ const ListBlogPage = () => {
           viết phù hợp với nhu cầu của bạn nhé!
         </p>
         <InputDebounce
+          autoFocus={false}
           type="text"
           placeholder="Nhập tên bài viết..."
           className="border p-2 rounded max-w-[400px] text-normal"

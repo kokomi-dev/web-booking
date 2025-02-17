@@ -76,7 +76,7 @@ const ListHotelFavorite = () => {
                 name={hotel.name}
                 images={hotel.images[0]}
                 location={hotel.location.detail}
-                price={hotel.price[0]}
+                price={hotel.listRooms[0].price}
                 rating={hotel.rating}
               />
             </CarouselItem>

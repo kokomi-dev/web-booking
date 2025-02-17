@@ -24,6 +24,7 @@ export type InputDebounceProps = {
   type?: string;
   name?: string;
   ref?: any;
+  autoFocus?: boolean;
 };
 export type ButtonShowPassWordProps = {
   show: boolean;

@@ -228,10 +228,13 @@ const Account = () => {
                         nhập tiếp theo.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter className="flex flex-col gap-y-3 lg:flex-row">
+                    <AlertDialogFooter
+                      autoFocus={false}
+                      className="flex flex-col gap-y-3 lg:flex-row"
+                    >
                       <AlertDialogCancel
                         onClick={() => setOpen(false)}
-                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
+                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active hover:text-white"
                       >
                         Hủy
                       </AlertDialogCancel>
@@ -246,7 +249,7 @@ const Account = () => {
                               toast.error("Lỗi khi đăng nhập" + error);
                             }
                           }}
-                          className="bg-bg_black_sub text-black_sub hover:text-black"
+                          className="bg-bg_black_sub text-black_sub hover:bg-bg_primary_hover hover:text-black"
                         >
                           Đăng xuất
                         </AlertDialogAction>

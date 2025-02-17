@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/carousel";
 import ItemCard from "@/components/components/item-component";
 import { getAllHotel } from "@/api/api-hotels";
-import { HotelData } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
 import { LoadingItemShow } from "@/components/components/loading";
+import { IHotel } from "@/types/hotel.type";
 
 const ListAllHotels = () => {
   const { data: listHotel, isLoading } = useQuery({
@@ -57,7 +57,7 @@ const ListAllHotels = () => {
         className="w-full "
       >
         <CarouselContent>
-          {listHotel?.map((hotel: HotelData) => (
+          {listHotel?.map((hotel: IHotel) => (
             <CarouselItem
               key={hotel.slug}
               className="basis-[66.67%] md:basis-1/3 lg:basis-1/4"

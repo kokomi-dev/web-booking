@@ -5,10 +5,10 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 
 import { getAttractionBooked } from "@/api/api-attractions";
 import { checkOrderPayment } from "@/api/api-payment";
-import { AttractionData } from "@/types";
 import Loading from "@/app/loading";
 import { Accordion } from "@/components/ui/accordion";
 import ItemBooked from "./item-booked";
+import { AttractionData } from "@/types/attraction.type";
 
 const BookedAttractions = () => {
   const { user } = useAuthenticatedStore();
@@ -19,46 +19,46 @@ const BookedAttractions = () => {
   let arr: string[] = [];
   let arrOrderId: string[] = [];
 
-  useEffect(() => {
-    if (!user || !user.bookedAttractions) {
-      return;
-    } else {
-      if (user.bookedAttractions.length < 1) {
-        arr = [];
-        arrOrderId = [];
-      } else {
-      }
-      user.bookedAttractions.forEach((item) => {
-        arr.push(item.tripId);
-        arrOrderId.push(item.orderId);
-      });
-    }
+  // useEffect(() => {
+  //   if (!user || !user.bookedAttractions) {
+  //     return;
+  //   } else {
+  //     if (user.bookedAttractions.length < 1) {
+  //       arr = [];
+  //       arrOrderId = [];
+  //     } else {
+  //     }
+  //     user.bookedAttractions.forEach((item) => {
+  //       arr.push(item.tripId);
+  //       arrOrderId.push(item.orderId);
+  //     });
+  //   }
 
-    const fetchBookings = async () => {
-      setLoading(true);
-      try {
-        const result = await getAttractionBooked({ arr });
-        setData(result);
-        await fetchOrderStatuses(arrOrderId);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //   const fetchBookings = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const result = await getAttractionBooked({ arr });
+  //       setData(result);
+  //       await fetchOrderStatuses(arrOrderId);
+  //     } catch (error) {
+  //       console.error("Error fetching bookings:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    const fetchOrderStatuses = async (orderIds: string[]) => {
-      const statusArray = [];
-      for (const orderId of orderIds) {
-        try {
-          const result = await checkOrderPayment({ orderId });
-          statusArray.push(result.result.return_code);
-        } catch (error) {}
-      }
-      setStatuses(statusArray);
-    };
-    fetchBookings();
-  }, [user]);
+  //   const fetchOrderStatuses = async (orderIds: string[]) => {
+  //     const statusArray = [];
+  //     for (const orderId of orderIds) {
+  //       try {
+  //         const result = await checkOrderPayment({ orderId });
+  //         statusArray.push(result.result.return_code);
+  //       } catch (error) {}
+  //     }
+  //     setStatuses(statusArray);
+  //   };
+  //   fetchBookings();
+  // }, [user]);
 
   if (loading) {
     return <Loading />;
@@ -68,7 +68,7 @@ const BookedAttractions = () => {
       <h3 className="text-normal+ font-medium text-black">
         Địa điểm tham quan đã đặt chỗ
       </h3>
-      <div className="w-full h-full overflow-x-auto">
+      {/* <div className="w-full h-full overflow-x-auto">
         <Accordion type="single" collapsible className="w-full">
           {user &&
           user.bookedAttractions &&
@@ -90,7 +90,7 @@ const BookedAttractions = () => {
             </span>
           )}
         </Accordion>
-      </div>
+      </div> */}
     </div>
   );
 };

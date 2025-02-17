@@ -1,8 +1,5 @@
-import { cn } from "@/utils/constants";
-
-import React from "react";
-import { RULES_HOTEL } from "../constants";
 import Icon from "@/components/components/icon";
+import { RULES_HOTEL } from "../constants";
 
 const Rules = () => {
   return (

@@ -12,7 +12,7 @@ const ManageBooking = () => {
   const router = useRouter();
   return (
     <div className="w-full h-full py-4">
-      {(user && user.bookedAttractions) || user?.bookedHotels ? (
+      {user ? (
         <section className="w-full h-full flex flex-col items-center justify-start gap-y-4 ">
           <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-between">
             <h3 className="text-medium lg:text-large font-semibold">

@@ -73,7 +73,8 @@ const Notifycation = () => {
   const { user } = useAuthenticatedStore();
   return (
     <div>
-      {user && user.notifys ? (
+      <div className="font-medium text-small">Thông báo</div>
+      {/* {user && user.notifys ? (
         <Popover>
           <PopoverTrigger className="relative flex items-center justify-center">
             <Bell
@@ -95,7 +96,7 @@ const Notifycation = () => {
         </Popover>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };
