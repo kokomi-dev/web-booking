@@ -8,6 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { BreadcrumbItemType } from "@/types/component-types";
+import { ChevronRight } from "lucide-react";
 
 const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
   return (
@@ -17,17 +18,19 @@ const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
           <BreadcrumbItem key={index}>
             {item.href ? (
               <BreadcrumbLink
-                className="hover:underline text-black_sub"
+                className="hover:underline text-blue_main_sub ub"
                 href={item.href}
               >
                 {item.label}
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbPage className="text-blue_main_sub first-letter:uppercase">
+              <BreadcrumbPage className="text-black_main first-letter:uppercase">
                 {item.label}
               </BreadcrumbPage>
             )}
-            {index < items.length - 1 && "/"}
+            {index < items.length - 1 && (
+              <ChevronRight className="size-4 text-black_main mx-0" />
+            )}
           </BreadcrumbItem>
         ))}
       </BreadcrumbList>

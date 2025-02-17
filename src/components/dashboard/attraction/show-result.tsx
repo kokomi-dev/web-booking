@@ -5,15 +5,14 @@ import React, { useCallback, useState } from "react";
 
 import FilterComponent from "@/components/components/filter-item";
 import ItemSearchResult from "@/components/components/item-search-result";
-import { LoadingItemSearch } from "@/components/components/loading";
 import SheetShowFilter from "@/components/components/sheet-show-filter";
 import ShowOnMap from "@/components/components/show-on-map";
 import { Button } from "@/components/ui/button";
-import { AttractionData } from "@/types";
+import { AttractionData } from "@/types/attraction.type";
 import { ShowResultPropsAttraction } from "@/types/component-types";
 import { cn } from "@/utils/constants";
-import { filter1, filter2, filter3, filterBar } from "../constants";
 import BreadcrumbHead from "../../components/breadcrumb";
+import { filter1, filter2, filter3, filterBar } from "../constants";
 
 interface IHandleFilterData {
   data: AttractionData[];

@@ -2,10 +2,15 @@ const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 interface ICreatePayment {
   amount: number;
-  userId: string | number;
+  userId: string | number | undefined;
   tripId: string;
   category: string;
   img: string;
+  unitCode: string;
+  numberTicketAdult: number | null | undefined;
+  numberTicketChildren: number | null | undefined;
+  startDate?: Date;
+  hour?: string | undefined | null;
 }
 const createRequestPayment = async ({
   amount,
@@ -13,6 +18,11 @@ const createRequestPayment = async ({
   tripId,
   category,
   img,
+  unitCode,
+  numberTicketAdult,
+  numberTicketChildren,
+  hour,
+  startDate,
 }: ICreatePayment) => {
   try {
     const result = await fetch(apiUrl + "/pay/create-payment-url", {
@@ -20,7 +30,18 @@ const createRequestPayment = async ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount, userId, tripId, category, img }),
+      body: JSON.stringify({
+        amount,
+        userId,
+        tripId,
+        category,
+        img,
+        unitCode,
+        numberTicketAdult,
+        numberTicketChildren,
+        hour,
+        startDate,
+      }),
     });
     return result.json();
   } catch (error) {

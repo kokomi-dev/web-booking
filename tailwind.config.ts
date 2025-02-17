@@ -222,6 +222,10 @@ const config = {
           "& > * + *": { marginTop: "0.3rem" },
           "@screen lg": { "& > * + *": { marginTop: "0.7rem" } },
         },
+        ".posing-vertical-6": {
+          "& > * + *": { marginTop: "0.15rem" },
+          "@screen lg": { "& > * + *": { marginTop: "0.3rem" } },
+        },
         ".posing-horizontal-1": {
           "& > * + *": { marginRight: "1rem" },
           "@screen lg": { "& > * + *": { marginRight: "1.5rem" } },

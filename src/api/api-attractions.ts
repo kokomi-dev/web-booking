@@ -1,25 +1,12 @@
-import { AttractionData } from "@/types";
+import axiosClient from "@/configs/axiosClient/axiosClient";
+import { SearchResult } from "@/types/attraction.type";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const getAllAttraction = async () => {
-  const data = await fetch(`${apiUrl}/attraction`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const response = await data.json();
-  return response;
+const getAllAttraction = () => {
+  return axiosClient.get("/attraction");
 };
 const getAttractionTrending = async () => {
-  const data = await fetch(`${apiUrl}/attraction?trending=true`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const response = await data.json();
-  return response;
+  return axiosClient.get("/attraction?trending=true");
 };
 const getDetailAttraction = async ({ slug }: { slug: string }) => {
   try {
@@ -65,9 +52,6 @@ const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
   }
 };
 
-export type SearchResult = {
-  data: AttractionData[];
-};
 const searchResult = async ({
   searchParam,
 }: {
@@ -95,6 +79,7 @@ const getListProvinces = async () => {
     console.log(error);
   }
 };
+
 export {
   getAllAttraction,
   getAttractionTrending,

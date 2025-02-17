@@ -1,14 +1,15 @@
 import { SetStateAction } from "react";
-import { AttractionData, HotelData } from ".";
+import { HotelData } from ".";
+import { AttractionData } from "./attraction.type";
 
 export type ModalConfirmCodeProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  setOpenModalSuccesBooking: (open: boolean) => void;
   lastName: string;
   email: string;
   code: string;
-  totalBooking: any;
-  tripId: string;
-  category: string;
-  img: string;
+  handleSendReqBooked: (paymentMethod: string) => void;
 };
 export type DisplayDoc = {
   docs: string;
@@ -56,4 +57,28 @@ export interface IVoucherProp {
   category: string;
   description: string;
   expiryDate: string;
+}
+export interface IPayListWrap {
+  infoBooking: any;
+  totalBooking: string;
+  data: AttractionData;
+  category: string;
+  hour?: string | null;
+  childrenNumber?: string | null;
+  adult?: string | null;
+}
+export interface IModalPayBankTransfer {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export interface IModalPayCreditCard {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+export interface IModalBookingSucess {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  model: string;
+  handleClose: () => void;
 }

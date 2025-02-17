@@ -38,7 +38,7 @@ const arrInfo: {
 ];
 const Intro = () => {
   return (
-    <div
+    <section
       className={cn(
         "w-full flex flex-col items-center justify-start  bg-bg_black_sub "
       )}
@@ -126,7 +126,7 @@ const Intro = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default Intro;

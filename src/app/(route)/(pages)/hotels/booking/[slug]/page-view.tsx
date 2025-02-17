@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
-import ModalConfirmCode from "@/components/components/modal-code";
+import ModalConfirmCode from "@/components/components/pay-modal/modal-verify-code";
 
 const BookingHotel = () => {
   const { slug } = useParams<{

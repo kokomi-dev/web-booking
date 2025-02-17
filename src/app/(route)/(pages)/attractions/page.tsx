@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 
 const HomePage = () => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between gap-4 lg:gap-6 ">
+    <div className="w-full h-full posing-vertical-1 ">
       <Trending page="attractions" />
       <hr className="hr" />
       <Intro />
       <hr className="hr" />
-      <div
+      <section
         className={cn(
           "w-full h-full py-10 bg-fixed bg-no-repeat bg-cover bg-[url('../assets/images/banner2.jpg')]",
           "lg:py-0"
@@ -33,7 +33,7 @@ const HomePage = () => {
           <p className="mb-2">
             Khuyến mãi giảm giá đặc biệt dành riêng cho bạn
           </p>
-          <div className="w-full h-auto flex flex-col items-start justify-start gap-y-2 bg-white p-4 text-black_sub rounded-md">
+          <div className="w-full h-auto posing-vertical-5 bg-white p-4 text-black_sub rounded-md">
             <h4 className="w-full text-black_main text-normal font-light">
               Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
               tiếng của chúng tôi
@@ -53,19 +53,11 @@ const HomePage = () => {
           Chỉ cần đăng nhập tài khoản, bạn sẽ sở hữu cho mình nhiều ưu đãi và
           chương trình tri ân cho những khách hàng mới đặc biệt ưu đãi!
         </h3>
-      </div>
-      <div
-        className={cn(
-          "w-full flex flex-col items-start justify-start gap-y-2",
-          "md:gap-4",
-          "lg:gap-6"
-        )}
-      >
-        <hr className="hr" />
-        <ListAttractions />
-        <hr className="hr" />
-        <ListTrendingTour />
-      </div>
+      </section>
+      <hr className="hr" />
+      <ListTrendingTour />
+      <hr className="hr" />
+      <ListAttractions />
       <ListProvinces />
       <hr className="hr" />
       <ReceiveFeedback />

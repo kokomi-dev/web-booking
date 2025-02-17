@@ -10,38 +10,11 @@ export interface User {
   lastname: string;
   email: string;
   numberPhone: string;
-  bookedAttractions:
-    | [
-        {
-          tripId: string;
-          orderId: string;
-          bookingDate: Date;
-          amount: number;
-        }
-      ]
-    | [];
-  bookedHotels:
-    | [
-        {
-          tripId: string;
-          orderId: string;
-          bookingDate: Date;
-          amount: number;
-        }
-      ]
-    | [];
-  notifys?: [
-    {
-      title: string;
-      time: string;
-      content: string;
-      img: string;
-    }
-  ];
   isActive: boolean;
   isNewbie: boolean;
   roles: string;
   groupId: [string];
+  idCode: string;
 }
 
 interface AuthenticatedStoreProps {

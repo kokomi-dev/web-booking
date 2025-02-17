@@ -3,16 +3,13 @@ import React, { useState } from "react";
 import CardText from "../../components/card-text";
 import CardBookingTicket from "./card-booking-ticket";
 import CarouselDate from "./carousel-date";
+import { IBookingContainer } from "@/types/attraction.type";
 
-interface IBookingContainer {
-  slug: string;
-  data: any;
-}
 const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string>("7h00");
   return (
-    <div className="w-full h-fit space-y-3  lg:sticky lg:-top-[4rem]  rounded-xl lg:pl-3 ">
+    <div className="w-full h-fit posing-vertical-4  lg:sticky lg:-top-[4rem]  rounded-xl lg:pl-3 ">
       <div className="w-full">
         <h3 className="text-medium font-bold">Chọn ngày</h3>
         <div className="max-w-fit w-auto">
@@ -66,6 +63,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
           date={date}
           duration={data.duration}
           price={data.price}
+          numberOfTickets={data.numberOfTickets}
         />
       </div>
     </div>

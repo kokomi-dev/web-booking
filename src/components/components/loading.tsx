@@ -1,6 +1,6 @@
 import { cn } from "@/utils/constants";
 import { Skeleton } from "../ui/skeleton";
-
+import { Card, CardContent } from "@/components/ui/card";
 const LoadingPage = () => {
   return (
     <div className="loading">
@@ -59,6 +59,36 @@ const LoadingItemComment = () => {
     </div>
   );
 };
+const LoadingItemShow = () => {
+  return (
+    <div className="w-full min-h-[100%] h-[100%]">
+      <Card className="min-h-[100%] flex items-start justify-start flex-col">
+        {/* Hình ảnh skeleton */}
+        <Skeleton className="rounded-tr-md rounded-tl-md w-full h-[200px] md:h-[230px] lg:h-[240px]" />
+
+        <CardContent className="grid gap-x-1 p-2 pt-1 pb-8 text-start">
+          {/* Tiêu đề */}
+          <Skeleton className="h-5 w-3/4 mb-1" />
+
+          {/* Địa điểm */}
+          <Skeleton className="h-4 w-1/2 mb-2" />
+
+          {/* Đánh giá */}
+          <div className="flex items-center gap-1">
+            <Skeleton className="w-10 h-5 rounded-8" />
+            <Skeleton className="w-4 h-4 rounded-full" />
+            <Skeleton className="h-4 w-20" />
+          </div>
+
+          {/* Giá tiền */}
+          <div className="absolute bottom-2 right-4 flex items-center">
+            <Skeleton className="h-4 w-20" />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 export {
   LoadingItemSearch,
   LoadingPage,
@@ -66,4 +96,5 @@ export {
   LoadingComponentAccount,
   LoadingImg,
   LoadingItemComment,
+  LoadingItemShow,
 };
