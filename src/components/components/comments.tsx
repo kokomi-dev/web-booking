@@ -198,6 +198,16 @@ const Comments: React.FC<IComments> = ({
                           {formatDate(e.commentDate)}
                         </span>
                       </div>
+                      <div className="flex items-center justify-start gap-x-1">
+                        {Array.from({ length: e.ratingVote }).map(
+                          (_, index) => (
+                            <Star
+                              key={index}
+                              className="text-yellow_main size-3 fill-yellow_main"
+                            />
+                          )
+                        )}
+                      </div>
                       <p className="text-normal font-light line-clamp-2 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 first-letter:uppercase  overflow-y-auto ">
                         {e.content}.
                       </p>

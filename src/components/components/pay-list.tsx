@@ -32,6 +32,9 @@ const PayListWrap = ({
   hour,
   childrenNumber,
   adult,
+  numberRoom,
+  dateFrom,
+  dateTo,
 }: IPayListWrap) => {
   type InfoBooking = z.infer<typeof infoBooking>;
   const [confirm, setConfirm] = useState({
@@ -59,6 +62,9 @@ const PayListWrap = ({
     numberTicketChildren: Number(adult),
     hour: hour,
     paymentMethod: "",
+    numberRoom,
+    dateFrom,
+    dateTo,
   };
   const mutationSendInfoBooked = useMutation({
     mutationFn: sendReqBooked,

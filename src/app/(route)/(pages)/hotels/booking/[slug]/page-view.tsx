@@ -1,31 +1,22 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
-import { Check, Star, UserRound } from "lucide-react";
+import { Check, CircleUser, Star, UserRound } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import React, { Fragment, useEffect, useState } from "react";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { cn } from "@/utils/constants";
+import { getDetailHotel } from "@/api/api-hotels";
 import Loading from "@/app/loading";
 import { Button } from "@/components/ui/button";
-import { sendEmailConfirm } from "@/api/api-email";
-import { HotelData } from "@/types";
-import { convertVND, timeListBooking } from "@/utils/constants";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { getDetailHotel } from "@/api/api-hotels";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
+import {
+  cn,
+  convertVND,
+  formatDateToISOString,
+  timeListBooking,
+} from "@/utils/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import {
   Command,
@@ -40,6 +31,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import BreadcrumbHead from "@/components/components/breadcrumb";
+import PayListWrap from "@/components/components/pay-list";
 import {
   Form,
   FormControl,
@@ -50,7 +43,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useBookingInfoStore } from "@/store/booking-info";
-import ModalConfirmCode from "@/components/components/pay-modal/modal-verify-code";
+import { IHotel } from "@/types/hotel.type";
 
 const BookingHotel = () => {
   const { slug } = useParams<{
@@ -58,7 +51,7 @@ const BookingHotel = () => {
   }>();
   const { user, isAuthenticated } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<HotelData | null>(null);
+  const [data, setData] = useState<IHotel | null>(null);
   const infoBooking = z.object({
     lastname: z.string().min(2, "Vui lòng nhập tên"),
     firstname: z.string().min(2, "Vui lòng nhập họ"),
@@ -104,33 +97,18 @@ const BookingHotel = () => {
     }
   }, [slug, user]);
 
-  const [openModal, setOpenModal] = useState(false);
-  const [confirm, setConfirm] = useState({
-    idEmail: "",
-    code: "",
-  });
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const param = useSearchParams();
 
-  const dateFrom = param.get("date-from");
-  const dateTo = param.get("date-to");
-  const total = param.get("price");
+  const dateFrom: string = param.get("date-from") ?? "";
+  const dateTo: string = param.get("date-to") ?? "";
+  const childrenNumber = param.get("numberChildren");
+  const adult = param.get("numberAdults");
+  const numberRoom = param.get("numberRoom");
 
-  const handleSendEmailConfirm = async (email: string) => {
-    try {
-      const data = await sendEmailConfirm(email);
-      if (data) {
-        setConfirm(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleButton = (value: InfoBooking) => {
-    setOpenModal(true);
-    handleSendEmailConfirm(value.email);
-  };
+  const total: string = param.get("price") ?? "";
+
   const { bookingInfo } = useBookingInfoStore();
   const num = bookingInfo?.chooseInput.reduce((arrg, item) => {
     return arrg + item;
@@ -140,35 +118,28 @@ const BookingHotel = () => {
       {isLoading ? (
         <Loading />
       ) : data ? (
-        <div
-          className={cn(
-            "w-full h-full  flex flex-col items-start justify-start gap-2"
-          )}
-        >
+        <div className={cn("w-full h-full  posing-vertical-1")}>
           {/* head */}
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/hotels">Lưu trú</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/hotels/${data.slug}`}>
-                  {data.name}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Đặt nơi lưu trú</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <BreadcrumbHead
+            items={[
+              {
+                label: "Trang chủ",
+                href: "/home",
+              },
+              {
+                label: "Lưu trú",
+                href: "/hotels",
+              },
+              {
+                href: `/hotels/${data.slug}`,
+                label: `${data.name}`,
+              },
+              {
+                label: "Đặt nơi lưu trú",
+              },
+            ]}
+          />
 
-          <div
-            className={cn(
-              "w-full flex flex-col items-start justify-start gap-2"
-            )}
-          ></div>
           {/* body */}
           <div
             className={cn(
@@ -177,22 +148,13 @@ const BookingHotel = () => {
             )}
           >
             {/* info */}
-            <div className={cn("w-full h-fit grid gap-y-3  ")}>
+            <div className={cn("w-full h-fit posing-vertical-3  ")}>
               <div
                 className={cn(
                   "w-full h-full flex items-start justify-start gap-2 border-[0.4px] border-[#999] p-3 rounded-8"
                 )}
               >
-                {/* <Image
-                  priority
-                  alt="img-booking"
-                  src={data.images[0]}
-                  width={900}
-                  height={600}
-                  sizes="50"
-                  className="min-w-[8rem] w-full h-[8rem] rounded-lg"
-                /> */}
-                <div className="grid text-small font-normal p-1 gap-y-1">
+                <div className=" text-small font-normal p-1 posing-vertical-6">
                   <h4 className="text-medium font-semibold">{data.name}</h4>
                   <span className="flex items-center justify-start gap-x-1 text-small">
                     <Star className="size-4 text-yellow_main fill-yellow_main" />
@@ -212,24 +174,30 @@ const BookingHotel = () => {
                           key={index}
                         >
                           <Check className="size-3 text-green_main" />
-                          {include}
+                          <span className="first-letter:uppercase text-black_main">
+                            {include}
+                          </span>
                         </li>
                       );
                     })}
                   </ul>
                 </div>
               </div>
-              <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 p-2">
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 posing-vertical-4 p-2">
                 <h4 className="text-normal font-semibold">
                   Chi tiết đặt phòng của bạn
                 </h4>
                 <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium">
                   <div className="text-center">
-                    <h4 className="text-smallest font-medium">Nhận phòng</h4>
+                    <h4 className="text-smallest font-semibold text-blue_main_sub">
+                      Nhận phòng
+                    </h4>
                     <span className="text-small font-semibold">{dateFrom}</span>
                   </div>
                   <div className="text-center border-l-[0.4px] border-[#999]">
-                    <h4 className="text-smallest font-medium">Trả phòng</h4>
+                    <h4 className="text-smallest font-semibold text-blue_main_sub">
+                      Trả phòng
+                    </h4>
                     <span className="text-small font-semibold">{dateTo}</span>
                   </div>
                 </div>
@@ -237,7 +205,7 @@ const BookingHotel = () => {
                   <h4 className="text-small font-medium">
                     Tổng thời gian lưu trú:
                   </h4>
-                  <span className="text-small font-semibold">1</span>
+                  <span className="text-small font-semibold ">1</span>
                 </div>
                 <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
                   <h4 className="text-small font-medium">Bạn đã chọn</h4>
@@ -247,7 +215,7 @@ const BookingHotel = () => {
               <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 ">
                 <div className="p-2">
                   <h4 className="text-normal font-semibold">
-                    Giá bạn phải thanh toán:
+                    Tổng tiền phải thanh toán:
                   </h4>
                 </div>
                 <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium bg-bg_primary_hover text-black">
@@ -267,18 +235,14 @@ const BookingHotel = () => {
                 </p>
 
                 <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
-                  <span className="text-small font-semibold">
+                  <span className="text-small font-normal text-black_main">
                     Chương trình khách hàng thân thiết của KoKoTravel
                   </span>
                 </div>
               </div>
             </div>
             {/* infoc customer */}
-            <div
-              className={cn(
-                "w-full flex flex-col items-start justify-start gap-3 "
-              )}
-            >
+            <div className={cn("w-full posing-vertical-3 ")}>
               <div className="w-full flex flex-col items-start justify-start gap-2">
                 {user && isAuthenticated && (
                   <div className="w-full h-auto flex items-center justify-start gap-x-2 p-3 border-0.5 border-[#999] rounded-8">
@@ -288,13 +252,7 @@ const BookingHotel = () => {
                         "md:w-[2.8rem] md:h-[2.8rem]"
                       )}
                     >
-                      <Image
-                        src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
-                        width={600}
-                        height={600}
-                        alt="avatar-user"
-                        className=" rounded-full object-contain"
-                      />
+                      <CircleUser className="text-blue_main_sub size-8" />
                     </div>
                     <div>
                       <h4 className="text-normal font-semibold ">
@@ -310,10 +268,7 @@ const BookingHotel = () => {
                   Nhập thông tin chi tiết của bạn
                 </h3>
                 <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(handleButton)}
-                    className="space-y-3 w-full  "
-                  >
+                  <form className="space-y-3 w-full  ">
                     <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
                         <FormField
@@ -466,13 +421,14 @@ const BookingHotel = () => {
                             <input
                               className={cn("size-5 mr-2", "lg:size-4")}
                               type="radio"
-                              value="0"
-                              id="0"
+                              value="customer_main"
+                              id="customer_main"
                               name="booking_for_who"
+                              checked
                             />
                             <label
-                              className="cursor-pointer text-small"
-                              htmlFor="0"
+                              className="cursor-pointer text-small select-none"
+                              htmlFor="customer_main"
                             >
                               Tôi là khách lưu trú chính
                             </label>
@@ -480,14 +436,14 @@ const BookingHotel = () => {
                           <div className="flex items-center justify-start my-1">
                             <input
                               className={cn("size-5 mr-2", "lg:size-4")}
-                              id="1"
+                              id="customer_other"
                               type="radio"
-                              value="1"
+                              value="customer_other"
                               name="booking_for_who"
                             />
                             <label
-                              className="cursor-pointer text-small"
-                              htmlFor="1"
+                              className="cursor-pointer text-small select-none"
+                              htmlFor="customer_other"
                             >
                               Đặt phòng này là cho người khác
                             </label>
@@ -587,21 +543,27 @@ const BookingHotel = () => {
                                   {room.name}
                                 </h4>
                                 <div className="ml-2">
-                                  <ul>
-                                    {room.details.map((detailItem, index) => {
-                                      return (
-                                        <li
-                                          key={index}
-                                          className="flex items-center justify-start text-smallest py-1"
-                                        >
-                                          <Check className="text-green_main size-3" />
-                                          <span className="ml-1">
-                                            {detailItem}
-                                          </span>
-                                        </li>
-                                      );
-                                    })}
-                                  </ul>
+                                  {Array.isArray(room.details) ? (
+                                    <ul>
+                                      {room.details?.map(
+                                        (detailItem, index) => {
+                                          return (
+                                            <li
+                                              key={index}
+                                              className="flex items-center justify-start text-smallest py-1"
+                                            >
+                                              <Check className="text-green_main size-3" />
+                                              <span className="ml-1">
+                                                {detailItem}
+                                              </span>
+                                            </li>
+                                          );
+                                        }
+                                      )}
+                                    </ul>
+                                  ) : (
+                                    <p>{room.details}</p>
+                                  )}
                                   <div className="flex items-center justify-statr gap-x-1">
                                     <UserRound className="size-4" />
                                     <h5 className="font-semibold">Khách:</h5>
@@ -615,36 +577,20 @@ const BookingHotel = () => {
                         })}
                       </div>
                     </div>
-                    <Button
-                      type="submit"
-                      className="bg-bg_primary_blue_sub text-white w-full py-6"
-                    >
-                      Thanh toán ngay
-                    </Button>
+                    <PayListWrap
+                      category="hotel"
+                      data={data}
+                      infoBooking={infoBooking}
+                      totalBooking={total}
+                      childrenNumber={childrenNumber}
+                      adult={adult}
+                      numberRoom={numberRoom}
+                      dateFrom={formatDateToISOString(dateFrom)}
+                      dateTo={formatDateToISOString(dateTo)}
+                    />
                   </form>
                 </Form>
               </div>
-              <Dialog
-                open={openModal}
-                onOpenChange={() => {
-                  setOpenModal(false);
-                }}
-              >
-                <DialogContent
-                  aria-describedby={undefined}
-                  className="bg-bg_black_sub"
-                >
-                  <ModalConfirmCode
-                    totalBooking={total}
-                    code={confirm?.code}
-                    lastName={user ? user.lastname : ""}
-                    email={user ? user.email : ""}
-                    tripId={data._id}
-                    category="hotel"
-                    img={data.images[0]}
-                  />
-                </DialogContent>
-              </Dialog>
             </div>
           </div>
         </div>

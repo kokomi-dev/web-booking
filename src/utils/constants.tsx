@@ -140,6 +140,14 @@ const formatDate = (date: Date | string): string => {
   const parsedDate = new Date(date);
   return parsedDate.toLocaleDateString("vi-VN");
 };
+function formatDateToISOString(dateString: string): string {
+  const [day, month, year] = dateString.split("/").map(Number);
+  if (!day || !month || !year) {
+    throw new Error("Invalid date format. Expected format: DD/MM/YYYY");
+  }
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.toISOString();
+}
 
 export {
   ratingConvert,
@@ -152,4 +160,5 @@ export {
   removeDots,
   capitalizeFirstLetter,
   formatDate,
+  formatDateToISOString,
 };

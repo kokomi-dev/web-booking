@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { cn } from "@/utils/constants";
-import { HotelData } from "@/types";
 import { convertToSlug } from "@/utils/constants";
 import { searchResultHotel } from "@/api/api-hotels";
 import ShowResult from "@/components/dashboard/hotels/show-result";
 import { LoadingPage } from "@/components/components/loading";
+import { IHotel } from "@/types/hotel.type";
 
 const SearchResultPageHotel = () => {
   const searchParams = useSearchParams();
   const nameValue = searchParams.get("address");
   const search = nameValue && convertToSlug(nameValue);
-  const [data, setData] = useState<HotelData[]>([]);
+  const [data, setData] = useState<IHotel[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetcher = async () => {

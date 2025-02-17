@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
-import { HotelData } from ".";
 import { AttractionData } from "./attraction.type";
+import { IHotel } from "./hotel.type";
 
 export type ModalConfirmCodeProps = {
   open: boolean;
@@ -35,7 +35,7 @@ export type ShowResultPropsAttraction = {
   nameValue: string | null;
 };
 export type ShowResultPropsHotel = {
-  data: HotelData[];
+  data: IHotel[];
   isLoading: boolean;
   nameValue: string | null;
 };
@@ -61,11 +61,14 @@ export interface IVoucherProp {
 export interface IPayListWrap {
   infoBooking: any;
   totalBooking: string;
-  data: AttractionData;
+  data: AttractionData | IHotel;
   category: string;
   hour?: string | null;
   childrenNumber?: string | null;
   adult?: string | null;
+  numberRoom?: string | null;
+  dateTo?: string | null;
+  dateFrom?: string | null;
 }
 export interface IModalPayBankTransfer {
   open: boolean;

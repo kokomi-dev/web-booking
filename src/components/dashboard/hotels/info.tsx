@@ -1,6 +1,7 @@
 "use client";
 
 import ShareButton from "@/components/components/share-button";
+import { InfoProps } from "@/types/hotel.type";
 import { MapPin, TriangleAlert } from "lucide-react";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -8,14 +9,7 @@ import { GoStarFill } from "react-icons/go";
 const ImagesDetail = dynamic(
   () => import("@/components/components/images-detail")
 );
-interface InfoProps {
-  name: string;
-  location: string;
-  details: [string];
-  rating: number;
-  images: any;
-  slug: string;
-}
+
 const Info: React.FC<InfoProps> = ({
   name,
   location,
@@ -24,8 +18,8 @@ const Info: React.FC<InfoProps> = ({
   slug,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-y-4 ">
-      <div className="w-full flex flex-col gap-y-3   " id="overview">
+    <div className="w-full posing-vertical-2 ">
+      <div className="w-full posing-vertical-3" id="overview">
         <div className="w-fit ">
           <h5 className="text-smallest bg-bg_primary_yellow text-black p-1 rounded-8">
             Đặt phòng với chúng tôi !
