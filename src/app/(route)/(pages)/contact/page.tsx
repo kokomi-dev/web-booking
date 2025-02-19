@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 
 const stay = [
   "Hủy phòng",
@@ -56,10 +57,18 @@ export const metadata: Metadata = {
 };
 const ContactPage = () => {
   return (
-    <section className="w-full">
+    <section className="w-full posing-vertical-1">
+      <BreadcrumbHead
+        items={[
+          { label: "Trang chủ", href: "/home" },
+          { label: "Liên hệ tư vấn" },
+        ]}
+      />
       {/* head */}
-      <div className="w-full ">
-        <h6 className="pb-4">Trung tâm trợ giúp</h6>
+      <div className="w-full !mt-0 lg:!mt-[1.3rem]">
+        <h2 className="text-medium font-bold lg:text-large pb-4">
+          Trung tâm trợ giúp
+        </h2>
         <div className="w-full border-[0.5px] border-[#999] rounded-xl p-4">
           <div className="flex items-center justify-start">
             <MailWarning className={cn("pr-2", "lg:pr-3")} />

@@ -1,17 +1,19 @@
 import imgGenius from "@/assets/images/banner-genius.jpg";
 import imgQua from "@/assets/images/img-qua.png";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 import ListLevel from "@/components/dashboard/genius/list-level";
 import ListItemBooked from "@/components/dashboard/genius/list-number-booked";
 import ListVoucher from "@/components/dashboard/genius/list-voucher";
 import Image from "next/image";
 const TrangVoucher = () => {
   return (
-    <div className="w-full min-h-screen flex items-center justify-start flex-col gap-y-4 ">
-      <div className="min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
+    <div className="w-full min-h-screen posing-vertical-1 ">
+      <div className="hidden md:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
         <Image
           width={1200}
-          height={1200}
+          height={800}
           src={imgGenius}
+          priority={true}
           alt="banner-gennius"
           className="w-full h-full min-h-[25vh] lg:min-h-auto object-cover "
         />
@@ -28,19 +30,28 @@ const TrangVoucher = () => {
           </p>
         </div>
       </div>
+      <BreadcrumbHead
+        items={[
+          {
+            label: "Trang chủ",
+            href: "/home",
+          },
+          { label: "Chương trình thân thiết" },
+        ]}
+      />
       <ListItemBooked />
-      <div className="w-full mx-auto space-y-6 lg:space-y-8">
+      <div className="w-full mx-auto posing-vertical-2">
         <h1 className="text-large font-bold text-black_main">
           Tiết kiệm khi đặt chuyến đi tiếp theo
         </h1>
-        <p className="text-normal mb-4 text-gray-700">
+        <p className="text-normal mb-4 text-black_sub">
           Chào mừng bạn đến với nền tảng đặt vé và ưu đãi hàng đầu của chúng
           tôi! Trang web cung cấp các tiện ích đặt vé nhanh chóng, giao diện
           thân thiện, và nhiều ưu đãi đặc biệt dành cho bạn. Đối với người dùng
           mới, chúng tôi có các chương trình giảm giá hấp dẫn, giúp bạn trải
           nghiệm dịch vụ với chi phí thấp nhất. Hãy khám phá ngay hôm nay!
         </p>
-        <div className="flex flex-col gap-y-3 shadow-2xl p-3 rounded-8">
+        <div className="posing-vertical-3 shadow-2xl p-3 rounded-8">
           <div className="flex  items-center justify-start gap-2">
             <Image
               width={120}
@@ -80,7 +91,7 @@ const TrangVoucher = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-y-3">
+        <div className=" flex flex-col md:flex-row items-center  md:items-start justify-start md:justify-between gap-y-3 md:gap-x-3">
           <div className="text-left">
             <h3 className="text-large font-bold">Dễ dàng tiết kiệm</h3>
             <p className="text-black_sub text-normal font-light">
@@ -92,7 +103,10 @@ const TrangVoucher = () => {
               Quá đơn giản, chỉ có thể là Genius.
             </p>
           </div>
-          <img
+          <Image
+            width={600}
+            height={400}
+            alt="banner-genius-sale"
             className="object-cover"
             src="https://cf.bstatic.com/psb/capla/static/media/how-to.fb2b5d7a.svg"
           />

@@ -1,6 +1,6 @@
 "use client";
 import { ChevronDown, Dot, User } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { SearchSelectPersonProps } from "@/types/search";
@@ -17,13 +17,22 @@ const SearchSelectPerson = ({
   setNumberChildren,
   setNumberRoom,
 }: SearchSelectPersonProps) => {
-  const handleIncrease = (setter: (value: number) => void, value: number) => {
-    setter(value + 1);
-  };
+  const handleIncrease = useCallback(
+    (setter: (value: number) => void, value: number) => {
+      setter(value + 1);
+    },
+    []
+  );
 
-  const handleDecrease = (setter: (value: number) => void, value: number) => {
-    setter(value - 1);
-  };
+  const handleDecrease = useCallback(
+    (setter: (value: number) => void, value: number) => {
+      if (value > 0) {
+        setter(value - 1);
+      }
+    },
+    []
+  );
+
   const [open, setOpen] = useState(false);
   return (
     <section className="flex flex-col w-full">

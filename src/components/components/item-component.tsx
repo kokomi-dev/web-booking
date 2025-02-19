@@ -3,69 +3,57 @@ import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { GoStarFill } from "react-icons/go";
+import { memo, useMemo } from "react";
+import { ItemCardProps } from "@/types/component-types";
 
 export const formatPrice = (num: number) => {
   const formattedNumber = new Intl.NumberFormat("vi-VN").format(num);
   return formattedNumber;
 };
-const ItemCard = ({
-  slug,
-  name,
-  images,
-  location,
-  price,
-  route,
-  rating,
-}: {
-  slug: string;
-  name: string;
-  images: string;
-  location: string;
-  price: number;
-  route: string;
-  rating: number;
-}) => {
-  return (
-    <Link
-      href={`/${route}/${slug}`}
-      className="w-full min-h-[100%] h-[100%] relative  "
-    >
-      <Card className="min-h-[100%] flex items-start justify-start flex-col ">
-        <Image
-          width={1920}
-          height={1080}
-          className="rounded-tr-md rounded-tl-md object-cover w-[100%] h-[200px] md:h-[230px] lg:h-[240px] "
-          src={images}
-          alt="img_preview_tour"
-          loading="lazy"
-        />
-        <CardContent className="grid gap-x-1 p-2 pt-1 pb-8 text-start ">
-          <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
-            {name}
-          </h4>
-          <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1">
-            {location}
-          </address>
-          <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
-            <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1 text-small">
-              <span className="text-[0.75rem] md:text-small">{rating}</span>
-            </div>
-            <GoStarFill className="text-yellow_main text-[1rem]" />
-            <h6 className="text-smallest font-normal">
-              {rating > 4.5 ? "Rất tuyệt vời" : rating > 4 ? "Rất tốt " : "Tốt"}
-            </h6>
-          </div>
-          <h6 className="text-normal absolute bottom-2 right-4">
-            <span className="text-[0.8rem] font-light pr-1">Bắt đầu từ</span>
-            <span className="text-small font-bold pr-1">VNĐ</span>
-            <span className="underline text-blue_main text-small font-bold">
-              {formatPrice(price)}
-            </span>
-          </h6>
-        </CardContent>
-      </Card>
-    </Link>
-  );
-};
+const ItemCard = memo(
+  ({ slug, name, images, location, price, route, rating }: ItemCardProps) => {
+    const ratingText =
+      rating > 4.5 ? "Rất tuyệt vời" : rating > 4 ? "Rất tốt" : "Tốt";
+    const formattedPrice = useMemo(() => formatPrice(price), [price]);
 
+    return (
+      <Link href={`/${route}/${slug}`} className="w-full h-full relative">
+        <Card className="min-h-[100%] flex items-start justify-start flex-col ">
+          <Image
+            width={600}
+            height={400}
+            className="rounded-tr-md rounded-tl-md object-cover w-full h-[190px] md:h-[205px] lg:h-[220px] xl:h-[240px]"
+            src={images}
+            alt={name}
+            priority={true}
+            placeholder="empty"
+          />
+          <CardContent className="flex flex-col gap-1 p-2 pt-1 pb-8 text-start ">
+            <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
+              {name}
+            </h4>
+            <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1">
+              {location}
+            </address>
+            <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
+              <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1 text-small">
+                <span className="text-[0.75rem] md:text-small">{rating}</span>
+              </div>
+              <GoStarFill className="text-yellow_main text-[1rem]" />
+              <h6 className="text-smallest font-normal">{ratingText}</h6>
+            </div>
+            <h6 className="text-normal absolute bottom-2 right-4">
+              <span className="text-[0.8rem] font-light pr-1">Bắt đầu từ</span>
+              <span className="text-small font-bold pr-1">VNĐ</span>
+              <span className="underline text-blue_main text-small font-bold">
+                {formattedPrice}
+              </span>
+            </h6>
+          </CardContent>
+        </Card>
+      </Link>
+    );
+  }
+);
+ItemCard.displayName = "ItemCard";
 export default ItemCard;

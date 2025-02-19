@@ -15,6 +15,7 @@ import Booking from "@/components/dashboard/hotels/booking";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Info from "@/components/dashboard/hotels/info";
 import { PropsGenerateMetaData } from "@/types";
+import { IHotel } from "@/types/hotel.type";
 import {
   Baby,
   Bed,
@@ -24,15 +25,14 @@ import {
 } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { IHotel } from "@/types/hotel.type";
 
 export async function generateMetadata({
   params,
 }: PropsGenerateMetaData): Promise<Metadata> {
   const slug = (await params).slug;
   try {
-    const attraciton = await fetch(`${apiUrl}/hotel/${slug}`);
-    const data = await attraciton.json();
+    const res = await fetch(`${apiUrl}/hotel/${slug}`);
+    const data = await res.json();
     if (data.data) {
       return {
         title: data.data.name,
@@ -45,19 +45,27 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const listTours = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
-    if (!listTours || Array.isArray(listTours)) return [];
-    return listTours.data
-      .filter((item: IHotel) => item.slug)
-      .map((hotel: IHotel) => ({
-        slug: hotel.slug,
-      }));
-  } catch (error) {
-    throw Error("Lỗi khi server side");
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const listHotel = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
+
+//     if (!listHotel || !Array.isArray(listHotel.data)) {
+//       console.error(
+//         "Dữ liệu không hợp lệ hoặc không có trường data",
+//         listHotel
+//       );
+//       return [];
+//     }
+//     return (await listHotel.data.filter((hotel: IHotel) => hotel.slug)).map(
+//       (hotel: IHotel) => ({
+//         slug: hotel.slug,
+//       })
+//     );
+//   } catch (error) {
+//     console.error("🔥 Lỗi khi fetch danh sách khách sạn:", error);
+//     return [];
+//   }
+// }
 
 const DetailHotelPage = async ({
   params: { slug },
@@ -104,7 +112,7 @@ const DetailHotelPage = async ({
         )}
         {/* content and booking*/}
         <div className="w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start posing-vertical-3 ">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 ">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 mt-2 lg:mt-0 ">
             <div className="w-full h-auto grid gap-y-4 pr-4">
               <CardText title="Mô tả về chúng tôi ">
                 <DisplayDocs docs={data.details} />
@@ -112,7 +120,7 @@ const DetailHotelPage = async ({
               {/* healthy */}
               {data.includes.length > 0 && (
                 <CardText title="Các tiện nghi được ưa chuộng nhất">
-                  <ul className="pl-3 flex flex-wrap gap-x-4">
+                  <ul className="lg:pl-3 flex flex-wrap gap-x-4">
                     {data.includes.map((include: string, index: number) => {
                       return (
                         <li
@@ -158,7 +166,7 @@ const DetailHotelPage = async ({
           <Booking slug={slug} listRooms={data.listRooms} />
         </div>
         {/* regulations */}
-        <div className="w-full bg-white border border-blue-200 rounded-lg p-6 shadow-md posing-vertical-3">
+        <div className="w-full bg-white border border-blue-200 rounded-lg p-2 md:p-4 lg:p-6 shadow-md posing-vertical-3">
           <h3 className="text-lg font-semibold text-black_main flex items-center gap-2">
             <UserCheck className="text-blue-500 w-5 h-5" />
             Quy định về chỗ nghỉ

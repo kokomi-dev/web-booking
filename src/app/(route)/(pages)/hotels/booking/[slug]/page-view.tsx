@@ -1,7 +1,7 @@
 "use client";
 import { Check, CircleUser, Star, UserRound } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 
 import { getDetailHotel } from "@/api/api-hotels";
 import Loading from "@/app/loading";
@@ -42,7 +42,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useBookingInfoStore } from "@/store/booking-info";
 import { IHotel } from "@/types/hotel.type";
 
 const BookingHotel = () => {
@@ -70,7 +69,6 @@ const BookingHotel = () => {
       special: "",
     },
   });
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -95,24 +93,53 @@ const BookingHotel = () => {
         special: "",
       });
     }
-  }, [slug, user]);
+  }, [user]);
 
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [listRoomBooked, setListRoomBooked] = useState<any>([]);
   const param = useSearchParams();
 
   const dateFrom: string = param.get("date-from") ?? "";
   const dateTo: string = param.get("date-to") ?? "";
-  const childrenNumber = param.get("numberChildren");
-  const adult = param.get("numberAdults");
-  const numberRoom = param.get("numberRoom");
+  const childrenNumber = Number(param.get("numberChildren")) ?? 0;
+  const adult = Number(param.get("numberAdults")) ?? 0;
+  const numberRoom = Number(param.get("numberRoom")) ?? 0;
 
   const total: string = param.get("price") ?? "";
+  const roomBooked = param.get("roomBooked") ?? "";
+  const bookingInfo: number[] = roomBooked.split(",").map(Number);
 
-  const { bookingInfo } = useBookingInfoStore();
-  const num = bookingInfo?.chooseInput.reduce((arrg, item) => {
-    return arrg + item;
-  }, 0);
+  const num = useMemo(
+    () =>
+      bookingInfo?.reduce((arrg, item) => {
+        return arrg + item;
+      }, 0),
+    [bookingInfo]
+  );
+  const memoizedListRooms = useMemo(() => data?.listRooms || [], [data]);
+  useEffect(() => {
+    if (data) {
+      const roomsBooked = bookingInfo
+        .map((item, index) => {
+          const room = memoizedListRooms[index];
+          if (item > 0) {
+            return {
+              name: room.name,
+              id: room._id,
+              numberBooked: item,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
+
+      if (JSON.stringify(roomsBooked) !== JSON.stringify(listRoomBooked)) {
+        setListRoomBooked(roomsBooked);
+      }
+    }
+  }, [bookingInfo, memoizedListRooms]);
+
   return (
     <Fragment>
       {isLoading ? (
@@ -143,7 +170,7 @@ const BookingHotel = () => {
           {/* body */}
           <div
             className={cn(
-              "w-full grid grid-cols-1 gap-y-5  ",
+              "w-full grid grid-cols-1 gap-y-5 !mt-0 lg:!mt-[1.3rem]  ",
               "lg:grid-cols-layout-3  lg:gap-x-5 lg:gap-y-0 lg:h-full "
             )}
           >
@@ -173,7 +200,7 @@ const BookingHotel = () => {
                           className="text-smallest flex items-center justify-start gap-x-1 "
                           key={index}
                         >
-                          <Check className="size-3 text-green_main" />
+                          <Check className="size-3 text-green_main flex-shrink-0" />
                           <span className="first-letter:uppercase text-black_main">
                             {include}
                           </span>
@@ -241,7 +268,7 @@ const BookingHotel = () => {
                 </div>
               </div>
             </div>
-            {/* infoc customer */}
+            {/* info customer */}
             <div className={cn("w-full posing-vertical-3 ")}>
               <div className="w-full flex flex-col items-start justify-start gap-2">
                 {user && isAuthenticated && (
@@ -268,7 +295,7 @@ const BookingHotel = () => {
                   Nhập thông tin chi tiết của bạn
                 </h3>
                 <Form {...form}>
-                  <form className="space-y-3 w-full  ">
+                  <form className="posing-vertical-4 w-full  ">
                     <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
                         <FormField
@@ -531,7 +558,7 @@ const BookingHotel = () => {
                         Các phòng đã đặt
                       </h4>
                       <div className="grid gap-y-3">
-                        {bookingInfo.chooseInput.map((item, index) => {
+                        {bookingInfo.map((item, index) => {
                           const room = data.listRooms[index];
                           if (item > 0) {
                             return (
@@ -540,7 +567,11 @@ const BookingHotel = () => {
                                 className="font-normal text-small"
                               >
                                 <h4 className="text-normal font-bold">
-                                  {room.name}
+                                  <span className="text-blue_main_sub text-normal font-semibold">
+                                    {" "}
+                                    {item}
+                                  </span>{" "}
+                                  x {room.name}
                                 </h4>
                                 <div className="ml-2">
                                   {Array.isArray(room.details) ? (
@@ -580,7 +611,7 @@ const BookingHotel = () => {
                     <PayListWrap
                       category="hotel"
                       data={data}
-                      infoBooking={infoBooking}
+                      roomHotelBooking={listRoomBooked}
                       totalBooking={total}
                       childrenNumber={childrenNumber}
                       adult={adult}

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, lazy, Suspense } from "react";
 import Image from "next/image";
+import { Suspense, lazy, useMemo, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -12,7 +12,6 @@ import {
 
 // Lazy load components
 const ShowImages = lazy(() => import("./show-images"));
-const ShowCommentsImage = lazy(() => import("./show-comment-image"));
 
 const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
   // State
@@ -30,12 +29,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
       return newLoadingState;
     });
   };
-
-  // Helper to toggle comment section
-  const toggleShowCmt = (state: boolean, delay: number) => {
-    setTimeout(() => setOpenShowCmt(state), delay);
-  };
-
   // Memoize sub-images to avoid recalculations
   const subImages = useMemo(
     () => data?.images?.slice(1, 5) || [],
@@ -56,7 +49,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
               <div className="absolute w-full h-full inset-0 bg-gray-200 animate-pulse"></div>
             )}
             <Image
-              priority
               width={500}
               height={400}
               src={data.images[0]}
@@ -67,15 +59,6 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
               onClick={() => setOpen(true)}
               onLoad={() => handleImageLoad(0)}
             />
-            <Suspense fallback={<div>Loading...</div>}>
-              <ShowCommentsImage
-                open={openShowCmt}
-                setOpen={setOpenShowCmt}
-                slug={slug}
-                rating={data.rating}
-                comments={data.comments}
-              />
-            </Suspense>
           </div>
         </div>
         {/* Sub Images */}

@@ -36,7 +36,7 @@ const HotelPage = () => {
                 Tận hưởng không gian nghỉ dưỡng lý tưởng - Hành trình đáng nhớ
                 đang chờ đón bạn! ✨
               </h3>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="hidden lg:block text-sm text-black_sub mb-4">
                 Chúng tôi giúp bạn tìm kiếm những khách sạn lý tưởng nhất, từ
                 view biển thơ mộng đến trung tâm sôi động.
               </p>
@@ -50,7 +50,7 @@ const HotelPage = () => {
             <Image
               src={bannerSearch}
               alt="img_preview"
-              className="min-w-[18%] min-h-[80%] w-[35%] lg:w-[25%] h-[100%] object-cover rounded-md shadow-md"
+              className="min-w-[18%] hidden lg:block min-h-[80%] w-[35%] lg:w-[25%] h-[100%] object-cover rounded-md shadow-md"
             />
           </div>
         </section>
@@ -62,7 +62,7 @@ const HotelPage = () => {
       {/* all hotels */}
       <hr className="hr" />
       <ListAllHotels />
-      <section className="p-6 bg-gray-100 rounded-xl shadow-md posing-vertical-3">
+      <section className="p-2 md:p-4 lg:p-6 bg-gray-100 rounded-xl shadow-md posing-vertical-3">
         <h2 className="text-xl font-bold text-gray-800 ">
           Quy định{" "}
           <span className="text-sm text-gray-600">
@@ -73,7 +73,7 @@ const HotelPage = () => {
           {RULES_DEMO.map((rule, index) => (
             <div
               key={index}
-              className="flex items-start gap-3 bg-white p-4 rounded-lg shadow hover:shadow-md transition-all"
+              className="flex items-start gap-3 bg-white p-3 lg:p-4 rounded-lg shadow hover:shadow-md transition-all"
             >
               <Icon className="text-blue_main_sub size-4 lg:size-5 mt-[1px]">
                 <rule.icon />

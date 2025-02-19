@@ -203,29 +203,30 @@ const config = {
           },
         },
         ".posing-vertical-1": {
-          "& > * + *": { marginTop: "1rem" },
-          "@screen lg": { "& > * + *": { marginTop: "1.5rem" } },
+          "& > *:not(:first-child)": { marginTop: "1rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.5rem" } },
         },
         ".posing-vertical-2": {
-          "& > * + *": { marginTop: "0.8rem" },
-          "@screen lg": { "& > * + *": { marginTop: "1.3rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.8rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.3rem" } },
         },
         ".posing-vertical-3": {
-          "& > * + *": { marginTop: "0.6rem" },
-          "@screen lg": { "& > * + *": { marginTop: "1.1rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.6rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.1rem" } },
         },
         ".posing-vertical-4": {
-          "& > * + *": { marginTop: "0.4rem" },
-          "@screen lg": { "& > * + *": { marginTop: "0.9rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.4rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.9rem" } },
         },
         ".posing-vertical-5": {
-          "& > * + *": { marginTop: "0.3rem" },
-          "@screen lg": { "& > * + *": { marginTop: "0.7rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.3rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.7rem" } },
         },
         ".posing-vertical-6": {
-          "& > * + *": { marginTop: "0.15rem" },
-          "@screen lg": { "& > * + *": { marginTop: "0.3rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.15rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.3rem" } },
         },
+
         ".posing-horizontal-1": {
           "& > * + *": { marginRight: "1rem" },
           "@screen lg": { "& > * + *": { marginRight: "1.5rem" } },

@@ -262,25 +262,34 @@ img {
 .loading {
   width: 100vw;
   height: 100vh;
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  position: fixed;
   left: 0;
   top: 0;
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(1px);
 }
 .loader {
-  z-index: 35;
-  width: 85px;
-  aspect-ratio: 1;
-  --c: no-repeat linear-gradient(#003b96 0 0);
-  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
-  background-size: 20% 100%;
-  animation: l1 1s infinite linear;
+  position: relative;
+  z-index: 1000;
+  width: 70px;
+  height: 70px;
+  border: 8px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #003b96;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .loader-btn {
   width: 50px;

@@ -170,7 +170,7 @@ const CommentBlog = ({ e }: { e: IBlog }) => {
             onClick={() => {
               router.push("/sign-in");
             }}
-            className="max-w-[200px] w-full bg-black_sub text-white hover:opacity-90"
+            className="max-w-[200px] w-full bg-bg_primary_white text-black hover:opacity-90"
           >
             Đăng nhập để bình luận
           </Button>

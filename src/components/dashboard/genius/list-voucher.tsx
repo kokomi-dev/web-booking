@@ -85,6 +85,7 @@ const ListVoucher = () => {
         Lựa chọn các ưu đãi hấp dẫn dành cho bạn
       </h3>
       <InputDebounce
+        autoFocus={false}
         placeholder="Tìm kiếm voucher..."
         value={filter.title}
         onChange={(e: any) =>

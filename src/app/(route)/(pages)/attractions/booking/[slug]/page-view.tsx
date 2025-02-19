@@ -80,10 +80,10 @@ const BookingAttraction = () => {
 
   const param = useSearchParams();
 
-  const hour = param.get("hour");
+  const hour = param.get("hour") ?? "";
   const date = param.get("date");
-  const adult = param.get("adult");
-  const children = param.get("children");
+  const adult = Number(param.get("adult")) ?? 0;
+  const children = Number(param.get("children")) ?? 0;
 
   const totalBooking = (): string => {
     if (data) {
@@ -111,7 +111,12 @@ const BookingAttraction = () => {
               ]}
             />
 
-            <div className={cn("text-medium font-bold", "lg:text-large")}>
+            <div
+              className={cn(
+                "text-medium font-bold !mt-0 !lg:mt-auto",
+                "lg:text-large"
+              )}
+            >
               <h1>{data?.name}</h1>
               <p className="text-small text-black_sub font-normal">
                 Đảm bảo an toàn về quyền lợi khách hàng
@@ -126,11 +131,13 @@ const BookingAttraction = () => {
             )}
           >
             <div className="w-[100%] posing-vertical-3 ">
-              <h3 className="text-medium font-semibold">Thông tin của bạn</h3>
+              <h3 className="text-medium font-semibold mt-2 lg:mt-0">
+                Thông tin của bạn
+              </h3>
               <Form {...form}>
                 <form
                   // onSubmit={form.handleSubmit(handleButton)}
-                  className="posing-vertical-6"
+                  className="posing-vertical-4"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
                     <FormField
@@ -284,8 +291,8 @@ const BookingAttraction = () => {
                   />
                   <hr className="hr !mt-4" />
                   <p className={cn("text-smallest !mt-4", "lg:text-small")}>
-                    Bằng việc nhấn &quot; Thanh toán ngay &ldquo; và hoàn tất
-                    đơn đặt, bạn đồng ý với {""}
+                    Bằng việc nhấn &quot; Chọn phương thức thanh toán &ldquo; và
+                    hoàn tất đơn đặt, bạn đồng ý với {""}
                     <Link
                       href="/content/privacy?activeTab=3"
                       className="text-blue_main_sub"
@@ -309,7 +316,6 @@ const BookingAttraction = () => {
                   <PayListWrap
                     category="attraction"
                     data={data}
-                    infoBooking={infoBooking}
                     totalBooking={totalBooking()}
                     hour={hour}
                     childrenNumber={children}
@@ -320,7 +326,7 @@ const BookingAttraction = () => {
             </div>
             <div
               className={cn(
-                "w-[80%]  posing-vertical-3 ",
+                "w-full lg:w-[80%] posing-vertical-3 ",
                 "lg:sticky lg:top-[2rem]"
               )}
             >
@@ -330,7 +336,6 @@ const BookingAttraction = () => {
                 )}
               >
                 <Image
-                  priority
                   alt="img-booking"
                   src={data?.images[0]}
                   width={900}
@@ -353,7 +358,7 @@ const BookingAttraction = () => {
                   </span>
                 </div>
                 <div className="w-full posing-vertical-5 text-[1rem]">
-                  {adult !== "0" && (
+                  {adult !== 0 && (
                     <div className="w-full flex items-center justify-between gap-2">
                       <div>
                         <span className="font-medium text-[1rem]">{adult}</span>
@@ -365,7 +370,7 @@ const BookingAttraction = () => {
                       <div>{data && formatPrice(data.price[0])} VNĐ</div>
                     </div>
                   )}{" "}
-                  {children !== "0" && children !== "" && (
+                  {children !== 0 && (
                     <div className="w-full flex items-center justify-between gap-2">
                       <div>
                         <span className="font-medium text-[1rem]">

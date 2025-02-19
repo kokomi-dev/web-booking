@@ -19,6 +19,7 @@ export type IHotel = {
       price: number;
       sale: number;
       isAddchildren: boolean;
+      _id: string;
     }
   ];
   rating: number;
@@ -31,6 +32,7 @@ export type IHotel = {
   cancelFree: boolean;
 };
 export interface IHotelRoom {
+  _id: string;
   name: string;
   details: string[];
   price: number;

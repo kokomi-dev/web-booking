@@ -2,11 +2,6 @@
 import React, { useState } from "react";
 
 import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -14,14 +9,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
-import { Button } from "../../ui/button";
-import { removeDots, cn } from "@/utils/constants";
-import { createRequestPayment } from "@/api/api-payment";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { ModalConfirmCodeProps } from "@/types/component-types";
+import { cn } from "@/utils/constants";
+import { toast } from "react-toastify";
+import { Button } from "../../ui/button";
 
 const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   open,
@@ -37,16 +35,16 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   const [value, setValue] = useState("");
   const handleConfirm = async (e: any) => {
     e.preventDefault();
-
     if (value.length !== 6) {
       return toast.warning("Nhập đúng định dạng CODE");
     }
+
     try {
       if (value == code && !!user) {
         setOpen(false);
         setValue("");
-        setOpenModalSuccesBooking(true);
-        handleSendReqBooked("cod");
+        setOpenModalSuccesBooking();
+        handleSendReqBooked({ paymentMethod: "cod", isSuccess: false });
       } else {
         toast.error("Không khớp mã CODE");
       }
@@ -100,6 +98,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
                 Hủy
               </DialogTrigger>
               <Button
+                onClick={handleConfirm}
                 type="submit"
                 className="w-full rounded-lg bg-bg_primary_blue_sub hover:bg-bg_primary_active text-white"
                 disabled={!value}

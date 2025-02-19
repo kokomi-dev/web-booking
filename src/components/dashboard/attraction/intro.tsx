@@ -68,23 +68,23 @@ const Intro = () => {
         opts={{
           align: "start",
         }}
-        className="w-[97%] md:w-[90%] lg:w-[90%] xl:w-[80%] "
+        className="w-[100%] md:w-[90%] lg:w-[90%] xl:w-[80%] "
       >
         <CarouselContent>
           {arrInfo.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basis-[74.67%] lg:basis-1/3"
+              className="basis-[76.67%] md:basis-[45%] lg:basis-1/3"
               autoFocus={index === 1}
             >
               <Card
                 className={cn(
-                  "w-auto",
+                  "w-auto ",
                   index === 1 && "bg-bg_primary_main text-white"
                 )}
               >
                 <CardContent className=" flex aspect-square items-center justify-center p-6 flex-col">
-                  <div className="text-largest text-yellow_main">
+                  <div className="text-largest text-yellow_main flex-shrink-0">
                     {item.icon}
                   </div>
                   <h5 className="text-large font-[600] text-center capitalize my-3">

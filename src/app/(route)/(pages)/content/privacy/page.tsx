@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 import SidebarContent from "@/components/dashboard/content/sidebar";
 import ShowContent from "@/components/dashboard/content/show-content";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Điều khoản - KoKoTravel",
@@ -10,9 +11,15 @@ export const metadata: Metadata = {
 
 const ContentPage = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[20%,80%] gap-4">
-      <SidebarContent />
-      <div>
+    <div className="posing-vertical-1">
+      <BreadcrumbHead
+        items={[
+          { label: "Trang chủ", href: "/home" },
+          { label: "Điều khoản điều kiện" },
+        ]}
+      />
+      <div className="grid grid-cols-1 md:grid-cols-[20%,80%] gap-4 !mt-0 lg:!mt-[1.3rem]">
+        <SidebarContent />
         <ShowContent />
       </div>
     </div>

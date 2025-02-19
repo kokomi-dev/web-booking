@@ -28,18 +28,19 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   try {
-    const listBlog = await fetch(`${apiUrl}/blog`).then((res) => res.json());
-    if (!listBlog || !Array.isArray(listBlog.listBlogs)) {
-      console.error("Dữ liệu không hợp lệ hoặc không có trường listBlogs");
-      return [];
-    }
-    return await listBlog.listBlogs.map((blog: IBlog) => ({
+    const res = await fetch(`${apiUrl}/blog`);
+    if (!res.ok) throw new Error("Failed to fetch blogs");
+
+    const blogs = await res.json();
+    return blogs?.listBlogs.map((blog: IBlog) => ({
       slug: blog.slug,
     }));
   } catch (error) {
-    throw new Error("Lỗi khi server-side-rendering");
+    console.error("Error fetching blogs:", error);
+    return [];
   }
 }
+
 const fetchBlogDetail = async (slug: string) => {
   const res = await fetch(`${apiUrl}/blog/${slug}`, { cache: "no-store" });
   return res.json();

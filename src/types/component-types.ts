@@ -5,11 +5,17 @@ import { IHotel } from "./hotel.type";
 export type ModalConfirmCodeProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  setOpenModalSuccesBooking: (open: boolean) => void;
+  setOpenModalSuccesBooking: any;
   lastName: string;
   email: string;
   code: string;
-  handleSendReqBooked: (paymentMethod: string) => void;
+  handleSendReqBooked: ({
+    paymentMethod,
+    isSuccess,
+  }: {
+    paymentMethod: string;
+    isSuccess: boolean;
+  }) => void;
 };
 export type DisplayDoc = {
   docs: string;
@@ -70,6 +76,13 @@ export interface IPayListWrap {
   numberRoom?: string | null;
   dateTo?: string | null;
   dateFrom?: string | null;
+  roomHotelBooking?: [
+    {
+      id: string;
+      name: string;
+      numberBooked: number;
+    }
+  ];
 }
 export interface IModalPayBankTransfer {
   open: boolean;
@@ -85,4 +98,13 @@ export interface IModalBookingSucess {
   setOpen: (open: boolean) => void;
   model: string;
   handleClose: () => void;
+}
+export interface ItemCardProps {
+  slug: string;
+  name: string;
+  images: string;
+  location: string;
+  price: number;
+  route: string;
+  rating: number;
 }

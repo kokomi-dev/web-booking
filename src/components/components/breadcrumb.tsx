@@ -5,14 +5,13 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { BreadcrumbItemType } from "@/types/component-types";
 import { ChevronRight } from "lucide-react";
 
 const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
   return (
-    <Breadcrumb>
+    <Breadcrumb className="hidden absolute lg:relative  lg:block">
       <BreadcrumbList>
         {items.map((item, index) => (
           <BreadcrumbItem key={index}>
