@@ -1,10 +1,10 @@
 "use client";
-import { SetStateAction, useEffect, useState } from "react";
-import Map, { Marker } from "react-map-gl";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Map, { Marker } from "react-map-gl";
 
-import "mapbox-gl/dist/mapbox-gl.css";
 import mapPin from "@/assets/images/map-pin.png";
+import "mapbox-gl/dist/mapbox-gl.css";
 interface MapProps {
   address: string;
 }

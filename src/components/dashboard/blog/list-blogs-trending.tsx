@@ -25,13 +25,13 @@ const ListBlogsTrending = () => {
   }
   return (
     <section className="">
-      <div className="flex items-center justify-between">
-        <h2 className="text-large font-semibold mb-6">
+      <div className="flex items-center justify-between ">
+        <h2 className="text-large font-semibold lg:mb-6">
           Các bài viết được chú ý
         </h2>
         <Link
           href={"/blogs"}
-          className="text-blue_main_sub underline  hover:cursor-pointer"
+          className="text-blue_main_sub underline  hover:cursor-pointer "
         >
           Xem tất cả
         </Link>

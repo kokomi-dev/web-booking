@@ -4,8 +4,6 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 import { CommentProps } from "@/types";
 import { cn, formatDate } from "@/utils/constants";
 import { Popover, PopoverContent } from "@radix-ui/react-popover";
-import { format } from "date-fns";
-import { vi } from "date-fns/locale";
 import {
   Dot,
   EllipsisVertical,
@@ -88,7 +86,7 @@ const Comments: React.FC<IComments> = ({
   const handleVote = useCallback((value: number) => {
     setVote(value);
   }, []);
-  const handleDeleteComment = async (idComment: string) => {
+  const handleDeleteComment = useCallback(async (idComment: string) => {
     const result = await deleteComment(idComment, category, slug);
     if (result.code === 200) {
       await mutate(`${apiUrl}/${category}/${slug}`);
@@ -96,7 +94,7 @@ const Comments: React.FC<IComments> = ({
         className: "toast-success",
       });
     }
-  };
+  }, []);
   return (
     <div className="w-full  posing-vertical-3">
       <h3 className="text-medium font-semibold">Đánh giá của khách</h3>

@@ -102,7 +102,9 @@ const DetailAttractionPage = async ({
       />
       {/* info */}
       <section
-        className={cn("w-full h-full flex  items-start justify-between ")}
+        className={cn(
+          "w-full h-full flex  items-start justify-between !mt-0 lg:!mt-[1.3rem] "
+        )}
       >
         <div className="grid gap-y-2">
           <div className="w-full flex items-center justify-between ">
@@ -132,16 +134,6 @@ const DetailAttractionPage = async ({
         </div>
         <div className="w-fit grid gap-y-2 ">
           <ShareButton model="attractions" slug={slug} title={data.name} />
-          {/* <div
-              className={cn(
-                "flex items-center gap-x-1 justify-start p-1 rounded-[3.5px] py-2 cursor-pointer text-white border-0.5 bg-bg_primary_blue_sub transition-all duration-300  hover:opacity-90"
-              )}
-            >
-              <Heart className="w-4 h-4" />
-              <span className="text-smallest font-medium  hidden lg:block">
-                Thêm vào yêu thích
-              </span>
-            </div> */}
         </div>
       </section>
       {/* images */}
@@ -162,7 +154,7 @@ const DetailAttractionPage = async ({
 
           <div className="w-full flex flex-col items-start justify-start gap-y-4 lg:pr-2 ">
             {data.duration < 2 ? (
-              <p className="bg-yellow_main w-fit text-white text-smallest font-normal rounded-8 p-1 px-2 block">
+              <p className="bg-yellow_main w-fit text-white text-smallest font-normal rounded-8 p-1 px-2 block mt-3 lg:mt-0">
                 Lựa chọn ưa thích của khách du lịch một mình
               </p>
             ) : (

@@ -1,15 +1,15 @@
 "use client";
+import { cn } from "@/utils/constants";
 import { ArrowLeft, MessageCircleMore, Send } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
-import { cn } from "@/utils/constants";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 const IuputChat = ({
   value,
   setValue,

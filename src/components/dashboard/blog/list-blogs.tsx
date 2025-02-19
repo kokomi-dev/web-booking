@@ -59,20 +59,21 @@ const ListBlogPage = () => {
     return <LoadingPage />;
   }
   return (
-    <div className="flex flex-col gap-y-4">
-      <section className="min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
+    <div className="posing-vertical-1">
+      <section className="hidden lg:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
         <Image
           alt="imng-banner-blog"
           width={1600}
           height={1000}
+          priority={true}
           src={bannerBlog}
-          className="w-full h-full min-h-[30vh] lg:max-h-[65vh] object-cover"
+          className="w-full h-full min-h-[30vh] md:max-h-[45vh] lg:max-h-[65vh] object-cover"
         />
       </section>
       <BreadcrumbHead
         items={[{ label: "Trang chủ", href: "/home" }, { label: "Bài viết" }]}
       />
-      <div className="flex flex-col justify-between items-start gap-y-3">
+      <div className="posing-vertical-2 !mt-0 lg:!mt-[1.3rem]">
         <h1 className="text-large font-bold">
           Khám phá những bài viết hấp dẫn
         </h1>
@@ -99,7 +100,7 @@ const ListBlogPage = () => {
           autoFocus={false}
           type="text"
           placeholder="Nhập tên bài viết..."
-          className="border p-2 rounded max-w-[400px] text-normal"
+          className=" border-0.5 p-2 rounded max-w-[400px] text-normal !h-[38px]"
           value={filterBlog.title}
           debounceTime={400}
           onChange={(e: any) =>

@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Popover, PopoverContent } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { IModalPayBankTransfer } from "@/types/component-types";
-import { Clipboard, CheckCircle } from "lucide-react";
+import { CheckCircle, Clipboard } from "lucide-react";
 import { useState } from "react";
 
 export default function ModalBankTransfer({
@@ -23,9 +27,11 @@ export default function ModalBankTransfer({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="min-w-[90vw] lg:min-w-[60vw] w-full max-h-[95vh] lg:max-h-[90vh]">
-        <Card className="w-full border-none shadow-none  bg-white p-1  rounded-2xl">
-          <CardContent className="posing-vertical-4">
+      <DialogTitle hidden></DialogTitle>
+      <DialogDescription aria-describedby={undefined}></DialogDescription>
+      <DialogContent className="min-w-[96vw] lg:min-w-[60vw] w-full max-h-[95vh] lg:max-h-[90vh]">
+        <Card className="w-full border-none shadow-none  bg-white p-1  rounded-2xl  ">
+          <CardContent className="posing-vertical-4 p-0">
             <h2 className="text-xl font-semibold text-center mb-4">
               Chuyển khoản ngân hàng
             </h2>
@@ -79,7 +85,7 @@ export default function ModalBankTransfer({
                 giải quyết nhanh nhất.
               </p>
             </div>
-            <p className="font-semibold text-blue_main_sub">
+            <p className="font-semibold text-black_main">
               Chúng tôi sẽ xác nhận và phản hồi với bạn qua email, số điện thoại
             </p>
             <p className="font-semibold text-smallest text-red-500">
@@ -90,7 +96,7 @@ export default function ModalBankTransfer({
             <div className="flex items-center justify-center">
               <Button
                 type="button"
-                className="w-[90%] lg:w-[40%] text-center bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+                className="w-[100%] lg:w-[40%] text-center bg-bg_primary_blue_sub hover:bg-bg_primary_active"
                 onClick={() => setOpen(false)}
               >
                 Hoàn tất

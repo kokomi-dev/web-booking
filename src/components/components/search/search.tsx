@@ -1,10 +1,10 @@
 "use client";
 import { cx } from "class-variance-authority";
-import { addDays, format, nextDay } from "date-fns";
+import { addDays, format } from "date-fns";
 import { vi } from "date-fns/locale";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,20 +44,26 @@ const Search: React.FC<SearchContainerProp> = ({
   const page = pathname.split("/")[1];
 
   useEffect(() => {
-    if (address !== "" || address !== null) {
-      setError(false);
-    }
-  }, [address, pathname]);
+    if (address.trim()) setError(false);
+  }, [address]);
 
-  const handleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("tìm", error);
-    e.preventDefault();
-    if (address === "" || address === null) {
+  const validateSearch = useCallback(() => {
+    if (!address.trim()) {
       setError(true);
-    } else {
-      router.push(`/${page}/searchresult?address=${address}&filter=suggest`);
+      return false;
     }
-  };
+    return true;
+  }, [address]);
+
+  const handleSearch = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (!validateSearch()) return;
+      router.push(`/${page}/searchresult?address=${address}&filter=suggest`);
+    },
+    [address, page, router, validateSearch]
+  );
+
   const isDetailPage =
     (pathname.startsWith("/hotels/") && pathname !== "/hotels") ||
     (pathname.startsWith("/attractions/") && pathname !== "/attractions");

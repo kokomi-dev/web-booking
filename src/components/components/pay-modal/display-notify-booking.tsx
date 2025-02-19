@@ -61,8 +61,8 @@ export default function BookingSuccessModal({
         >
           <DialogTitle hidden></DialogTitle>
           <DialogDescription
+            aria-describedby={undefined}
             hidden
-            aria-aria-describedby={undefined}
           ></DialogDescription>
           <DialogContent className="flex flex-col items-center p-6 text-center">
             <div className="relative mb-4">

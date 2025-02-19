@@ -73,7 +73,7 @@ const Notifycation = () => {
   const { user } = useAuthenticatedStore();
   return (
     <div>
-      <div className="font-medium text-small">Thông báo</div>
+      <div className="font-medium text-small hidden lg:block">Thông báo</div>
       {/* {user && user.notifys ? (
         <Popover>
           <PopoverTrigger className="relative flex items-center justify-center">

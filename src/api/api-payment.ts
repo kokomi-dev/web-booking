@@ -2,7 +2,10 @@ const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 interface ICreatePayment {
   amount: number;
-  userId: string | number | undefined;
+  infoUser: {
+    idUser: string | number | undefined;
+    email: string | undefined;
+  };
   tripId: string;
   category: string;
   img: string;
@@ -11,13 +14,27 @@ interface ICreatePayment {
   numberTicketChildren?: number | null | undefined;
   startDate?: Date;
   hour?: string | undefined | null;
-  numberRoom: any;
-  dateFrom: any;
-  dateTo: any;
+  numberRoom?: any;
+  dateFrom?: any;
+  dateTo?: any;
+  infoAttraction?: {
+    name: string;
+    address: string;
+  };
+  infoHotel?: {
+    name: string;
+    address: string;
+  };
+  infoHotelRoom?: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
 }
 const createRequestPayment = async ({
   amount,
-  userId,
+  infoUser,
   tripId,
   category,
   img,
@@ -29,6 +46,9 @@ const createRequestPayment = async ({
   numberRoom,
   dateFrom,
   dateTo,
+  infoAttraction,
+  infoHotel,
+  infoHotelRoom,
 }: ICreatePayment) => {
   try {
     const result = await fetch(apiUrl + "/pay/create-payment-url", {
@@ -38,7 +58,7 @@ const createRequestPayment = async ({
       },
       body: JSON.stringify({
         amount,
-        userId,
+        infoUser,
         tripId,
         category,
         img,
@@ -50,6 +70,9 @@ const createRequestPayment = async ({
         numberRoom,
         dateFrom,
         dateTo,
+        infoAttraction,
+        infoHotelRoom,
+        infoHotel,
       }),
     });
     return result.json();

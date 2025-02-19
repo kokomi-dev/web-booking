@@ -9,12 +9,28 @@ import feedBack3 from "@/assets/images/feedback-3.jpeg";
 import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import ListBlogsTrending from "@/components/dashboard/blog/list-blogs-trending";
 import SalesCustommer from "@/components/dashboard/homepage/sales-custommer";
-import SlideShowImage from "@/components/dashboard/homepage/slide-show";
+import imgBanner from "@/assets/images/banner2.jpg";
 function HomePage() {
   return (
     <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
-      <section className="min-w-full h-full text-center relative -mt-4  rounded-14 px-[-10rem] no-container-padding">
-        <SlideShowImage />
+      <section className="hidden md:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-lg px-6 py-4 flex items-center justify-center ">
+          <p className="text-lg font-semibold text-gray-800 text-center">
+            ✨ Trải nghiệm những chuyến du lịch đáng nhớ cùng chúng tôi!
+            <br /> Khám phá, tận hưởng và ghi dấu những khoảnh khắc tuyệt vời.
+            🏝️✈️
+          </p>
+        </div>
+
+        <Image
+          alt="img-banner-home"
+          src={imgBanner}
+          width={1920}
+          height={1080}
+          priority={true}
+          placeholder="empty"
+          className="w-full min-h-[360px] md:min-h-[400px] lg:min-h-[480px] object-cover object-top"
+        />
       </section>
       {/* Điểm đến nổi bật */}
       <section className=" ">
@@ -33,6 +49,7 @@ function HomePage() {
                 width={500}
                 height={400}
                 src={e.img}
+                loading="lazy"
                 className="w-full h-[220px] md:h-[250px] lg:h-[280px] object-cover "
               />
               <div className="p-4">

@@ -41,7 +41,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, Suspense, useEffect, useState } from "react";
+import { Fragment, Suspense, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { CircleUser } from "lucide-react";
 
@@ -63,6 +63,7 @@ const Account = () => {
   } = useAuthenticatedStore();
   useEffect(() => {
     const getCurrentUser = async () => {
+      if (!isSignedIn && !userId) return;
       setLoading(true);
       try {
         if (isSignedIn) {
@@ -79,39 +80,37 @@ const Account = () => {
             isNewbie: true,
             isActive: true,
             groupId: ["6"],
-            roles: "custommer",
+            roles: "customer",
             idCode: "",
           });
         } else if (userId) {
           mutaionDataUser.mutate(userId, {
-            onSuccess: async (res) => {
+            onSuccess: (res) => {
               const userData = res.data.user;
               setUserLogined({ ...userData });
               setIsAuthenticated();
             },
-            onError: async (error) => {
-              console.log(error);
-            },
+            onError: (error) => console.error("Error fetching user:", error),
           });
         }
       } catch (error) {
+        console.error("Unexpected error:", error);
       } finally {
         setLoading(false);
       }
     };
-    getCurrentUser();
-  }, [isSignedIn]);
 
-  const handleLogout = async () => {
+    getCurrentUser();
+  }, [isSignedIn, userId]);
+
+  const handleLogout = useCallback(async () => {
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
     Cookies.remove("refreshToken");
     setLogout();
-    if (typeof window === undefined) {
-      window.location.reload();
-    }
+    window.location.reload();
     toast.success("Đăng xuất thành công!");
-  };
+  }, []);
 
   if (loading || !isLoaded || mutaionDataUser.isPending) {
     return <LoadingComponentAccount />;
@@ -120,7 +119,7 @@ const Account = () => {
     <Fragment>
       {isAuthenticated && user ? (
         <Suspense fallback={<LoadingComponentAccount />}>
-          <DropdownMenu open={open} onOpenChange={() => setOpen(false)}>
+          <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
               <Button
                 className={cn(
@@ -131,89 +130,65 @@ const Account = () => {
                 )}
                 onClick={() => setOpen(!open)}
               >
-                <div
-                  className={cn(
-                    "w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden"
-                  )}
-                >
+                <div className="w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden">
                   <CircleUser className="text-white size-6 !w-6 !h-6" />
                 </div>
-                <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex ">
-                  <div
-                    className={cn(
-                      " flex items-center justify-start gap-x-1 text-white font-bold text-smallest select-none"
-                    )}
-                  >
-                    <span className="capitalize text-white">
+                <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex">
+                  <div className="flex items-center gap-x-1 text-white font-bold text-smallest">
+                    <span className="capitalize">
                       {user.firstname.length > 11
-                        ? user.firstname.slice(0, 11) + ".."
+                        ? user.firstname.slice(0, 11) + "..."
                         : user.firstname}
                     </span>
-                    <span className="capitalize text-white">
-                      {user.lastname}
-                    </span>
+                    <span className="capitalize">{user.lastname}</span>
                   </div>
-                  <div className="text-start">
-                    <span className="text-[0.7rem] text-yellow_main selec">
-                      Genius Cấp 1
-                    </span>
-                  </div>
+                  <span className="text-[0.7rem] text-yellow_main">
+                    Genius Cấp 1
+                  </span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 h-auto bg-white text-black rounded-14 p-0 ">
-              <DropdownMenuGroup className="w-full">
-                <DropdownMenuItem
-                  onClick={() => setOpen(false)}
-                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
-                >
+            <DropdownMenuContent className="w-56 bg-white text-black rounded-14 p-0">
+              <DropdownMenuGroup>
+                <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center justify-start"
+                    className="w-full flex items-center"
                     href={`/account/mysetting/${user._id}?do=manage-account`}
                   >
                     <UserRound className="w-5 h-5 mr-2" />
-                    <span>Quản lí tài khoản</span>
+                    Quản lí tài khoản
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setOpen(false)}
-                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
-                >
+                <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center justify-start"
+                    className="w-full flex items-center"
                     href={`/account/manage-booking/${user._id}?do=booking`}
                   >
                     <CalendarCheck className="w-5 h-5 mr-2" />
-                    <span>Đặt chỗ & chuyến đi</span>
+                    Đặt chỗ & chuyến đi
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setOpen(false)}
-                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
-                >
+                <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center justify-start"
+                    className="w-full flex items-center"
                     href={`/account/saved/${user._id}`}
                   >
                     <BookmarkCheck className="w-5 h-5 mr-2" />
-                    <span>Đã lưu</span>
+                    Đã lưu
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setOpen(false)}
-                  className="cursor-pointer p-2 py-3 hover:bg-bg_primary_hover"
-                >
+                <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center justify-start"
-                    href={`home/genius/${user._id}`}
+                    className="w-full flex items-center"
+                    href={`/home/genius/${user._id}`}
                   >
                     <BadgeDollarSign className="w-5 h-5 mr-2" />
-                    <span>Ưu đãi của bạn</span>
+                    Ưu đãi của bạn
                   </Link>
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <div className="flex items-center justify-start w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover">
+                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover">
                       <LogOut className="w-5 h-5 mr-[0.3rem]" />
                       <span className="text-smallest">Đăng xuất</span>
                     </div>
@@ -228,39 +203,16 @@ const Account = () => {
                         nhập tiếp theo.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter
-                      autoFocus={false}
-                      className="flex flex-col gap-y-3 lg:flex-row"
-                    >
-                      <AlertDialogCancel
-                        onClick={() => setOpen(false)}
-                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active hover:text-white"
-                      >
+                    <AlertDialogFooter className="flex flex-col gap-y-3 lg:flex-row">
+                      <AlertDialogCancel className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active">
                         Hủy
                       </AlertDialogCancel>
-                      {isSignedIn && user.source === "clerk" ? (
-                        <AlertDialogAction
-                          onClick={async () => {
-                            try {
-                              Promise.all([setLogout(), signOut()]).then(() => {
-                                toast.success("Đăng xuất thành công");
-                              });
-                            } catch (error) {
-                              toast.error("Lỗi khi đăng nhập" + error);
-                            }
-                          }}
-                          className="bg-bg_black_sub text-black_sub hover:bg-bg_primary_hover hover:text-black"
-                        >
-                          Đăng xuất
-                        </AlertDialogAction>
-                      ) : (
-                        <AlertDialogAction
-                          onClick={handleLogout}
-                          className="bg-bg_black_sub text-black_sub hover:text-black"
-                        >
-                          Đăng xuất
-                        </AlertDialogAction>
-                      )}
+                      <AlertDialogAction
+                        onClick={handleLogout}
+                        className="bg-bg_black_sub text-black_sub hover:bg-bg_primary_hover"
+                      >
+                        Đăng xuất
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

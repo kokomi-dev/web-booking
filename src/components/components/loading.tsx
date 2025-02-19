@@ -31,7 +31,7 @@ const LoadingComponentAccount = () => {
 const LoadingImg = () => {
   return (
     <div className="w-full h-full">
-      <Skeleton className="h-full w-full rounded-14 animate-pulse  bg-bg_primary_blue_sub " />
+      <Skeleton className="h-full w-full rounded-14 animate-pulse  bg-bg_black_sub  " />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { addDays, format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Check, TriangleAlert, User, UserPlus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import CardText from "@/components/components/card-text";
@@ -15,8 +15,8 @@ import SearchSelectPerson from "@/components/components/search/search-select-per
 import { Input } from "@/components/ui/input";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { useBookingInfoStore } from "@/store/booking-info";
-import { convertVND } from "@/utils/constants";
 import { IHotelRoom } from "@/types/hotel.type";
+import { convertVND } from "@/utils/constants";
 import Link from "next/link";
 const Booking = ({
   slug,
@@ -45,19 +45,22 @@ const Booking = ({
     })
   );
   const [checkHiddenBtn, setCheckHiddenBtn] = useState(true);
-  const handlePopoverChange = (open: boolean) => {
-    if (!open) {
-      const numberPerson = numberAdults + numberChildren;
-      const result = numberPerson / 2 <= numberRoom;
-      if (result === false) {
-        setError(true);
-        toast.error("Số phòng đơn không đủ cho số người đã chọn.");
-      } else {
-        setError(false);
+  const handlePopoverChange = useCallback(
+    async (open: boolean) => {
+      if (!open) {
+        const numberPerson = numberAdults + numberChildren;
+        const result = numberPerson / 2 <= numberRoom;
+        if (result === false) {
+          setError(true);
+          toast.error("Số phòng đơn không đủ cho số người đã chọn.");
+        } else {
+          setError(false);
+        }
       }
-    }
-  };
-  const handleBooking = async () => {
+    },
+    [open]
+  );
+  const handleBooking = useCallback(() => {
     if (date) {
       const dateFrom = format(String(date.from), "dd/MM/yyyy", { locale: vi });
       const dateTo = format(String(date.to), "dd/MM/yyyy", { locale: vi });
@@ -78,10 +81,22 @@ const Booking = ({
           "&numberRoom=" +
           numberRoom +
           "&price=" +
-          total
+          total +
+          "&roomBooked=" +
+          chooseInput
       );
     }
-  };
+  }, [
+    date,
+    chooseInput,
+    slug,
+    numberAdults,
+    numberChildren,
+    numberRoom,
+    total,
+    router,
+    setBookingInfo,
+  ]);
   useEffect(() => {
     let res = 0;
     let resSale = 0;
@@ -99,7 +114,7 @@ const Booking = ({
     } else {
       setCheckHiddenBtn(false);
     }
-  }, [chooseInput]);
+  }, [chooseInput, listRooms]);
 
   return (
     <div
@@ -210,8 +225,8 @@ const Booking = ({
                     type="number"
                     className="border border-black_main w-[70px] text-center"
                     value={chooseInput[index]}
-                    min={0}
-                    max={50}
+                    min={"0"}
+                    max={"50"}
                     onChange={(e) => {
                       const { value } = e.target;
                       setChooseInput((prev) => {

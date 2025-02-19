@@ -7,6 +7,7 @@ import CommentBlog from "@/components/dashboard/blog/comment-blog";
 import ListBlogPageRelate from "@/components/dashboard/blog/list-blogs-relate";
 import QUERY_KEY_BLOG from "@/services/queryKeyStore/blogQueryKeyStore";
 import { apiUrl } from "@/api";
+import { formatDate } from "@/utils/constants";
 
 export const fetchBlogDetail = async (slug: string) => {
   const res = await fetch(`${apiUrl}/blog/${slug}`, { cache: "no-store" });
@@ -34,7 +35,7 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
 
       <p className="text-black_main text-small">
         Được viết bởi <span className="font-medium">{blog?.author}</span> •{" "}
-        {blog?.createdAt}
+        {formatDate(blog.createdAt)}
       </p>
 
       <div
