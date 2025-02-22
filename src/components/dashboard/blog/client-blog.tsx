@@ -31,7 +31,9 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
           { label: blog.title },
         ]}
       />
-      <h3 className="text-large font-bold capitalize">{blog.title}</h3>
+      <h3 className="text-large xl:text-[1.7rem] font-bold capitalize">
+        {blog.title}
+      </h3>
 
       <p className="text-black_main text-small">
         Được viết bởi <span className="font-medium">{blog?.author}</span> •{" "}
@@ -39,7 +41,7 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
       </p>
 
       <div
-        className="prose max-w-none"
+        className="blog-show-detail prose max-w-none   text-black_main font-light lg:font-normal text-small posing-vertical-4"
         dangerouslySetInnerHTML={{ __html: blog?.content }}
       />
       <hr className="hr" />

@@ -45,21 +45,18 @@ const Booking = ({
     })
   );
   const [checkHiddenBtn, setCheckHiddenBtn] = useState(true);
-  const handlePopoverChange = useCallback(
-    async (open: boolean) => {
-      if (!open) {
-        const numberPerson = numberAdults + numberChildren;
-        const result = numberPerson / 2 <= numberRoom;
-        if (result === false) {
-          setError(true);
-          toast.error("Số phòng đơn không đủ cho số người đã chọn.");
-        } else {
-          setError(false);
-        }
+  const handlePopoverChange = useCallback(async (open: boolean) => {
+    if (!open) {
+      const numberPerson = numberAdults + numberChildren;
+      const result = numberPerson / 2 <= numberRoom;
+      if (result === false) {
+        setError(true);
+        toast.error("Số phòng đơn không đủ cho số người đã chọn.");
+      } else {
+        setError(false);
       }
-    },
-    [open]
-  );
+    }
+  }, []);
   const handleBooking = useCallback(() => {
     if (date) {
       const dateFrom = format(String(date.from), "dd/MM/yyyy", { locale: vi });
@@ -178,7 +175,7 @@ const Booking = ({
                 <td className="p-2 border border-blue_main_sub text-start">
                   <span className="text-blue_main underline font-bold">
                     {room.name}
-                    {room?.numberRoom === 0 && (
+                    {room?.numberOfRoom === 0 && (
                       <span className="text-red-600">Hết phòng</span>
                     )}
                   </span>
@@ -235,7 +232,7 @@ const Booking = ({
                         return newChoose;
                       });
                     }}
-                    disabled={room.numberRoom === 0}
+                    disabled={room.numberOfRoom === 0}
                   />
                 </td>
                 {index === 0 && (

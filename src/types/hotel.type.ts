@@ -39,7 +39,8 @@ export interface IHotelRoom {
   sale: number;
   isAddChildren: boolean;
   numberPeople: number;
-  numberRoom: number;
+  numberBooked: number;
+  numberOfRoom: number;
 }
 export interface InfoProps {
   name: string;

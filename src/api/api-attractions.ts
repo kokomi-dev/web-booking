@@ -51,7 +51,9 @@ const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
     console.error("Error fetching attractions booked:", error);
   }
 };
-
+const updateStatus = async (data: any) => {
+  return axiosClient.put("/attraction/status", data);
+};
 const searchResult = async ({
   searchParam,
 }: {
@@ -87,4 +89,5 @@ export {
   getAttractionBooked,
   searchResult,
   getListProvinces,
+  updateStatus,
 };

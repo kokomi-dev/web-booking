@@ -52,7 +52,7 @@ const Account = () => {
   const { isLoaded, isSignedIn, user: userClerk } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const userId = Cookies.get("userId");
   const {
     setUserLogined,
@@ -65,6 +65,7 @@ const Account = () => {
     const getCurrentUser = async () => {
       if (!isSignedIn && !userId) return;
       setLoading(true);
+
       try {
         if (isSignedIn) {
           setUserLogined({
@@ -92,6 +93,8 @@ const Account = () => {
             },
             onError: (error) => console.error("Error fetching user:", error),
           });
+        } else {
+          return;
         }
       } catch (error) {
         console.error("Unexpected error:", error);
@@ -107,6 +110,7 @@ const Account = () => {
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
     Cookies.remove("refreshToken");
+    Cookies.remove("accessToken");
     setLogout();
     window.location.reload();
     toast.success("Đăng xuất thành công!");

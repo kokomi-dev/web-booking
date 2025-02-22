@@ -49,7 +49,7 @@ export default function RootLayout({
             <DialogSales />
             {children}
           </ClerkProvider>
-          <PingServer />
+          {/* <PingServer /> */}
           <Chat />
           <ToastContainer className="hidden md:block" autoClose={1500} />
         </QueryProvider>
