@@ -7,39 +7,39 @@ import { IBlog } from "@/types/blog";
 import { capitalizeFirstLetter } from "@/utils/constants";
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: PropsGenerateMetaData): Promise<Metadata> {
-  const slug = (await params).slug;
-  try {
-    const blog = await fetch(`${apiUrl}/blog/${slug}`);
-    const data = await blog.json();
-    if (data.detailBlog) {
-      return {
-        title: capitalizeFirstLetter(data.detailBlog.title),
-        description: data.detailBlog.author,
-      };
-    }
-    return {};
-  } catch (error) {
-    throw new Error("Lỗi khi generateMetadata");
-  }
-}
+// export async function generateMetadata({
+//   params,
+// }: PropsGenerateMetaData): Promise<Metadata> {
+//   const slug = (await params).slug;
+//   try {
+//     const blog = await fetch(`${apiUrl}/blog/${slug}`);
+//     const data = await blog.json();
+//     if (data.detailBlog) {
+//       return {
+//         title: capitalizeFirstLetter(data.detailBlog.title),
+//         description: data.detailBlog.author,
+//       };
+//     }
+//     return {};
+//   } catch (error) {
+//     throw new Error("Lỗi khi generateMetadata");
+//   }
+// }
 
-export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${apiUrl}/blog`);
-    if (!res.ok) throw new Error("Failed to fetch blogs");
+// export async function generateStaticParams() {
+//   try {
+//     const res = await fetch(`${apiUrl}/blog`);
+//     if (!res.ok) throw new Error("Failed to fetch blogs");
 
-    const blogs = await res.json();
-    return blogs?.listBlogs.map((blog: IBlog) => ({
-      slug: blog.slug,
-    }));
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return [];
-  }
-}
+//     const blogs = await res.json();
+//     return blogs?.listBlogs.map((blog: IBlog) => ({
+//       slug: blog.slug,
+//     }));
+//   } catch (error) {
+//     console.error("Error fetching blogs:", error);
+//     return [];
+//   }
+// }
 
 const fetchBlogDetail = async (slug: string) => {
   const res = await fetch(`${apiUrl}/blog/${slug}`, { cache: "no-store" });
