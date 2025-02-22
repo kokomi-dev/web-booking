@@ -33,45 +33,45 @@ const ShowOnMap = dynamic(() => import("@/components/components/show-on-map"), {
   ssr: false,
 });
 
-export async function generateMetadata({
-  params,
-}: PropsGenerateMetaData): Promise<Metadata> {
-  const slug = (await params).slug;
-  try {
-    const attraciton = await fetch(`${apiUrl}/attraction/${slug}`);
-    const data = await attraciton.json();
-    if (data && data.data) {
-      return {
-        title: data.data.name,
-        description: data.data.description,
-      };
-    }
-    return {};
-  } catch (error) {
-    throw new Error("Lỗi khi generateMetadata");
-  }
-}
+// export async function generateMetadata({
+//   params,
+// }: PropsGenerateMetaData): Promise<Metadata> {
+//   const slug = (await params).slug;
+//   try {
+//     const attraciton = await fetch(`${apiUrl}/attraction/${slug}`);
+//     const data = await attraciton.json();
+//     if (data && data.data) {
+//       return {
+//         title: data.data.name,
+//         description: data.data.description,
+//       };
+//     }
+//     return {};
+//   } catch (error) {
+//     throw new Error("Lỗi khi generateMetadata");
+//   }
+// }
 
-export async function generateStaticParams() {
-  try {
-    const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
-      res.json()
-    );
-    if (!listAttraction || !Array.isArray(listAttraction.data)) {
-      console.error("Dữ liệu không hợp lệ hoặc không có trường data");
-      return [];
-    }
-    return (
-      await listAttraction.data.filter(
-        (attraction: AttractionData) => attraction.slug
-      )
-    ).map((attraction: AttractionData) => ({
-      slug: attraction.slug,
-    }));
-  } catch (error) {
-    throw new Error("Lỗi khi server-side-rendering");
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const listAttraction = await fetch(`${apiUrl}/attraction`).then((res) =>
+//       res.json()
+//     );
+//     if (!listAttraction || !Array.isArray(listAttraction.data)) {
+//       console.error("Dữ liệu không hợp lệ hoặc không có trường data");
+//       return [];
+//     }
+//     return (
+//       await listAttraction.data.filter(
+//         (attraction: AttractionData) => attraction.slug
+//       )
+//     ).map((attraction: AttractionData) => ({
+//       slug: attraction.slug,
+//     }));
+//   } catch (error) {
+//     throw new Error("Lỗi khi server-side-rendering");
+//   }
+// }
 const DetailAttractionPage = async ({
   params: { slug },
 }: {
