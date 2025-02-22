@@ -18,7 +18,7 @@ const ItemBlog = ({ e }: { e: IBlog }) => {
         </h4>
       </div>
       <div className="flex items-center justify-start gap-x-3">
-        <BookOpenText className="size-7 md:size-9 lg:size-11 text-blue_main_sub" />
+        <BookOpenText className="size-7 md:size-9 lg:size-10 text-blue_main_sub flex-shrink-0" />
         <p
           className=" text-small text-black_main line-clamp-2 first-letter:uppercase"
           dangerouslySetInnerHTML={{

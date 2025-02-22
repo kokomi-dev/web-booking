@@ -10,11 +10,11 @@ import {
   OctagonPause,
   PackageCheck,
   ShieldBan,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NAVIGATIONS } from "@/utils/constants";
 import {
   Sheet,
   SheetContent,
@@ -23,10 +23,11 @@ import {
 } from "@/components/ui/sheet";
 import { useSidebarStore } from "@/store/sidebar-store";
 import { cn } from "@/utils/constants";
+import { useAuthenticatedStore } from "@/store/authencation-store";
 const MobileSidebar = () => {
   const { isOpen, handleClose, handleCloseOrModal } = useSidebarStore();
   const pathname = usePathname();
-
+  const { user, isAuthenticated } = useAuthenticatedStore();
   return (
     <div
       className={cn(
@@ -46,14 +47,27 @@ const MobileSidebar = () => {
           className="w-[85%] h-full bg-bg_primary_white text-black_main"
           side="right"
         >
-          <div className="w-full h-full overflow-y-auto scrollbar-hide">
+          <div className="w-full h-full overflow-y-auto ">
             <h3 className="text-medium font-bold">Khác</h3>
             <section className="flex items-start justify-start flex-col text-small font-light gap-y-4">
               <div className="flex flex-col gap-y-2">
-                <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
-                  <PackageCheck className="size-4" />
-                  <span>Chương trình thân thiết</span>
-                </div>
+                {!!user && isAuthenticated ? (
+                  <Link
+                    href={`/genius/${user?._id}`}
+                    className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3"
+                  >
+                    <PackageCheck className="size-4" />
+                    <span>Chương trình thân thiết</span>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/sign-in"
+                    className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3"
+                  >
+                    <User className="size-4" />
+                    Đăng nhập
+                  </Link>
+                )}
                 <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
                   <HousePlug className="size-4" />
                   <span>Đăng chỗ nghỉ của quý vị</span>
@@ -76,10 +90,13 @@ const MobileSidebar = () => {
                   <BadgeDollarSign className="size-4" />
                   <span>Ưu đãi theo mùa dịp lễ</span>
                 </div>
-                <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
+                <Link
+                  href="/blogs"
+                  className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3"
+                >
                   <Book className="size-4" />
                   <span>Bài viết về du lịch</span>
-                </div>
+                </Link>
               </div>
               <h4 className="text-normal+ font-semibold">Cài đặt và pháp lý</h4>
               <div className="flex flex-col gap-y-2">

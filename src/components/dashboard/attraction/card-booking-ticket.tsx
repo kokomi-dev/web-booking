@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import { Label } from "@/components/ui/label";
 import { useAuthenticatedStore } from "@/store/authencation-store";
+import { CardBookingTicketProps } from "@/types/attraction.type";
 import { cn } from "@/utils/constants";
 import Link from "next/link";
 import {
@@ -17,7 +18,6 @@ import {
 import { formatPrice } from "../../components/item-component";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-import { CardBookingTicketProps } from "@/types/attraction.type";
 
 const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   duration,

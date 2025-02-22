@@ -31,12 +31,10 @@ const ListHotelFavorite = () => {
           return res.data.data.filter(
             (item: AttractionData) => item.isActive === true
           );
+        } else {
+          return [];
         }
-        throw new Error("Dữ liệu không hợp lệ");
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu địa điểm:", error);
-        throw error;
-      }
+      } catch (error) {}
     },
     retry: 3,
     retryDelay: 1000,
@@ -76,7 +74,9 @@ const ListHotelFavorite = () => {
     <section id="list-all-attractions" className="w-full posing-vertical-4">
       <div className="posing-vertical-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-large font-bold">Nơi lưu trú được yêu thích</h2>
+          <h2 className="text-large font-bold">
+            Nơi lưu trú được yêu thích nhất
+          </h2>
         </div>
         <p className="text-black_sub text-small">
           Sự quan tâm của mọi người hàng đầu
@@ -88,7 +88,11 @@ const ListHotelFavorite = () => {
           Không thể tải dữ liệu. Vui lòng thử lại!
         </div>
       )}
-
+      {listHotel?.length === 0 && (
+        <div className="text-black_main text-center mt-4">
+          Chưa có nơi lưu trú nổi bật nào!
+        </div>
+      )}
       <Carousel opts={{ align: "start" }} className="w-full">
         <CarouselContent>{renderCarouselItems}</CarouselContent>
         <CarouselPrevious hidden />

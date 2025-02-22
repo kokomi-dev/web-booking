@@ -1,30 +1,21 @@
-import { GoStarFill } from "react-icons/go";
-import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
 import { Clock, MapPin } from "lucide-react";
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
+import { FaCalendarXmark, FaCheck } from "react-icons/fa6";
+import { GoStarFill } from "react-icons/go";
 
-import { getDetailAttraction } from "@/api/api-attractions";
+import { apiUrl, getDetailAttraction } from "@/api/api-attractions";
 import CardText from "@/components/components/card-text";
-import { cn } from "@/utils/constants";
-import { apiUrl } from "@/api/api-attractions";
+import ScheduleDisplay from "@/components/components/display-schedule";
 import BookingContainer from "@/components/dashboard/attraction/booking-container";
 import { PropsGenerateMetaData } from "@/types";
-import ScheduleDisplay from "@/components/components/display-schedule";
+import { cn } from "@/utils/constants";
 
-import Comments from "@/components/components/comments";
-import SupportQuestions from "@/components/dashboard/attraction/support-questions";
 import NotFoundPage from "@/app/not-found";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import DisplayDocs from "@/components/components/display-docs";
 import BreadcrumbHead from "@/components/components/breadcrumb";
+import Comments from "@/components/components/comments";
+import DisplayDocs from "@/components/components/display-docs";
+import SupportQuestions from "@/components/dashboard/attraction/support-questions";
 import { AttractionData } from "@/types/attraction.type";
 const ImagesDetail = dynamic(
   () => import("@/components/components/images-detail"),

@@ -20,6 +20,7 @@ import iconPayLater from "@/assets/icons/icon-pay-1.png";
 import iconPayZaloPay from "@/assets/icons/icon-pay-zalopay.webp";
 import iconPayBank from "@/assets/icons/icon-pay-bank.png";
 import iconPayCod from "@/assets/icons/icon-pay-code.png";
+import Loading from "@/app/loading";
 
 interface PayListWrapProps {
   totalBooking: string;
@@ -106,19 +107,22 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
     },
     [dataInfoBooked]
   );
+  const mutationSendEmailConfirm = useMutation({
+    mutationFn: sendEmailConfirm,
+  });
+  // const handleSendEmailConfirm = useCallback(async () => {
+  //   try {
 
-  const handleSendEmailConfirm = async () => {
-    try {
-      if (user) {
-        const data = await sendEmailConfirm(user.email);
-        if (data) {
-          setConfirm(data);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (user) {
+  //       const data = await sendEmailConfirm(user.email);
+  //       if (data) {
+  //         setConfirm(data);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [confirm]);
 
   const handlePaymentRequest = useCallback(async () => {
     if (!modalState.method)
@@ -136,14 +140,26 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
         setModalState((prev) => ({ ...prev, openBankTransfer: true }));
         break;
       case "cod":
-        await handleSendEmailConfirm();
         setModalState((prev) => ({ ...prev, openConfirm: true }));
+        if (user) {
+          mutationSendEmailConfirm.mutate(user.email, {
+            onSuccess: async (res) => {
+              setConfirm(res);
+            },
+            onError: async (err) => {
+              toast.error("Lỗi khi gửi email xác nhận. Liên hệ quản trị viên ");
+            },
+          });
+        }
         break;
     }
   }, [modalState.method, dataInfoBooked, router]);
   const handleClose = () => {
     setModalState((prev) => ({ ...prev, openCreditCard: false }));
   };
+  if (mutationSendEmailConfirm.isPending) {
+    return <Loading />;
+  }
   return (
     <div className="posing-vertical-4">
       <h3 className="text-medium font-semibold">Chọn phương thức thanh toán</h3>

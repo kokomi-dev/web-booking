@@ -37,8 +37,8 @@ const ListBlogsTrending = () => {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {listBlogTrending.length > 0 ? (
-          listBlogTrending.map((e: IBlog, i: number) => {
+        {listBlogTrending?.length > 0 ? (
+          listBlogTrending?.map((e: IBlog, i: number) => {
             return (
               <Link
                 key={i}
