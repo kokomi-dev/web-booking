@@ -13,6 +13,7 @@ import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
 import { LoadingPage } from "@/components/components/loading";
 import QueryProvider from "@/configs/providerQuery";
+import AuthMiddleWare from "@/utils/middleware/auth-middleware";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <QueryProvider>
           <ClerkProvider localization={viVN}>
+            <AuthMiddleWare />
             <ClerkLoading>
               <LoadingPage />
             </ClerkLoading>

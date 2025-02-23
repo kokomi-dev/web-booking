@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button";
 import SearchDatePickerDou from "@/components/components/search/search-date-picker-dou";
 import SearchSelectPerson from "@/components/components/search/search-select-person";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { useBookingInfoStore } from "@/store/booking-info";
 import { IHotelRoom } from "@/types/hotel.type";
-import { convertVND } from "@/utils/constants";
-import Link from "next/link";
+import { cn, convertVND } from "@/utils/constants";
+import { motion } from "framer-motion";
 const Booking = ({
   slug,
   listRooms,
@@ -112,14 +113,45 @@ const Booking = ({
       setCheckHiddenBtn(false);
     }
   }, [chooseInput, listRooms]);
+  const [showActionBar, setShowActionBar] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const bookingContainer = document.getElementById(
+        "booking-hotel-container"
+      );
+      if (bookingContainer) {
+        const rect = bookingContainer.getBoundingClientRect();
+        setShowActionBar(rect.top < window.innerHeight && rect.bottom >= 0);
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  const handleIncrease = useCallback((index: number) => {
+    setChooseInput((prev) => {
+      const newChoose = [...prev];
+      newChoose[index] = (newChoose[index] || 0) + 1;
+      return newChoose;
+    });
+  }, []);
+
+  const handleDecrease = useCallback((index: number) => {
+    setChooseInput((prev) => {
+      const newChoose = [...prev];
+      if (newChoose[index] > 0) {
+        newChoose[index] -= 1;
+      }
+      return newChoose;
+    });
+  }, []);
   return (
     <div
-      className="w-full h-full posing-vertical-4  p-3 bg-sub rounded-xl text-normal"
+      className="w-full h-full posing-vertical-4 p-2  lg:p-3 bg-sub rounded-xl text-normal"
       id="price"
     >
       {/* choose person and room */}
-      <CardText title="Thông tin đặt phòng">
+      <CardText title="Thông tin đặt phòng" className="">
         <div className="hidden lg:flex items-center justify-start gap-x-2">
           <TriangleAlert className="text-yellow_main" />
           <h5 className="text-small mb-2">
@@ -147,64 +179,40 @@ const Booking = ({
         </div>
       </CardText>
       {/* booking tickets */}
-      <div
-        id="booking-hotel-container"
-        className="w-full h-full  overflow-x-scroll !bg-sub scrollbar-hide"
-      >
-        <table className="w-full  bg-sub border border-blue_main_sub border-collapse overflow-x-auto lg:overflow-visible">
-          <thead className="bg-bg_primary_main text-white text-small font-semibold">
-            <tr>
-              <th className="min-w-[150px] lg:max-w-[30%] border border-blue_main_sub px-2 py-1">
-                Loại chỗ nghỉ
-              </th>
-              <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
-                Số lượng khách
-              </th>
-              <th className="min-w-[180px] text-center border border-blue_main_sub px-2 py-1">
-                Giá
-              </th>
-              <th className="min-w-[100px] text-center border border-blue_main_sub px-2 py-1">
-                Chọn số phòng
-              </th>
-              <th className="min-w-[180px] border border-blue_main_sub"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {listRooms.map((room, index) => (
-              <tr key={index} className="border border-blue_main_sub">
-                <td className="p-2 border border-blue_main_sub text-start">
-                  <span className="text-blue_main underline font-bold">
-                    {room.name}
-                    {room?.numberOfRoom === 0 && (
-                      <span className="text-red-600">Hết phòng</span>
-                    )}
+
+      <div id="booking-hotel-container" className="w-full  space-y-4">
+        {listRooms.map((room, index) => (
+          <div key={index} className="bg-white shadow-md rounded-lg p-4">
+            <div className="flex flex-col space-y-2">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-bold text-blue_main">
+                  {room.name}
+                </h3>
+                {room.numberOfRoom === 0 && (
+                  <span className="text-red-600">Hết phòng</span>
+                )}
+              </div>
+              <ul className="flex flex-wrap gap-2 text-smallest">
+                {Array.isArray(room.details) &&
+                  room.details.map((detail, i) => (
+                    <li key={i} className="flex items-center gap-1">
+                      <Check className="size-3 text-green_main" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+              </ul>
+              <div className="flex items-center gap-2 text-small">
+                <User className="size-4 fill-black" />
+                <X className="size-4" />
+                <span>{room.numberPeople}</span>
+                {room.isAddChildren && (
+                  <span className="flex items-center gap-1 text-smallest">
+                    <UserPlus className="size-4" /> trẻ em
                   </span>
-                  <ul className="flex flex-wrap gap-1 mt-1">
-                    {Array.isArray(room.details) &&
-                      room.details.map((detail, i) => (
-                        <li
-                          key={i}
-                          className="flex gap-2 text-smallest items-center"
-                        >
-                          <Check className="size-3 flex-shrink-0  text-green_main" />
-                          <span className="break-words">{detail}</span>
-                        </li>
-                      ))}
-                  </ul>
-                </td>
-                <td className="p-2 border border-blue_main_sub text-center">
-                  <span className="flex items-center justify-center gap-1">
-                    <User className="size-4 fill-black" />
-                    <X className="size-4" />
-                    <span>{room.numberPeople}</span>
-                  </span>
-                  {room.isAddChildren && (
-                    <span className="flex items-center justify-center text-smallest mt-1">
-                      <UserPlus className="size-4" /> trẻ em
-                    </span>
-                  )}
-                </td>
-                <td className="p-2 border border-blue_main_sub text-center">
+                )}
+              </div>
+              <div className="flex justify-between items-center">
+                <div>
                   <div className="line-through text-red-400 text-[0.8rem]">
                     <span className="mr-1">VNĐ</span>
                     {convertVND(room.price)}
@@ -213,85 +221,119 @@ const Booking = ({
                     <span className="mr-1">VNĐ</span>
                     {convertVND(room.price - (room.price / 100) * room.sale)}
                   </div>
-                  <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
-                    Tiết kiệm {room.sale} %
+                  <span className="bg-green_main text-white text-[0.7rem] px-2 py-1 rounded-md">
+                    Tiết kiệm {room.sale}%
                   </span>
-                </td>
-                <td className="pl-[2%] ">
-                  <Input
-                    type="number"
-                    className="border border-black_main w-[70px] text-center"
-                    value={chooseInput[index]}
-                    min={"0"}
-                    max={"50"}
-                    onChange={(e) => {
-                      const { value } = e.target;
-                      setChooseInput((prev) => {
-                        const newChoose = [...prev];
-                        newChoose[index] = Number(value);
-                        return newChoose;
-                      });
-                    }}
-                    disabled={room.numberOfRoom === 0}
-                  />
-                </td>
-                {index === 0 && (
-                  <td>
-                    {!user && !isAuthenticated ? (
-                      <Link
-                        href="/sign-in"
-                        className="text-blue_main_sub hover:underline text-small font-normal"
-                      >
-                        Đăng nhập để tiếp tục
-                      </Link>
-                    ) : (
-                      <div
-                        className="p-2 align-top border border-blue_main_sub"
-                        // rowSpan={listRooms.length}
-                      >
-                        {chooseInput && !checkHiddenBtn && (
-                          <div className="mb-4">
-                            <div className="line-through text-red-400 text-small">
-                              <span className="mr-1">VNĐ</span>
-                              {convertVND(total)}
-                            </div>
-                            <div className="text-black_main text-normal font-bold">
-                              <span className="mr-1">VNĐ</span>
-                              {convertVND(totalSale)}
-                            </div>
-                            <div>
-                              {total && totalSale !== 0 && (
-                                <span className="bg-green_main text-white text-[0.7rem] p-1 rounded-8">
-                                  Tiết kiệm{" "}
-                                  {(100 - (totalSale / total) * 100).toFixed(2)}{" "}
-                                  %
-                                </span>
-                              )}
-                            </div>
-                            <span className="text-black_sub text-small">
-                              Đã bao gồm thuế và phí
-                            </span>
-                          </div>
+                </div>
+                <div className=" flex items-center justify-start lg:space-x-2 shadow-none border-none">
+                  <Label
+                    className="text-small font-normal hidden lg:block"
+                    htmlFor="adults"
+                  >
+                    Số lượng:
+                  </Label>
+                  <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
+                    <Button
+                      disabled={
+                        chooseInput[index] === 0 || room.numberOfRoom == 0
+                      }
+                      type="button"
+                      onClick={() => handleDecrease(index)}
+                      className={cn(
+                        "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                        chooseInput[index] === 0 && "pointer-events-none"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "!text-large text-blue_main_sub font-normal p-1",
+                          chooseInput[index] === 0 &&
+                            "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
                         )}
-                        <Button
-                          className="w-full bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
-                          onClick={handleBooking}
-                          disabled={checkHiddenBtn}
-                        >
-                          Đặt ngay
-                        </Button>
-                        <ul className="text-smallest pl-3 mt-2">
-                          <li>Chỉ mất 2 phút</li>
-                          <li>Xác thực tức thời</li>
-                        </ul>
-                      </div>
-                    )}
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                      >
+                        -
+                      </span>
+                    </Button>
+                    <Input
+                      type="number"
+                      id="adults"
+                      min="1"
+                      value={chooseInput[index]}
+                      className="h-8 outline-none bg-white text-normal  max-w-[50px] text-black text-center shadow-none border-none"
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        setChooseInput((prev) => {
+                          const newChoose = [...prev];
+                          newChoose[index] = Number(value);
+                          return newChoose;
+                        });
+                      }}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      disabled={room.numberOfRoom === 0}
+                    />
+                    <Button
+                      disabled={room.numberOfRoom == 0}
+                      type="button"
+                      onClick={() => handleIncrease(index)}
+                      className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
+                    >
+                      <span className="text-large text-blue_main_sub font-light">
+                        +
+                      </span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <motion.div
+          key={showActionBar ? "visible" : "hidden"}
+          initial="hidden"
+          animate={showActionBar ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0, y: 100, scale: 0.9 },
+            visible: { opacity: 1, y: 0, scale: 1 },
+          }}
+          transition={{
+            duration: 0.6,
+            ease: "easeInOut",
+            bounce: 0.3,
+          }}
+        >
+          <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
+            <div className="min-w-[42%] max-w-[55%] line-clamp-2">
+              <div className="line-through text-red-400 text-small">
+                <span className="mr-1">VNĐ</span>
+                {convertVND(total)}
+              </div>
+              <div className="text-black_main text-normal font-bold">
+                <span className="mr-1">VNĐ</span>
+                {convertVND(totalSale)}
+              </div>
+            </div>
+            {!!user && isAuthenticated ? (
+              <Button
+                className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
+                onClick={handleBooking}
+                disabled={checkHiddenBtn}
+              >
+                Đặt ngay
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  router.push("/sign-in");
+                }}
+                className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
+              >
+                Đăng nhập
+              </Button>
+            )}
+            <div></div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

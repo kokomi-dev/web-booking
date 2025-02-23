@@ -122,7 +122,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   setValue={setAddress}
                   error={error}
                 />
-                <SearchDatePicker date={date} setDate={setDate} className="" />
+                <SearchDatePicker date={date} setDate={setDate} />
                 <Button
                   type="submit"
                   variant="default"

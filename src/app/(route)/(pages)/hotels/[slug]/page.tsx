@@ -15,7 +15,6 @@ import Booking from "@/components/dashboard/hotels/booking";
 import HeadDetail from "@/components/dashboard/hotels/head-detail";
 import Info from "@/components/dashboard/hotels/info";
 import { PropsGenerateMetaData } from "@/types";
-import { IHotel } from "@/types/hotel.type";
 import {
   Baby,
   Bed,
@@ -24,7 +23,7 @@ import {
   UserCheck,
 } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
+import { IHotel } from "@/types/hotel.type";
 
 export async function generateMetadata({
   params,
@@ -45,27 +44,27 @@ export async function generateMetadata({
   }
 }
 
-// export async function generateStaticParams() {
-//   try {
-//     const listHotel = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
+export async function generateStaticParams() {
+  try {
+    const listHotel = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
 
-//     if (!listHotel || !Array.isArray(listHotel.data)) {
-//       console.error(
-//         "Dữ liệu không hợp lệ hoặc không có trường data",
-//         listHotel
-//       );
-//       return [];
-//     }
-//     return (await listHotel.data.filter((hotel: IHotel) => hotel.slug)).map(
-//       (hotel: IHotel) => ({
-//         slug: hotel.slug,
-//       })
-//     );
-//   } catch (error) {
-//     console.error("🔥 Lỗi khi fetch danh sách khách sạn:", error);
-//     return [];
-//   }
-// }
+    if (!listHotel || !Array.isArray(listHotel.data)) {
+      console.error(
+        "Dữ liệu không hợp lệ hoặc không có trường data",
+        listHotel
+      );
+      return [];
+    }
+    return (await listHotel.data.filter((hotel: IHotel) => hotel.slug)).map(
+      (hotel: IHotel) => ({
+        slug: hotel.slug,
+      })
+    );
+  } catch (error) {
+    console.error("🔥 Lỗi khi fetch danh sách khách sạn:", error);
+    return [];
+  }
+}
 
 const DetailHotelPage = async ({
   params: { slug },
@@ -111,7 +110,7 @@ const DetailHotelPage = async ({
           </div>
         )}
         {/* content and booking*/}
-        <div className="w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start posing-vertical-3 ">
+        <div className="z-[30] w-full h-full flex flex-col-reverse lg:flex-col items-start justify-start posing-vertical-3 ">
           <div className="w-full grid grid-cols-1 lg:grid-cols-layout-2 mt-2 lg:mt-0 ">
             <div className="w-full h-auto grid gap-y-4 pr-4">
               <CardText title="Mô tả về chúng tôi ">
@@ -146,19 +145,13 @@ const DetailHotelPage = async ({
                     return (
                       <li
                         key={index}
-                        className="flex items-center justify-start py-1 text-smallest"
+                        className="flex items-center justify-start py-1 text-smallest lg:text-small font-light lg:font-normal"
                       >
                         {highlight}
                       </li>
                     );
                   })}
                 </ul>
-                <Link
-                  href="#booking-hotel-container"
-                  className="min-w-full block text-center w-full bg-bg_primary_blue_sub text-white mt-4 p-1 rounded-8 px-2"
-                >
-                  Đặt ngay
-                </Link>
               </CardText>
             </div>
           </div>

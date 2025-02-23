@@ -34,7 +34,7 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
   };
   useEffect(() => {
     fetchLocation();
-  }, [address, fetchLocation]);
+  }, [address]);
   if (!location || location.length === 0) {
     return;
   }

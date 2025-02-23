@@ -42,7 +42,7 @@ export default function SignInPage() {
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signInBody),
     defaultValues: {
-      email: localStorage.getItem("email-remember") ?? "",
+      email: "",
       password: "",
     },
   });
@@ -71,8 +71,14 @@ export default function SignInPage() {
             Cookies.set("refreshToken", res.data.refreshToken);
             Cookies.set("userId", userData._id);
             Cookies.set("roles", userData.roles);
+            const previousUrl = document.referrer || "/home";
+            router.push(
+              previousUrl.includes(window.location.origin)
+                ? previousUrl
+                : "/home",
+              { scroll: true }
+            );
 
-            router.push("/home");
             toast.success("Đăng nhập thành công!");
           }
         },
