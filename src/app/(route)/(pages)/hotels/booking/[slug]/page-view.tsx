@@ -93,7 +93,7 @@ const BookingHotel = () => {
         special: "",
       });
     }
-  }, [user]);
+  }, [user, form, slug]);
 
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -138,7 +138,7 @@ const BookingHotel = () => {
         setListRoomBooked(roomsBooked);
       }
     }
-  }, [bookingInfo, memoizedListRooms]);
+  }, [bookingInfo, memoizedListRooms, data, listRoomBooked]);
 
   return (
     <Fragment>

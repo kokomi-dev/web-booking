@@ -12,12 +12,11 @@ import PingServer from "@/services/connect-server/keep-connect-server";
 import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
 import { LoadingPage } from "@/components/components/loading";
-import { DialogSales } from "@/components/components/dialog-sales";
 import QueryProvider from "@/configs/providerQuery";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],
-  weight: ["100", "300", "400", "500", "700"],
+  weight: ["100", "300", "400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +45,6 @@ export default function RootLayout({
             <ClerkLoading>
               <LoadingPage />
             </ClerkLoading>
-            <DialogSales />
             {children}
           </ClerkProvider>
           {/* <PingServer /> */}

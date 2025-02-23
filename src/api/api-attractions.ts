@@ -18,13 +18,12 @@ const getDetailAttraction = async ({ slug }: { slug: string }) => {
     });
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error("Không tìm thấy địa điểm tham quan");
+        console.log("Không tìm thấy địa điểm tham quan");
       }
-      throw new Error("Lỗi khi lấy chi tiết địa điểm tham quan");
     }
     const result = await response.json();
     if (!result || !result.data) {
-      throw new Error("Dữ liệu không hợp lệ");
+      console.log("Dữ liệu không hợp lệ");
     }
     return result.data;
   } catch (error: any) {

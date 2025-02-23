@@ -105,7 +105,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
         }
       );
     },
-    [dataInfoBooked]
+    [dataInfoBooked, mutationSendInfoBooked]
   );
   const mutationSendEmailConfirm = useMutation({
     mutationFn: sendEmailConfirm,
@@ -153,7 +153,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
         }
         break;
     }
-  }, [modalState.method, dataInfoBooked, router]);
+  }, [modalState.method, dataInfoBooked, router, mutationSendEmailConfirm]);
   const handleClose = () => {
     setModalState((prev) => ({ ...prev, openCreditCard: false }));
   };
