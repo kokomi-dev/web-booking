@@ -10,6 +10,15 @@ import { listAddressTredingHome } from "@/components/dashboard/homepage/constant
 import ListBlogsTrending from "@/components/dashboard/blog/list-blogs-trending";
 import SalesCustommer from "@/components/dashboard/homepage/sales-custommer";
 import imgBanner from "@/assets/images/banner2.jpg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "KoKo Travel - Trang chủ",
+  description:
+    "Trang web giới thiệu, đặt chỗ, xem trước về các địa điểm du lịch, nơi nghỉ dưỡng trên khắp Việt Nam",
+  icons: "/favicon.png",
+};
+
 function HomePage() {
   return (
     <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">

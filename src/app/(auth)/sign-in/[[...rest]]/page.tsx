@@ -1,8 +1,5 @@
-import React from "react";
-
-import { cn } from "@/utils/constants";
-import FormLogin from "../form-login";
 import { Metadata } from "next";
+import FormLogin from "../form-login";
 
 export const metadata: Metadata = {
   title: "Đăng nhập - KoKoTravel",
@@ -11,15 +8,12 @@ export const metadata: Metadata = {
 const SignInPage = () => {
   return (
     <div
-      className={cn(
-        "w-full  h-full flex flex-col items-center justify-center "
-      )}
+      className={"w-full  h-full flex flex-col items-center justify-center "}
     >
       <h3
-        className={cn(
-          "w-full h-full text-center  font-extrabold text-[1.7rem] mb-3",
-          "lg:text-[2rem] lg:mb-5"
-        )}
+        className={
+          "w-full h-full text-center  font-extrabold text-[1.7rem] mb-3 lg:text-[2rem] lg:mb-5"
+        }
       >
         Đăng nhập
       </h3>

@@ -86,15 +86,18 @@ const Comments: React.FC<IComments> = ({
   const handleVote = useCallback((value: number) => {
     setVote(value);
   }, []);
-  const handleDeleteComment = useCallback(async (idComment: string) => {
-    const result = await deleteComment(idComment, category, slug);
-    if (result.code === 200) {
-      await mutate(`${apiUrl}/${category}/${slug}`);
-      toast.success("Xóa bình luận thành công !", {
-        className: "toast-success",
-      });
-    }
-  }, []);
+  const handleDeleteComment = useCallback(
+    async (idComment: string) => {
+      const result = await deleteComment(idComment, category, slug);
+      if (result.code === 200) {
+        await mutate(`${apiUrl}/${category}/${slug}`);
+        toast.success("Xóa bình luận thành công !", {
+          className: "toast-success",
+        });
+      }
+    },
+    [apiUrl, category, slug]
+  );
   return (
     <div className="w-full  posing-vertical-3">
       <h3 className="text-medium font-semibold">Đánh giá của khách</h3>

@@ -27,6 +27,7 @@ const ItemCard = memo(
             alt={name}
             priority={true}
             placeholder="empty"
+            quality={85}
           />
           <CardContent className="flex flex-col gap-1 p-2 pt-1 pb-8 text-start ">
             <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
