@@ -162,7 +162,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
               id="adults"
               min="1"
               value={numberTicketsAdult}
-              className="h-8 outline-none bg-white   max-w-[60px] text-black text-center shadow-none border-none"
+              className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
               onChange={(e) =>
                 setNumberTicketsAdult(Math.max(1, Number(e.target.value)))
               }
@@ -215,7 +215,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
               id="adults"
               min="1"
               value={numberTicketsChildren}
-              className="h-8 outline-none bg-white   max-w-[60px] text-black text-center shadow-none border-none"
+              className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
               onChange={(e) =>
                 setNumberTicketsChildren(Math.max(1, Number(e.target.value)))
               }

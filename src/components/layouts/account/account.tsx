@@ -61,52 +61,55 @@ const Account = () => {
     isAuthenticated,
     setLogout,
   } = useAuthenticatedStore();
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      if (!isSignedIn && !userId) return;
-      setLoading(true);
+  // useEffect(() => {
+  //   const getCurrentUser = async () => {
+  //     if (!isSignedIn && !userId) return;
+  //     setLoading(true);
 
-      try {
-        if (isSignedIn) {
-          setUserLogined({
-            source: "clerk",
-            _id: userClerk.id,
-            token: null,
-            firstname: userClerk.firstName || "",
-            lastname: userClerk.lastName || "",
-            email: userClerk.emailAddresses[0].emailAddress,
-            numberPhone: "",
-            hasImge: userClerk.hasImage,
-            images: userClerk.imageUrl,
-            isNewbie: true,
-            isActive: true,
-            groupId: ["6"],
-            roles: "customer",
-            idCode: "",
-          });
-        } else if (userId) {
-          mutaionDataUser.mutate(userId, {
-            onSuccess: (res) => {
-              const userData = res.data.user;
-              setUserLogined({ ...userData });
-              setIsAuthenticated();
-            },
-            onError: (error) => console.error("Error fetching user:", error),
-          });
-        } else {
-          return;
-        }
-      } catch (error) {
-        console.error("Unexpected error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       if (isSignedIn) {
+  //         setUserLogined({
+  //           source: "clerk",
+  //           _id: userClerk.id,
+  //           token: null,
+  //           firstname: userClerk.firstName || "",
+  //           lastname: userClerk.lastName || "",
+  //           email: userClerk.emailAddresses[0].emailAddress,
+  //           numberPhone: "",
+  //           hasImge: userClerk.hasImage,
+  //           images: userClerk.imageUrl,
+  //           isNewbie: true,
+  //           isActive: true,
+  //           groupId: ["6"],
+  //           roles: "customer",
+  //           idCode: "",
+  //         });
+  //       } else if (userId) {
+  //         mutaionDataUser.mutate(userId, {
+  //           onSuccess: (res) => {
+  //             const userData = res.data.user;
+  //             setUserLogined({ ...userData });
+  //             setIsAuthenticated();
+  //           },
+  //           onError: (error) => console.error("Error fetching user:", error),
+  //         });
+  //       } else {
+  //         return;
+  //       }
+  //     } catch (error) {
+  //       console.error("Unexpected error:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    getCurrentUser();
-  }, [isSignedIn, userId]);
+  //   getCurrentUser();
+  // }, [isSignedIn, userId]);
 
   const handleLogout = useCallback(async () => {
+    if (isSignedIn) {
+      signOut();
+    }
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
     Cookies.remove("refreshToken");
@@ -152,14 +155,14 @@ const Account = () => {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white text-black rounded-14 p-0">
-              <DropdownMenuGroup>
+            <DropdownMenuContent className="w-56 bg-white text-black font-light lg:font-normal rounded-14 p-2">
+              <DropdownMenuGroup className="posing-vertical-4">
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
                     className="w-full flex items-center"
                     href={`/account/mysetting/${user._id}?do=manage-account`}
                   >
-                    <UserRound className="w-5 h-5 mr-2" />
+                    <UserRound className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Quản lí tài khoản
                   </Link>
                 </DropdownMenuItem>
@@ -168,7 +171,7 @@ const Account = () => {
                     className="w-full flex items-center"
                     href={`/account/manage-booking/${user._id}?do=booking`}
                   >
-                    <CalendarCheck className="w-5 h-5 mr-2" />
+                    <CalendarCheck className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Đặt chỗ & chuyến đi
                   </Link>
                 </DropdownMenuItem>
@@ -177,7 +180,7 @@ const Account = () => {
                     className="w-full flex items-center"
                     href={`/account/saved/${user._id}`}
                   >
-                    <BookmarkCheck className="w-5 h-5 mr-2" />
+                    <BookmarkCheck className="size-[1.18rem] lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Đã lưu
                   </Link>
                 </DropdownMenuItem>
@@ -186,14 +189,14 @@ const Account = () => {
                     className="w-full flex items-center"
                     href={`/home/genius/${user._id}`}
                   >
-                    <BadgeDollarSign className="w-5 h-5 mr-2" />
+                    <BadgeDollarSign className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Ưu đãi của bạn
                   </Link>
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover">
-                      <LogOut className="w-5 h-5 mr-[0.3rem]" />
+                      <LogOut className="size-4 lg:w-5 lg:h-5 mr-[0.3rem]" />
                       <span className="text-smallest">Đăng xuất</span>
                     </div>
                   </AlertDialogTrigger>

@@ -21,10 +21,11 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
     <section className="flex flex-col w-full">
       <Button
         className={cn(
-          "flex items-center justify-start gap-x-1 w-full h-[44px]  text-left bg-white px-2 py-1 shadow-none text-normal font-light",
+          "flex items-center justify-start gap-x-1 w-full h-[44px]  text-left bg-white hover:!bg-white focus:!bg-white  px-2 py-1 shadow-none text-normal font-light",
           className,
-          "md:hidden lg:hidden"
+          "md:hidden lg:hidden text-black_main"
         )}
+        variant="outline"
         onClick={(e) => {
           e.preventDefault();
           setOpen(true);

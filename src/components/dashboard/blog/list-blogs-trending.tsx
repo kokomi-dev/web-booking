@@ -55,7 +55,7 @@ const ListBlogsTrending = () => {
                 </div>
 
                 <div className="flex items-start justify-start space-x-2">
-                  <BookOpen className="size-6 text-blue_main_sub" />
+                  <BookOpen className="size-6 text-blue_main_sub flex-shrink-0" />
                   <p
                     className=" text-small text-black_main line-clamp-2 first-letter:uppercase"
                     dangerouslySetInnerHTML={{

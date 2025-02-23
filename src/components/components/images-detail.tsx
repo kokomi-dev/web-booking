@@ -46,7 +46,7 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
         <div className="col-span-1 max-h-[400px] h-full">
           <div className="relative w-full h-full">
             {loading[0] && (
-              <div className="absolute w-full h-full inset-0 bg-gray-200 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
             )}
             <Image
               width={500}
@@ -103,8 +103,10 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
                 key={i}
                 className="w-full md:basis-1/3 lg:basis-1/4"
               >
+                {loading[0] && (
+                  <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+                )}
                 <Image
-                  priority
                   width={800}
                   height={800}
                   src={e}

@@ -99,7 +99,7 @@ const Comments: React.FC<IComments> = ({
     [apiUrl, category, slug]
   );
   return (
-    <div className="w-full  posing-vertical-3">
+    <div className="w-full posing-vertical-3 !z-0">
       <h3 className="text-medium font-semibold">Đánh giá của khách</h3>
       <div className="w-auto flex items-center justify-start gap-x-1">
         <Star className="fill-yellow_main text-yellow_main text-medium" />
@@ -178,7 +178,7 @@ const Comments: React.FC<IComments> = ({
             return (
               <Card
                 key={index}
-                className="w-full relative p-2 flex flex-col gap-y-2 border-none shadow-none"
+                className="w-full relative p-2 flex flex-col gap-y-2 border-none shadow-none !z-0"
               >
                 <div className="w-full flex items-start justify-start space-x-2">
                   <div className="flex-shrink-0 size-9 bg-bg_primary_active rounded-full relative">
