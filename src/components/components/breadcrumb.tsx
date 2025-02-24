@@ -7,7 +7,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { BreadcrumbItemType } from "@/types/component-types";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Slash } from "lucide-react";
 
 const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
   return (
@@ -27,9 +27,7 @@ const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
                 {item.label}
               </BreadcrumbPage>
             )}
-            {index < items.length - 1 && (
-              <ChevronRight className="size-4 text-black_main mx-0" />
-            )}
+            {index < items.length - 1 && <span className="mr-[3px]">/</span>}
           </BreadcrumbItem>
         ))}
       </BreadcrumbList>

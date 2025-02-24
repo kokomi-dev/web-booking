@@ -209,7 +209,7 @@ const Comments: React.FC<IComments> = ({
                           )
                         )}
                       </div>
-                      <p className="text-normal font-light line-clamp-2 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 first-letter:uppercase  overflow-y-auto ">
+                      <p className="text-small lg:text-normal line-clamp-2 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 first-letter:uppercase  overflow-y-auto ">
                         {e.content}.
                       </p>
                     </div>

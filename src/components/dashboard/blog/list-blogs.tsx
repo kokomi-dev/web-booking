@@ -77,22 +77,22 @@ const ListBlogPage = () => {
         <h1 className="text-large font-bold">
           Khám phá những bài viết hấp dẫn
         </h1>
-        <p className="text-black_main font-light lg:font-normal text-normal ">
+        <p className="text-black_main font-normal text-normal ">
           Chào mừng bạn đến với kho tàng bài viết về du lịch và lưu trú! Tại
           đây, bạn sẽ tìm thấy những thông tin hữu ích, địa điểm thú vị và mẹo
           vặt giúp chuyến đi của bạn trở nên trọn vẹn hơn.
         </p>
-        <p className="text-black_main font-light lg:font-normal ">
+        <p className="text-black_main font-normal ">
           Hãy cùng chúng tôi khám phá những vùng đất mới, trải nghiệm các nền
           văn hóa đặc sắc, tìm hiểu về những khách sạn và khu nghỉ dưỡng đẳng
           cấp, hay đơn giản là những quán ăn ngon trên khắp mọi miền.
         </p>
-        <p className="text-black_main font-light lg:font-normal ">
+        <p className="text-black_main font-normal ">
           Không chỉ có những bài viết chia sẻ kinh nghiệm, chúng tôi còn mang
           đến cho bạn những câu chuyện thú vị, những review chân thực nhất để
           bạn có thể lựa chọn hành trình phù hợp với mình.
         </p>
-        <p className="text-black_main font-light lg:font-normal ">
+        <p className="text-black_main font-normal ">
           Đừng quên sử dụng thanh tìm kiếm để nhanh chóng tìm thấy những bài
           viết phù hợp với nhu cầu của bạn nhé!
         </p>

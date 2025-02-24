@@ -281,9 +281,7 @@ const Booking = ({
                       onClick={() => handleIncrease(index)}
                       className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
                     >
-                      <span className="text-large text-blue_main_sub font-light">
-                        +
-                      </span>
+                      <span className="text-large text-blue_main_sub ">+</span>
                     </Button>
                   </div>
                 </div>

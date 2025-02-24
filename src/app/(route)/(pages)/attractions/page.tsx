@@ -38,11 +38,11 @@ const HomePage = () => {
             <h1 className="title_Page  !mb-2 text-yellow_main font-bold">
               Ưu đãi
             </h1>
-            <h4 className="w-full text-black_main text-normal font-light">
+            <h4 className="w-full text-black_main text-normal ">
               Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
               tiếng của chúng tôi
             </h4>
-            <p className="text-black_sub text-small font-light">
+            <p className="text-black_sub text-small mb-2 ">
               Hãy trải nghiệm nó một cách trọn vẹn
             </p>
             <Link

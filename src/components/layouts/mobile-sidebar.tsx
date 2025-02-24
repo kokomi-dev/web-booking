@@ -49,7 +49,7 @@ const MobileSidebar = () => {
         >
           <div className="w-full h-full overflow-y-auto ">
             <h3 className="text-medium font-bold">Khác</h3>
-            <section className="flex items-start justify-start flex-col text-small font-light gap-y-4">
+            <section className="flex items-start justify-start flex-col text-small  gap-y-4">
               <div className="flex flex-col gap-y-2">
                 {!!user && isAuthenticated ? (
                   <Link

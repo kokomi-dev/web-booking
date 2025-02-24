@@ -59,13 +59,13 @@ const ItemSearchResult = ({
             <h4 className="text-normal md:text-normal+ lg:text-medium font-bold w-[100%] h-[24px] md:h-[30px] lg:h-[38px]  overflow-hidden line-clamp-1 text-start  text-blue_main_sub">
               {name}
             </h4>
-            <address className="text-smallest font-light text-black_sub  ">
+            <address className="text-smallest  text-black_sub  ">
               {location}
             </address>
-            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-light">
+            <p className="overflow-hidden line-clamp-2 p_type_1 text-small ">
               {description}
             </p>
-            <p className="overflow-hidden line-clamp-2 p_type_1 text-small font-light">
+            <p className="overflow-hidden line-clamp-2 p_type_1 text-small ">
               {details}
             </p>
             <h6 className=" flex items-center justify-start gap-x-1 ">

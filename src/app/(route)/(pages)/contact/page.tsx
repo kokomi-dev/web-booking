@@ -47,7 +47,7 @@ const Item = ({ title }: { title: string }) => {
       )}
     >
       <span className="capitalize font-normal text-[0.9rem] ">{title}</span>
-      <ChevronRight className="text-small font-light" />
+      <ChevronRight className="text-small " />
     </div>
   );
 };
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 };
 const ContactPage = () => {
   return (
-    <section className="w-full posing-vertical-1">
+    <section className="w-full posing-vertical-1 mt-[1rem] lg:mt-0">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/home" },

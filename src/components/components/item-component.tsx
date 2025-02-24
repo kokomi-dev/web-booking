@@ -44,7 +44,7 @@ const ItemCard = memo(
               <h6 className="text-smallest font-normal">{ratingText}</h6>
             </div>
             <h6 className="text-normal absolute bottom-2 right-4">
-              <span className="text-[0.8rem] font-light pr-1">Bắt đầu từ</span>
+              <span className="text-[0.8rem]  pr-1">Bắt đầu từ</span>
               <span className="text-small font-bold pr-1">VNĐ</span>
               <span className="underline text-blue_main text-small font-bold">
                 {formattedPrice}

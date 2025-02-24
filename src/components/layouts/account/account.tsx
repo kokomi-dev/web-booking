@@ -155,7 +155,7 @@ const Account = () => {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white text-black font-light lg:font-normal rounded-14 p-2">
+            <DropdownMenuContent className="w-56 bg-white text-black  lg:font-normal rounded-14 p-2">
               <DropdownMenuGroup className="posing-vertical-4">
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
