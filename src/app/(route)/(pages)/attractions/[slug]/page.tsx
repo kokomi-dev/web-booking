@@ -93,9 +93,7 @@ const DetailAttractionPage = async ({
       />
       {/* info */}
       <section
-        className={cn(
-          "w-full h-full flex  items-start justify-between !mt-0 lg:!mt-[1.3rem] "
-        )}
+        className={cn("w-full h-full flex  items-start justify-between ")}
       >
         <div className="grid gap-y-2">
           <div className="w-full flex items-center justify-between ">

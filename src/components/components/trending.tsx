@@ -13,7 +13,7 @@ interface ITrending {
 
 const Trending: React.FC<ITrending> = ({ page }) => {
   return (
-    <section className="w-full h-full posing-vertical-2 !mt-0 lg:!mt-[1.3rem]">
+    <section className="w-full h-full posing-vertical-2 ">
       <div className="posing-vertical-6">
         <h2 className="text-large font-bold">Điểm đến được gợi ý</h2>
         <h3 className="text-normal text-black_sub">

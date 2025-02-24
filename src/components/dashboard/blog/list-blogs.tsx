@@ -73,7 +73,7 @@ const ListBlogPage = () => {
       <BreadcrumbHead
         items={[{ label: "Trang chủ", href: "/home" }, { label: "Bài viết" }]}
       />
-      <div className="posing-vertical-2 !mt-0 lg:!mt-[1.3rem]">
+      <div className="posing-vertical-2 ">
         <h1 className="text-large font-bold">
           Khám phá những bài viết hấp dẫn
         </h1>

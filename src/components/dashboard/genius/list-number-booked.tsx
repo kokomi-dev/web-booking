@@ -6,7 +6,7 @@ import React from "react";
 const ListItemBooked = () => {
   const { user } = useAuthenticatedStore();
   return (
-    <div className="posing-vertical-2 shadow-2xl p-3 rounded-8 !mt-0 lg:!mt-[1.3rem]">
+    <div className="posing-vertical-2 shadow-2xl p-3 rounded-8 ">
       <div className="flex items-center justify-center gap-x-1 gap-y-3 text-large font-bold ">
         <h3 className="capitalize text-center">{user?.lastname} </h3>
         <span>ơi,</span>
