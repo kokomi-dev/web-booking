@@ -187,7 +187,7 @@ const Account = () => {
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
                     className="w-full flex items-center"
-                    href={`/home/genius/${user._id}`}
+                    href={`/genius/${user._id}`}
                   >
                     <BadgeDollarSign className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Ưu đãi của bạn

@@ -1,5 +1,4 @@
 "use client";
-import { cx } from "class-variance-authority";
 import { addDays, format } from "date-fns";
 import { vi } from "date-fns/locale";
 import Link from "next/link";
@@ -94,7 +93,7 @@ const Search: React.FC<SearchContainerProp> = ({
             className="border-t-1  border-blue_main_sub"
           >
             <Card
-              className={cx(
+              className={cn(
                 "overflow-hidden border-none h-auto rounded-none rounded-br-8 rounded-bl-8"
               )}
             >
@@ -112,7 +111,7 @@ const Search: React.FC<SearchContainerProp> = ({
                 </CardTitle>
               </CardHeader>
               <CardContent
-                className={cx(
+                className={cn(
                   "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow_main p-1 ",
                   "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2 lg:gap-y-0"
                 )}
@@ -153,7 +152,7 @@ const Search: React.FC<SearchContainerProp> = ({
             value="hotels"
             className="border-t-1  border-yellow_main"
           >
-            <Card className={cx("overflow-hidden  border-none mt-0 ")}>
+            <Card className={cn("overflow-hidden  border-none mt-0 ")}>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0">
                   <span className="hidden text-black_sub text-small md:block">
@@ -168,7 +167,7 @@ const Search: React.FC<SearchContainerProp> = ({
                 </CardTitle>
               </CardHeader>
               <CardContent
-                className={cx(
+                className={cn(
                   "w-full h-auo flex flex-col justify-start  bg-yellow_main p-1 gap-y-2",
                   "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2  "
                 )}

@@ -3,7 +3,6 @@ import { Roboto } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import "react-slideshow-image/dist/styles.css";
 import "../styles/globals.css";
 import "../styles/css/toast.css";
 

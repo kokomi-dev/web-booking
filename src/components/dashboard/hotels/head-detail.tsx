@@ -13,7 +13,7 @@ const scrollToView = (id: string) => {
 };
 const HeadDetail = () => {
   return (
-    <div className="w-full text-small flex overflow-x-auto items-center justify-between gap-x-3 p-2 lg:p-0 !mt-0 lg:!mt-[1.3rem]   ">
+    <div className="w-full text-small flex overflow-x-auto items-center justify-between gap-x-3 p-2 lg:p-0 ">
       <div
         className="text-start lg:text-center scroll-smooth min-w-max w-full cursor-pointer "
         onClick={() => {

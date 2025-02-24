@@ -8,10 +8,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+const MotionDiv = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.div),
+  { ssr: false }
+);
 import { IModalBookingSucess } from "@/types/component-types";
 import { useRouter } from "next/navigation";
 import { LoadingPage } from "../loading";
+import dynamic from "next/dynamic";
 
 export default function BookingSuccessModal({
   open,
@@ -66,7 +70,7 @@ export default function BookingSuccessModal({
           ></DialogDescription>
           <DialogContent className="flex flex-col items-center p-6 text-center">
             <div className="relative mb-4">
-              <motion.div
+              <MotionDiv
                 className="absolute inset-0 border-4 border-green-500 rounded-full"
                 initial={{ scale: 1.5, opacity: 0 }}
                 animate={animate ? { scale: 1, opacity: 1, rotate: 360 } : {}}

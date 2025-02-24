@@ -1,19 +1,24 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Map, { Marker } from "react-map-gl";
 
+import dynamic from "next/dynamic";
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import mapPin from "@/assets/images/map-pin.png";
-import "mapbox-gl/dist/mapbox-gl.css";
+import "mapbox-gl/dist/mapbox-gl.css?inline";
+const Map = dynamic(() => import("react-map-gl"), { ssr: false });
+const Marker = dynamic(() => import("react-map-gl").then((mod) => mod.Marker), {
+  ssr: false,
+});
+
 interface MapProps {
   address: string;
 }
 
 const ShowOnMap: React.FC<MapProps> = ({ address }) => {
   const [location, setLocation] = useState<number[]>([]);
-
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
-  const fetchLocation = async () => {
+
+  const fetchLocation = useCallback(async () => {
     try {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
@@ -21,23 +26,25 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
         )}.json?access_token=${accessToken}`
       );
       const data = await response.json();
-      if (!data) {
-        return setLocation([0, 0]);
-      }
-      if (data.features && data.features.length > 0) {
+      if (data?.features?.length) {
         const [longitude, latitude] = data.features[0].center;
-        setLocation([parseFloat(longitude), parseFloat(latitude)]);
+        setLocation([longitude, latitude]);
+      } else {
+        setLocation([0, 0]);
       }
     } catch (error) {
-    } finally {
+      console.error("Error fetching location:", error);
     }
-  };
+  }, [address, accessToken]);
+
   useEffect(() => {
     fetchLocation();
-  }, [address]);
-  if (!location || location.length === 0) {
-    return;
+  }, [fetchLocation]);
+
+  if (!location.length) {
+    return <div className="w-full h-[420px] bg-gray-200 rounded-lg"></div>;
   }
+
   return (
     <Map
       initialViewState={{
@@ -50,17 +57,13 @@ const ShowOnMap: React.FC<MapProps> = ({ address }) => {
       mapboxAccessToken={accessToken}
       maxZoom={16}
       minZoom={10}
-      onLoad={() => {
-        <div className="w-full h-[420px] bg-bg_black_sub rounded-8"></div>;
-      }}
     >
       <Marker longitude={location[0]} latitude={location[1]} anchor="bottom">
         <Image
           src={mapPin}
-          alt="icon map gim địa chỉ"
-          width={60}
-          height={60}
-          className="size-9"
+          alt="icon map pin"
+          width={36}
+          height={36}
           loading="lazy"
         />
       </Marker>

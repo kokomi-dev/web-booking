@@ -18,7 +18,7 @@ const ContentPage = () => {
           { label: "Điều khoản điều kiện" },
         ]}
       />
-      <div className="grid grid-cols-1 md:grid-cols-[20%,80%] gap-4 !mt-0 lg:!mt-[1.3rem]">
+      <div className="grid grid-cols-1 md:grid-cols-[20%,80%] gap-4 ">
         <SidebarContent />
         <ShowContent />
       </div>

@@ -65,7 +65,7 @@ const ContactPage = () => {
         ]}
       />
       {/* head */}
-      <div className="w-full !mt-0 lg:!mt-[1.3rem]">
+      <div className="w-full ">
         <h2 className="text-medium font-bold lg:text-large pb-4">
           Trung tâm trợ giúp
         </h2>

@@ -18,7 +18,11 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 import { useBookingInfoStore } from "@/store/booking-info";
 import { IHotelRoom } from "@/types/hotel.type";
 import { cn, convertVND } from "@/utils/constants";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+const MotionDiv = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.div),
+  { ssr: false }
+);
 const Booking = ({
   slug,
   listRooms,
@@ -288,7 +292,7 @@ const Booking = ({
           </div>
         ))}
 
-        <motion.div
+        <MotionDiv
           key={showActionBar ? "visible" : "hidden"}
           initial="hidden"
           animate={showActionBar ? "visible" : "hidden"}
@@ -333,7 +337,7 @@ const Booking = ({
             )}
             <div></div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </div>
   );

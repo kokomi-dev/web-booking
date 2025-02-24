@@ -11,8 +11,8 @@ import { ChevronRight } from "lucide-react";
 
 const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
   return (
-    <Breadcrumb className="hidden absolute lg:relative  lg:block">
-      <BreadcrumbList>
+    <Breadcrumb>
+      <BreadcrumbList className="line-clamp-1">
         {items.map((item, index) => (
           <BreadcrumbItem key={index}>
             {item.href ? (

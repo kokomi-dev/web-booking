@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import QUERY_KEY_BOOKING from "@/services/queryKeyStore/bookingQueyKeyStore";
 import { IHotelRoom } from "@/types/hotel.type";
 import { useQuery } from "@tanstack/react-query";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+
 import {
   Calendar,
   CheckCircle,
@@ -24,6 +23,8 @@ import { Fragment, useRef } from "react";
 const BookingSuccess = () => {
   const router = useRouter();
   const params = useSearchParams();
+  const ticketRef = useRef<any>(null);
+
   const { apptransid, category, status } = Object.fromEntries(params.entries());
   const { data: dataBooked, isLoading } = useQuery({
     queryKey: [QUERY_KEY_BOOKING.GET_INFO_BOOKED],
@@ -35,21 +36,19 @@ const BookingSuccess = () => {
     retry: 4,
     retryDelay: 1200,
   });
-  if (isLoading) {
-    return <Loading />;
-  }
-  const ticketRef = useRef<any>(null);
 
   const checkCategory = category === "attraction" ? true : false;
   const handleDownloadPDF = async () => {
     const ticketElement = document.getElementById("ticket");
     if (!ticketElement) return;
 
-    const canvas = await html2canvas(ticketRef.current, {
+    const canvas = await (
+      await import("html2canvas")
+    ).default(ticketRef.current, {
       scale: 3,
       useCORS: true,
     });
-
+    const { jsPDF } = await import("jspdf");
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
@@ -65,6 +64,10 @@ const BookingSuccess = () => {
       } `
     );
   };
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Fragment>
       {Number(status) == 1 ? (

@@ -170,7 +170,7 @@ const BookingHotel = () => {
           {/* body */}
           <div
             className={cn(
-              "w-full grid grid-cols-1 gap-y-5 !mt-0 lg:!mt-[1.3rem]  ",
+              "w-full grid grid-cols-1 gap-y-5 ",
               "lg:grid-cols-layout-3  lg:gap-x-5 lg:gap-y-0 lg:h-full "
             )}
           >
