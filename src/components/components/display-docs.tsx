@@ -48,7 +48,7 @@ const DisplayDocs: React.FC<DisplayDoc> = ({ docs }) => {
       >
         <p
           ref={pRef}
-          className="text-small tracking-[0.016rem] text-black_main font-light lg:font-normal text-justify transition-all duration-300 whitespace-pre-wrap"
+          className="text-small tracking-[0.016rem] text-black_main  text-justify transition-all duration-300 whitespace-pre-wrap"
         >
           {removeEmptyLines(docs)}
         </p>

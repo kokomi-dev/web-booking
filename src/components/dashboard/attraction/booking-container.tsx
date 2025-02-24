@@ -20,7 +20,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
         <div className="flex items-center justify-start gap-x-2">
           <label
             htmlFor="time1"
-            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
           >
             <input
               id="time1"
@@ -37,7 +37,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
           </label>
           <label
             htmlFor="time2"
-            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest font-light text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
           >
             <input
               id="time2"

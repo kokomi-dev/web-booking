@@ -89,13 +89,11 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
       <ol className="w-full posing-vertical-4">
         <li className="gap-x-2  lg:gap-x-3 flex items-center justify-start  text-black font-normal">
           <AiOutlineCheckCircle className="text-[1.2rem]  flex-shrink-0" />
-          <span className="text-small font-light lg:font-normal">
-            Các dịch vụ đi kèm
-          </span>
+          <span className="text-small font-normal">Các dịch vụ đi kèm</span>
         </li>
         <li className="gap-x-2  lg:gap-x-3 flex justify-start items-center   text-black font-normal">
           <AiOutlineInfoCircle className="text-[1.2rem]  flex-shrink-0" />
-          <span className="text-small font-light lg:font-normal">
+          <span className="text-small font-normal">
             Đảm bảo quyền lợi của bạn
           </span>
         </li>
@@ -175,9 +173,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
               }
               className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
             >
-              <span className="text-large text-blue_main_sub font-light">
-                +
-              </span>
+              <span className="text-large text-blue_main_sub ">+</span>
             </Button>
           </div>
         </div>
@@ -228,9 +224,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
               }
               className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
             >
-              <span className="text-large text-blue_main_sub font-light">
-                +
-              </span>
+              <span className="text-large text-blue_main_sub ">+</span>
             </Button>
           </div>
         </div>

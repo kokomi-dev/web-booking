@@ -102,7 +102,7 @@ const DetailHotelPage = async ({
         {data.cancelFree && (
           <div className="w-full flex items-center justify-start">
             <FaCalendarXmark className="text-blue_main_sub w-5 h-5 lg:w-7 lg:h-7 mr-2 flex-shrink-0" />
-            <p className="text-small font-light text-justify pr-1">
+            <p className="text-small font-normal text-justify pr-1">
               Bạn có thể hủy trong vòng 4 tiếng từ khi đặt vé với chúng tôi hoặc
               trước 2 ngày đến lịch đặt ( ngoài thời gian quy định chúng tôi sẽ
               trừ tiền chiết khấu với quý khách )
@@ -145,7 +145,7 @@ const DetailHotelPage = async ({
                     return (
                       <li
                         key={index}
-                        className="flex items-center justify-start py-1 text-smallest lg:text-small font-light lg:font-normal"
+                        className="flex items-center justify-start py-1 text-smallest lg:text-small font-normal"
                       >
                         {highlight}
                       </li>

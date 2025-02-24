@@ -41,7 +41,7 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
       </p>
 
       <div
-        className="blog-show-detail prose max-w-none   text-black_main font-light lg:font-normal text-small posing-vertical-4"
+        className="blog-show-detail prose max-w-none   text-black_main font-normal text-small posing-vertical-4"
         dangerouslySetInnerHTML={{ __html: blog?.content }}
       />
       <hr className="hr" />

@@ -50,7 +50,7 @@ const FilterComponent = ({
                 />
                 <label
                   htmlFor={slug}
-                  className="ml-2 select-none font-light lg:font-normal capitalize cursor-pointer transition-all duration-300 hover:cursor-pointer"
+                  className="ml-2 select-none font-normal capitalize cursor-pointer transition-all duration-300 hover:cursor-pointer"
                 >
                   {item}
                 </label>

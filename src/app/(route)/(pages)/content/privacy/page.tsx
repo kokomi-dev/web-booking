@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const ContentPage = () => {
   return (
-    <div className="posing-vertical-1">
+    <div className="posing-vertical-1 !mt-[1rem] lg:!mt-0">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/home" },

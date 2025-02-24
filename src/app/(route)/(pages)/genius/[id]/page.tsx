@@ -64,7 +64,7 @@ const TrangVoucher = () => {
               <h4 className="text-normal font-semibold">
                 Giảm giá Genius cho chỗ nghỉ
               </h4>
-              <p className="text-smallest font-light">
+              <p className="text-smallest ">
                 Tận hưởng kỳ lưu trú và các điểm du lịch trên khắp đất nước Việt
                 Nam.
               </p>
@@ -73,19 +73,19 @@ const TrangVoucher = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3 border-0.5 border-black_sub rounded-8">
               <h4 className="text-small font-semibold">Giảm giá 10%</h4>
-              <p className="text-smallest font-light text-black_sub">
+              <p className="text-smallest  text-black_sub">
                 Áp dụng cho giá trước thuế và phí
               </p>
             </div>
             <div className="p-3 border-0.5 border-black_sub rounded-8">
               <h4 className="text-small font-semibold">Giảm giá 15%</h4>
-              <p className="text-smallest font-light text-black_sub">
+              <p className="text-smallest  text-black_sub">
                 Áp dụng cho giá trước thuế và phí
               </p>
             </div>
             <div className="p-3 border-0.5 border-black_sub rounded-8">
               <h4 className="text-small font-semibold">Giảm giá 20%</h4>
-              <p className="text-smallest font-light text-black_sub">
+              <p className="text-smallest  text-black_sub">
                 Áp dụng cho giá trước thuế và phí
               </p>
             </div>
@@ -94,12 +94,12 @@ const TrangVoucher = () => {
         <div className=" flex flex-col md:flex-row items-center  md:items-start justify-start md:justify-between gap-y-3 md:gap-x-3">
           <div className="text-left">
             <h3 className="text-large font-bold">Dễ dàng tiết kiệm</h3>
-            <p className="text-black_sub text-normal font-light">
+            <p className="text-black_main text-normal ">
               Bạn sẽ nhận ra các xe và chỗ nghỉ có trong chương trình nhờ nhãn
               Genius màu xanh dương. Tất cả giảm giá và tặng thưởng đều được áp
               dụng tự động khi đặt – bạn không cần thao tác gì thêm.
             </p>
-            <p className="text-black_sub text-normal font-light">
+            <p className="text-black_main text-normal ">
               Quá đơn giản, chỉ có thể là Genius.
             </p>
           </div>
