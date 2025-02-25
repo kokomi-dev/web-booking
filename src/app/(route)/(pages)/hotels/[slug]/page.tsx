@@ -77,7 +77,9 @@ const DetailHotelPage = async ({
   }
 
   return (
-    <section className={cn("w-full h-full posing-vertical-1 ")}>
+    <section
+      className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0 ")}
+    >
       {/* head */}
       <BreadcrumbHead
         items={[

@@ -82,7 +82,7 @@ const DetailAttractionPage = async ({
     return <NotFoundPage page="attractions" />;
   }
   return (
-    <div className={cn("w-full h-full posing-vertical-1")}>
+    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
       {/* head */}
       <BreadcrumbHead
         items={[

@@ -30,7 +30,7 @@ const printContent = () => {
 
 const Page1 = () => {
   return (
-    <div className="grid gap-4">
+    <div className="posing-vertical-4">
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Về KoKoTravel</h2>
         <div
@@ -41,7 +41,7 @@ const Page1 = () => {
           In
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-small font-normal">
           Đây là trang web thuơng mại dịch vụ phát triển dựa trên Booking.com
         </p>
@@ -61,7 +61,7 @@ const Page1 = () => {
 };
 const Page2 = () => {
   return (
-    <div className="grid gap-4">
+    <div className="posing-vertical-4">
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Thông tin Pháp lý</h2>
         <div
@@ -72,7 +72,7 @@ const Page2 = () => {
           In
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-small font-normal">
           Trang web{" "}
           <a
@@ -146,7 +146,7 @@ const Page2 = () => {
 };
 const Page3 = () => {
   return (
-    <div className="grid gap-4">
+    <div className="posing-vertical-4">
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Điều khoản và điều kiện</h2>
         <div
@@ -157,7 +157,7 @@ const Page3 = () => {
           In
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-smallest font-normal text-black_sub">
           Cập nhật ngày 18/11/2024
         </p>
@@ -213,7 +213,7 @@ const Page3 = () => {
           các Điều khoản này.
         </p>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-small font-normal">
           Chào mừng bạn đến với {""}
           <a
@@ -298,7 +298,7 @@ const Page3 = () => {
 };
 const Page4 = () => {
   return (
-    <div className="grid gap-4">
+    <div className="posing-vertical-4">
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Liên hệ với chúng tôi</h2>
         <div
@@ -309,7 +309,7 @@ const Page4 = () => {
           In
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-small font-normal">
           Chúng tôi luôn sẵn sàng lắng nghe phản hồi và giải đáp thắc mắc của
           bạn. Hãy liên hệ với chúng tôi thông qua các phương thức sau:
@@ -347,7 +347,7 @@ const Page4 = () => {
 };
 const Page5 = () => {
   return (
-    <div className="grid gap-4">
+    <div className="posing-vertical-4">
       <div className="flex items-center justify-between">
         <h2 className="text-large font-medium">Trở thành Đối tác Phân phối</h2>
         <div
@@ -358,7 +358,7 @@ const Page5 = () => {
           In
         </div>
       </div>
-      <div className="grid gap-3">
+      <div className="posing-vertical-5">
         <p className="text-small font-normal">
           Chúng tôi luôn tìm kiếm những đối tác đáng tin cậy để cùng hợp tác
           phát triển dịch vụ du lịch toàn diện hơn và mang lại trải nghiệm tốt
@@ -434,7 +434,7 @@ const ShowContent = () => {
     setActiveTab(searchParams.get("activeTab") || "1");
   }, [searchParams]);
   return (
-    <div className="h-full  p-3">
+    <div>
       {listPage.map((Page, i) => {
         if (Number(activeTab) === i + 1) {
           return <Page key={i} />;

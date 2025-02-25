@@ -15,7 +15,7 @@ export default function DefaultLayout({
       </header>
       <main className="w-full h-full">
         <Search />
-        <div className="container-padding py-[0.2rem] md:py-3 lg:py-4 ">
+        <div className="container-padding py-[0.2rem] pb-[1rem] md:py-4 ">
           {children}
         </div>
       </main>

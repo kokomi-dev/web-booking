@@ -23,7 +23,7 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
   if (isLoading) return <p>Đang tải...</p>;
   const blog = data.detailBlog;
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="mt-[1rem] lg:mt-0  posing-vertical-1">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/" },

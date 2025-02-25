@@ -96,7 +96,7 @@ const Chat = () => {
         >
           <h4 className="text-normal font-semibold">Chat</h4>
           <Button
-            className="hover:text-blue_main_sub bg-white"
+            className="hover:text-blue_main_sub bg-white text-black_main"
             onClick={() => {
               setIsActive({
                 status: true,
@@ -107,7 +107,7 @@ const Chat = () => {
             Liên hệ với chúng tôi
           </Button>
           <Button
-            className="hover:text-blue_main_sub bg-white"
+            className="hover:text-blue_main_sub bg-white text-blue_main_sub"
             onClick={() => {
               setIsActive({
                 status: true,

@@ -84,7 +84,7 @@ const ContactPage = () => {
       {/* main */}
       <div className="mt-5 w-full h-full flex flex-col items-start justify-start gap-2">
         <h1 className={cn("font-bold text-medium", "lg:text-large")}>
-          Chào mừng đến với Trung tâm Trợ giúp
+          Bạn cần hỗ trợ gì ?
         </h1>
         <h3 className="text-normal font-normal">Chúng tôi luôn hỗ trợ 24/7</h3>
         <div className="w-full">

@@ -99,34 +99,28 @@ const BookingAttraction = () => {
       {isLoading ? (
         <LoadingPage />
       ) : data ? (
-        <div className={cn("w-full h-full posing-vertical-1")}>
+        <div
+          className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}
+        >
           {/* head */}
-          <section className={cn("w-full posing-vertical-2")}>
-            <BreadcrumbHead
-              items={[
-                { label: "Trang chủ", href: "/home" },
-                { label: "Các địa điểm du lịch", href: "/attractions" },
-                { label: `${data.name}`, href: `/attractions/${data.slug}` },
-                { label: `Đặt chỗ` },
-              ]}
-            />
+          <BreadcrumbHead
+            items={[
+              { label: "Trang chủ", href: "/home" },
+              { label: "Các địa điểm du lịch", href: "/attractions" },
+              { label: `${data.name}`, href: `/attractions/${data.slug}` },
+              { label: `Đặt chỗ` },
+            ]}
+          />
 
-            <div
-              className={cn(
-                "text-medium font-bold !mt-0 !lg:mt-auto",
-                "lg:text-large"
-              )}
-            >
-              <h1>{data?.name}</h1>
-              <p className="text-small text-black_sub font-normal">
-                Đảm bảo an toàn về quyền lợi khách hàng
-              </p>
-            </div>
-          </section>
-          {/* body */}
+          <div className={cn("text-medium font-bold ", "lg:text-large")}>
+            <h1>{data?.name}</h1>
+            <p className="text-small text-black_sub font-normal">
+              Đảm bảo an toàn về quyền lợi khách hàng
+            </p>
+          </div>
           <div
             className={cn(
-              "w-full flex flex-col-reverse items-center justify-center posing-vertical-2",
+              "w-full flex flex-col-reverse items-center justify-center posing-vertical-2 ",
               "lg:flex-row lg:justify-between lg:gap-x-10 lg:items-start lg:gap-y-0 lg:h-full "
             )}
           >
@@ -326,7 +320,7 @@ const BookingAttraction = () => {
             </div>
             <div
               className={cn(
-                "w-full lg:w-[80%] posing-vertical-3 ",
+                "w-full lg:w-[80%] posing-vertical-3 !mt-0 lg:!mt-auto ",
                 "lg:sticky lg:top-[2rem]"
               )}
             >

@@ -1,7 +1,7 @@
-import ListBlogPage from "@/components/dashboard/blog/list-blogs";
+import PageView from "./page-view";
 
 const BlogPage = () => {
-  return <ListBlogPage />;
+  return <PageView />;
 };
 
 export default BlogPage;
