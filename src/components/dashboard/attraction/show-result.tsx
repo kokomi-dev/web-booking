@@ -68,7 +68,7 @@ const ShowResult: React.FC<ShowResultPropsAttraction> = ({
   const [openSheetFilter, setOpenSheetFilter] = useState(false);
 
   return (
-    <div className={cn("w-full h-full posing-vertical-1")}>
+    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
       <BreadcrumbHead
         items={[
           { label: "Địa điểm du lịch", href: "/attractions" },

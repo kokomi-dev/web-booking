@@ -1,27 +1,18 @@
 "use client";
-import React, { useCallback, useState } from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import ItemSearchResult from "@/components/components/item-search-result";
-import { cn } from "@/utils/constants";
-import ShowOnMap from "@/components/components/show-on-map";
-import { LoadingItemSearch } from "@/components/components/loading";
-import { Dot, SlidersHorizontal } from "lucide-react";
-import SheetShowFilter from "@/components/components/sheet-show-filter";
-import FilterComponent from "@/components/components/filter-item";
-import { filterBar, filter1, filter2, filter3 } from "../constants";
-import { ShowResultPropsHotel } from "@/types/component-types";
 import BreadcrumbHead from "@/components/components/breadcrumb";
+import FilterComponent from "@/components/components/filter-item";
+import ItemSearchResult from "@/components/components/item-search-result";
+import SheetShowFilter from "@/components/components/sheet-show-filter";
+import ShowOnMap from "@/components/components/show-on-map";
+import { Button } from "@/components/ui/button";
+import { ShowResultPropsHotel } from "@/types/component-types";
 import { IHotel } from "@/types/hotel.type";
+import { cn } from "@/utils/constants";
+import { Dot, SlidersHorizontal } from "lucide-react";
+import { filter1, filter2, filter3, filterBar } from "../constants";
 
 interface IHandleFilterData {
   data: IHotel[];
@@ -80,7 +71,7 @@ const ShowResult: React.FC<ShowResultPropsHotel> = ({
   };
   const [openSheetFilter, setOpenSheetFilter] = useState(false);
   return (
-    <div className={cn("w-full h-full posing-vertical-1")}>
+    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
       {/* head */}
       <BreadcrumbHead
         items={[

@@ -21,10 +21,10 @@ const ListBlogsTrending = () => {
     retryDelay: 1000,
   });
   if (isLoading) {
-    return <div>Loading bài viết</div>;
+    return <div>Đang tải bài viết...</div>;
   }
   return (
-    <section className="">
+    <section>
       <div className="flex items-center justify-between ">
         <h2 className="text-large font-semibold lg:mb-6">
           Các bài viết được chú ý

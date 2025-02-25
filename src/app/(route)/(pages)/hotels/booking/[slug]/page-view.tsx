@@ -145,7 +145,9 @@ const BookingHotel = () => {
       {isLoading ? (
         <Loading />
       ) : data ? (
-        <div className={cn("w-full h-full  posing-vertical-1")}>
+        <div
+          className={cn("w-full h-full  posing-vertical-1 mt-[1rem] lg:mt-0 ")}
+        >
           {/* head */}
           <BreadcrumbHead
             items={[
@@ -575,13 +577,13 @@ const BookingHotel = () => {
                                 </h4>
                                 <div className="ml-2">
                                   {Array.isArray(room.details) ? (
-                                    <ul>
+                                    <ul className="flex flex-wrap">
                                       {room.details?.map(
                                         (detailItem, index) => {
                                           return (
                                             <li
                                               key={index}
-                                              className="flex items-center justify-start text-smallest py-1"
+                                              className="flex items-center justify-start text-smallest p-1"
                                             >
                                               <Check className="text-green_main size-3" />
                                               <span className="ml-1">
