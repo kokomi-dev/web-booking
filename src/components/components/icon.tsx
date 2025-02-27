@@ -9,7 +9,13 @@ import {
 } from "@/components/ui/tooltip";
 import { IconProps } from "@/types/component-types";
 
-const Icon: React.FC<IconProps> = ({ children, level, className, tooltip }) => {
+const Icon: React.FC<IconProps> = ({
+  children,
+  level,
+  className,
+  tooltip,
+  onClick,
+}) => {
   const sizeClass = cn(
     level === 1
       ? "size-3"
@@ -25,7 +31,7 @@ const Icon: React.FC<IconProps> = ({ children, level, className, tooltip }) => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger className={sizeClass}>
+        <TooltipTrigger className={sizeClass} onClick={onClick}>
           {React.isValidElement(children)
             ? cloneElement(children as ReactElement, { className: sizeClass })
             : children}

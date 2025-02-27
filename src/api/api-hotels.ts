@@ -2,7 +2,14 @@ import axiosClient from "@/configs/axiosClient/axiosClient";
 import { IHotel } from "@/types/hotel.type";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-
+interface IGetFilterHotelProp {
+  price?: string;
+  rating?: string;
+  cancelFree?: string;
+  filterBar?: number;
+  address?: string;
+  isFavorite?: string;
+}
 export async function generateStaticParams() {
   const listHotels = await fetch(`${apiUrl}/hotel`).then((res) => res.json());
   return listHotels.map((hotel: any) => ({
@@ -36,25 +43,18 @@ const getDetailHotel = async ({ slug }: { slug: string }) => {
     console.error("Xảy ra lỗi khi lấy dữ liệu ", error.message);
   }
 };
-const getHotelFavorite = () => {
-  return axiosClient.get("/hotel?fillter=favorite");
-};
-const searchResultHotel = async ({
-  searchParam,
-}: {
-  searchParam: string | any;
-}): Promise<SearchResult> => {
-  const data = await fetch(
-    `${apiUrl}/hotel/searchresult?address=${searchParam}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+
+const getFilterHotel = ({
+  price,
+  rating,
+  cancelFree,
+  filterBar,
+  address,
+  isFavorite,
+}: IGetFilterHotelProp) => {
+  return axiosClient.get(
+    `/hotel/filter?address=${address}&price=${price}&rating=${rating}&cancelFree=${cancelFree}&filterBar=${filterBar}&isFavorite=${isFavorite}`
   );
-  const response = await data.json();
-  return response;
 };
 const getHotelBooked = async ({ arr }: { arr: string[] | null }) => {
   try {
@@ -82,10 +82,4 @@ export type SearchResult = {
 };
 // type
 
-export {
-  getAllHotel,
-  getDetailHotel,
-  searchResultHotel,
-  getHotelFavorite,
-  getHotelBooked,
-};
+export { getAllHotel, getDetailHotel, getFilterHotel, getHotelBooked };

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { GoStarFill } from "react-icons/go";
 import { memo, useMemo } from "react";
 import { ItemCardProps } from "@/types/component-types";
+import { DollarSign, MapPin } from "lucide-react";
 
 export const formatPrice = (num: number) => {
   const formattedNumber = new Intl.NumberFormat("vi-VN").format(num);
@@ -33,8 +34,9 @@ const ItemCard = memo(
             <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
               {name}
             </h4>
-            <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1">
-              {location}
+            <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1 flex items-center justify-start gap-x-1">
+              <MapPin className="size-4" />
+              <span className="line-clamp-1">{location}</span>
             </address>
             <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
               <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1 text-small">
@@ -43,11 +45,12 @@ const ItemCard = memo(
               <GoStarFill className="text-yellow_main text-[1rem]" />
               <h6 className="text-smallest font-normal">{ratingText}</h6>
             </div>
-            <h6 className="text-normal absolute bottom-2 right-4">
-              <span className="text-[0.8rem]  pr-1">Bắt đầu từ</span>
-              <span className="text-small font-bold pr-1">VNĐ</span>
+            <h6 className="text-normal absolute bottom-2 right-4 flex items-center justify-start gap-x-1">
+              <span className="text-small font-bold pr-1">
+                <DollarSign className="size-4" />
+              </span>
               <span className="underline text-blue_main text-small font-bold">
-                {formattedPrice}
+                {formattedPrice} VNĐ
               </span>
             </h6>
           </CardContent>

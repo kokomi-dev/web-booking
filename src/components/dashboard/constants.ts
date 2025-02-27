@@ -40,7 +40,7 @@ export const ADDRESS_TRENDING = [
     slug: "hue",
   },
   {
-    name: "Hà nội",
+    name: "Hà Nội",
     img: trendingImg5,
     slug: "ha-noi",
   },
@@ -145,28 +145,45 @@ export const LIST_QUESTION_HOTELS = [
   "Họ có phục vụ bữa sáng không",
 ];
 export const filterBar = [
-  { value: "suggest", label: "Đề xuất của chúng tôi" },
-  { value: "hightest-price", label: "Giá cao nhất" },
-  { value: "lowest-price", label: "Giá thấp nhất" },
-  { value: "rating-best", label: "Đánh giá cao nhất" },
+  { value: 0, label: "Đề xuất của chúng tôi" },
+  { value: 1, label: "Giá thấp nhất" },
+  { value: 2, label: "Đánh giá cao nhất" },
 ];
-export const filter1 = [
-  "attraction",
-  "thiên nhiên và ngoài trời",
-  "bảo tàng nghệ thuật văn hóa",
-  "hoạt động giải trí, vé",
-  "ăn uống",
-  "dịch vụ & cho thuê",
+export const filterAttraction1 = [
+  { label: "attraction", value: "attraction" },
+  { label: "thiên nhiên và ngoài trời", value: "1" },
+  { label: "bảo tàng nghệ thuật văn hóa", value: "2" },
+  { label: "hoạt động giải trí, vé", value: "3" },
+  { label: "ăn uống", value: "4" },
+  { label: "dịch vụ & cho thuê", value: "5" },
 ];
-export const filter2 = [
-  "0 - 400.000",
-  "400.000 - 1.000.000",
-  "1.000.000 - 3.000.000",
-  " trên 3 triệu",
+export const filterAttraction2 = [
+  { label: "Tât cả", value: "0" },
+  { label: "0 - 400.000", value: "1" },
+  { label: "400.000 - 1.000.000", value: "2" },
+  { label: "1.000.000 - 3.000.000", value: "3" },
+  { label: "3.000.000 - 5.000.000", value: "4" },
+  { label: "trên 5 triệu", value: "5" },
 ];
-export const filter3 = [
-  "từ 4.5 trở lên",
-  "từ 4 trở lên",
-  "từ 3.5 trở lên",
-  "từ 3 trở lên",
+export const filterAttraction3 = [
+  { label: "tất cả", value: "" },
+  { label: "từ 4.5 trở lên", value: "1" },
+  { label: "từ 4 trở lên", value: "2" },
+  { label: "từ 3.5 trở lên", value: "3" },
+  { label: "từ 3 trở lên", value: "4" },
+];
+export const filterAttraction4 = [
+  { label: "Tất cả", value: "" },
+  { label: "Dễ", value: "1" },
+  { label: "Trung bình", value: "2" },
+  { label: "Khó", value: "3" },
+];
+
+export const filterHotel1 = [
+  { label: "Có", value: "1" },
+  { label: "Không", value: "0" },
+];
+export const filterHotel2 = [
+  { label: "Có", value: "1" },
+  { label: "Không", value: "0" },
 ];

@@ -2,11 +2,19 @@ import axiosClient from "@/configs/axiosClient/axiosClient";
 import { SearchResult } from "@/types/attraction.type";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const getAllAttraction = () => {
-  return axiosClient.get("/attraction");
+interface IGetAllAttractionProp {
+  price?: string;
+  startDate?: string;
+  rating?: string;
+  difficulty?: string;
+  filterBar?: number;
+  address?: string;
+}
+const getAllAttraction = ({}) => {
+  return axiosClient.get(`/attraction`);
 };
 const getAttractionTrending = async () => {
-  return axiosClient.get("/attraction?trending=true");
+  return axiosClient.get("/attraction/filter?trending=true");
 };
 const getDetailAttraction = async ({ slug }: { slug: string }) => {
   try {
@@ -53,22 +61,17 @@ const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
 const updateStatus = async (data: any) => {
   return axiosClient.put("/attraction/status", data);
 };
-const searchResult = async ({
-  searchParam,
-}: {
-  searchParam: string | any;
-}): Promise<SearchResult> => {
-  const data = await fetch(
-    `${apiUrl}/attraction/searchresult?address=${searchParam}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+const getFilterAttractions = ({
+  price,
+  startDate,
+  rating,
+  difficulty,
+  filterBar,
+  address,
+}: IGetAllAttractionProp) => {
+  return axiosClient.get(
+    `/attraction/filter?address=${address}&price=${price}&startDate=${startDate}&rating=${rating}&difficulty=${difficulty}&filterBar=${filterBar}`
   );
-  const response = await data.json();
-  return response;
 };
 const getListProvinces = async () => {
   try {
@@ -86,7 +89,7 @@ export {
   getAttractionTrending,
   getDetailAttraction,
   getAttractionBooked,
-  searchResult,
+  getFilterAttractions,
   getListProvinces,
   updateStatus,
 };

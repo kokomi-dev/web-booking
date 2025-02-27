@@ -37,17 +37,19 @@ const LoadingImg = () => {
 };
 const LoadingItemSearch = () => {
   return (
-    <div
-      className={cn(
-        "w-full h-full animate-pulse  bg-bg_primary_blue_sub2 flex items-center justify-start ",
-        "lg:w-full lg:h-[200px]"
-      )}
-    >
-      <Skeleton className="h-[170px] w-[220px] rounded-14  bg-white" />
-      <div className="w-full h-[80%] grid gap-y-2 ml-3">
-        <Skeleton className="w-[40%] h-[20px]   mr-2  bg-white" />
-        <Skeleton className="w-[80%] h-[20px]   bg-white" />
-        <Skeleton className="w-[80%] h-[40px]   bg-white" />
+    <div className="w-full p-1">
+      <div className="flex flex-col items-center border rounded-lg overflow-hidden shadow-lg w-full animate-pulse">
+        <div className="relative w-full h-[220px] lg:h-[240px]">
+          <Skeleton className="w-full h-full" />
+        </div>
+
+        <div className="p-3 lg:p-4 w-full flex flex-col items-start justify-start text-start">
+          <Skeleton className="h-[20px] w-[60%] mb-2 rounded" />
+          <Skeleton className="h-[16px] w-[40%] mb-2 rounded" />
+          <Skeleton className="h-[16px] w-[50%] mb-2 rounded" />
+          <Skeleton className="h-[16px] w-[30%] mb-2 rounded" />
+          <Skeleton className="h-[24px] w-[80%] mt-2 rounded" />
+        </div>
       </div>
     </div>
   );
