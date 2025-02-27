@@ -9,19 +9,19 @@ export const listAddressTredingHome = [
   {
     label: "Vịnh Hạ Long",
     img: banner1,
-    path: "/attractions/searchresult?address=Quảng%20Ninh&filter=suggest",
+    path: "/attractions/all?address=Quảng%20Ninh",
     des: "Khám phá khung cảnh vịnh ven biển Việt Nam trải dài ven Bắc Trung Bộ",
   },
   {
     label: "Hội An",
     img: banner2,
-    path: "/attractions/searchresult?address=Quảng%20Nam&filter=suggest",
+    path: "/attractions/all?address=Quảng%20Nam",
     des: "Khung cảng nên thơ cổ kính mang lại những nét cổ xưa truyền thống của dân tốc ta",
   },
   {
     label: "Nha Trang",
     img: banner3,
-    path: "/attractions/searchresult?address=Khánh%20Hòa&filter=suggest",
+    path: "/attractions/all?address=Khánh%20Hòa",
     des: "Những khu dịch vụ, nghỉ dưỡng tầm quốc tế",
   },
 ];

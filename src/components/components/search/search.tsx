@@ -134,7 +134,7 @@ const Search: React.FC<SearchContainerProp> = ({
                       setError(true);
                     } else {
                       router.push(
-                        `/attractions/searchresult?address=${address}&date=${format(
+                        `/attractions/all?address=${address}&date=${format(
                           date,
                           "dd/MM/yyyy",
                           { locale: vi }
@@ -199,13 +199,13 @@ const Search: React.FC<SearchContainerProp> = ({
                       setError(true);
                     } else {
                       router.push(
-                        `/hotels/searchresult?address=${address}&dateFrom=${format(
+                        `/hotels/all?address=${address}&dateFrom=${format(
                           dateDou.from,
                           "dd/MM/yyyy",
                           { locale: vi }
                         )}&dateTo=${format(dateDou.to, "dd/MM/yyyy", {
                           locale: vi,
-                        })}&numberAdults=${numberAdults}&numberChildren=${numberChildren}&numberRoom=${numberRoom}&filter=suggest`
+                        })}&numberAdults=${numberAdults}&numberChildren=${numberChildren}&numberRoom=${numberRoom}`
                       );
                     }
                   }}

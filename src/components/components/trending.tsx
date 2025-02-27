@@ -58,7 +58,7 @@ const TrendingItem = ({ page, address }: { page: string; address: any }) => {
 
   return (
     <Link
-      href={`/${page}/searchresult?address=${address.name}&filter=suggest`}
+      href={`/${page}/all?address=${address.name}`}
       className="w-full h-full relative transition-all duration-300 hover:cursor-pointer"
     >
       <div className="relative w-full h-[190px] rounded-14 overflow-hidden">
