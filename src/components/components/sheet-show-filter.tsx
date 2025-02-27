@@ -8,42 +8,110 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import React from "react";
-import FilterComponent from "./filter-item";
-import { filterBar, filter1, filter2, filter3 } from "../dashboard/constants";
 import { Button } from "../ui/button";
+import FilterComponent from "./filter-item";
+import {
+  filterAttraction2,
+  filterAttraction3,
+  filterAttraction4,
+} from "../dashboard/constants";
+import { Slice } from "lucide-react";
 interface ISheetShowFilter {
+  category?: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  filter: {
+    price?: string;
+    startDate?: string;
+    difficutly?: string;
+  };
+  setFilter: any;
+  handleResetFilter: any;
+  refetch: any;
 }
-const SheetShowFilter: React.FC<ISheetShowFilter> = ({ open, setOpen }) => {
+const SheetShowFilter: React.FC<ISheetShowFilter> = ({
+  open,
+  setOpen,
+  filter,
+  setFilter,
+  handleResetFilter,
+  refetch,
+}) => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side="left"
-        className="bg-white text-black h-full p-4 overflow-auto"
+        className="text-black h-full p-4 pl-8 flex flex-col justify-between"
       >
-        <SheetHeader className="w-full text-start">
-          <SheetTitle className="text-start text-medium font-semibold">
-            Lọc theo
-          </SheetTitle>
-          <SheetDescription className="flex items-center justify-between">
-            Hãy chọn các yếu tố mà bạn muốn tìm kiếm
-          </SheetDescription>
-        </SheetHeader>
-        <div className="w-full h-auto my-3  text-small font-normal overflow-y-auto">
-          <FilterComponent title="hạng mục" arrayFilterItem={filter1} />
-          <FilterComponent title="giá" arrayFilterItem={filter2} />
-          <FilterComponent title="điểm đánh giá" arrayFilterItem={filter3} />
+        <div className="w-full">
+          <SheetHeader className="w-full h-fit text-start">
+            <SheetTitle className="text-start text-medium font-semibold">
+              Lọc theo
+            </SheetTitle>
+            <SheetDescription className="flex items-center justify-between">
+              Hãy chọn các yếu tố mà bạn muốn tìm kiếm
+            </SheetDescription>
+          </SheetHeader>
+          <div className="w-full h-fit my-3  posing-vertical-3 text-small font-normal overflow-y-auto flex-1">
+            <FilterComponent
+              title="giá"
+              arrayFilterItem={filterAttraction2}
+              filterKey="price"
+              filter={filter}
+              setFilter={setFilter}
+            />
+            <FilterComponent
+              title="điểm đánh giá"
+              arrayFilterItem={filterAttraction3}
+              filterKey="rating"
+              filter={filter}
+              setFilter={setFilter}
+            />
+            <div className="flex flex-col posing-vertical-5">
+              <h6 className="text-small font-medium capitalize">
+                Ngày bắt đầu
+              </h6>
+              <input
+                value={filter.startDate}
+                type="date"
+                className="w-[80%] border-1 border-black_sub p-1 rounded-8"
+                onChange={(e) => {
+                  setFilter((pre: any) => ({
+                    ...pre,
+                    startDate: e.target.value,
+                  }));
+                }}
+              />
+            </div>
+            <FilterComponent
+              title="Độ khó"
+              arrayFilterItem={filterAttraction4}
+              filterKey="difficutly"
+              filter={filter}
+              setFilter={setFilter}
+            />
+          </div>
         </div>
-        <SheetFooter className="w-full h-[44px]  flex items-center justify-center ">
-          <Button
-            onClick={() => {
-              setOpen(false);
-            }}
-            className="bg-bg_primary_active w-[100%] text-white"
-          >
-            Áp dụng
-          </Button>
+
+        <SheetFooter className="w-full h-[60px] flex items-center justify-center bg-white border-t">
+          <div className="w-full flex items-center justify-between">
+            <div
+              className="flex items-center justify-center gap-x-[3px] p-2 bg-bg_black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-bg_primary_hover"
+              onClick={handleResetFilter}
+            >
+              <span className="text-smallest">Xóa bộ lọc</span>
+              <Slice className="size-4" />
+            </div>
+            <Button
+              onClick={() => {
+                setOpen(false);
+                refetch();
+              }}
+              className="bg-bg_primary_blue_sub text-white"
+            >
+              Xem kết quả
+            </Button>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>

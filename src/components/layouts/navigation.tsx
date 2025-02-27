@@ -51,9 +51,9 @@ const Navigation = () => {
             <Link
               key={url}
               href={url}
-              className={`min-w-fit flex text-white items-center justify-start p-1 lg:p-2 transition-all duration-300 select-none rounded-14 border-1 border-transparent ${
+              className={`min-w-fit flex text-white items-center justify-start gap-x-1 p-1 lg:p-2 transition-all duration-300 select-none rounded-14 border-1 border-transparent ${
                 isActive
-                  ? "bg-bg_primary_active text-white rounded-14 border-1 border-blue-50"
+                  ? "bg-bg_primary_active text-white rounded-14 border-1 border-white"
                   : ""
               } hover:bg-bg_primary_active cursor-pointer`}
               onClick={handleClick}
@@ -61,7 +61,7 @@ const Navigation = () => {
                 itemRefs.current[index] = el as HTMLAnchorElement | null;
               }}
             >
-              <div className="w-[24px] h-[24px] object-cover flex items-center justify-center mr-2">
+              <div className="w-[24px] h-[24px] object-cover flex items-center justify-center ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18px"

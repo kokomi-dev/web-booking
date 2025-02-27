@@ -30,6 +30,7 @@ export type IHotel = {
   includes: [string];
   comments: [{}];
   cancelFree: boolean;
+  isActive: boolean;
 };
 export interface IHotelRoom {
   _id: string;

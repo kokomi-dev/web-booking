@@ -3,9 +3,9 @@
 import { getAllHotel } from "@/api/api-hotels";
 import { LoadingItemShow } from "@/components/components/loading";
 import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
-import { AttractionData } from "@/types/attraction.type";
 import { IHotel } from "@/types/hotel.type";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import ItemCard from "../../components/item-component";
 import {
@@ -17,6 +17,7 @@ import {
 } from "../../ui/carousel";
 
 const ListHotel = () => {
+  const router = useRouter();
   const {
     data: listHotel,
     isLoading,
@@ -28,9 +29,7 @@ const ListHotel = () => {
       try {
         const res = await getAllHotel();
         if (res?.status === 200 && res.data?.data) {
-          return res.data.data.filter(
-            (item: AttractionData) => item.isActive === true
-          );
+          return res.data.data.filter((item: IHotel) => item.isActive === true);
         }
         throw new Error("Dữ liệu không hợp lệ");
       } catch (error) {
@@ -79,6 +78,14 @@ const ListHotel = () => {
           <h2 className="text-large font-bold">
             Khách sạn (nhà nghỉ) của chúng tôi
           </h2>
+          <span
+            className="text-blue_main_sub underline text-smallest hover:cursor-pointer"
+            onClick={() => {
+              router.push("hotels/all");
+            }}
+          >
+            Xem thêm
+          </span>
         </div>
         <p className="text-black_sub text-small">
           Hãy theo dỗi và xem qua những nơi nghỉ chân hàng đầu của chúng tôi

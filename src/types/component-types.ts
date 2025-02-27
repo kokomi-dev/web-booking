@@ -55,6 +55,7 @@ export interface IconProps {
   level?: number;
   className?: string;
   tooltip?: string;
+  onClick?: any;
 }
 export interface IVoucherProp {
   title: string;

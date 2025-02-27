@@ -5,7 +5,7 @@ import BreadcrumbHead from "@/components/components/breadcrumb";
 import ReceiveFeedback from "@/components/components/receive-feedback";
 import Trending from "@/components/components/trending";
 import Intro from "@/components/dashboard/attraction/intro";
-import ListAttractions from "@/components/dashboard/attraction/list-all-attractions";
+import ListAttractions from "@/components/dashboard/attraction/list-attractions";
 import ListProvinces from "@/components/dashboard/attraction/list-provinces";
 import ListAttractionsTrending from "@/components/dashboard/attraction/list-trending-attractions";
 import { cn } from "@/utils/constants";
@@ -38,11 +38,11 @@ const HomePage = () => {
             <h1 className="title_Page  !mb-2 text-yellow_main font-bold">
               Ưu đãi
             </h1>
-            <h4 className="w-full text-black_main text-normal ">
+            <h4 className="w-full text-black_main_blur text-normal ">
               Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
               tiếng của chúng tôi
             </h4>
-            <p className="text-black_sub text-small mb-2 ">
+            <p className="text-black_sub text-small mb-2 hidden lg:block ">
               Hãy trải nghiệm nó một cách trọn vẹn
             </p>
             <Link

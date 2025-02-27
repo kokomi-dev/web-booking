@@ -13,10 +13,9 @@ const Rules = () => {
           Uy tín - Chất lượng - Tiện lợi cho mọi chuyến đi 🌍
         </p>
       </div>
-
       {/* Danh sách lợi ích */}
       <div className="w-full">
-        <ul className="grid grid-cols-1 gap-y-6 my-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-5">
+        <ul className="grid grid-cols-1 gap-6 lg:gap-8 my-2 md:grid-cols-2  lg:grid-cols-3 ">
           {RULES_HOTEL.map((rule, index) => (
             <li
               key={index}
@@ -31,7 +30,9 @@ const Rules = () => {
                   {rule.title}
                 </h4>
               </div>
-              <p className="text-gray-700 text-sm">{rule.description}</p>
+              <p className="text-black_main_blur text-smallest lg:text-small">
+                {rule.description}
+              </p>
             </li>
           ))}
         </ul>

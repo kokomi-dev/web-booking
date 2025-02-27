@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../ui/carousel";
+import { useRouter } from "next/navigation";
 
 const ListAttractions = () => {
   const {
@@ -25,7 +26,7 @@ const ListAttractions = () => {
     queryKey: [QUERY_KEY_ATTRACTION.GET_ALL],
     queryFn: async () => {
       try {
-        const res = await getAllAttraction();
+        const res = await getAllAttraction({});
         if (res?.status === 200 && res.data?.data) {
           return res.data.data.filter(
             (item: AttractionData) => item.isActive === true
@@ -69,17 +70,20 @@ const ListAttractions = () => {
       </CarouselItem>
     ));
   }, [listAttraction, isLoading, isFetching]);
-
+  const router = useRouter();
   return (
     <section id="list-all-attractions" className="w-full posing-vertical-4">
       <div className="posing-vertical-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           <h2 className="text-large font-bold">
             Tất cả địa điểm của chúng tôi
           </h2>
-          {/* <span className="text-blue_main_sub hover:cursor-pointer hover:underline text-small">
+          <span
+            onClick={() => router.push("/attractions/all")}
+            className="text-blue_main_sub underline hover:cursor-pointer hover:underline text-smallest lg:text-small flex-shrink-0 mt-2 md:mt-1 lg:mt-0"
+          >
             Xem thêm
-          </span> */}
+          </span>
         </div>
         <p className="text-black_sub text-small">
           Các điểm đến đang có nhiều điều chờ đón bạn

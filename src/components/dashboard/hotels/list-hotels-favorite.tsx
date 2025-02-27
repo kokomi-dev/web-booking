@@ -1,6 +1,6 @@
 "use client";
 
-import { getHotelFavorite } from "@/api/api-hotels";
+import { getFilterHotel } from "@/api/api-hotels";
 import { LoadingItemShow } from "@/components/components/loading";
 import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
 import { AttractionData } from "@/types/attraction.type";
@@ -26,7 +26,9 @@ const ListHotelFavorite = () => {
     queryKey: [QUERY_KEY_HOTEL.GET_ALL_TRENDING],
     queryFn: async () => {
       try {
-        const res = await getHotelFavorite();
+        const res = await getFilterHotel({
+          isFavorite: "1",
+        });
         if (res?.status === 200 && res.data?.data) {
           return res.data.data.filter(
             (item: AttractionData) => item.isActive === true

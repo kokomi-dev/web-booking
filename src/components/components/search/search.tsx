@@ -58,7 +58,7 @@ const Search: React.FC<SearchContainerProp> = ({
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (!validateSearch()) return;
-      router.push(`/${page}/searchresult?address=${address}&filter=suggest`);
+      router.push(`/${page}/all?address=${address}`);
     },
     [address, page, router, validateSearch]
   );

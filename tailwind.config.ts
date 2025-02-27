@@ -24,6 +24,7 @@ const config = {
         blue_main_sub: "#006CE4",
         blue_sub: "#1E50A0",
         black_main: "#111",
+        black_main_blur: "#333",
         green_main: "#018235",
         black_sub: "#4C4C4C",
         black_sub_2: "#595959",
@@ -203,27 +204,27 @@ const config = {
           },
         },
         ".posing-vertical-1": {
-          "& > *:not(:first-child)": { marginTop: "1rem" },
+          "& > *:not(:first-child)": { marginTop: "1.2rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.5rem" } },
         },
         ".posing-vertical-2": {
-          "& > *:not(:first-child)": { marginTop: "0.8rem" },
+          "& > *:not(:first-child)": { marginTop: "1rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.3rem" } },
         },
         ".posing-vertical-3": {
-          "& > *:not(:first-child)": { marginTop: "0.6rem" },
+          "& > *:not(:first-child)": { marginTop: "0.8rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.1rem" } },
         },
         ".posing-vertical-4": {
-          "& > *:not(:first-child)": { marginTop: "0.4rem" },
+          "& > *:not(:first-child)": { marginTop: "0.6rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.9rem" } },
         },
         ".posing-vertical-5": {
-          "& > *:not(:first-child)": { marginTop: "0.3rem" },
+          "& > *:not(:first-child)": { marginTop: "0.5rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.7rem" } },
         },
         ".posing-vertical-6": {
-          "& > *:not(:first-child)": { marginTop: "0.15rem" },
+          "& > *:not(:first-child)": { marginTop: "0.35rem" },
           "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.3rem" } },
         },
 

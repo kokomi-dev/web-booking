@@ -1,60 +1,64 @@
-import { useState, useCallback } from "react";
+type FilterItem = {
+  label: string;
+  value: string;
+};
 
-function convertToSlug(str: string) {
-  return String(str)
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9 -]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-}
+type Filter = Record<string, string | undefined>;
 
-const FilterComponent = ({
+type FilterComponentProps = {
+  title: string;
+  arrayFilterItem: FilterItem[];
+  filter: any;
+  filterKey: string; // Đảm bảo key luôn là string
+  setFilter: any;
+};
+
+const FilterComponent: React.FC<FilterComponentProps> = ({
   title,
   arrayFilterItem,
-}: {
-  title: string;
-  arrayFilterItem: string[];
+  setFilter,
+  filter,
+  filterKey,
 }) => {
-  const [listFilter, setListFilter] = useState<string[]>([]);
-
-  const handleFilterCategory = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const valueChecked = e.target.value;
-      setListFilter((prev) =>
-        e.target.checked
-          ? [...prev, valueChecked]
-          : prev.filter((item) => item !== valueChecked)
-      );
-    },
-    []
-  );
-
   return (
     <div className="w-full flex flex-col">
-      <h6 className="text-small font-medium capitalize">{title}</h6>
-      <div className="filter_component">
-        {arrayFilterItem.map((item) => {
-          const slug = convertToSlug(item);
+      <h6 className="text-small font-medium capitalize mb-2">{title}</h6>
+
+      <div className="filter_component space-y-2">
+        {arrayFilterItem.map((item, index) => {
+          const inputId = `filter-${filterKey}-${index}`;
+          const isChecked = filter[filterKey] === item.value;
+
           return (
-            <div key={slug} className="filter_item">
-              <div className="py-2 text-small font-normal">
-                <input
-                  type="checkbox"
-                  id={slug}
-                  value={slug}
-                  onChange={handleFilterCategory}
-                  className="hover:cursor-pointer"
-                />
-                <label
-                  htmlFor={slug}
-                  className="ml-2 select-none font-normal capitalize cursor-pointer transition-all duration-300 hover:cursor-pointer"
-                >
-                  {item}
-                </label>
-              </div>
+            <div key={index} className="flex items-center space-x-3">
+              <input
+                type="radio"
+                id={inputId}
+                name={filterKey}
+                value={item.value}
+                checked={isChecked}
+                onChange={() =>
+                  setFilter((prev: any) => ({
+                    ...prev,
+                    [filterKey]: item.value,
+                  }))
+                }
+                className="hidden"
+              />
+              <label
+                htmlFor={inputId}
+                className={`w-5 h-5 border-1 rounded-md cursor-pointer ${
+                  isChecked
+                    ? "bg-bg_primary_main border-blue_main"
+                    : "border-blue_main"
+                }`}
+              />
+              <label
+                htmlFor={inputId}
+                className="text-small font-normal text-black_main_blur cursor-pointer first-letter:uppercase"
+              >
+                {item.label}
+              </label>
             </div>
           );
         })}

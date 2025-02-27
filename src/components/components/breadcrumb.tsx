@@ -23,7 +23,7 @@ const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
                 {item.label}
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbPage className="text-black_main first-letter:uppercase">
+              <BreadcrumbPage className="text-black_main_blur first-letter:uppercase">
                 {item.label}
               </BreadcrumbPage>
             )}
