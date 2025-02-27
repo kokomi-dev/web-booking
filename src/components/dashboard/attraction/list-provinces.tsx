@@ -28,7 +28,7 @@ const ListProvinces = async () => {
             return (
               <Link
                 key={index}
-                href={`/attractions/searchresult?address=${province.name}&filter=suggest`}
+                href={`/attractions/all?address=${province.name}`}
                 className="flex items-center justify-center text-small font-normal p-1 rounded-8 bg-bg_black_sub text-center transition-all duration-300 hover:bg-bg_primary_hover"
               >
                 <span className="text-smallest text-black_main font-normal flex items-center justify-center">
