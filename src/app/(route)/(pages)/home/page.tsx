@@ -23,14 +23,34 @@ function HomePage() {
   return (
     <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
       <section className="hidden md:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-lg px-6 py-4 flex items-center justify-center ">
-          <p className="text-lg font-semibold text-gray-800 text-center">
+        <div className="md:w-[70vw] lg:w-[60vw] xl:w-[50vw] h-auto z-[10] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-y-5 items-center justify-center text-center">
+          <div className="w-full grid grid-cols-3 gap-8  ">
+            <div className=" bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <span className="text-2xl font-bold text-blue_main">4.8⭐</span>
+              <p className="text-normal text-black_main_blur font-semibold uppercase">
+                Chất lượng dịch vụ
+              </p>
+            </div>
+            <div className=" bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <span className="text-2xl font-bold text-blue_main">98%👍</span>
+              <p className="text-normal text-black_main_blur font-semibold uppercase">
+                Khách hàng hài lòng
+              </p>
+            </div>
+            <div className=" bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
+              <span className="text-2xl font-bold text-blue_main">24/7⏳</span>
+              <p className="text-normal text-black_main_blur font-semibold uppercase">
+                Hỗ trợ mọi lúc
+              </p>
+            </div>
+          </div>
+          <p className="text-normal font-medium text-black_main_blur bg-white shadow-lg rounded-lg px-8 py-6">
             ✨ Trải nghiệm những chuyến du lịch đáng nhớ cùng chúng tôi!
             <br /> Khám phá, tận hưởng và ghi dấu những khoảnh khắc tuyệt vời.
             🏝️✈️
           </p>
         </div>
-
+        <div className="absolute inset-0 bg-black opacity-30 z-[5]"></div>
         <Image
           alt="img-banner-home"
           src={imgBanner}
@@ -38,7 +58,7 @@ function HomePage() {
           height={1080}
           priority={true}
           placeholder="empty"
-          className="w-full min-h-[360px] md:min-h-[400px] lg:min-h-[480px] object-cover object-top"
+          className="w-full min-h-[360px] md:min-h-[400px] lg:min-h-[480px] object-cover object-top "
         />
       </section>
       {/* Điểm đến nổi bật */}

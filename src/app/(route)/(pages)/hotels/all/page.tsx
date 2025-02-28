@@ -45,7 +45,7 @@ const AllHotelPage = () => {
     refetch,
     isFetching,
   } = useQuery({
-    queryKey: [QUERY_KEY_HOTEL.GET_ALL],
+    queryKey: [QUERY_KEY_HOTEL.GET_FILTER],
     queryFn: async () => {
       const res = await getFilterHotel({
         price: filter.price,
@@ -63,6 +63,7 @@ const AllHotelPage = () => {
     },
     retry: 3,
     retryDelay: 1000,
+    refetchOnWindowFocus: false,
   });
   const handleResetFilter = () => {
     setFilter({

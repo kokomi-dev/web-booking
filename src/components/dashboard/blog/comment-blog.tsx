@@ -21,11 +21,9 @@ import ItemCommentBlog from "./item-comment-blog";
 const CommentBlog = ({ e }: { e: IBlog }) => {
   const queryClient = useQueryClient();
   const [messComment, setMessComent] = useState("");
-  // Cập nhật lại cache khi like
   const mutationUpdateLikeBlog = useMutation({
     mutationFn: updateLikeBlog,
     onMutate: async () => {
-      // Cập nhật tạm thời UI để có cảm giác nhanh
       await queryClient.cancelQueries({
         queryKey: [QUERY_KEY_BLOG.GET_DETAIL_BLOG, e.slug],
       });
@@ -52,13 +50,11 @@ const CommentBlog = ({ e }: { e: IBlog }) => {
       return { previousData };
     },
     onSuccess: () => {
-      // Gửi yêu cầu fetch lại bài viết để lấy dữ liệu mới
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_BLOG.GET_DETAIL_BLOG, e.slug],
       });
     },
     onError: (err, _, context) => {
-      // Nếu lỗi, hoàn tác lại dữ liệu cũ
       if (context?.previousData) {
         queryClient.setQueryData(
           [QUERY_KEY_BLOG.GET_DETAIL_BLOG, e._id],
@@ -126,10 +122,9 @@ const CommentBlog = ({ e }: { e: IBlog }) => {
           onClick={() => mutationUpdateLikeBlog.mutate({ id: e._id })}
           className="bg-blue-500 hover:bg-blue-600 text-white"
         >
-          👍 Thích ({e?.likes}) {/* Dùng `e.likes` thay vì state */}
+          👍 Thích ({e?.likes})
         </Button>
       </div>
-      {/* Khu vực bình luận */}
       <hr className="hr" />
       <h3 className="text-medium font-semibold">
         {e.comments.length} bình luận

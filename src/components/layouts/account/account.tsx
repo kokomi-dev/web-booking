@@ -34,16 +34,15 @@ import {
   BadgeDollarSign,
   BookmarkCheck,
   CalendarCheck,
+  CircleUser,
   CircleUserIcon,
   LogOut,
   UserRound,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, Suspense, useCallback, useEffect, useState } from "react";
+import { Fragment, Suspense, useCallback, useState } from "react";
 import { toast } from "react-toastify";
-import { CircleUser } from "lucide-react";
 
 const Account = () => {
   const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
@@ -61,61 +60,17 @@ const Account = () => {
     isAuthenticated,
     setLogout,
   } = useAuthenticatedStore();
-  // useEffect(() => {
-  //   const getCurrentUser = async () => {
-  //     if (!isSignedIn && !userId) return;
-  //     setLoading(true);
-
-  //     try {
-  //       if (isSignedIn) {
-  //         setUserLogined({
-  //           source: "clerk",
-  //           _id: userClerk.id,
-  //           token: null,
-  //           firstname: userClerk.firstName || "",
-  //           lastname: userClerk.lastName || "",
-  //           email: userClerk.emailAddresses[0].emailAddress,
-  //           numberPhone: "",
-  //           hasImge: userClerk.hasImage,
-  //           images: userClerk.imageUrl,
-  //           isNewbie: true,
-  //           isActive: true,
-  //           groupId: ["6"],
-  //           roles: "customer",
-  //           idCode: "",
-  //         });
-  //       } else if (userId) {
-  //         mutaionDataUser.mutate(userId, {
-  //           onSuccess: (res) => {
-  //             const userData = res.data.user;
-  //             setUserLogined({ ...userData });
-  //             setIsAuthenticated();
-  //           },
-  //           onError: (error) => console.error("Error fetching user:", error),
-  //         });
-  //       } else {
-  //         return;
-  //       }
-  //     } catch (error) {
-  //       console.error("Unexpected error:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   getCurrentUser();
-  // }, [isSignedIn, userId]);
 
   const handleLogout = useCallback(async () => {
-    if (isSignedIn) {
-      signOut();
-    }
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
     Cookies.remove("refreshToken");
     Cookies.remove("accessToken");
     setLogout();
     window.location.reload();
+    if (isSignedIn) {
+      signOut();
+    }
     toast.success("Đăng xuất thành công!");
   }, []);
 
@@ -210,11 +165,18 @@ const Account = () => {
                         nhập tiếp theo.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <AlertDialogFooter className="flex flex-col gap-y-3 lg:flex-row">
-                      <AlertDialogCancel className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active">
+                    <AlertDialogFooter
+                      autoFocus={false}
+                      className="flex flex-col gap-y-3 lg:flex-row"
+                    >
+                      <AlertDialogCancel
+                        autoFocus={false}
+                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
+                      >
                         Hủy
                       </AlertDialogCancel>
                       <AlertDialogAction
+                        autoFocus={false}
                         onClick={handleLogout}
                         className="bg-bg_black_sub text-black_sub hover:bg-bg_primary_hover"
                       >
