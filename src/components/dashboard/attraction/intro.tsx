@@ -40,12 +40,12 @@ const Intro = () => {
   return (
     <section
       className={cn(
-        "w-full flex flex-col items-center justify-start posing-vertical-4  bg-bg_black_sub "
+        "w-full h-auto flex flex-col items-center justify-start posing-vertical-4  bg-bg_black_sub p-4 "
       )}
     >
       <h1
         className={cn(
-          "mt-4 hidden text-center py-4  font-medium text-large",
+          "hidden text-center  font-medium text-large",
           "lg:text-largest lg:block lg:mt-0 lg:font-bold"
         )}
       >

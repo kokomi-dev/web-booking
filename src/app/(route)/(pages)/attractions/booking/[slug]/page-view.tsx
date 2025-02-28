@@ -22,7 +22,7 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 import { AttractionData } from "@/types/attraction.type";
 import { cn } from "@/utils/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleAlert } from "lucide-react";
+import { Check, CircleAlert, MapPin, Star } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -320,7 +320,7 @@ const BookingAttraction = () => {
             </div>
             <div
               className={cn(
-                "w-full lg:w-[80%] posing-vertical-3 !mt-0 lg:!mt-auto ",
+                "w-full lg:w-[80%] posing-vertical-3 ",
                 "lg:sticky lg:top-[2rem]"
               )}
             >
@@ -332,18 +332,37 @@ const BookingAttraction = () => {
                 <Image
                   alt="img-booking"
                   src={data?.images[0]}
-                  width={900}
-                  height={600}
+                  width={300}
+                  height={200}
                   sizes="50"
-                  className="w-[8rem] h-[8rem] rounded-lg"
+                  className="w-[8rem] h-[8rem] rounded-lg object-cover object-center"
                 />
-                <div>
-                  <h4 className="font-bold text-normal">{data?.name}</h4>
-                  <address className="text-smallest text-black_sub">
-                    {data?.location.detail}
+                <div className="flex flex-col gap-y-1">
+                  <h4 className="font-bold text-normal lg:text-medium">
+                    {data?.name}
+                  </h4>
+                  <address className="text-smallest text-blue_main_sub flex items-center justify-start gap-x-1 ">
+                    <MapPin className="size-4" /> {data?.location.detail}
                   </address>
+                  <p className="text-smallest text-black_main_blur line-clamp-3">
+                    {data?.description}
+                  </p>
                 </div>
               </div>
+              <div className="posing-vertical-6 text-smallest lg:text-small">
+                <h6 className="flex items-center justify-start gap-x-1">
+                  {" "}
+                  <Star className="size-4 fill-yellow_main text-yellow_main flex-shrink-0" />
+                  {data.rating}
+                </h6>
+                {data.cancelFree && (
+                  <h6 className="text-green_main flex items-center justify-start gap-x-1">
+                    <Check className="size-4 flex-shrink-0" />
+                    Hủy miễn phí
+                  </h6>
+                )}
+              </div>
+              <hr className="hr" />
               <div className="w-full h-full border-b-[0.4px] border-[#999] posing-vertical-4 py-2">
                 <div className="flex items-center justify-start gap-x-2 text-normal font-medium">
                   <span>Thời gian: </span>

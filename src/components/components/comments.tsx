@@ -215,13 +215,13 @@ const Comments: React.FC<IComments> = ({
                     </div>
                     <div className="flex items-center justify-between w-full ">
                       <div className="flex items-center justify-start gap-x-2 w-fit">
-                        <Icon level={3} tooltip="Thích">
+                        <Icon level={4} tooltip="Thích">
                           <ThumbsUp />
                         </Icon>
-                        <Icon tooltip="Không thích" level={3}>
+                        <Icon tooltip="Không thích" level={4}>
                           <ThumbsDown />
                         </Icon>
-                        <Icon tooltip="Phản hồi" level={3}>
+                        <Icon tooltip="Phản hồi" level={4}>
                           <MessageSquareMore />
                         </Icon>
                       </div>

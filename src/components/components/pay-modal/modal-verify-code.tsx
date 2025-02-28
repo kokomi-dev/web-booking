@@ -55,7 +55,7 @@ const ModalConfirmCode: React.FC<ModalConfirmCodeProps> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
-        <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black rounded-14">
+        <div className="w-full h-full flex items-center justify-center bg-bg_black_sub text-black rounded-14 p-3">
           <div className="w-full flex items-center justify-start flex-col gap-4 ">
             <DialogHeader>
               <DialogTitle>

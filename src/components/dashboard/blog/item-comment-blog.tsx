@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { User } from "@/store/authencation-store";
 import { IBlogCommentResponse } from "@/types/blog";
+import { formatDate } from "@/utils/constants";
 import { Popover } from "@radix-ui/react-popover";
 import {
   EllipsisVertical,
@@ -37,7 +38,7 @@ const ItemCommentBlog = ({
               </span>
               <span className="text-black_sub">-</span>
               <span className="text-[0.8rem] text-black_sub italic ">
-                {e.commentDate}
+                {formatDate(e.commentDate)}
               </span>
             </div>
             <p className="text-normal line-clamp-2 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 first-letter:uppercase  overflow-y-auto ">
@@ -46,13 +47,13 @@ const ItemCommentBlog = ({
           </div>
           <div className="flex items-center justify-between w-full ">
             <div className="flex items-center justify-start gap-x-2 w-fit">
-              <Icon level={3} tooltip="Thích">
+              <Icon level={4} tooltip="Thích">
                 <ThumbsUp />
               </Icon>
-              <Icon tooltip="Không thích" level={3}>
+              <Icon tooltip="Không thích" level={4}>
                 <ThumbsDown />
               </Icon>
-              <Icon tooltip="Phản hồi" level={3}>
+              <Icon tooltip="Phản hồi" level={4}>
                 <MessageSquareMore />
               </Icon>
             </div>

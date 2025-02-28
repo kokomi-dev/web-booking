@@ -93,19 +93,19 @@ const LoadingItemShow = () => {
 };
 const LoadingItemBlog = () => {
   return (
-    <div className="rounded-lg shadow-lg p-4 bg-white flex flex-col gap-y-1 lg:gap-y-3 justify-start border-0.5 border-[#888] animate-pulse">
-      <div className="flex flex-col items-start justify-start lg:gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-        <Skeleton className="h-6 w-3/4 rounded" />
-        <Skeleton className="h-4 w-1/2 rounded" />
-      </div>
-      <div className="flex items-center justify-start gap-x-3">
-        <Skeleton className="size-7 md:size-9 lg:size-10 rounded-full" />
+    <div className="rounded-lg overflow-hidden shadow-lg border border-gray-200 bg-white p-2 lg:p-4 flex flex-col gap-y-4 animate-pulse">
+      <Skeleton className="h-6 w-3/4 bg-gray-300" />
+      <Skeleton className="h-4 w-1/2 bg-gray-300" />
+
+      <div className="flex items-start gap-x-4">
+        <Skeleton className="w-10 h-10 rounded bg-gray-300" />
         <div className="flex-1 space-y-2">
-          <Skeleton className="h-4 w-full rounded" />
-          <Skeleton className="h-4 w-5/6 rounded" />
+          <Skeleton className="h-4 w-full bg-gray-300" />
+          <Skeleton className="h-4 w-5/6 bg-gray-300" />
         </div>
       </div>
-      <Skeleton className="h-4 w-20 rounded mt-2" />
+
+      <Skeleton className="h-4 w-20 bg-gray-300" />
     </div>
   );
 };

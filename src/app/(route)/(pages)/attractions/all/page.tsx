@@ -41,7 +41,7 @@ const AllAttractionsPage = () => {
     refetch,
     isFetching,
   } = useQuery({
-    queryKey: [QUERY_KEY_ATTRACTION.GET_ALL],
+    queryKey: [QUERY_KEY_ATTRACTION.GET_FILTER],
     queryFn: async () => {
       const res = await getFilterAttractions({
         price: filter.price,
@@ -59,6 +59,7 @@ const AllAttractionsPage = () => {
     },
     retry: 3,
     retryDelay: 1000,
+    refetchOnWindowFocus: false,
   });
   const handleResetFilter = () => {
     setFilter({

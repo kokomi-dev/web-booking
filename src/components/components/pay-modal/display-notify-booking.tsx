@@ -68,7 +68,10 @@ export default function BookingSuccessModal({
             aria-describedby={undefined}
             hidden
           ></DialogDescription>
-          <DialogContent className="flex flex-col items-center p-6 text-center">
+          <DialogContent
+            autoFocus={false}
+            className="flex flex-col items-center p-6 text-center"
+          >
             <div className="relative mb-4">
               <MotionDiv
                 className="absolute inset-0 border-4 border-green-500 rounded-full"
@@ -94,6 +97,8 @@ export default function BookingSuccessModal({
                   setTimeout(() => setIsVisible(false), 300);
                   if (model === "attraction") {
                     return router.push("/attractions");
+                  } else {
+                    return router.push("/hotels");
                   }
                 }}
                 className="w-[180px] lg:w-[160px] mt-4 bg-blue-600 text-white hover:bg-bg_primary_active border-none border-transparent"
