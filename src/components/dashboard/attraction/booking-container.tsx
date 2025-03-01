@@ -4,10 +4,25 @@ import CardText from "../../components/card-text";
 import CardBookingTicket from "./card-booking-ticket";
 import CarouselDate from "./carousel-date";
 import { IBookingContainer } from "@/types/attraction.type";
+import { useQuery } from "@tanstack/react-query";
+import { getDetailAttraction } from "@/api/api-attractions";
+import QUERY_KEY_ATTRACTION from "@/services/queryKeyStore/attractionQueryKeyStore";
 
 const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string>("7h00");
+  const { data: numberTickets, isLoading } = useQuery({
+    queryKey: [QUERY_KEY_ATTRACTION.GET_NUMBEROFTICKETS, slug],
+    queryFn: async () => {
+      const res = await getDetailAttraction({ slug });
+      if (res) {
+        return res.numberOfTickets;
+      }
+    },
+    retry: 3,
+    retryDelay: 1000,
+    enabled: !!slug,
+  });
   return (
     <div className="w-full h-fit posing-vertical-4  lg:sticky lg:-top-[4rem]  rounded-xl lg:pl-3 ">
       <div className="w-full">
@@ -57,13 +72,14 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
       {/* booking tickets */}
       <div className="w-full">
         <CardBookingTicket
+          isLoading={isLoading}
           name={data.name}
           slug={slug}
           hour={hour}
           date={date}
           duration={data.duration}
           price={data.price}
-          numberOfTickets={data.numberOfTickets}
+          numberOfTickets={numberTickets}
         />
       </div>
     </div>

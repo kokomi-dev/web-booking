@@ -10,19 +10,18 @@ import { toast } from "react-toastify";
 import CardText from "@/components/components/card-text";
 import { Button } from "@/components/ui/button";
 
+import { getDetailHotel } from "@/api/api-hotels";
+import { LoadingBookingCardHotel } from "@/components/components/loading";
 import SearchDatePickerDou from "@/components/components/search/search-date-picker-dou";
 import SearchSelectPerson from "@/components/components/search/search-select-person";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
 import { useAuthenticatedStore } from "@/store/authencation-store";
-import { useBookingInfoStore } from "@/store/booking-info";
 import { IHotelRoom } from "@/types/hotel.type";
 import { cn, convertVND } from "@/utils/constants";
-import dynamic from "next/dynamic";
-const MotionDiv = dynamic(
-  () => import("framer-motion").then((mod) => mod.motion.div),
-  { ssr: false }
-);
+import { useQuery } from "@tanstack/react-query";
+
 const Booking = ({
   slug,
   listRooms,
@@ -32,7 +31,19 @@ const Booking = ({
 }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthenticatedStore();
-  const { setBookingInfo } = useBookingInfoStore();
+
+  const { data: listHotelRoomNew, isLoading } = useQuery({
+    queryKey: [QUERY_KEY_HOTEL.GET_LIST_ROOM_HOTEL, slug],
+    queryFn: async () => {
+      const res = await getDetailHotel({ slug });
+      if (res) {
+        return res.listRooms;
+      }
+    },
+    retry: 3,
+    retryDelay: 1000,
+    enabled: !!slug,
+  });
   const [date, setDate] = React.useState<any>({
     from: new Date(),
     to: addDays(new Date(), 2),
@@ -50,6 +61,7 @@ const Booking = ({
     })
   );
   const [checkHiddenBtn, setCheckHiddenBtn] = useState(true);
+
   const handlePopoverChange = useCallback(async (open: boolean) => {
     if (!open) {
       const numberPerson = numberAdults + numberChildren;
@@ -66,9 +78,7 @@ const Booking = ({
     if (date) {
       const dateFrom = format(String(date.from), "dd/MM/yyyy", { locale: vi });
       const dateTo = format(String(date.to), "dd/MM/yyyy", { locale: vi });
-      setBookingInfo({
-        chooseInput,
-      });
+
       router.push(
         "/hotels/booking/" +
           slug +
@@ -97,7 +107,6 @@ const Booking = ({
     numberRoom,
     total,
     router,
-    setBookingInfo,
   ]);
   useEffect(() => {
     let res = 0;
@@ -185,157 +194,172 @@ const Booking = ({
       {/* booking tickets */}
 
       <div id="booking-hotel-container" className="w-full  space-y-4">
-        {listRooms.map((room, index) => (
-          <div key={index} className="bg-white shadow-md rounded-lg p-4">
-            <div className="flex flex-col space-y-2">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-bold text-blue_main">
-                  {room.name}
-                </h3>
-                {room.numberOfRoom === 0 && (
-                  <span className="text-red-600">Hết phòng</span>
-                )}
-              </div>
-              <ul className="flex flex-wrap gap-2 text-smallest">
-                {Array.isArray(room.details) &&
-                  room.details.map((detail, i) => (
-                    <li key={i} className="flex items-center gap-1">
-                      <Check className="size-3 text-green_main" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-              </ul>
-              <div className="flex items-center gap-2 text-small">
-                <User className="size-4 fill-black" />
-                <X className="size-4" />
-                <span>{room.numberPeople}</span>
-                {room.isAddChildren && (
-                  <span className="flex items-center gap-1 text-smallest">
-                    <UserPlus className="size-4" /> trẻ em
-                  </span>
-                )}
-              </div>
-              <div className="flex justify-between items-center">
-                <div>
-                  <div className="line-through text-red-400 text-[0.8rem]">
-                    <span className="mr-1">VNĐ</span>
-                    {convertVND(room.price)}
+        {isLoading
+          ? Array.from({ length: listRooms.length }, (_, i) => (
+              <LoadingBookingCardHotel key={i} />
+            ))
+          : listHotelRoomNew.map((room: IHotelRoom, index: number) => (
+              <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                <div className="flex flex-col space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-bold text-blue_main">
+                      {room.name}
+                    </h3>
+                    {room.numberOfRoom === 0 && (
+                      <span className="text-red-600">Hết phòng</span>
+                    )}
                   </div>
-                  <div className="text-black_main text-small font-semibold">
-                    <span className="mr-1">VNĐ</span>
-                    {convertVND(room.price - (room.price / 100) * room.sale)}
-                  </div>
-                  <span className="bg-green_main text-white text-[0.7rem] px-2 py-1 rounded-md">
-                    Tiết kiệm {room.sale}%
-                  </span>
-                </div>
-                <div className=" flex items-center justify-start lg:space-x-2 shadow-none border-none">
-                  <Label
-                    className="text-small font-normal hidden lg:block"
-                    htmlFor="adults"
-                  >
-                    Số lượng:
-                  </Label>
-                  <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
-                    <Button
-                      disabled={
-                        chooseInput[index] === 0 || room.numberOfRoom == 0
-                      }
-                      type="button"
-                      onClick={() => handleDecrease(index)}
-                      className={cn(
-                        "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
-                        chooseInput[index] === 0 && "pointer-events-none"
-                      )}
-                    >
-                      <span
-                        className={cn(
-                          "!text-large text-blue_main_sub font-normal p-1",
-                          chooseInput[index] === 0 &&
-                            "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
-                        )}
-                      >
-                        -
+                  <ul className="flex flex-wrap gap-2 text-smallest">
+                    {Array.isArray(room.details) &&
+                      room.details.map((detail, i) => (
+                        <li key={i} className="flex items-center gap-1">
+                          <Check className="size-3 text-green_main" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                  </ul>
+                  <div className="flex items-center gap-2 text-small">
+                    <User className="size-4 fill-black" />
+                    <X className="size-4" />
+                    <span>{room.numberPeople}</span>
+                    {room.isAddChildren && (
+                      <span className="flex items-center gap-1 text-smallest">
+                        <UserPlus className="size-4" /> trẻ em
                       </span>
-                    </Button>
-                    <Input
-                      type="number"
-                      id="adults"
-                      min="1"
-                      value={chooseInput[index]}
-                      className="h-8 outline-none bg-white text-normal  max-w-[50px] text-black text-center shadow-none border-none"
-                      onChange={(e) => {
-                        const { value } = e.target;
-                        setChooseInput((prev) => {
-                          const newChoose = [...prev];
-                          newChoose[index] = Number(value);
-                          return newChoose;
-                        });
-                      }}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      disabled={room.numberOfRoom === 0}
-                    />
-                    <Button
-                      disabled={room.numberOfRoom == 0}
-                      type="button"
-                      onClick={() => handleIncrease(index)}
-                      className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
-                    >
-                      <span className="text-large text-blue_main_sub ">+</span>
-                    </Button>
+                    )}
+                  </div>
+                  {chooseInput[index] >= room.numberOfRoom && (
+                    <span className="text-red-600 text-smallest   lg:hidden">
+                      Đã chọn tối đa số phòng
+                    </span>
+                  )}
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className="line-through text-red-400 text-[0.8rem]">
+                        <span className="mr-1">VNĐ</span>
+                        {convertVND(room.price)}
+                      </div>
+                      <div className="text-black_main text-small font-semibold">
+                        <span className="mr-1">VNĐ</span>
+                        {convertVND(
+                          room.price - (room.price / 100) * room.sale
+                        )}
+                      </div>
+                      <span className="bg-green_main text-white text-[0.7rem] px-2 py-1 rounded-md">
+                        Tiết kiệm {room.sale}%
+                      </span>
+                    </div>
+
+                    <div className=" flex items-center justify-start lg:space-x-2 shadow-none border-none">
+                      {chooseInput[index] >= room.numberOfRoom && (
+                        <span className="text-red-600 text-smallest ml-2 hidden lg:block">
+                          Đã chọn tối đa số phòng còn lại
+                        </span>
+                      )}
+                      <Label
+                        className="text-small font-normal hidden lg:block"
+                        htmlFor="adults"
+                      >
+                        Số lượng:
+                      </Label>
+                      <div
+                        className={`flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ${
+                          chooseInput[index] >= room.numberOfRoom &&
+                          "border-red-600 border-2"
+                        } `}
+                      >
+                        <Button
+                          disabled={
+                            chooseInput[index] === 0 || room.numberOfRoom == 0
+                          }
+                          type="button"
+                          onClick={() => handleDecrease(index)}
+                          className={cn(
+                            "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                            chooseInput[index] === 0 && "pointer-events-none"
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "!text-large text-blue_main_sub font-normal p-1",
+                              chooseInput[index] === 0 &&
+                                "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
+                            )}
+                          >
+                            -
+                          </span>
+                        </Button>
+                        <Input
+                          type="number"
+                          id="adults"
+                          min="1"
+                          value={chooseInput[index]}
+                          className="h-8 outline-none bg-white text-normal  max-w-[50px] text-black text-center shadow-none border-none"
+                          onChange={(e) => {
+                            const { value } = e.target;
+                            setChooseInput((prev) => {
+                              const newChoose = [...prev];
+                              newChoose[index] = Math.min(
+                                Number(value),
+                                room.numberOfRoom
+                              );
+                              return newChoose;
+                            });
+                          }}
+                          onMouseDown={(e) => e.stopPropagation()}
+                          disabled={room.numberOfRoom === 0}
+                        />
+                        <Button
+                          disabled={
+                            room.numberOfRoom == 0 ||
+                            chooseInput[index] >= room.numberOfRoom
+                          }
+                          type="button"
+                          onClick={() => handleIncrease(index)}
+                          className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
+                        >
+                          <span className="text-large text-blue_main_sub ">
+                            +
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            ))}
 
-        <MotionDiv
-          key={showActionBar ? "visible" : "hidden"}
-          initial="hidden"
-          animate={showActionBar ? "visible" : "hidden"}
-          variants={{
-            hidden: { opacity: 0, y: 100, scale: 0.9 },
-            visible: { opacity: 1, y: 0, scale: 1 },
-          }}
-          transition={{
-            duration: 0.6,
-            ease: "easeInOut",
-            bounce: 0.3,
-          }}
-        >
-          <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
-            <div className="min-w-[42%] max-w-[55%] line-clamp-2">
-              <div className="line-through text-red-400 text-small">
-                <span className="mr-1">VNĐ</span>
-                {convertVND(total)}
-              </div>
-              <div className="text-black_main text-normal font-bold">
-                <span className="mr-1">VNĐ</span>
-                {convertVND(totalSale)}
-              </div>
+        <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
+          <div className="min-w-[42%] max-w-[55%] line-clamp-2">
+            <div className="line-through text-red-400 text-small">
+              <span className="mr-1">VNĐ</span>
+              {convertVND(total)}
             </div>
-            {!!user && isAuthenticated ? (
-              <Button
-                className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
-                onClick={handleBooking}
-                disabled={checkHiddenBtn}
-              >
-                Đặt ngay
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  router.push("/sign-in");
-                }}
-                className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
-              >
-                Đăng nhập
-              </Button>
-            )}
-            <div></div>
+            <div className="text-black_main text-normal font-bold">
+              <span className="mr-1">VNĐ</span>
+              {convertVND(totalSale)}
+            </div>
           </div>
-        </MotionDiv>
+          {!!user && isAuthenticated ? (
+            <Button
+              className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
+              onClick={handleBooking}
+              disabled={checkHiddenBtn}
+            >
+              Đặt ngay
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                router.push("/sign-in");
+              }}
+              className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
+            >
+              Đăng nhập
+            </Button>
+          )}
+          <div></div>
+        </div>
       </div>
     </div>
   );
