@@ -24,3 +24,7 @@
   min-height: 35px !important;
   padding: 6px !important;
 }
+.Toastify__close-button {
+  color: #fff;
+  opacity: 1;
+}

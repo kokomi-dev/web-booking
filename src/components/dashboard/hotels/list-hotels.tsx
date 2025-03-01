@@ -74,12 +74,12 @@ const ListHotel = () => {
   return (
     <section id="list-all-attractions" className="w-full posing-vertical-4">
       <div className="posing-vertical-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-start  justify-between">
           <h2 className="text-large font-bold">
             Khách sạn (nhà nghỉ) của chúng tôi
           </h2>
           <span
-            className="text-blue_main_sub underline text-smallest hover:cursor-pointer"
+            className="text-blue_main_sub underline text-smallest hover:cursor-pointer flex-shrink-0 mt-2"
             onClick={() => {
               router.push("hotels/all");
             }}

@@ -18,8 +18,10 @@ import {
 import { formatPrice } from "../../components/item-component";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
+import { LoadingBookingCardAttraction } from "@/components/components/loading";
 
 const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
+  isLoading,
   duration,
   price,
   date,
@@ -30,17 +32,55 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
 }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthenticatedStore();
+  console.log(user);
 
   const [numberTicketsAdult, setNumberTicketsAdult] = useState(1);
   const [numberTicketsChildren, setNumberTicketsChildren] = useState(0);
-
-  const handleIncrease = (setter: (value: number) => void, value: number) => {
-    setter(value + 1);
+  const [isOverTickets, setIsOverTickets] = useState({
+    adult: false,
+    children: false,
+  });
+  const checkOverTickets = (type: "adult" | "children", value: number) => {
+    if (
+      (type === "adult" && value >= (numberOfTickets?.adult || 0)) ||
+      (type === "children" && value >= (numberOfTickets?.children || 0))
+    ) {
+      setIsOverTickets((prev) => ({ ...prev, [type]: true }));
+    } else {
+      setIsOverTickets((prev) => ({ ...prev, [type]: false }));
+    }
   };
 
-  const handleDecrease = (setter: (value: number) => void, value: number) => {
-    setter(value - 1);
+  const handleIncrease = (
+    setter: (value: number) => void,
+    value: number,
+    type: "adult" | "children"
+  ) => {
+    const newValue = value + 1;
+    setter(newValue);
+    checkOverTickets(type, newValue);
   };
+
+  const handleDecrease = (
+    setter: (value: number) => void,
+    value: number,
+    type: "adult" | "children"
+  ) => {
+    const newValue = Math.max(0, value - 1);
+    setter(newValue);
+    checkOverTickets(type, newValue);
+  };
+
+  const handleInputChange = (
+    setter: (value: number) => void,
+    value: string,
+    type: "adult" | "children"
+  ) => {
+    const newValue = Math.max(0, Number(value));
+    setter(newValue);
+    checkOverTickets(type, newValue);
+  };
+
   const handleBookedTickets = () => {
     if (!date) {
       return toast.error("Chọn ngày đặt lịch");
@@ -64,7 +104,9 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
         numberTicketsChildren
     );
   };
-
+  if (isLoading) {
+    return <LoadingBookingCardAttraction />;
+  }
   return (
     <div
       className={cn(
@@ -112,13 +154,13 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
           </span>
         </li>
       </ol>
-      <div>
-        {numberOfTickets.adult == "0" && (
+      <div className="w-full h-auto">
+        {numberOfTickets?.adult === 0 && (
           <span className="text-red-500 text-small font-medium">
             Hết vé người lớn!
           </span>
         )}
-        {numberOfTickets.children == "0" && (
+        {numberOfTickets?.children === 0 && (
           <span className="text-red-500 text-small font-medium">
             Hết vé trẻ em!
           </span>
@@ -126,19 +168,30 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
       </div>
       <section className="space-y-3 text-small">
         <h4 className="text-normal font-bold">Số lượng vé</h4>
+        {isOverTickets.adult && (
+          <span className="text-red-600">Đã đặt hết vé người lớn</span>
+        )}
+        {isOverTickets.children && (
+          <span className="text-red-600">Đã đặt hết vé trẻ em</span>
+        )}
+
         <div className="flex items-center justify-between gap-x-4">
           <Label
             className="text-small flex-shrink-0 w-[180px] font-medium"
             htmlFor="adults"
           >
-            Người lớn(tuổi 16-60)
+            Người lớn (tuổi 16-60)
           </Label>
           <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
             <Button
               disabled={numberTicketsAdult === 1}
               type="button"
               onClick={() =>
-                handleDecrease(setNumberTicketsAdult, numberTicketsAdult)
+                handleDecrease(
+                  setNumberTicketsAdult,
+                  numberTicketsAdult,
+                  "adult"
+                )
               }
               className={cn(
                 "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
@@ -147,7 +200,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             >
               <span
                 className={cn(
-                  "!text-large text-blue_main_sub font-normal p-1 ",
+                  "!text-large text-blue_main_sub font-normal p-1 select-none ",
                   numberTicketsAdult === 1 &&
                     "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main pointer-events-none"
                 )}
@@ -159,21 +212,33 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
               type="number"
               id="adults"
               min="1"
+              disabled={numberTicketsAdult >= (numberOfTickets?.adult || 0)}
               value={numberTicketsAdult}
               className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
               onChange={(e) =>
-                setNumberTicketsAdult(Math.max(1, Number(e.target.value)))
+                handleInputChange(
+                  setNumberTicketsAdult,
+                  e.target.value,
+                  "adult"
+                )
               }
               onMouseDown={(e) => e.stopPropagation()}
             />
             <Button
+              disabled={numberTicketsAdult >= (numberOfTickets?.adult || 0)}
               type="button"
               onClick={() =>
-                handleIncrease(setNumberTicketsAdult, numberTicketsAdult)
+                handleIncrease(
+                  setNumberTicketsAdult,
+                  numberTicketsAdult,
+                  "adult"
+                )
               }
               className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
             >
-              <span className="text-large text-blue_main_sub ">+</span>
+              <span className="text-large text-blue_main_sub select-none ">
+                +
+              </span>
             </Button>
           </div>
         </div>
@@ -182,14 +247,18 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             className="text-small flex-shrink-0 w-[180px] font-medium"
             htmlFor="adults"
           >
-            Trẻ nhỏ(tuổi 10-15)
+            Trẻ nhỏ (tuổi 10-15)
           </Label>
           <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
             <Button
               disabled={numberTicketsChildren === 0}
               type="button"
               onClick={() =>
-                handleDecrease(setNumberTicketsChildren, numberTicketsChildren)
+                handleDecrease(
+                  setNumberTicketsChildren,
+                  numberTicketsChildren,
+                  "children"
+                )
               }
               className={cn(
                 "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
@@ -198,7 +267,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             >
               <span
                 className={cn(
-                  "!text-large text-blue_main_sub font-normal p-1 ",
+                  "!text-large text-blue_main_sub font-normal p-1 select-none",
                   numberTicketsChildren === 0 &&
                     "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_sub pointer-events-none"
                 )}
@@ -208,23 +277,39 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             </Button>
             <Input
               type="number"
-              id="adults"
+              id="children"
               min="1"
+              disabled={
+                numberTicketsChildren >= (numberOfTickets?.children || 0)
+              }
               value={numberTicketsChildren}
               className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
               onChange={(e) =>
-                setNumberTicketsChildren(Math.max(1, Number(e.target.value)))
+                handleInputChange(
+                  setNumberTicketsChildren,
+                  e.target.value,
+                  "children"
+                )
               }
               onMouseDown={(e) => e.stopPropagation()}
             />
             <Button
+              disabled={
+                numberTicketsChildren >= (numberOfTickets?.children || 0)
+              }
               type="button"
               onClick={() =>
-                handleIncrease(setNumberTicketsChildren, numberTicketsChildren)
+                handleIncrease(
+                  setNumberTicketsChildren,
+                  numberTicketsChildren,
+                  "children"
+                )
               }
               className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
             >
-              <span className="text-large text-blue_main_sub ">+</span>
+              <span className="text-large text-blue_main_sub select-none ">
+                +
+              </span>
             </Button>
           </div>
         </div>

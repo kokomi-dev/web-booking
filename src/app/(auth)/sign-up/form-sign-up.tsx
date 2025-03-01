@@ -15,12 +15,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { reqRegiter } from "@/api/api-auth";
+import ModalErrDuplicateEmail from "@/components/account/modal-duplicate-email";
 const signUpBody = z
   .object({
     firstname: z.string().min(6, "Vui lòng nhập họ, tên đệm ").max(100),
@@ -58,7 +59,7 @@ const FormSignUp: React.FC = () => {
     defaultValues: {
       firstname: "",
       lastname: "",
-      numberPhone: undefined,
+      numberPhone: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -71,9 +72,10 @@ const FormSignUp: React.FC = () => {
   const mutationRegister = useMutation({
     mutationFn: reqRegiter,
   });
+  const [openError, setOpenError] = useState(false);
   const onSubmit = async (data: SignupFormData) => {
-    if (checked === false) {
-      return toast.warning("Điều khoản dịch vụ của chúng tôi", {
+    if (!checked) {
+      return toast.warning("Vui lòng đồng ý với điều khoản dịch vụ", {
         className: "toast-warning",
       });
     }
@@ -81,183 +83,209 @@ const FormSignUp: React.FC = () => {
       mutationRegister.mutate(
         { ...data, groupId: ["6"], roles: "custommer" },
         {
-          onSuccess: async (res) => {
-            if (res.status === 200) {
-              toast.success("Tạo tài khoản thành công");
+          onSuccess: (res) => {
+            if (res?.status === 200 && res.data.code == 409) {
+              // setOpenError(true);
+              return toast.warning(
+                "Email đã tồn tại. Vui lòng thử email khác",
+                { position: "top-right" }
+              );
+            }
+            if (res?.status === 201) {
+              toast.success("Tạo tài khoản thành công!");
               router.push("/sign-in");
             }
           },
-          onError: async (err) => {
-            toast.error(
-              "Lỗi khi tạo tài khoản. Liên hệ quản trị viên qua hotline"
-            );
+          onError: (err: any) => {
+            if (err?.response) {
+              const { code, message } = err.response.data;
+              if (code === 400) {
+                toast.error("Dữ liệu nhập vào không hợp lệ.");
+              } else {
+                toast.error(message || "Đã xảy ra lỗi. Vui lòng thử lại sau.");
+              }
+            } else {
+              toast.error("Không thể kết nối đến server.");
+            }
           },
         }
       );
     } catch (error) {
-      console.log(error);
+      console.error("Unexpected error:", error);
+      toast.error("Đã xảy ra lỗi không xác định.");
     }
   };
+
   if (mutationRegister.isPending) {
     return <LoadingPage />;
   }
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4  w-full "
-        noValidate
-      >
-        <div className="w-full grid gap-x-4 md:grid-cols-2 md:gap-x-2">
-          <FormField
-            control={form.control}
-            name="firstname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Họ</FormLabel>
-                <FormControl>
-                  <Input placeholder="VD: Nguyen Van" {...field} />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />{" "}
-          <FormField
-            control={form.control}
-            name="lastname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tên</FormLabel>
-                <FormControl>
-                  <Input placeholder="VD:A" {...field} />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />
-        </div>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="VD:email@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="numberPhone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Số ĐT</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="VD:+8400476486" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-        <h5 className="text-small text-blue_main_sub font-normal">
-          <span className="text-red-600 font-medium"> Lưu ý:</span> Mật khẩu
-          phải tối thiểu 8 kí tự,1 chữ số, 1 chữ cái và 1 kí tự đặc biệt
-        </h5>
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mật khẩu</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Mật khẩu"
-                    {...field}
-                  />
-                  <ButtonShowPassWord
-                    show={showPassword}
-                    setShow={setShowPassword}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nhập lại Mật khẩu</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Nhập lại mật khẩu"
-                    {...field}
-                  />
-                  <ButtonShowPassWord
-                    show={showPassword}
-                    setShow={setShowPassword}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-        <div className="flex items-center justify-start gap-x-2">
-          <Input
-            type="checkbox"
-            id="checkBox"
-            className="size-4 hover:cursor-pointer"
-            onChange={(e) => {
-              setChecked(e.target.checked);
-            }}
-          />
-          <Label htmlFor="checkBox" className="text-small hover:cursor-pointer">
-            Đồng ý với{" "}
-            <Link
-              href="/content/privacy?activeTab=3"
-              className="text-blue_main_sub underline"
-            >
-              điều khoản dịch vụ
-            </Link>{" "}
-            và{" "}
-            <Link
-              href="/content/privacy?activeTab=2"
-              className="text-blue_main_sub underline"
-            >
-              quyền riêng tư bảo mật
-            </Link>{" "}
-            của chúng tôi
-          </Label>
-        </div>
-        <Button
-          type="submit"
-          className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+    <Fragment>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4  w-full "
+          noValidate
         >
-          <span className="text-white text-normal font-medium"> Đăng ký</span>
-        </Button>
-        <div className="w-full flex items-center justify-between">
-          <h4 className="text-small ">
-            Bạn đã có tài khoản!
-            <Link
-              href="/sign-in"
-              className="text-blue_main_sub ml-1 underline text-small font-semibold"
+          <div className="w-full grid gap-x-4 md:grid-cols-2 md:gap-x-2">
+            <FormField
+              control={form.control}
+              name="firstname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Họ</FormLabel>
+                  <FormControl>
+                    <Input placeholder="VD: Nguyen Van" {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />{" "}
+            <FormField
+              control={form.control}
+              name="lastname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tên</FormLabel>
+                  <FormControl>
+                    <Input placeholder="VD:A" {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="VD:email@gmail.com" {...field} />
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="numberPhone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Số ĐT</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    placeholder="VD:+8400476486"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+          <h5 className="text-small text-blue_main_sub font-normal">
+            <span className="text-red-600 font-medium"> Lưu ý:</span> Mật khẩu
+            phải tối thiểu 8 kí tự,1 chữ số, 1 chữ cái và 1 kí tự đặc biệt
+          </h5>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mật khẩu</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Mật khẩu"
+                      {...field}
+                    />
+                    <ButtonShowPassWord
+                      show={showPassword}
+                      setShow={setShowPassword}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nhập lại Mật khẩu</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Nhập lại mật khẩu"
+                      {...field}
+                    />
+                    <ButtonShowPassWord
+                      show={showPassword}
+                      setShow={setShowPassword}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+          <div className="flex items-center justify-start gap-x-2">
+            <Input
+              type="checkbox"
+              id="checkBox"
+              className="size-4 hover:cursor-pointer"
+              onChange={(e) => {
+                setChecked(e.target.checked);
+              }}
+            />
+            <Label
+              htmlFor="checkBox"
+              className="text-small hover:cursor-pointer"
             >
-              Đăng nhập
-            </Link>
-          </h4>
-        </div>
-      </form>
-    </Form>
+              Đồng ý với{" "}
+              <Link
+                href="/content/privacy?activeTab=3"
+                className="text-blue_main_sub underline"
+              >
+                điều khoản dịch vụ
+              </Link>{" "}
+              và{" "}
+              <Link
+                href="/content/privacy?activeTab=2"
+                className="text-blue_main_sub underline"
+              >
+                quyền riêng tư bảo mật
+              </Link>{" "}
+              của chúng tôi
+            </Label>
+          </div>
+          <Button
+            type="submit"
+            className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+          >
+            <span className="text-white text-normal font-medium"> Đăng ký</span>
+          </Button>
+          <div className="w-full flex items-center justify-between">
+            <h4 className="text-small ">
+              Bạn đã có tài khoản!
+              <Link
+                href="/sign-in"
+                className="text-blue_main_sub ml-1 underline text-small font-semibold"
+              >
+                Đăng nhập
+              </Link>
+            </h4>
+          </div>
+        </form>
+      </Form>
+      <ModalErrDuplicateEmail open={openError} setOpen={setOpenError} />
+    </Fragment>
   );
 };
 

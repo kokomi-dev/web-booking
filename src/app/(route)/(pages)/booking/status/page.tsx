@@ -75,7 +75,7 @@ const BookingSuccess = () => {
           <div
             ref={ticketRef}
             id="ticket"
-            className="posing-vertical-2 w-full  flex items-center flex-col text-center"
+            className="posing-vertical-1 w-full  flex items-center flex-col text-center"
           >
             <CheckCircle className="text-green-600 w-20 h-20 mb-4" />
             <h1 className="text-3xl font-bold text-green-700">
@@ -92,7 +92,7 @@ const BookingSuccess = () => {
             </p>
 
             {/* Card thông tin đặt vé */}
-            <div className="w-full mt-6 bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 ">
+            <div className="w-full posing-vertical-4 mt-6 bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 ">
               <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
                 Thông tin đơn đặt
               </h2>
@@ -113,9 +113,16 @@ const BookingSuccess = () => {
                 )}
                 {checkCategory ? (
                   <p className="flex items-center">
-                    <Ticket className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />{" "}
-                    <b>Vé:</b> {dataBooked?.numberOfTicketsBooked.adult} người
-                    lớn, {dataBooked?.numberOfTicketsBooked.children} trẻ em
+                    <Ticket className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />
+                    <b>Vé:</b>{" "}
+                    {[
+                      dataBooked?.numberOfTicketsBooked.adult &&
+                        `${dataBooked.numberOfTicketsBooked.adult} người lớn`,
+                      dataBooked?.numberOfTicketsBooked.children &&
+                        `${dataBooked.numberOfTicketsBooked.children} trẻ em`,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
                   </p>
                 ) : (
                   <p className="flex items-center">
@@ -136,40 +143,38 @@ const BookingSuccess = () => {
             </div>
             {/* Card thông tin người đặt */}
             <div className="w-full flex flex-col posing-vertical-3 lg:space-y-0 lg:space-x-4 lg:flex-row items-stretch lg:justify-between ">
-              <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow ">
+              <div className="h-full bg-white posing-vertical-4 shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow ">
                 <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
                   Thông tin khách hàng
                 </h2>
-                <p className="flex items-center">
-                  <User className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />{" "}
+                <p className="text-start">
                   <b>Mã đơn:</b> {dataBooked?._id}
                 </p>
-                <p className="flex items-center text-blue_main_sub">
-                  <Mail className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />{" "}
+                <p className="text-start text-blue_main_sub">
                   <b>Email:</b> {dataBooked?.infoUser?.email}
                 </p>
               </div>
               {/* Card thông tin tour */}
               {checkCategory ? (
-                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow ">
+                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow posing-vertical-4 ">
                   <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
                     Thông tin tour
                   </h2>
-                  <p className="flex items-center">
-                    <b>Tên tour:</b> {dataBooked?.infoAttraction?.name}
+                  <p className="text-start">
+                    <b className="flex-shrink-0">Tên tour:</b>{" "}
+                    {dataBooked?.infoAttraction?.name}
                   </p>
-                  <p className="flex items-center">
-                    <MapPin className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />{" "}
+                  <p className="text-start flex items-center">
                     <b>Địa điểm:</b> {dataBooked?.infoAttraction?.address}
                   </p>
                 </div>
               ) : (
-                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-row ">
+                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-row posing-vertical-4">
                   <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
                     Thông tin lưu trú
                   </h2>
                   <p className="flex items-center">
-                    <b>Tên nơi lưu trú: </b> {dataBooked?.infoHotel?.name}
+                    <b>Lưu trú: </b> {dataBooked?.infoHotel?.name}
                   </p>
                   <p className="flex items-center">
                     <b>Địa điểm: </b> {dataBooked?.infoHotel?.address}
@@ -178,11 +183,14 @@ const BookingSuccess = () => {
                     (room: IHotelRoom, index: number) => {
                       return (
                         <div key={index}>
-                          <p className="flex items-center">
+                          <p className="flex items-center text-start">
                             <b>Tên phòng: </b> {room.name}
                           </p>
-                          <p className="flex items-center">
-                            <b>Số phòng đã đặt: </b> {room.numberBooked}
+                          <p className=" text-start">
+                            <b className="flex-shrink-0 text-start">
+                              Số phòng đã đặt:{" "}
+                            </b>{" "}
+                            {room.numberBooked}
                           </p>
                         </div>
                       );

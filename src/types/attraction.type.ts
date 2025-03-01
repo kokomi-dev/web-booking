@@ -17,8 +17,8 @@ export interface AttractionData {
   city: string;
   cancelFree: boolean;
   numberOfTickets: {
-    adult: string;
-    children: string;
+    adult: number;
+    children: number;
   };
   isTrending: boolean;
   isActive: boolean;
@@ -27,6 +27,7 @@ export interface AttractionData {
   createdAt: Date;
 }
 export interface CardBookingTicketProps {
+  isLoading: boolean;
   duration: number;
   price: [number, number];
   date: Date | undefined;
@@ -34,8 +35,8 @@ export interface CardBookingTicketProps {
   slug: string;
   name: string;
   numberOfTickets: {
-    adult: string;
-    children: string;
+    adult: number;
+    children: number;
   };
 }
 export interface IBookingContainer {

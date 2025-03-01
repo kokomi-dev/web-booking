@@ -7,7 +7,6 @@ import "../styles/globals.css";
 import "../styles/css/toast.css";
 
 import Chat from "@/components/components/chat";
-import PingServer from "@/services/connect-server/keep-connect-server";
 import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
 import { LoadingPage } from "@/components/components/loading";
@@ -48,9 +47,19 @@ export default function RootLayout({
             </ClerkLoading>
             {children}
           </ClerkProvider>
-          <PingServer />
           <Chat />
-          <ToastContainer className="hidden md:block" autoClose={1500} />
+          <ToastContainer
+            className=""
+            autoClose={2000}
+            position="top-left"
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </QueryProvider>
       </body>
     </html>

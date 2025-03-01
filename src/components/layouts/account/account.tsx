@@ -39,6 +39,7 @@ import {
   LogOut,
   UserRound,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, Suspense, useCallback, useState } from "react";
@@ -48,19 +49,10 @@ const Account = () => {
   const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
 
   const { signOut } = useClerk();
-  const { isLoaded, isSignedIn, user: userClerk } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const userId = Cookies.get("userId");
-  const {
-    setUserLogined,
-    user,
-    setIsAuthenticated,
-    isAuthenticated,
-    setLogout,
-  } = useAuthenticatedStore();
-
+  const { user, isAuthenticated, setLogout } = useAuthenticatedStore();
   const handleLogout = useCallback(async () => {
     localStorage.removeItem("accessToken");
     Cookies.remove("userId");
@@ -69,12 +61,12 @@ const Account = () => {
     setLogout();
     window.location.reload();
     if (isSignedIn) {
-      signOut();
+      await signOut();
     }
     toast.success("Đăng xuất thành công!");
   }, []);
 
-  if (loading || !isLoaded || mutaionDataUser.isPending) {
+  if (!isLoaded || mutaionDataUser.isPending) {
     return <LoadingComponentAccount />;
   }
   return (
@@ -93,7 +85,17 @@ const Account = () => {
                 onClick={() => setOpen(!open)}
               >
                 <div className="w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden">
-                  <CircleUser className="text-white size-6 !w-6 !h-6" />
+                  {user?.images ? (
+                    <Image
+                      src={user.images}
+                      width={80}
+                      height={80}
+                      className="object-cover"
+                      alt="avatar-image-google"
+                    />
+                  ) : (
+                    <CircleUser className="text-white size-6 !w-6 !h-6" />
+                  )}
                 </div>
                 <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex">
                   <div className="flex items-center gap-x-1 text-white font-bold text-smallest">
