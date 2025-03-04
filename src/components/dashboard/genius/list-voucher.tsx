@@ -80,7 +80,7 @@ const ListVoucher = () => {
     }
   }, [filter]);
   return (
-    <div className="space-y-3">
+    <div className="posing-vertical-3">
       <h3 className="text-large font-bold">
         Lựa chọn các ưu đãi hấp dẫn dành cho bạn
       </h3>

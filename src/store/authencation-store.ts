@@ -11,10 +11,14 @@ export interface User {
   email: string;
   numberPhone: string;
   isActive: boolean;
-  isNewbie: boolean;
   roles: string;
   groupId: [string];
   idCode: string;
+  numberOfBooked: {
+    attraction: number;
+    hotel: number;
+    bookedDateLatest?: Date;
+  };
 }
 
 interface AuthenticatedStoreProps {

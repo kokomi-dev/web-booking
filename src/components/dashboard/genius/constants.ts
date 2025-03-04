@@ -26,4 +26,5 @@ const levelGenius = [
     des: "Tận hưởng quyền lợi từ cấp thành viên này cho một số chỗ nghỉ và loại xe thuê trên khắp thế giới sau khi hoàn thành 15 đơn đặt trong 2 năm.",
   },
 ];
+
 export { levelGenius };

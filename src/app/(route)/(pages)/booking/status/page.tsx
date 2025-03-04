@@ -11,10 +11,7 @@ import {
   CheckCircle,
   Download,
   Home,
-  Mail,
-  MapPin,
   Ticket,
-  User,
   XCircle,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -204,14 +201,14 @@ const BookingSuccess = () => {
 
           <div className="w-full flex flex-col gap-y-2 lg:gap-y-0 lg:flex-row items-center justify-start lg:gap-x-2">
             <Button
-              className="bg-bg_primary_main text-white hover:bg-bg_primary_active flex items-center justify-center gap-x-1 w-full text-center max-w-lg"
+              className="bg-bg_primary_main text-white hover:bg-bg_primary_active flex items-center justify-center gap-x-1 w-full text-center max-w-lg lg:max-w-full"
               onClick={() => handleDownloadPDF()}
             >
               <Download />
               Tải thông tin vé
             </Button>
             <Button
-              className="bg-white text-black_main hover:bg-bg_primary_hover w-full text-center max-w-lg flex items-center justify-center gap-x-1"
+              className="bg-white text-black_main hover:bg-bg_primary_hover w-full text-center max-w-lg flex items-center justify-center gap-x-1 lg:max-w-full"
               onClick={() => router.push("/")}
             >
               <Home />

@@ -8,7 +8,7 @@ interface FooterItemProps {
 
 const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
   return (
-    <li className="w-full flex items-start justify-start flex-col gap-2  ">
+    <li className="w-full flex items-start justify-start flex-col gap-2">
       <div className="w-full">
         <a className="capitalize text-small font-semibold">{title}</a>
       </div>
@@ -17,13 +17,16 @@ const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
           return item.path !== null ? (
             <Link
               key={index}
-              className="py-[0.1rem]  text-smallest font-normal file:capitalize hover:text-blue_main_sub transiton-all duration-150"
+              className="py-[0.25rem]  text-smallest font-normal file:capitalize hover:text-blue_main_sub transiton-all duration-150 first-letter:uppercase"
               href={item.path}
             >
               {item.label}
             </Link>
           ) : (
-            <li className="w-full py-[0.1rem]" key={index}>
+            <li
+              className="w-full py-[0.25rem] first-letter:uppercase"
+              key={index}
+            >
               <a>
                 <span className="text-smallest font-normal first:capitalize">
                   {item.label}
@@ -69,7 +72,7 @@ const FooterDashboard = () => {
         <ul></ul>
         <ul></ul> <ul></ul> <ul></ul>
       </div>
-      <div className="px-0 md:px-10 lg:px-20 py-5">
+      <div className="px-0 md:px-5 ld:px-10 xl:px-20 py-5">
         <h6 className="pb-5 text-black text-center text-small">
           Bản quyền sáng tạo thuộc về <strong> AnTenDev</strong>. Liên hệ
           <a
