@@ -167,6 +167,35 @@ const LoadingBookingCardHotel = () => {
     </div>
   );
 };
+const LoadingShowBooked = () => {
+  return (
+    <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4 border border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="space-y-2">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+        <Skeleton className="h-4 w-40" />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+        <div className="space-y-2">
+          <Skeleton className="h-5 w-40" />
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+
+        <Skeleton className="h-4 w-48" />
+
+        <div className="space-y-2 sm:text-right">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-6 w-24" />
+        </div>
+      </div>
+    </div>
+  );
+};
 export {
   LoadingItemSearch,
   LoadingPage,
@@ -178,4 +207,5 @@ export {
   LoadingItemBlog,
   LoadingBookingCardAttraction,
   LoadingBookingCardHotel,
+  LoadingShowBooked,
 };

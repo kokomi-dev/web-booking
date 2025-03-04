@@ -38,25 +38,8 @@ const getDetailAttraction = async ({ slug }: { slug: string }) => {
     console.error("Error fetching attractions details:", error.message);
   }
 };
-const getAttractionBooked = async ({ arr }: { arr: string[] | null }) => {
-  try {
-    const response = await fetch(`${apiUrl}/attraction/getTourBooked`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        arr,
-      }),
-    });
-    if (!response) {
-      throw new Error("Failed to fetch attractions booked");
-    }
-    const result = await response.json();
-    return result.data;
-  } catch (error) {
-    console.error("Error fetching attractions booked:", error);
-  }
+const getAttractionBooked = async (id: any) => {
+  return axiosClient.get(`/booking/attraction?id=${id}`);
 };
 const updateStatus = async (data: any) => {
   return axiosClient.put("/attraction/status", data);

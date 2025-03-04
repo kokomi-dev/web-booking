@@ -11,7 +11,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.22.11",
     "@clerk/elements": "^0.22.2",
-    "@clerk/localizations": "^3.9.2",
+    "@clerk/localizations": "^3.10.8",
     "@clerk/nextjs": "^6.9.2",
     "@hookform/resolvers": "^3.9.0",
     "@next/bundle-analyzer": "^15.1.7",

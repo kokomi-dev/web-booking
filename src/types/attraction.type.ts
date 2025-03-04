@@ -46,3 +46,21 @@ export interface IBookingContainer {
 export interface SearchResult {
   data: AttractionData[];
 }
+export interface IBookedItem {
+  infoAttraction: {
+    name: string;
+    address: string;
+  };
+  infoUser: {
+    email: string;
+  };
+  paymentMethod: string;
+  numberOfTicketsBooked: {
+    adult: string;
+    children: string;
+  };
+  dateStart: Date;
+  bookedDate: Date;
+  isSuccess: boolean;
+  totalBooked: any;
+}

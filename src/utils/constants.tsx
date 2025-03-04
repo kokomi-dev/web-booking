@@ -148,6 +148,12 @@ function formatDateToISOString(dateString: string): string {
   const date = new Date(Date.UTC(year, month - 1, day));
   return date.toISOString();
 }
+const checkOverDate = (dateString: any) => {
+  const bookingDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00 để so sánh chỉ ngày
+  return bookingDate >= today;
+};
 
 export {
   ratingConvert,
@@ -161,4 +167,5 @@ export {
   capitalizeFirstLetter,
   formatDate,
   formatDateToISOString,
+  checkOverDate,
 };

@@ -57,9 +57,9 @@ html {
   }
 }
 .Toastify__toast-container {
-  right: 12px;
+  /* right: 12px;
   bottom: 12px;
-  top: auto;
+  top: auto; */
 }
 .toast-success {
   background-color: #006ce4 !important;

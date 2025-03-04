@@ -51,3 +51,28 @@ export interface InfoProps {
   images: any;
   slug: string;
 }
+export interface IBookedItemProps {
+  infoHotel: {
+    name: string;
+    address: string;
+  };
+  infoHotelRoom: [
+    {
+      name: string;
+      numberBooked: number;
+    }
+  ];
+  infoUser: {
+    email: string;
+  };
+  paymentMethod: string;
+  numberOfTicketsBooked: {
+    adult: string;
+    children: string;
+  };
+  dateTo: Date;
+  dateFrom: Date;
+  bookedDate: Date;
+  isSuccess: boolean;
+  totalBooked: any;
+}
