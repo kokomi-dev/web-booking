@@ -56,25 +56,8 @@ const getFilterHotel = ({
     `/hotel/filter?address=${address}&price=${price}&rating=${rating}&cancelFree=${cancelFree}&filterBar=${filterBar}&isFavorite=${isFavorite}`
   );
 };
-const getHotelBooked = async ({ arr }: { arr: string[] | null }) => {
-  try {
-    const response = await fetch(`${apiUrl}/hotel/getHotelBooked`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        arr,
-      }),
-    });
-    if (!response) {
-      throw new Error("Failed to fetch hotel booked");
-    }
-    const result = await response.json();
-    return result.data;
-  } catch (error) {
-    console.error("Error fetching hotel booked:", error);
-  }
+const getHotelBooked = async (id: any) => {
+  return axiosClient.get(`/booking/hotel?id=${id}`);
 };
 // type
 export type SearchResult = {

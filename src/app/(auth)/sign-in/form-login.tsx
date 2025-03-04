@@ -57,7 +57,7 @@ export default function SignInPage() {
     try {
       mutationLogin.mutate(data, {
         onSuccess: async (res) => {
-          if (res.status === 200) {
+          if (res?.status === 200) {
             const userData = res.data.user;
             setIsAuthenticated();
             setUserLogined({
@@ -80,10 +80,11 @@ export default function SignInPage() {
             );
 
             toast.success("Đăng nhập thành công!");
+          } else {
+            toast.error("Sai email hoặc mật khẩu!");
           }
         },
         onError: async (err) => {
-          console.log(err);
           toast.error("Lỗi khi đăng nhập. Liên hệ quản trị viên!");
         },
       });
@@ -184,6 +185,7 @@ export default function SignInPage() {
           <SignIn.Step name="start">
             <div className="grid grid-cols-2 gap-x-4">
               <Clerk.Connection
+                lang="vi-VN"
                 name="google"
                 className="flex items-center gap-x-3 justify-center font-medium border shadow-sm py-1.5 px-2.5 rounded-md"
               >
@@ -192,6 +194,7 @@ export default function SignInPage() {
               </Clerk.Connection>
 
               <Clerk.Connection
+                lang="vi-VN"
                 name="facebook"
                 className="flex items-center gap-x-3 justify-center font-medium border shadow-sm py-1.5 px-2.5 rounded-md"
               >

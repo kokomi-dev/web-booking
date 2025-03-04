@@ -51,7 +51,7 @@ const Navigation = () => {
             <Link
               key={url}
               href={url}
-              className={`min-w-fit flex text-white items-center justify-start gap-x-1 p-1 lg:p-2 transition-all duration-300 select-none rounded-14 border-1 border-transparent ${
+              className={`min-w-fit focus-visible:ring-1 flex text-white items-center justify-start gap-x-1 p-1 lg:p-2 transition-all duration-300 select-none rounded-14 border-1 border-transparent ${
                 isActive
                   ? "bg-bg_primary_active text-white rounded-14 border-1 border-white"
                   : ""

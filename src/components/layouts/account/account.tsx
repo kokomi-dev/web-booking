@@ -27,12 +27,11 @@ import {
 } from "@/components/ui/hover-card";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { cn } from "@/utils/constants";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useClerk, useUser, useAuth } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
   BadgeDollarSign,
-  BookmarkCheck,
   CalendarCheck,
   CircleUser,
   CircleUserIcon,
@@ -48,23 +47,28 @@ import { toast } from "react-toastify";
 const Account = () => {
   const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
 
-  const { signOut } = useClerk();
+  const { signOut } = useAuth();
   const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { user, isAuthenticated, setLogout } = useAuthenticatedStore();
-  const handleLogout = useCallback(async () => {
-    localStorage.removeItem("accessToken");
-    Cookies.remove("userId");
-    Cookies.remove("refreshToken");
-    Cookies.remove("accessToken");
-    setLogout();
-    window.location.reload();
-    if (isSignedIn) {
-      await signOut();
+  const handleLogout = async () => {
+    try {
+      if (isSignedIn) {
+        await signOut();
+      }
+      localStorage.removeItem("accessToken");
+      Cookies.remove("userId");
+      Cookies.remove("refreshToken");
+      Cookies.remove("accessToken");
+      setLogout();
+
+      toast.success("Đăng xuất thành công!");
+    } catch (error) {
+      console.error("Lỗi khi đăng xuất:", error);
+      toast.error("Đăng xuất thất bại. Vui lòng thử lại!");
     }
-    toast.success("Đăng xuất thành công!");
-  }, []);
+  };
 
   if (!isLoaded || mutaionDataUser.isPending) {
     return <LoadingComponentAccount />;
@@ -74,10 +78,14 @@ const Account = () => {
       {isAuthenticated && user ? (
         <Suspense fallback={<LoadingComponentAccount />}>
           <DropdownMenu open={open} onOpenChange={setOpen}>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger
+              asChild
+              className="border-none outline-none border-transparent focus:outline-none"
+            >
               <Button
+                autoFocus={false}
                 className={cn(
-                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg text-white",
+                  "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg text-white focus:outline-none border-none border-transparent focus-visible:ring-0",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
                   "bg-bg_primary_active hover:bg-bg_primary_blue_sub select-none"
@@ -112,11 +120,11 @@ const Account = () => {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white text-black  lg:font-normal rounded-14 p-2">
-              <DropdownMenuGroup className="posing-vertical-4">
+            <DropdownMenuContent className="w-56 bg-white text-black  lg:font-normal rounded-14 ">
+              <DropdownMenuGroup className="posing-vertical-4 p-0">
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center"
+                    className="w-full flex items-center p-2"
                     href={`/account/mysetting/${user._id}?do=manage-account`}
                   >
                     <UserRound className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
@@ -125,25 +133,25 @@ const Account = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center"
+                    className="w-full flex items-center p-2"
                     href={`/account/manage-booking/${user._id}?do=booking`}
                   >
                     <CalendarCheck className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Đặt chỗ & chuyến đi
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setOpen(false)}>
+                {/* <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center"
+                    className="w-full flex items-center p-2"
                     href={`/account/saved/${user._id}`}
                   >
                     <BookmarkCheck className="size-[1.18rem] lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Đã lưu
                   </Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center"
+                    className="w-full flex items-center p-2"
                     href={`/genius/${user._id}`}
                   >
                     <BadgeDollarSign className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
@@ -152,12 +160,15 @@ const Account = () => {
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover">
-                      <LogOut className="size-4 lg:w-5 lg:h-5 mr-[0.3rem]" />
+                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover pl-[1.22rem]">
+                      <LogOut className="size-4 lg:w-5 lg:h-5 mr-[0.3rem] text-black_sub" />
                       <span className="text-smallest">Đăng xuất</span>
                     </div>
                   </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-bg_black_sub text-black rounded-14">
+                  <AlertDialogContent
+                    tabIndex={-1}
+                    className="bg-bg_black_sub text-black rounded-14"
+                  >
                     <AlertDialogHeader>
                       <AlertDialogTitle>
                         Bạn chắc chắn muốn Đăng Xuất?
@@ -173,7 +184,7 @@ const Account = () => {
                     >
                       <AlertDialogCancel
                         autoFocus={false}
-                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active"
+                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active  focus-visible:ring-0"
                       >
                         Hủy
                       </AlertDialogCancel>
