@@ -40,7 +40,7 @@ const TrangVoucher = () => {
         ]}
       />
       <ListItemBooked />
-      <div className="w-full mx-auto posing-vertical-2">
+      <div className="w-full mx-auto posing-vertical-1">
         <h1 className="text-large font-bold text-black_main">
           Tiết kiệm khi đặt chuyến đi tiếp theo
         </h1>
@@ -51,7 +51,8 @@ const TrangVoucher = () => {
           mới, chúng tôi có các chương trình giảm giá hấp dẫn, giúp bạn trải
           nghiệm dịch vụ với chi phí thấp nhất. Hãy khám phá ngay hôm nay!
         </p>
-        <div className="posing-vertical-3 shadow-2xl p-3 rounded-8">
+        <hr className="hr" />
+        <div className="posing-vertical-2 p-3 rounded-8">
           <div className="flex  items-center justify-start gap-2">
             <Image
               width={120}
@@ -91,6 +92,7 @@ const TrangVoucher = () => {
             </div>
           </div>
         </div>
+        <hr className="hr" />
         <div className=" flex flex-col md:flex-row items-center  md:items-start justify-start md:justify-between gap-y-3 md:gap-x-3">
           <div className="text-left">
             <h3 className="text-large font-bold">Dễ dàng tiết kiệm</h3>
@@ -111,6 +113,7 @@ const TrangVoucher = () => {
             src="https://cf.bstatic.com/psb/capla/static/media/how-to.fb2b5d7a.svg"
           />
         </div>
+        <hr className="hr" />
         <ListLevel />
         <ListVoucher />
       </div>

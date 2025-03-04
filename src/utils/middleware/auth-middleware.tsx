@@ -29,11 +29,14 @@ const AuthMiddleWare = () => {
           numberPhone: "",
           hasImge: userClerk.hasImage,
           images: userClerk.imageUrl,
-          isNewbie: true,
           isActive: true,
           groupId: ["6"],
           roles: "customer",
           idCode: "",
+          numberBooked: {
+            attraction: 0,
+            hotel: 0,
+          },
         });
 
         if (pathname === "/sign-in" || pathname === "/sign-up") {

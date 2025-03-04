@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 import "../styles/css/toast.css";
-
+import { Analytics } from "@vercel/analytics/next";
 import Chat from "@/components/components/chat";
 import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { viVN } from "@clerk/localizations";
@@ -46,6 +46,7 @@ export default function RootLayout({
               <LoadingPage />
             </ClerkLoading>
             {children}
+            <Analytics />
           </ClerkProvider>
           <Chat />
           <ToastContainer

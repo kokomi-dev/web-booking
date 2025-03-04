@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { cn } from "@/utils/constants";
-import { useClerk, useUser, useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
@@ -39,9 +39,8 @@ import {
   UserRound,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, Suspense, useCallback, useState } from "react";
+import { Fragment, Suspense, useState } from "react";
 import { toast } from "react-toastify";
 
 const Account = () => {
@@ -69,7 +68,6 @@ const Account = () => {
       toast.error("Đăng xuất thất bại. Vui lòng thử lại!");
     }
   };
-
   if (!isLoaded || mutaionDataUser.isPending) {
     return <LoadingComponentAccount />;
   }
@@ -121,46 +119,52 @@ const Account = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 bg-white text-black  lg:font-normal rounded-14 ">
-              <DropdownMenuGroup className="posing-vertical-4 p-0">
-                <DropdownMenuItem onSelect={() => setOpen(false)}>
-                  <Link
-                    className="w-full flex items-center p-2"
-                    href={`/account/mysetting/${user._id}?do=manage-account`}
-                  >
-                    <UserRound className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
-                    Quản lí tài khoản
-                  </Link>
+              <DropdownMenuGroup className="posing-vertical-5 p-0">
+                <DropdownMenuItem
+                  className="w-full flex items-center p-2 hover:cursor-pointer"
+                  onClick={() => {
+                    setOpen(false),
+                      router.push(
+                        `/account/mysetting/${user._id}?do=manage-account`
+                      );
+                  }}
+                >
+                  <UserRound className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
+                  Quản lí tài khoản
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setOpen(false)}>
-                  <Link
-                    className="w-full flex items-center p-2"
-                    href={`/account/manage-booking/${user._id}?do=booking`}
-                  >
-                    <CalendarCheck className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
-                    Đặt chỗ & chuyến đi
-                  </Link>
+                <DropdownMenuItem
+                  className="w-full flex items-center p-2 hover:cursor-pointer"
+                  onSelect={() => {
+                    setOpen(false),
+                      router.push(
+                        `/account/manage-booking/${user._id}?do=booking`
+                      );
+                  }}
+                >
+                  <CalendarCheck className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
+                  Đặt chỗ & chuyến đi
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem onSelect={() => setOpen(false)}>
                   <Link
-                    className="w-full flex items-center p-2"
+                    className="w-full flex items-center p-2 hover:cursor-pointer"
                     href={`/account/saved/${user._id}`}
                   >
                     <BookmarkCheck className="size-[1.18rem] lg:w-5 lg:h-5 mr-2 text-black_sub" />
                     Đã lưu
                   </Link>
                 </DropdownMenuItem> */}
-                <DropdownMenuItem onSelect={() => setOpen(false)}>
-                  <Link
-                    className="w-full flex items-center p-2"
-                    href={`/genius/${user._id}`}
-                  >
-                    <BadgeDollarSign className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
-                    Ưu đãi của bạn
-                  </Link>
+                <DropdownMenuItem
+                  className="w-full flex items-center p-2 hover:cursor-pointer"
+                  onSelect={() => {
+                    setOpen(false), router.push(`/genius/${user._id}`);
+                  }}
+                >
+                  <BadgeDollarSign className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
+                  Ưu đãi của bạn
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover pl-[1.22rem]">
+                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover ">
                       <LogOut className="size-4 lg:w-5 lg:h-5 mr-[0.3rem] text-black_sub" />
                       <span className="text-smallest">Đăng xuất</span>
                     </div>
@@ -204,11 +208,12 @@ const Account = () => {
         </Suspense>
       ) : (
         <div className="flex items-center justify-center">
-          <Link href={"/sign-in"} className="hidden lg:block">
-            <Button className="ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white">
-              Đăng nhập
-            </Button>
-          </Link>
+          <Button
+            onClick={() => router.push("/sign-in")}
+            className="hidden lg:block ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white"
+          >
+            Đăng nhập
+          </Button>
           <HoverCard>
             <HoverCardTrigger>
               <CircleUserIcon
@@ -220,9 +225,12 @@ const Account = () => {
               align="end"
               className="bg-black block lg:hidden text-white border-none p-1 px-2 w-full shadow-2xl z-10"
             >
-              <Link href="/sign-in" className="text-smallest font-normal">
+              <Button
+                onClick={() => router.push("/sign-in")}
+                className="text-smallest font-normal"
+              >
                 Đăng nhập
-              </Link>
+              </Button>
             </HoverCardContent>
           </HoverCard>
         </div>
