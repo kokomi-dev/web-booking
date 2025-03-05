@@ -151,7 +151,7 @@ function formatDateToISOString(dateString: string): string {
 const checkOverDate = (dateString: any) => {
   const bookingDate = new Date(dateString);
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00 để so sánh chỉ ngày
+  today.setHours(0, 0, 0, 0);
   return bookingDate >= today;
 };
 

@@ -32,7 +32,6 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
 }) => {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthenticatedStore();
-  console.log(user);
 
   const [numberTicketsAdult, setNumberTicketsAdult] = useState(1);
   const [numberTicketsChildren, setNumberTicketsChildren] = useState(0);
