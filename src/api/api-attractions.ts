@@ -14,7 +14,7 @@ const getAllAttraction = ({}) => {
   return axiosClient.get(`/attraction`);
 };
 const getAttractionTrending = async () => {
-  return axiosClient.get("/attraction/filter?trending=true");
+  return axiosClient.get("/attraction?isTrending=true");
 };
 const getDetailAttraction = async ({ slug }: { slug: string }) => {
   try {

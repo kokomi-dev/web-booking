@@ -33,7 +33,7 @@ const AuthMiddleWare = () => {
           groupId: ["6"],
           roles: "customer",
           idCode: "",
-          numberBooked: {
+          numberOfBooked: {
             attraction: 0,
             hotel: 0,
           },
