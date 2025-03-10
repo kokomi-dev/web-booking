@@ -24,7 +24,7 @@ const ListBlogsTrending = () => {
   });
 
   return (
-    <section>
+    <section className="posing-vertical-2">
       <div className="flex items-center justify-between ">
         <h2 className="text-large font-semibold lg:mb-6">
           Các bài viết được chú ý

@@ -158,6 +158,7 @@ export default function SignInPage() {
               >
                 <Input
                   checked={remember}
+                  onChange={(e) => setRemember(e.target.checked)}
                   type="checkbox"
                   id="check-remember"
                   className="size-4 hover:cursor-pointer select-none"

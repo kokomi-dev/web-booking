@@ -1,5 +1,4 @@
 "use client";
-import { reqCurrentUser } from "@/api/api-auth";
 import { LoadingComponentAccount } from "@/components/components/loading";
 import {
   AlertDialog,
@@ -28,7 +27,6 @@ import {
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { cn } from "@/utils/constants";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
   BadgeDollarSign,
@@ -44,8 +42,6 @@ import { Fragment, Suspense, useState } from "react";
 import { toast } from "react-toastify";
 
 const Account = () => {
-  const mutaionDataUser = useMutation({ mutationFn: reqCurrentUser });
-
   const { signOut } = useAuth();
   const { isLoaded, isSignedIn } = useUser();
   const router = useRouter();
@@ -68,7 +64,7 @@ const Account = () => {
       toast.error("Đăng xuất thất bại. Vui lòng thử lại!");
     }
   };
-  if (!isLoaded || mutaionDataUser.isPending) {
+  if (!isLoaded) {
     return <LoadingComponentAccount />;
   }
   return (

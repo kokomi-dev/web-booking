@@ -13,7 +13,7 @@ export default function GlobalError({
 }) {
   return (
     <html>
-      <body className="w-full h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+      <body className="w-full h-screen flex flex-col items-center justify-center bg-black_sub p-6">
         <div className="bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center text-center max-w-md">
           <Image
             src={errIllustration}
@@ -23,7 +23,7 @@ export default function GlobalError({
             className="mb-4"
           />
 
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-bold text-black_main mb-2">
             Ôi không! Đã xảy ra lỗi
           </h2>
           <p className="text-gray-600 text-sm mb-4">
@@ -33,7 +33,7 @@ export default function GlobalError({
           <div className="flex gap-3">
             <Button
               onClick={() => reset()}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-500 hover:bg-blue_main_sub text-white px-4 py-2 rounded-lg"
             >
               Thử lại
             </Button>

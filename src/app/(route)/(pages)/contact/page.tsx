@@ -43,7 +43,7 @@ const Item = ({ title }: { title: string }) => {
       className={cn(
         "w-full border-[0.5px] border-t-[#999]  transition-all duration-300 flex items-center justify-between  cursor-pointer px-2 py-3",
         "lg:p-4",
-        "hover:bg-gray-100"
+        "hover:bg-black_sub"
       )}
     >
       <span className="capitalize font-normal text-[0.9rem] ">{title}</span>

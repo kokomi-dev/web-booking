@@ -31,6 +31,7 @@ const config = {
         green_main: "#018235",
         black_sub: "#4C4C4C",
         black_sub_2: "#595959",
+        red_main: "#FF0034",
         error_color: "#DB0200",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -128,6 +129,7 @@ const config = {
         "accordion-down": "accordion-down 1s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         typing: "typing 1s infinite",
+        "animate-fade-in": "fade-in 0.3s ease-out",
       },
       gridTemplateColumns: {
         "layout-2": "65% 35%",

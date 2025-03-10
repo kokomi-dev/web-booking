@@ -281,9 +281,9 @@ const Booking = ({
                         >
                           <span
                             className={cn(
-                              "!text-large text-blue_main_sub font-normal p-1",
+                              "!text-largest text-blue_main_sub font-normal p-2",
                               chooseInput[index] === 0 &&
-                                "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main"
+                                "opacity-40 hover:cursor-none  hover:bg-transparent text-black_main"
                             )}
                           >
                             -
@@ -318,7 +318,7 @@ const Booking = ({
                           onClick={() => handleIncrease(index)}
                           className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
                         >
-                          <span className="text-large text-blue_main_sub ">
+                          <span className="text-large text-blue_main_sub p-2 ">
                             +
                           </span>
                         </Button>
@@ -329,37 +329,39 @@ const Booking = ({
               </div>
             ))}
 
-        <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
-          <div className="min-w-[42%] max-w-[55%] line-clamp-2">
-            <div className="line-through text-red-400 text-small">
-              <span className="mr-1">VNĐ</span>
-              {convertVND(total)}
+        {showActionBar && (
+          <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
+            <div className="min-w-[42%] max-w-[55%] line-clamp-2">
+              <div className="line-through text-red-400 text-small">
+                <span className="mr-1">VNĐ</span>
+                {convertVND(total)}
+              </div>
+              <div className="text-black_main text-normal font-bold">
+                <span className="mr-1">VNĐ</span>
+                {convertVND(totalSale)}
+              </div>
             </div>
-            <div className="text-black_main text-normal font-bold">
-              <span className="mr-1">VNĐ</span>
-              {convertVND(totalSale)}
-            </div>
+            {!!user && isAuthenticated ? (
+              <Button
+                className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
+                onClick={handleBooking}
+                disabled={checkHiddenBtn}
+              >
+                Đặt ngay
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  router.push("/sign-in");
+                }}
+                className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
+              >
+                Đăng nhập
+              </Button>
+            )}
+            <div></div>
           </div>
-          {!!user && isAuthenticated ? (
-            <Button
-              className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
-              onClick={handleBooking}
-              disabled={checkHiddenBtn}
-            >
-              Đặt ngay
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                router.push("/sign-in");
-              }}
-              className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
-            >
-              Đăng nhập
-            </Button>
-          )}
-          <div></div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ export default function ModalBankTransfer({
                 </span>
                 <button
                   onClick={copyToClipboard}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-blue_main_sub hover:text-blue-800"
                 >
                   {copied ? (
                     <CheckCircle className="w-5 h-5 text-green-500" />

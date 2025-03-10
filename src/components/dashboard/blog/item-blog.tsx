@@ -10,7 +10,7 @@ const ItemBlog = ({ e }: { e: IBlog }) => {
       className="group block rounded-lg overflow-hidden shadow-lg border border-gray-200 bg-white transition-transform transform hover:-translate-y-[0.1rem] hover:shadow-xl"
     >
       <div className="p-2 lg:p-4 flex flex-col  posing-vertical-5">
-        <h3 className="text-normal font-bold text-black_main group-hover:text-blue-600 truncate">
+        <h3 className="text-normal font-bold text-black_main group-hover:text-blue_main_sub truncate">
           {e.title}
         </h3>
         <h4 className="text-small text-black_main_blur">Tác giả: {e.author}</h4>

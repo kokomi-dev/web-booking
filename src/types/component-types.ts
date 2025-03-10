@@ -3,9 +3,8 @@ import { AttractionData } from "./attraction.type";
 import { IHotel } from "./hotel.type";
 
 export type ModalConfirmCodeProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  setOpenModalSuccesBooking: any;
+  prevStep: any;
+  nextStep: any;
   lastName: string;
   email: string;
   code: string;
@@ -95,8 +94,6 @@ export interface IModalPayCreditCard {
   setOpen: (open: boolean) => void;
 }
 export interface IModalBookingSucess {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   model: string;
   handleClose: () => void;
 }
