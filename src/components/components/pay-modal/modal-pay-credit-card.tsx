@@ -9,20 +9,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { IModalPayCreditCard } from "@/types/component-types";
 import { CreditCard, ShieldCheck } from "lucide-react";
-import { useState } from "react";
 
 export default function ModalPayCreditCard({
   open,
   setOpen,
 }: IModalPayCreditCard) {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTitle hidden></DialogTitle>
@@ -58,7 +49,7 @@ export default function ModalPayCreditCard({
                   </label>
                 </div>
               </div>
-              <Button className="w-full mt-4 bg-blue-600 text-white">
+              <Button className="w-full mt-4 bg-blue_main_sub text-white">
                 Thanh toán
               </Button>
             </CardContent>

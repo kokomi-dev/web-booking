@@ -7,8 +7,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { cn } from "@/utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-// Hàm tiện ích để lấy danh sách ngày trong tháng bắt đầu từ một ngày cụ thể
 const getDates = (startDate: Date, count: number): Date[] => {
   const dates = [];
   for (let i = 0; i < count; i++) {
@@ -19,7 +17,6 @@ const getDates = (startDate: Date, count: number): Date[] => {
   return dates;
 };
 
-// Hàm định dạng ngày
 const formatDate = (date: Date) => ({
   day: date.getDate(),
   month: date.toLocaleString("vi-VN", { month: "2-digit" }),
@@ -37,9 +34,9 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
 
   const handleNext = () => {
     const nextStartDate = new Date(dates[dates.length - 1]);
-    nextStartDate.setDate(nextStartDate.getDate() + 1); // Ngày bắt đầu mới
+    nextStartDate.setDate(nextStartDate.getDate() + 1);
     setCurrentStartDate(nextStartDate);
-    setDates(getDates(nextStartDate, 5)); // Cập nhật 5 ngày tiếp theo
+    setDates(getDates(nextStartDate, 5));
   };
 
   const handlePrevious = () => {
@@ -137,7 +134,7 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
           );
         })}
       </CarouselContent>
-      {!isAtStart ? ( // Chỉ hiển thị nút Back nếu không ở ngày đầu tiên
+      {!isAtStart ? (
         <div
           className="bg-bg_primary_white shadow-2xl rounded-full p-3 md:p-2 absolute  left-[3%] lg:-left-[0%]  top-[50%] translate-y-[0%] translate-x-[-50%] md:translate-y-[-50%] hover:cursor-pointer"
           onClick={handlePrevious}

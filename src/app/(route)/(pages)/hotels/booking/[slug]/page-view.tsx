@@ -1,5 +1,5 @@
 "use client";
-import { Check, CircleUser, Star, UserRound } from "lucide-react";
+import { Check, ChevronRight, CircleUser, Star, UserRound } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 
@@ -14,24 +14,11 @@ import {
   timeListBooking,
 } from "@/utils/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-
 import BreadcrumbHead from "@/components/components/breadcrumb";
+import IconRequired from "@/components/components/icon-required";
 import PayListWrap from "@/components/components/pay-list";
 import {
   Form,
@@ -42,7 +29,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { IHotel } from "@/types/hotel.type";
+
+const infoBooking = z.object({
+  lastname: z.string().min(2, "Vui lòng nhập tên"),
+  firstname: z.string().min(2, "Vui lòng nhập họ"),
+  numberphone: z
+    .string()
+    .max(10, "Sai định dạng số ĐT")
+    .min(10, "Sai định dạng số ĐT"),
+  email: z.string().email("Vui lòng nhập đúng email"),
+  note: z.optional(z.string()),
+  expectedTime: z.string({ message: "Chọn thời gian có thể nhận phòng" }),
+});
+type InfoBooking = z.infer<typeof infoBooking>;
 
 const BookingHotel = () => {
   const { slug } = useParams<{
@@ -51,14 +59,14 @@ const BookingHotel = () => {
   const { user, isAuthenticated } = useAuthenticatedStore();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<IHotel | null>(null);
-  const infoBooking = z.object({
-    lastname: z.string().min(2, "Vui lòng nhập tên"),
-    firstname: z.string().min(2, "Vui lòng nhập họ"),
-    numberphone: z.string().max(10, "Sai định dạng số ĐT"),
-    email: z.string().email("Vui lòng nhập email"),
-    special: z.optional(z.string()),
+  const [infoBoookingUser, setInfoBookingUser] = useState<any>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    numberphone: "",
+    note: "",
+    expectedTime: "0",
   });
-  type InfoBooking = z.infer<typeof infoBooking>;
   const form = useForm<InfoBooking>({
     resolver: zodResolver(infoBooking),
     defaultValues: {
@@ -66,7 +74,8 @@ const BookingHotel = () => {
       lastname: "",
       email: "",
       numberphone: "",
-      special: "",
+      note: "",
+      expectedTime: "0",
     },
   });
   useEffect(() => {
@@ -90,7 +99,7 @@ const BookingHotel = () => {
         lastname: user.lastname || "",
         email: user.email || "",
         numberphone: user.numberPhone || "",
-        special: "",
+        note: "",
       });
     }
   }, [user, form, slug]);
@@ -109,7 +118,7 @@ const BookingHotel = () => {
   const total: string = param.get("price") ?? "";
   const roomBooked = param.get("roomBooked") ?? "";
   const bookingInfo: number[] = roomBooked.split(",").map(Number);
-
+  const [isValidate, setIsValidate] = useState(false);
   const num = useMemo(
     () =>
       bookingInfo?.reduce((arrg, item) => {
@@ -139,7 +148,12 @@ const BookingHotel = () => {
       }
     }
   }, [bookingInfo, memoizedListRooms, data, listRoomBooked]);
-
+  const onSubmit = (data: InfoBooking) => {
+    if (data) {
+      setInfoBookingUser({ ...data, idUser: user?._id });
+      setIsValidate(!isValidate);
+    } else return;
+  };
   return (
     <Fragment>
       {isLoading ? (
@@ -168,7 +182,6 @@ const BookingHotel = () => {
               },
             ]}
           />
-
           {/* body */}
           <div
             className={cn(
@@ -177,7 +190,7 @@ const BookingHotel = () => {
             )}
           >
             {/* info */}
-            <div className={cn("w-full h-fit posing-vertical-3  ")}>
+            <div className={cn("w-full h-fit posing-vertical-2  ")}>
               <div
                 className={cn(
                   "w-full h-full flex items-start justify-start gap-2 border-[0.4px] border-[#999] p-3 rounded-8"
@@ -212,7 +225,7 @@ const BookingHotel = () => {
                   </ul>
                 </div>
               </div>
-              <div className="w-full h-full border-[#999] border-0.5 rounded-8 posing-vertical-4 p-2">
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 posing-vertical-3 p-2">
                 <h4 className="text-normal font-semibold">
                   Chi tiết đặt phòng của bạn
                 </h4>
@@ -271,7 +284,7 @@ const BookingHotel = () => {
               </div>
             </div>
             {/* info customer */}
-            <div className={cn("w-full posing-vertical-3 ")}>
+            <div className={cn("w-full posing-vertical-2 ")}>
               <div className="w-full flex flex-col items-start justify-start gap-2">
                 {user && isAuthenticated && (
                   <div className="w-full h-auto flex items-center justify-start gap-x-2 p-3 border-0.5 border-[#999] rounded-8">
@@ -297,15 +310,20 @@ const BookingHotel = () => {
                   Nhập thông tin chi tiết của bạn
                 </h3>
                 <Form {...form}>
-                  <form className="posing-vertical-4 w-full  ">
-                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="posing-vertical-2 w-full  "
+                  >
+                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 posing-vertical-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-2">
                         <FormField
                           control={form.control}
                           name="firstname"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Họ</FormLabel>
+                              <FormLabel>
+                                Họ <IconRequired />
+                              </FormLabel>
                               <FormControl>
                                 <Input
                                   type="text"
@@ -322,7 +340,9 @@ const BookingHotel = () => {
                           name="lastname"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Tên</FormLabel>
+                              <FormLabel>
+                                Tên <IconRequired />
+                              </FormLabel>
                               <FormControl>
                                 <Input
                                   type="text"
@@ -340,7 +360,9 @@ const BookingHotel = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>
+                              Email <IconRequired />
+                            </FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
@@ -357,7 +379,9 @@ const BookingHotel = () => {
                         name="numberphone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Số ĐT</FormLabel>
+                            <FormLabel>
+                              Số ĐT <IconRequired />
+                            </FormLabel>
                             <FormControl>
                               <Input
                                 type="text"
@@ -370,117 +394,26 @@ const BookingHotel = () => {
                         )}
                       />
                     </div>
-                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
+                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 posing-vertical-3">
                       <h3 className={cn("text-medium font-semibold")}>
                         Thông tin thêm
                       </h3>
-                      <h4 className="text-small font-medium">
-                        Vui lòng chọn địa điểm đón khách
-                      </h4>
-                      <div className="w-full">
-                        <div className="flex items-center justify-start my-1">
-                          <input
-                            className={cn("size-5 mr-2", "lg:size-4")}
-                            type="radio"
-                            value="0"
-                            name="address_choose"
-                            id="0"
-                          />
-                          <label
-                            className="cursor-pointer text-small"
-                            htmlFor="0"
-                          >
-                            Gặp nhà điều hành tour tại điểm khởi hành
-                          </label>
-                        </div>
-                        <div className="flex items-center justify-start my-1">
-                          <input
-                            className={cn("size-5 mr-2", "lg:size-4")}
-                            id="1"
-                            type="radio"
-                            value="1"
-                            name="address_choose"
-                          />
-                          <label
-                            className="cursor-pointer text-small"
-                            htmlFor="1"
-                          >
-                            Chọn địa điểm
-                          </label>
-                        </div>
-                        <div className="flex items-center justify-start my-1">
-                          <input
-                            className={cn("size-5 mr-2", "lg:size-4")}
-                            type="radio"
-                            value="2"
-                            id="2"
-                            name="address_choose"
-                          />
-                          <label
-                            className="cursor-pointer text-small"
-                            htmlFor="2"
-                          >
-                            Tự liên hệ nhà điều hành tour (bạn sẽ nhận thông tin
-                            liên hệ trên voucher của mình)
-                          </label>
-                        </div>
-                      </div>
                       <FormField
                         control={form.control}
-                        name="special"
+                        name="note"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>
-                              Bạn có yêu cầu đặc biệt nào không
+                            <FormLabel className="!text-normal">
+                              Ghi chú thêm
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="...aaa" {...field} />
+                              <Textarea placeholder="...aaa" {...field} />
                             </FormControl>
                           </FormItem>
                         )}
                       />
-                    </div>
-                    <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
-                      <div className="py-2">
-                        <h4 className="text-small font-medium  ">
-                          Bạn đặt phòng cho ai (không bắt buộc)
-                        </h4>
-                        <div className="w-full">
-                          <div className="flex items-center justify-start my-1">
-                            <input
-                              className={cn("size-5 mr-2", "lg:size-4")}
-                              type="radio"
-                              value="customer_main"
-                              id="customer_main"
-                              name="booking_for_who"
-                              checked
-                            />
-                            <label
-                              className="cursor-pointer text-small select-none"
-                              htmlFor="customer_main"
-                            >
-                              Tôi là khách lưu trú chính
-                            </label>
-                          </div>
-                          <div className="flex items-center justify-start my-1">
-                            <input
-                              className={cn("size-5 mr-2", "lg:size-4")}
-                              id="customer_other"
-                              type="radio"
-                              value="customer_other"
-                              name="booking_for_who"
-                            />
-                            <label
-                              className="cursor-pointer text-small select-none"
-                              htmlFor="customer_other"
-                            >
-                              Đặt phòng này là cho người khác
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="py-2">
-                        <h4 className="text-normal font-semibold ">
+                      <div className="">
+                        <h4 className="text-small font-semibold ">
                           Thời gian đến dự kiến của bạn
                         </h4>
                         <div className="w-full grid gap-y-2 mt-2">
@@ -497,64 +430,44 @@ const BookingHotel = () => {
                             </span>
                             Lễ tân sẵn sàng phục vụ bạn{" "}
                           </div>
-                          <div className="grid gap-y-1">
-                            <h5 className="text-small font-medium">
-                              Thêm thời gian đến dự kiến của bạn
-                            </h5>
-                            <Popover open={open} onOpenChange={setOpen}>
-                              <PopoverTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  role="combobox"
-                                  className="w-[200px] justify-between font-normal"
+                          <FormField
+                            control={form.control}
+                            name="expectedTime"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-small font-semibold">
+                                  Vui lòng chọn thời gian nhận phòng{" "}
+                                  <IconRequired />
+                                </FormLabel>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
                                 >
-                                  {value
-                                    ? timeListBooking.find(
-                                        (time) => time.value === value
-                                      )?.label
-                                    : "Vui lòng chọn..."}
-                                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                </Button>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-[200px] bg-white rounded-8 p-0">
-                                <Command>
-                                  <CommandList>
-                                    <CommandEmpty>No time found.</CommandEmpty>
-                                    <CommandGroup>
-                                      {timeListBooking.map((time) => (
-                                        <CommandItem
-                                          className="hover:cursor-pointer hover:bg-bg_primary_white"
-                                          key={time.value}
-                                          value={time.value}
-                                          onSelect={(currentValue) => {
-                                            setValue(
-                                              currentValue === value
-                                                ? ""
-                                                : currentValue
-                                            );
-                                            setOpen(false);
-                                          }}
-                                        >
-                                          {time.label}
-                                          <CheckIcon
-                                            className={cn(
-                                              "ml-auto h-4 w-4",
-                                              value === time.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                          </div>
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Chọn thời gian phù hợp" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {timeListBooking.map((item, index) => (
+                                      <SelectItem
+                                        key={index}
+                                        value={item.value}
+                                      >
+                                        {item.label}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
                         </div>
                       </div>
                     </div>
+
                     <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
                       <h4 className="text-black  text-medium font-semibold">
                         Các phòng đã đặt
@@ -610,17 +523,30 @@ const BookingHotel = () => {
                         })}
                       </div>
                     </div>
-                    <PayListWrap
-                      category="hotel"
-                      data={data}
-                      roomHotelBooking={listRoomBooked}
-                      totalBooking={total}
-                      childrenNumber={childrenNumber}
-                      adult={adult}
-                      numberRoom={numberRoom}
-                      dateFrom={formatDateToISOString(dateFrom)}
-                      dateTo={formatDateToISOString(dateTo)}
-                    />
+                    {!isValidate && (
+                      <Button
+                        type="submit"
+                        className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
+                      >
+                        Tiếp tục <ChevronRight className="size-5" />
+                      </Button>
+                    )}
+                    {isValidate && (
+                      <PayListWrap
+                        infoBookingUser={infoBoookingUser}
+                        open={isValidate}
+                        setOpen={setIsValidate}
+                        category="hotel"
+                        data={data}
+                        roomHotelBooking={listRoomBooked}
+                        totalBooking={total}
+                        childrenNumber={childrenNumber}
+                        adult={adult}
+                        numberRoom={numberRoom}
+                        dateFrom={formatDateToISOString(dateFrom)}
+                        dateTo={formatDateToISOString(dateTo)}
+                      />
+                    )}
                   </form>
                 </Form>
               </div>

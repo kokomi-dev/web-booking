@@ -30,9 +30,9 @@ const HotelPage = () => {
       <div className="relative w-full h-full bg-fixed bg-no-repeat rounded-14 bg-cover bg-[url('../assets/images/banner-hotel.jpg')]">
         <div className="absolute inset-0 bg-black/40 rounded-14"></div>{" "}
         <section className={cn("relative p-4 text-white", "lg:p-10")}>
-          <div className="w-full h-auto flex items-center justify-between gap-y-2 bg-white p-6 text-black_sub rounded-md shadow-lg">
+          <div className="w-full h-auto flex items-center justify-between gap-y-2 bg-white p-2 md:p-4 lg:p-6 text-black_sub rounded-md shadow-lg">
             <div className="posing-vertical-6">
-              <h3 className="text-black text-normal lg:text-lg font-semibold mb-3">
+              <h3 className="text-black text-normal lg:text-lg font-semibold">
                 Tận hưởng không gian nghỉ dưỡng lý tưởng - Hành trình đáng nhớ
                 đang chờ đón bạn! ✨
               </h3>
@@ -42,7 +42,7 @@ const HotelPage = () => {
               </p>
               <Link
                 href="#list-all-hotel"
-                className="bg-bg_primary_main text-white hover:bg-bg_primary_active transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-3 py-2 rounded-8 text-normal font-medium"
+                className="bg-bg_primary_main block w-fit text-white hover:bg-bg_primary_active transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-3 py-2 rounded-8 text-normal font-medium"
               >
                 Khám phá ngay
               </Link>
@@ -62,10 +62,10 @@ const HotelPage = () => {
       {/* all hotels */}
       <hr className="hr" />
       <ListAllHotels />
-      <section className="p-2 md:p-4 lg:p-6 bg-gray-100 rounded-xl shadow-md posing-vertical-3">
-        <h2 className="text-xl font-bold text-gray-800 ">
+      <section className="p-2 md:p-4 lg:p-6 bg-bg_primary_white rounded-xl shadow-md posing-vertical-3">
+        <h2 className="text-large font-bold text-black_main ">
           Quy định{" "}
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-black_main_blur">
             (có thể thay đổi theo từng nơi lưu trú)
           </span>
         </h2>
@@ -75,14 +75,16 @@ const HotelPage = () => {
               key={index}
               className="flex items-start gap-3 bg-white p-3 lg:p-4 rounded-lg shadow hover:shadow-md transition-all"
             >
-              <Icon className="text-blue_main_sub size-4 lg:size-5 mt-[1px]">
+              <Icon className="text-blue_main size-5 lg:size-6 mt-[1px]">
                 <rule.icon />
               </Icon>
               <div>
-                <h3 className="text-md font-medium text-gray-800">
+                <h3 className="text-normal font-medium text-black_main">
                   {rule.title}
                 </h3>
-                <p className="text-gray-600 text-sm mt-1">{rule.description}</p>
+                <p className="text-black_main_blur text-sm mt-1">
+                  {rule.description}
+                </p>
               </div>
             </div>
           ))}

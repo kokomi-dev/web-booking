@@ -120,7 +120,7 @@ const CommentBlog = ({ e }: { e: IBlog }) => {
       <div className="flex items-center space-x-2">
         <Button
           onClick={() => mutationUpdateLikeBlog.mutate({ id: e._id })}
-          className="bg-blue-500 hover:bg-blue-600 text-white"
+          className="bg-blue-500 hover:bg-blue_main_sub text-white"
         >
           👍 Thích ({e?.likes})
         </Button>

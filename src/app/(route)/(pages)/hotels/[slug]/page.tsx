@@ -180,7 +180,7 @@ const DetailHotelPage = async ({
             {/* Trẻ em 0-2 tuổi */}
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <Baby className="text-blue-600 w-5 h-5" />
+                <Baby className="text-blue_main_sub w-5 h-5" />
                 <h3 className="text-md font-semibold text-black_main">
                   Trẻ em 0-2 tuổi [bao gồm cả bé 2 tuổi]
                 </h3>
@@ -195,7 +195,7 @@ const DetailHotelPage = async ({
             {/* Khách từ 3 tuổi trở lên */}
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <Bed className="text-blue-600 w-5 h-5" />
+                <Bed className="text-blue_main_sub w-5 h-5" />
                 <h3 className="text-md font-semibold text-black_main">
                   Những khách từ 3 tuổi trở lên tính là người lớn
                 </h3>

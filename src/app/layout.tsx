@@ -2,16 +2,15 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
-import "../styles/globals.css";
-import "../styles/css/toast.css";
-import { Analytics } from "@vercel/analytics/next";
-import Chat from "@/components/components/chat";
-import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
-import { viVN } from "@clerk/localizations";
 import { LoadingPage } from "@/components/components/loading";
 import QueryProvider from "@/configs/providerQuery";
 import AuthMiddleWare from "@/utils/middleware/auth-middleware";
+import { viVN } from "@clerk/localizations";
+import { ClerkLoading, ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
+import "react-toastify/dist/ReactToastify.css";
+import "../styles/css/toast.css";
+import "../styles/globals.css";
 
 const roboto = Roboto({
   subsets: ["vietnamese"],
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
     "Trang web giới thiệu, đặt chỗ, xem trước về các địa điểm du lịch, nơi nghỉ dưỡng trên khắp Việt Nam",
   icons: "/favicon.png",
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -35,7 +33,7 @@ export default function RootLayout({
       <head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+          content="width=device-width,height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
       </head>
       <body className={roboto.className}>
@@ -48,7 +46,6 @@ export default function RootLayout({
             {children}
             <Analytics />
           </ClerkProvider>
-          <Chat />
           <ToastContainer
             className=""
             autoClose={2000}

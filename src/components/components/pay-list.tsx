@@ -1,26 +1,40 @@
 "use client";
-import React, { useState, useCallback } from "react";
-import { Button } from "../ui/button";
-import { ChevronRight } from "lucide-react";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
-import { useAuthenticatedStore } from "@/store/authencation-store";
+import { sendReqBooked } from "@/api/api-booking";
 import { sendEmailConfirm } from "@/api/api-email";
 import { createRequestPayment } from "@/api/api-payment";
-import { sendReqBooked } from "@/api/api-booking";
-import { removeDots } from "@/utils/constants";
-import ModalConfirmCode from "./pay-modal/modal-verify-code";
-import ModalPayCreditCard from "./pay-modal/modal-pay-credit-card";
-import ModalBankTransfer from "./pay-modal/modal-pay-bank-transfer";
-import BookingSuccessModal from "./pay-modal/display-notify-booking";
-import Icon from "./icon";
+import LoadingPage from "@/app/loading";
 import iconPayLater from "@/assets/icons/icon-pay-1.png";
-import iconPayZaloPay from "@/assets/icons/icon-pay-zalopay.webp";
 import iconPayBank from "@/assets/icons/icon-pay-bank.png";
 import iconPayCod from "@/assets/icons/icon-pay-code.png";
-import Loading from "@/app/loading";
+import iconPayZaloPay from "@/assets/icons/icon-pay-zalopay.webp";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { removeDots } from "@/utils/constants";
+import { useMutation } from "@tanstack/react-query";
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useState,
+} from "react";
+import { toast } from "react-toastify";
+import { Button } from "../ui/button";
+import Icon from "./icon";
+import BookingSuccess from "./pay-modal/display-notify-booking";
+import ModalBankTransfer from "./pay-modal/modal-pay-bank-transfer";
+import ModalPayCreditCard from "./pay-modal/modal-pay-credit-card";
+import PayConfirmCode from "./pay-modal/pay-verify-code";
 
 interface PayListWrapProps {
   totalBooking: string;
@@ -33,7 +47,35 @@ interface PayListWrapProps {
   dateTo?: string;
   hour?: string;
   roomHotelBooking?: any;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  infoBookingUser: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    numberphone: string;
+    note?: string;
+    pickUpPoint: string;
+    idUser: string;
+    expectedTime?: string;
+  };
 }
+const stepVariants = {
+  hidden: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+  }),
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: "easeInOut" },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    transition: { duration: 0.4, ease: "easeInOut" },
+  }),
+};
 
 const paymentMethods = [
   { id: "credit-card", label: "Thẻ tín dụng/Ghi nợ", icon: iconPayLater },
@@ -52,10 +94,11 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
   dateFrom,
   dateTo,
   roomHotelBooking,
+  open,
+  setOpen,
+  infoBookingUser,
 }) => {
-  const { user } = useAuthenticatedStore();
   const router = useRouter();
-
   const [modalState, setModalState] = useState({
     openConfirm: false,
     openCreditCard: false,
@@ -63,13 +106,20 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
     openBookingSuccess: false,
     method: "",
   });
+  const [step, setStep] = useState(1);
+  const [direction, setDirection] = useState(0);
+
   const [confirm, setConfirm] = useState({
     code: "",
     idEmail: "",
   });
   const dataInfoBooked = {
     amount: parseFloat(removeDots(totalBooking)),
-    infoUser: { idUser: user?._id, email: user?.email },
+    infoUser: {
+      idUser: infoBookingUser?.idUser,
+      email: infoBookingUser?.email,
+      name: infoBookingUser?.firstname + " " + infoBookingUser?.lastname,
+    },
     tripId: data._id,
     unitCode: data.unitCode,
     startDate: data.startDate,
@@ -83,8 +133,10 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
     infoAttraction: { name: data.name, address: data.city },
     infoHotel: { name: data.name, address: data.city },
     infoHotelRoom: roomHotelBooking,
+    pickUpPoint: infoBookingUser.pickUpPoint,
+    expectedTime: infoBookingUser.expectedTime,
+    note: infoBookingUser.note,
   };
-
   const mutationSendInfoBooked = useMutation({ mutationFn: sendReqBooked });
 
   const handleSendBookingRequest = useCallback(
@@ -110,24 +162,31 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
   const mutationSendEmailConfirm = useMutation({
     mutationFn: sendEmailConfirm,
   });
-  // const handleSendEmailConfirm = useCallback(async () => {
-  //   try {
 
-  //     if (user) {
-  //       const data = await sendEmailConfirm(user.email);
-  //       if (data) {
-  //         setConfirm(data);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [confirm]);
+  const [loading, setLoading] = useState(false);
+  const nextStep = () => {
+    if (step < 3) {
+      setLoading(true); // Bắt đầu loading
+      setTimeout(() => {
+        setStep(step + 1);
+        setLoading(false); // Kết thúc loading
+      }, 1000); // Giả lập 1 giây loading
+    }
+  };
+
+  const prevStep = () => {
+    if (step > 1) {
+      setLoading(true);
+      setTimeout(() => {
+        setStep(step - 1);
+        setLoading(false);
+      }, 1000);
+    }
+  };
 
   const handlePaymentRequest = useCallback(async () => {
     if (!modalState.method)
       return toast.error("Vui lòng chọn phương thức thanh toán");
-
     switch (modalState.method) {
       case "credit-card":
         setModalState((prev) => ({ ...prev, openCreditCard: true }));
@@ -140,9 +199,9 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
         setModalState((prev) => ({ ...prev, openBankTransfer: true }));
         break;
       case "cod":
-        setModalState((prev) => ({ ...prev, openConfirm: true }));
-        if (user) {
-          mutationSendEmailConfirm.mutate(user.email, {
+        nextStep();
+        if (infoBookingUser) {
+          mutationSendEmailConfirm.mutate(infoBookingUser.email, {
             onSuccess: async (res) => {
               setConfirm(res);
             },
@@ -157,86 +216,143 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
   const handleClose = () => {
     setModalState((prev) => ({ ...prev, openCreditCard: false }));
   };
-  if (mutationSendEmailConfirm.isPending) {
-    return <Loading />;
-  }
+
   return (
-    <div className="posing-vertical-4">
-      <h3 className="text-medium font-semibold">Chọn phương thức thanh toán</h3>
-      <p className="text-smallest text-black_sub">
-        Chọn ít nhất 1 phương thức thanh toán dưới đây để tiếp tục
-      </p>
-      <ul className="space-y-4">
-        {paymentMethods.map(({ id, label, icon }) => (
-          <li key={id}>
-            <label className="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-100">
-              <input
-                type="radio"
-                name="payment"
-                value={id}
-                onChange={() =>
-                  setModalState((prev) => ({ ...prev, method: id }))
-                }
-              />
-              <span className="ml-3 space-x-2">
-                <Icon className="mr-2" tooltip={`Thanh toán qua ${label}`}>
-                  <Image
-                    alt="icon-pay"
-                    width={40}
-                    height={40}
-                    className="w-8 h-8"
-                    src={icon}
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger></DialogTrigger>
+      <DialogContent className="w-[95%] md:w-[80%] lg:w-[70%] xl:w-[65%] rounded-14 bg-white">
+        <DialogHeader>
+          <DialogTitle className="flex flex-col gap-y-2">
+            {step === 1 && "Chọn phương thức thanh toán"}
+            <div className="h-[16px]">
+              {modalState?.method === "cod" && (
+                <span className="text-blue_main_sub underline font-normal text-smallest">
+                  Bước {step}/3
+                </span>
+              )}
+            </div>
+          </DialogTitle>
+          <DialogDescription>
+            {step === 1 &&
+              "Chọn ít nhất 1 phương thức thanh toán dưới đây để tiếp tục"}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="">
+          <div className="w-full h-full flex items-center justify-center">
+            {loading === true ? (
+              <LoadingPage />
+            ) : (
+              <Fragment>
+                {step === 1 && (
+                  <div className="w-full posing-vertical-4">
+                    <ul className="space-y-4">
+                      {paymentMethods.map(({ id, label, icon }) => (
+                        <li key={id}>
+                          <label className="flex items-center p-4 border rounded cursor-pointer hover:bg-gray-100">
+                            <input
+                              type="radio"
+                              name="payment"
+                              value={id}
+                              onChange={() =>
+                                setModalState((prev) => ({
+                                  ...prev,
+                                  method: id,
+                                }))
+                              }
+                            />
+                            <span className="ml-3 space-x-2 text-small">
+                              <Icon
+                                className="mr-2"
+                                tooltip={`Thanh toán qua ${label}`}
+                              >
+                                <Image
+                                  alt="icon-pay"
+                                  width={40}
+                                  height={40}
+                                  className="w-8 h-8"
+                                  src={icon}
+                                />
+                              </Icon>
+                              {label}
+                            </span>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      onClick={handlePaymentRequest}
+                      disabled={!modalState.method}
+                      className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
+                    >
+                      Tiếp tục{" "}
+                      {mutationSendEmailConfirm.isPending ? (
+                        <div className="flex space-x-1">
+                          <span className="w-2 h-2 lg:w-3 lg:h-3 bg-blue_main_sub rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                          <span className="w-2 h-2 lg:w-3 lg:h-3 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                          <span className="w-2 h-2 lg:w-3 lg:h-3 bg-green-600 rounded-full animate-bounce"></span>
+                        </div>
+                      ) : (
+                        <ChevronRight size={5} />
+                      )}
+                    </Button>
+                  </div>
+                )}
+                {step === 2 && (
+                  <PayConfirmCode
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    code={confirm.code}
+                    email={infoBookingUser?.email ?? ""}
+                    lastName={
+                      infoBookingUser?.lastname ??
+                      "" + " " + infoBookingUser?.firstname ??
+                      ""
+                    }
+                    handleSendReqBooked={handleSendBookingRequest}
                   />
-                </Icon>
-                {label}
-              </span>
-            </label>
-          </li>
-        ))}
-      </ul>
+                )}
+                {step === 3 && (
+                  <BookingSuccess model="hotel" handleClose={handleClose} />
+                )}
+              </Fragment>
+            )}
+          </div>
 
-      <Button
-        onClick={handlePaymentRequest}
-        disabled={!modalState.method}
-        className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
-      >
-        Tiếp tục <ChevronRight className="size-5" />
-      </Button>
+          {/* <ModalConfirmCode
+            code={confirm.code}
+            email={infoBookingUser?.email ?? ""}
+            lastName={
+              infoBookingUser?.lastname ??
+              "" + " " + infoBookingUser?.firstname ??
+              ""
+            }
+            setOpenModalSuccesBooking={(val: any) =>
+              setModalState((prev) => ({ ...prev, openBookingSuccess: val }))
+            }
+            // open={modalState.openConfirm}
+            // setOpen={(val) =>
+            //   setModalState((prev) => ({ ...prev, openConfirm: val }))
+            // }
+            handleSendReqBooked={handleSendBookingRequest}
+          /> */}
+          <ModalBankTransfer
+            open={modalState.openBankTransfer}
+            setOpen={(val) =>
+              setModalState((prev) => ({ ...prev, openBankTransfer: val }))
+            }
+          />
+          <ModalPayCreditCard
+            open={modalState.openCreditCard}
+            setOpen={(val) =>
+              setModalState((prev) => ({ ...prev, openCreditCard: val }))
+            }
+          />
+        </div>
 
-      <ModalConfirmCode
-        code={confirm.code}
-        email={user?.email ?? ""}
-        lastName={user?.lastname ?? "" + " " + user?.firstname ?? ""}
-        setOpenModalSuccesBooking={(val: any) =>
-          setModalState((prev) => ({ ...prev, openBookingSuccess: val }))
-        }
-        open={modalState.openConfirm}
-        setOpen={(val) =>
-          setModalState((prev) => ({ ...prev, openConfirm: val }))
-        }
-        handleSendReqBooked={handleSendBookingRequest}
-      />
-      <ModalBankTransfer
-        open={modalState.openBankTransfer}
-        setOpen={(val) =>
-          setModalState((prev) => ({ ...prev, openBankTransfer: val }))
-        }
-      />
-      <ModalPayCreditCard
-        open={modalState.openCreditCard}
-        setOpen={(val) =>
-          setModalState((prev) => ({ ...prev, openCreditCard: val }))
-        }
-      />
-      <BookingSuccessModal
-        model="hotel"
-        handleClose={handleClose}
-        open={modalState.openBookingSuccess}
-        setOpen={(val) =>
-          setModalState((prev) => ({ ...prev, openBookingSuccess: val }))
-        }
-      />
-    </div>
+        <DialogFooter hidden></DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 

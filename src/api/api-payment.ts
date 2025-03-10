@@ -5,6 +5,7 @@ interface ICreatePayment {
   infoUser: {
     idUser: string | number | undefined;
     email: string | undefined;
+    name: string | undefined;
   };
   tripId: string;
   category: string;
@@ -31,6 +32,9 @@ interface ICreatePayment {
       name: string;
     }
   ];
+  pickUpPoint?: string;
+  expectedTime?: string;
+  note?: string;
 }
 const createRequestPayment = async ({
   amount,
@@ -49,6 +53,9 @@ const createRequestPayment = async ({
   infoAttraction,
   infoHotel,
   infoHotelRoom,
+  pickUpPoint,
+  note,
+  expectedTime,
 }: ICreatePayment) => {
   try {
     const result = await fetch(apiUrl + "/pay/create-payment-url", {
@@ -73,6 +80,9 @@ const createRequestPayment = async ({
         infoAttraction,
         infoHotelRoom,
         infoHotel,
+        pickUpPoint,
+        note,
+        expectedTime,
       }),
     });
     return result.json();
