@@ -2,9 +2,9 @@
 import { cn } from "@/utils/constants";
 import { ArrowLeft, MessageCircleMore, Send } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import ChatModalAI from "./chat-ai/chat-ai-modal";
 const IuputChat = ({
   value,
@@ -92,8 +92,9 @@ const Chat = () => {
           </Button>
           <section
             className={cn(
-              "absolute w-[90vw] md:w-[360px] lg:w-[380px] min-h-[350px] h-full top-0 left-[0%] right-[5%] translate-x-[120%] translate-y-[-58%]  bg-white rounded-8 shadow-2xl transition-all duration-150",
-              isActive.status && "sm:translate-x-[-35%] md:translate-x-[-20%]"
+              "absolute w-[90vw] md:w-[360px] lg:w-[420px] min-h-[350px] h-full top-0 left-[0%] right-[5%] translate-x-[120%] translate-y-[-58%]  bg-white rounded-8 shadow-2xl transition-all duration-150",
+              isActive.status === true &&
+                "translate-x-[-33%] md:translate-x-[-30%] lg:translate-x-[-28%]"
             )}
           >
             {isActive.index === 1 && (
@@ -112,7 +113,9 @@ const Chat = () => {
                 <IuputChat value="" setValue={() => ""} />
               </div>
             )}
-            {isActive.index === 2 && <ChatModalAI setIsActive={setIsActive} />}
+            {isActive.index === 2 && isActive.status === true && (
+              <ChatModalAI setIsActive={setIsActive} />
+            )}
           </section>
         </PopoverContent>
       </Popover>
