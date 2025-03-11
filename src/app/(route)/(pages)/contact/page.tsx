@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BreadcrumbHead from "@/components/components/breadcrumb";
+import Chat from "@/components/dashboard/contact/chat";
 
 const stay = [
   "Hủy phòng",
@@ -43,7 +44,7 @@ const Item = ({ title }: { title: string }) => {
       className={cn(
         "w-full border-[0.5px] border-t-[#999]  transition-all duration-300 flex items-center justify-between  cursor-pointer px-2 py-3",
         "lg:p-4",
-        "hover:bg-black_sub"
+        "hover:bg-bg_primary_white"
       )}
     >
       <span className="capitalize font-normal text-[0.9rem] ">{title}</span>
@@ -65,10 +66,11 @@ const ContactPage = () => {
         ]}
       />
       {/* head */}
-      <div className="w-full ">
-        <h2 className="text-medium font-bold lg:text-large pb-4">
+      <div className="w-full posing-vertical-2">
+        <h2 className="text-medium font-bold lg:text-large">
           Trung tâm trợ giúp
         </h2>
+        <Chat />
         <div className="w-full border-[0.5px] border-[#999] rounded-xl p-4">
           <div className="flex items-center justify-start">
             <MailWarning className={cn("pr-2", "lg:pr-3")} />
@@ -82,59 +84,58 @@ const ContactPage = () => {
         </div>
       </div>
       {/* main */}
-      <div className="mt-5 w-full h-full flex flex-col items-start justify-start gap-2">
+      <div className="w-full h-full posing-vertical-2">
         <h1 className={cn("font-bold text-medium", "lg:text-large")}>
           Bạn cần hỗ trợ gì ?
         </h1>
-        <h3 className="text-normal font-normal">Chúng tôi luôn hỗ trợ 24/7</h3>
+        <span className="text-normal font-normal block">
+          Chúng tôi luôn hỗ trợ 24/7
+        </span>
         <div className="w-full">
-          <h4 className="text-small font-bold">Các câu hỏi thường gặp</h4>
-          <div className="w-full mt-5">
-            <Tabs
-              defaultValue="stay"
-              className="w-full border-[0.5px] border-[#999] "
+          <Tabs
+            defaultValue="stay"
+            className="w-full border-[0.5px] border-[#999] "
+          >
+            <TabsList
+              className={cn(
+                "w-full h-[60px] border-[#999]  flex  items-center justify-start gap-x-2  overflow-x-auto scrollbar-hide ",
+                "lg:grid lg:grid-cols-4 lg:h-auto"
+              )}
             >
-              <TabsList
-                className={cn(
-                  "w-full h-[60px] border-[#999]  flex  items-center justify-start gap-x-2  overflow-x-auto scrollbar-hide ",
-                  "lg:grid lg:grid-cols-4 lg:h-auto"
-                )}
-              >
-                <TabsTrigger className="w-auto" value="stay">
-                  Lưu trú
-                </TabsTrigger>
-                <TabsTrigger className="w-auto" value="address">
-                  Địa điểm{" "}
-                </TabsTrigger>
-                <TabsTrigger className="w-auto" value="hotel">
-                  Nhà nghỉ & Khách sạn
-                </TabsTrigger>
-                <TabsTrigger className="w-auto" value="privacy">
-                  Quyền lợi
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="stay">
-                {stay.map((item, index) => {
-                  return <Item key={index} title={item} />;
-                })}
-              </TabsContent>
-              <TabsContent value="address">
-                {address.map((item, index) => {
-                  return <Item key={index} title={item} />;
-                })}
-              </TabsContent>
-              <TabsContent value="hotel">
-                {hotel.map((item, index) => {
-                  return <Item key={index} title={item} />;
-                })}
-              </TabsContent>{" "}
-              <TabsContent value="privacy">
-                {privacy.map((item, index) => {
-                  return <Item key={index} title={item} />;
-                })}
-              </TabsContent>
-            </Tabs>
-          </div>
+              <TabsTrigger className="w-auto" value="stay">
+                Lưu trú
+              </TabsTrigger>
+              <TabsTrigger className="w-auto" value="address">
+                Địa điểm{" "}
+              </TabsTrigger>
+              <TabsTrigger className="w-auto" value="hotel">
+                Nhà nghỉ & Khách sạn
+              </TabsTrigger>
+              <TabsTrigger className="w-auto" value="privacy">
+                Quyền lợi
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="stay">
+              {stay.map((item, index) => {
+                return <Item key={index} title={item} />;
+              })}
+            </TabsContent>
+            <TabsContent value="address">
+              {address.map((item, index) => {
+                return <Item key={index} title={item} />;
+              })}
+            </TabsContent>
+            <TabsContent value="hotel">
+              {hotel.map((item, index) => {
+                return <Item key={index} title={item} />;
+              })}
+            </TabsContent>{" "}
+            <TabsContent value="privacy">
+              {privacy.map((item, index) => {
+                return <Item key={index} title={item} />;
+              })}
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </section>

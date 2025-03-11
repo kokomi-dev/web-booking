@@ -1,33 +1,10 @@
 "use client";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/utils/constants";
 import { Skeleton } from "../ui/skeleton";
-import { Card, CardContent } from "@/components/ui/card";
-import { useEffect, useState } from "react";
 const LoadingPage = () => {
-  const [viewportPosition, setViewportPosition] = useState({ top: 0, left: 0 });
-  useEffect(() => {
-    const scrollX = window.scrollX || window.pageXOffset;
-    const scrollY = window.scrollY || window.pageYOffset;
-
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalStyle;
-    };
-  }, []);
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        transform: `translateY(${viewportPosition.top}px)`,
-      }}
-      className="  w-screen h-screen flex items-center justify-center bg-white/80 backdrop-blur-md z-[999] overflow-hidden"
-    >
+    <div className=" absolute top-0 right-0 left-0 bottom-0  w-screen h-screen flex items-center justify-center bg-white/80 backdrop-blur-md z-[999] overflow-hidden">
       <div className="relative flex items-center space-x-2">
         <span className="text-normal+ lg:text-medium font-bold text-blue_main">
           KoKoTravel
@@ -231,15 +208,15 @@ const LoadingShowBooked = () => {
   );
 };
 export {
-  LoadingItemSearch,
-  LoadingPage,
+  LoadingBookingCardAttraction,
+  LoadingBookingCardHotel,
   LoadingButton,
   LoadingComponentAccount,
   LoadingImg,
-  LoadingItemComment,
-  LoadingItemShow,
   LoadingItemBlog,
-  LoadingBookingCardAttraction,
-  LoadingBookingCardHotel,
+  LoadingItemComment,
+  LoadingItemSearch,
+  LoadingItemShow,
+  LoadingPage,
   LoadingShowBooked,
 };
