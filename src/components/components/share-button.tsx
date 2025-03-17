@@ -33,25 +33,28 @@ const ShareButton: React.FC<ShareButtonProps> = ({ model, slug, title }) => {
   const size = 34;
   return (
     <Drawer>
-      <DrawerTrigger className="w-full flex items-center justify-center gap-x-2 p-2 hover:text-blue_main_sub transition-all duration-300 lg:border-0.5 lg:border-black_sub">
+      <DrawerTrigger className="w-full max-w-max flex items-center justify-center gap-x-2 p-2 px-3 hover:text-blue_main_sub transition-all duration-300 lg:border-0.5 lg:border-black_sub">
         <Share2 className="w-5 h-5 lg:w-4 lg:h-4" />
         <span className="hidden lg:block text-small">
           Chia sẻ {model === "attractions" && " điểm tham quan này"}{" "}
           {model === "hotels" && " nơi lưu trú"}
+          {model === "blog" && " bài viết"}
         </span>
       </DrawerTrigger>
       <DrawerContent
         className={cn("bg-bg_primary_white w-full  ", "md:px-8", "lg:px-32")}
       >
         <DrawerHeader className="">
-          <DrawerTitle className="text-start text-normal">
-            Chia sẻ {model === "attractions" && " điểm tham quan này"}
+          <DrawerTitle className="text-start text-normal+ mb-1 md:mb-2 lg:mb-3">
+            Chia sẻ {model === "attractions" && " điểm tham quan này"}{" "}
+            {model === "hotels" && " nơi lưu trú"}
+            {model === "blog" && " bài viết"}
           </DrawerTitle>
           <DrawerDescription className="text-small text-start">
             Hãy cho mọi người cùng được biết điểm đến này.
           </DrawerDescription>
         </DrawerHeader>
-        <div className="flex items-center justify-start gap-x-4 flex-wrap p-3">
+        <div className="flex items-center justify-start gap-x-5 flex-wrap p-3">
           <FacebookShareButton
             url={shareUrl}
             title={title}

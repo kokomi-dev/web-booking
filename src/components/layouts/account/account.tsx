@@ -114,7 +114,10 @@ const Account = () => {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-white text-black  lg:font-normal rounded-14 ">
+            <DropdownMenuContent
+              align="end"
+              className="w-56 bg-white text-black  lg:font-normal rounded-14 "
+            >
               <DropdownMenuGroup className="posing-vertical-5 p-0">
                 <DropdownMenuItem
                   className="w-full flex items-center p-2 hover:cursor-pointer"

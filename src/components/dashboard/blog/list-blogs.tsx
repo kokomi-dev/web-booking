@@ -9,7 +9,7 @@ const ListBlogView = ({ _dataListBlog }: { _dataListBlog: any }) => {
   return (
     <div className="posing-vertical-5 pb-3">
       <h1 className="text-large font-bold">Xem các bài viết của chúng tôi</h1>
-      <section className="grid grid-cols-1 md/grid-cols-2 xl:grid-cols-3 gap-6">
+      <section className="grid grid-cols-1 lg:grid-cols-2  gap-6">
         {_dataListBlog.length > 0 ? (
           _dataListBlog.map((e: IBlog, i: number) => {
             return (

@@ -27,11 +27,9 @@ const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
               className="w-full py-[0.25rem] first-letter:uppercase"
               key={index}
             >
-              <a>
-                <span className="text-smallest font-normal first:capitalize">
-                  {item.label}
-                </span>
-              </a>
+              <span className="text-smallest font-normal first:capitalize">
+                {item.label}
+              </span>
             </li>
           );
         })}

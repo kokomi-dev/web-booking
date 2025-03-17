@@ -56,10 +56,7 @@ export const NAVIGATIONS: { title: string; url: string; icon: string }[] = [
   },
 ];
 function isValidEmail(email: string) {
-  // Biểu thức chính quy để kiểm tra email
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  // Sử dụng phương thức test() để kiểm tra
   return regex.test(email);
 }
 export const convertToSlug = (text: string) => {

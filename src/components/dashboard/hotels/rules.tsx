@@ -5,7 +5,7 @@ const Rules = () => {
   return (
     <div className="w-full h-full posing-vertical-3">
       <div className="w-full h-full text-center mb-6">
-        <h2 className="text-large lg:text-largest font-bold text-gray-900">
+        <h2 className="text-medium lg:text-large  font-bold text-gray-900">
           "Bạn cứ vô tư khám phá, những thứ khác đã có{" "}
           <span className="text-blue_main_sub">KoKoTravel</span> lo!"
         </h2>
@@ -30,7 +30,7 @@ const Rules = () => {
                   {rule.title}
                 </h4>
               </div>
-              <p className="text-black_main_blur text-smallest lg:text-small">
+              <p className="text-black_main_blur text-smallest lg:text-small font-light lg:font-normal">
                 {rule.description}
               </p>
             </li>

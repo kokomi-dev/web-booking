@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 function HomePage() {
   return (
-    <div className=" bg-white flex flex-col w-fulll gap-4 lg:gap-6  ">
+    <div className=" bg-white posing-vertical-1  ">
       <section className="hidden md:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
         <div className="md:w-[70vw] lg:w-[60vw] xl:w-[50vw] h-auto z-[10] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-y-5 items-center justify-center text-center">
           <p className="text-large font-bold text-black_main_blur bg-white shadow-lg rounded-lg px-8 py-6">
@@ -60,10 +60,10 @@ function HomePage() {
           alt="img-banner-home"
           src={imgBanner}
           width={1920}
-          height={1080}
+          height={500}
           priority={true}
           placeholder="empty"
-          className="w-full min-h-[360px] md:min-h-[400px] lg:min-h-[480px] object-cover object-top "
+          className="w-full h-full max-h-[400px] object-cover object-top "
         />
       </section>
       {/* Điểm đến nổi bật */}
@@ -88,7 +88,7 @@ function HomePage() {
               />
               <div className="p-4">
                 <h3 className="text-normal font-bold">{e.label}</h3>
-                <p className=" text-black_sub text-small">{e.des}</p>
+                <p className=" text-black_sub font-light text-small">{e.des}</p>
               </div>
             </Link>
           ))}
@@ -98,10 +98,10 @@ function HomePage() {
       {/* chỗ nghỉ */}
       <section className="py-5 md:py-8 lg:py-12 px-2 md:px-12 lg:px-24 rounded-14">
         <div className=" text-center">
-          <h1 className="text-largest font-bold text-black mb-6">
+          <h1 className="text-medium  lg:text-large font-bold text-black mb-6">
             Đặt chỗ nghỉ lý tưởng tại Việt Nam
           </h1>
-          <p className="text-small text-justify md:text-normal text-black_sub mb-8">
+          <p className="text-small text-justify md:text-normal text-black_sub mb-8 font-light lg:font-normal">
             Trải nghiệm dịch vụ đặt chỗ nhanh chóng và tiện lợi cho chuyến du
             lịch của bạn. Tìm kiếm và lựa chọn từ hàng ngàn khách sạn, homestay,
             và khu nghỉ dưỡng trên khắp Việt Nam, từ những thành phố sôi động
@@ -117,7 +117,7 @@ function HomePage() {
       </section>
       {/* Phản hồi từ khách hàng */}
       <section className=" bg-bg_black_sub p-2 py-6 rounded-14 flex flex-col gap-y-3">
-        <h2 className="text-large  font-semibold text-start">
+        <h2 className="text-medium lg:text-large  font-semibold text-start">
           Khách hàng nói gì
         </h2>
         <div className="mt-2 md:mt-5 lg:mt-8 max-w-3xl mx-auto space-y-2">
@@ -182,8 +182,8 @@ function HomePage() {
         </Link>
       </section>
       {/* Thanh toán và cam kết chất lượng */}
-      <section className="text-normal">
-        <h2 className="text-large font-semibold mb-6">
+      <section className="text-normal posing-vertical-5">
+        <h2 className=" text-medium lg:text-large font-semibold">
           Thanh toán & Cam kết chất lượng
         </h2>
         <p className="text-black mb-4">
@@ -202,8 +202,8 @@ function HomePage() {
         </Link>
       </section>
       {/* Quyền lợi của khách du lịch */}
-      <section className="">
-        <h2 className="text-large font-semibold mb-6">
+      <section className="posing-vertical-5">
+        <h2 className=" text-medium lg:text-large font-semibold">
           Quyền lợi của khách du lịch
         </h2>
         <ul className=" pl-2 space-y-2">

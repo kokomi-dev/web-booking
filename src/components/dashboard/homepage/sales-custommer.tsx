@@ -9,13 +9,13 @@ const SalesCustommer = () => {
   const router = useRouter();
   return (
     <section className=" bg-bg_black_sub rounded-14 p-2 lg:p-4 py-6">
-      <h2 className="text-large font-semibold mb-6">
+      <h2 className="text-normal+ lg:text-medium xl:text-large font-semibold mb-2 mg:mb-4 lg:mb-6">
         Ưu đãi cho khách hàng mới
       </h2>
 
       {!isAuthenticated && !user ? (
         <div>
-          <p className="text-black text-justify text-small">
+          <p className="text-black text-justify text-small font-light">
             Đăng ký ngay để nhận được mã giảm giá 10% cho chuyến đi đầu tiên của
             bạn và nhiều ưu đãi đang chờ đón bạn!
           </p>

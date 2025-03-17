@@ -110,11 +110,10 @@ const Comments: React.FC<IComments> = ({
         </span>
         <span>({comments.length} đánh giá)</span>
       </div>
-      <hr className="hr" />
       <div className="w-full h-auto ">
         {isAuthenticated ? (
-          <div className="w-full h-auto grid gap-y-2">
-            <h4 className="text-normal font-medium">Bình luận</h4>
+          <div className="w-full h-auto grid gap-y-3">
+            <h4 className="text-normal+ font-semibold">Bình luận</h4>
             <div className="flex items-center justify-start gap-x-1 w-fit ">
               {[1, 2, 3, 4, 5].map((star) => {
                 return (
@@ -136,25 +135,23 @@ const Comments: React.FC<IComments> = ({
                 );
               })}
             </div>
-            <div className="w-full">
-              <Textarea
-                value={comment}
-                placeholder="Nhập bình luận..."
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-                className="!text-normal font-normal"
-              />
-              <Button
-                className={cn(
-                  "text-normal bg-bg_primary_blue_sub hover:bg-bg_primary_active  text-white mt-2 "
-                )}
-                onClick={handleComment}
-                disabled={!vote || !comment}
-              >
-                <Send className="size-4" /> Gửi bình luận
-              </Button>
-            </div>
+            <Textarea
+              value={comment}
+              placeholder="Nhập bình luận..."
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+              className="!text-normal font-normal"
+            />
+            <Button
+              className={cn(
+                "w-fit text-normal bg-bg_primary_blue_sub hover:bg-bg_primary_active  text-white mt-2 "
+              )}
+              onClick={handleComment}
+              disabled={!vote || !comment}
+            >
+              <Send className="size-4" /> Gửi bình luận
+            </Button>
           </div>
         ) : (
           <div className="w-full h-auto">
@@ -171,7 +168,9 @@ const Comments: React.FC<IComments> = ({
         )}
       </div>
       {comments.length === 0 ? (
-        <span>Chưa có bình luận nào</span>
+        <div className="mt-3 lg:mt-4">
+          <span>Chưa có bình luận nào!</span>
+        </div>
       ) : (
         <div>
           {comments.map((e: CommentProps, index: number) => {

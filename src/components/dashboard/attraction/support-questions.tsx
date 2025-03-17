@@ -12,7 +12,7 @@ const SupportQuestions = () => {
       <h3 className="text-medium font-semibold">Các câu hỏi thường gặp</h3>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger className="text-small">
+          <AccordionTrigger className="text-small font-normal">
             Làm sao để đặt vé?
           </AccordionTrigger>
           <AccordionContent>
@@ -46,7 +46,7 @@ const SupportQuestions = () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger className="text-small">
+          <AccordionTrigger className="text-small font-normal">
             Khi nào tôi sẽ thanh toán?
           </AccordionTrigger>
           <AccordionContent>
@@ -57,7 +57,7 @@ const SupportQuestions = () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger className="text-small">
+          <AccordionTrigger className="text-small font-normal">
             Sử dụng vé điện tử như nào?
           </AccordionTrigger>
           <AccordionContent>
@@ -80,7 +80,7 @@ const SupportQuestions = () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
-          <AccordionTrigger className="text-small text-start">
+          <AccordionTrigger className="text-small text-start font-normal">
             Tôi có thể hủy hoặc chỉnh sửa vé của mình không?
           </AccordionTrigger>
           <AccordionContent>
@@ -93,7 +93,7 @@ const SupportQuestions = () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-5">
-          <AccordionTrigger className="text-small text-start">
+          <AccordionTrigger className="text-small text-start font-normal">
             Khi nào tôi được hoàn tiền theo chính sách hủy miễn phí?
           </AccordionTrigger>
           <AccordionContent>

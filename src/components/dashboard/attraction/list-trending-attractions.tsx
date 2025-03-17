@@ -76,7 +76,7 @@ const ListAttractions = () => {
       <div className="posing-vertical-6">
         <h2 className="text-large font-bold">Địa điểm nổi bật</h2>
 
-        <p className="text-black_sub text-small">
+        <p className="text-black_sub text-small font-light">
           Xem trước các địa điểm nổi bật của chúng tôi
         </p>
       </div>

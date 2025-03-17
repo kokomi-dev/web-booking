@@ -209,28 +209,28 @@ const config = {
           },
         },
         ".posing-vertical-1": {
-          "& > *:not(:first-child)": { marginTop: "1.3rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.5rem" } },
+          "& > *:not(:first-child)": { marginTop: "1.4rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.6rem" } },
         },
         ".posing-vertical-2": {
-          "& > *:not(:first-child)": { marginTop: "1.1rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.3rem" } },
+          "& > *:not(:first-child)": { marginTop: "1.2rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.4rem" } },
         },
         ".posing-vertical-3": {
-          "& > *:not(:first-child)": { marginTop: "0.9rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.1rem" } },
+          "& > *:not(:first-child)": { marginTop: "1rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.2rem" } },
         },
         ".posing-vertical-4": {
-          "& > *:not(:first-child)": { marginTop: "0.7rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.9rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.8rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1rem" } },
         },
         ".posing-vertical-5": {
-          "& > *:not(:first-child)": { marginTop: "0.55rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.7rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.6rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.85rem" } },
         },
         ".posing-vertical-6": {
-          "& > *:not(:first-child)": { marginTop: "0.38rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.55rem" } },
+          "& > *:not(:first-child)": { marginTop: "0.4rem" },
+          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.65rem" } },
         },
 
         ".posing-horizontal-1": {

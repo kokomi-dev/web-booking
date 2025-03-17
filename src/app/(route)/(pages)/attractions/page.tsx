@@ -35,19 +35,17 @@ const HomePage = () => {
       >
         <div className={cn("w-full p-2 md:p-6", "lg:p-12")}>
           <div className="w-full h-auto posing-vertical-5 bg-white p-4 text-black_sub rounded-md">
-            <h1 className="title_Page  !mb-2 text-yellow_main font-bold">
-              Ưu đãi
-            </h1>
+            <h1 className="title_Page  text-yellow_main font-bold">Ưu đãi</h1>
             <h4 className="w-full text-black_main_blur text-normal ">
               Vi vu tận hưởng không khí mùa hè cùng các địa điểm du lịch nổi
               tiếng của chúng tôi
             </h4>
-            <p className="text-black_sub text-small mb-2 hidden lg:block ">
+            <p className="text-black_sub text-small  hidden lg:block ">
               Hãy trải nghiệm nó một cách trọn vẹn
             </p>
             <Link
               href="#list-all-attractions"
-              className="bg-bg_primary_main text-white mt-1 hover:bg-bg_primary_active p-2 py-1 rounded-8 text-small"
+              className="bg-bg_primary_main text-white  hover:bg-bg_primary_active p-2  rounded-8 text-small block w-fit"
             >
               Khám phá bây giờ
             </Link>
@@ -56,8 +54,9 @@ const HomePage = () => {
       </section>
       <hr className="hr" />
       <ListAttractionsTrending />
-      <hr className="hr" />
       <ListAttractions />
+      <hr className="hr" />
+
       <ListProvinces />
       <hr className="hr" />
       <ReceiveFeedback />
