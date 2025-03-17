@@ -30,14 +30,16 @@ const ListItemBooked = () => {
   };
   const levelBooked = checkLevel();
   return (
-    <div className="posing-vertical-2 shadow-2xl p-3 rounded-8 ">
-      <div className="flex items-start lg:items-center justify-center gap-x-1 gap-y-3 text-large font-bold ">
-        <h3 className="capitalize text-center">{user?.lastname} </h3>
-        <span>ơi,</span>
+    <div className="posing-vertical-2  ">
+      <div className="flex items-start lg:items-center justify-center gap-x-1 gap-y-3 text-normal  ">
+        <h3 className="capitalize text-center text-normal+ font-bold">
+          {user?.lastname}{" "}
+        </h3>
+        <span className="">ơi,</span>
         {dataBooked?.isNewbie === true ? (
-          <span>bạn là người mới</span>
+          <span className="">bạn là người mới</span>
         ) : (
-          <span>
+          <span className="">
             bạn đã đặt được {dataBooked?.attractioBooked} vé tham quan địa điểm,{" "}
             {dataBooked?.hotelBooked} phòng nghỉ
           </span>
@@ -61,7 +63,7 @@ const ListItemBooked = () => {
           ))}
         </div>
       ) : (
-        <div className="font-semibold text-black_main">
+        <div className="font-semibold text-black_main text-normal">
           Bạn đang ở cấp {levelBooked} trong{" "}
           <span className="uppercase text-blue_main_sub">GENIUS</span> của chúng
           tôi

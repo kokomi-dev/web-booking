@@ -8,6 +8,7 @@ import ListBlogPageRelate from "@/components/dashboard/blog/list-blogs-relate";
 import QUERY_KEY_BLOG from "@/services/queryKeyStore/blogQueryKeyStore";
 import { apiUrl } from "@/api";
 import { formatDate } from "@/utils/constants";
+import ShareButton from "@/components/components/share-button";
 
 export const fetchBlogDetail = async (slug: string) => {
   const res = await fetch(`${apiUrl}/blog/${slug}`, { cache: "no-store" });
@@ -31,9 +32,16 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
           { label: blog.title },
         ]}
       />
-      <h3 className="text-large xl:text-[1.7rem] font-bold capitalize">
-        {blog.title}
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-large xl:text-[1.7rem] font-bold capitalize flex-shrink-0">
+          {blog.title}
+        </h3>
+        <ShareButton
+          model="blog"
+          slug={blog.slug}
+          title={`Bài viết của KoKoTravel: ${blog.title}`}
+        />
+      </div>
 
       <p className="text-black_main text-small">
         Được viết bởi <span className="font-medium">{blog?.author}</span> •{" "}

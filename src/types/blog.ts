@@ -7,6 +7,7 @@ export interface IBlog {
   createdAt: string;
   likes: number;
   comments: [];
+  imgBanner: string;
 }
 export interface IBlogComment {
   email: string;

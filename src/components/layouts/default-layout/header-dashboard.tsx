@@ -14,6 +14,14 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import Navigation from "../navigation";
+import Image from "next/image";
+import coVietNam from "@/assets/images/co-vietnam.png";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 const HeaderDashboard = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -32,14 +40,34 @@ const HeaderDashboard = () => {
           <Link href="/home" className="text-medium md:text-large font-mono">
             KoKoTravel
           </Link>
+
           <div className="h-full flex items-center justify-center gap-x-4">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Image
+                    alt="co-viet nam"
+                    width={40}
+                    height={40}
+                    src={coVietNam}
+                    className="rounded-full size-8"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Việt Nam</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <div
               className={cn(
                 "hidden p-2 rounded-lg transition-all duration-300",
                 "lg:block hover:bg-bg_primary_active hover:cursor-pointer"
               )}
             >
-              <h3
+              <span
+                onClick={() =>
+                  router.push(process.env.NEXT_PUBLIC_HOST_ADMIN || "")
+                }
                 className={cn(
                   "text-small font-medium  ",
                   pathname.includes("attractions") && "hidden",
@@ -49,8 +77,8 @@ const HeaderDashboard = () => {
                   pathname.includes("content") && "hidden"
                 )}
               >
-                Đăng chỗ nghỉ của bạn
-              </h3>
+                Hợp tác doanh nghiệp
+              </span>
             </div>
             <HoverCard>
               <HoverCardTrigger>
@@ -70,7 +98,7 @@ const HeaderDashboard = () => {
                 </Link>
               </HoverCardContent>
             </HoverCard>
-            <Notifycation />
+            {/* <Notifycation /> */}
             <Account />
             <MobileSidebar />
           </div>

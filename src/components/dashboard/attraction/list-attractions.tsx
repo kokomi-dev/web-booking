@@ -85,7 +85,7 @@ const ListAttractions = () => {
             Xem thêm
           </span>
         </div>
-        <p className="text-black_sub text-small">
+        <p className="text-black_sub text-small font-light">
           Các điểm đến đang có nhiều điều chờ đón bạn
         </p>
       </div>

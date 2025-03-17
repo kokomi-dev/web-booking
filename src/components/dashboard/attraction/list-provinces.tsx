@@ -9,7 +9,7 @@ const convertToSlug = (text: string) => {
 const ListProvinces = async () => {
   const { data } = await getListProvinces();
   return (
-    <section className="w-full h-auto flex items-start justify-start flex-col gap-x-2">
+    <section className="w-full h-auto posing-vertical-2">
       <h3 className="text-large font-semibold">
         Khám phá thêm nhiều điểm đến khác
       </h3>
@@ -31,7 +31,7 @@ const ListProvinces = async () => {
                 href={`/attractions/all?address=${province.name}`}
                 className="flex items-center justify-center text-small font-normal p-1 rounded-8 bg-bg_black_sub text-center transition-all duration-300 hover:bg-bg_primary_hover"
               >
-                <span className="text-smallest text-black_main font-normal flex items-center justify-center">
+                <span className="text-smallest text-black_main font-light lg:font-normal flex items-center justify-center">
                   {province.name.replace("Tỉnh ", "").replace("Thành phố ", "")}
                 </span>
               </Link>

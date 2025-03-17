@@ -80,7 +80,7 @@ const ListHotelFavorite = () => {
             Nơi lưu trú được yêu thích nhất
           </h2>
         </div>
-        <p className="text-black_sub text-small">
+        <p className="text-black_sub text-small font-light">
           Sự quan tâm của mọi người hàng đầu
         </p>
       </div>

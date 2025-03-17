@@ -1,12 +1,11 @@
 "use client";
 import { getAllBlogTrending } from "@/api/api-blog";
+import { LoadingItemBlog } from "@/components/components/loading";
 import QUERY_KEY_BLOG from "@/services/queryKeyStore/blogQueryKeyStore";
 import { IBlog } from "@/types/blog";
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen } from "lucide-react";
 import Link from "next/link";
 import ItemBlog from "./item-blog";
-import { LoadingItemBlog } from "@/components/components/loading";
 
 const ListBlogsTrending = () => {
   const { data: listBlogTrending, isLoading } = useQuery({
@@ -26,7 +25,7 @@ const ListBlogsTrending = () => {
   return (
     <section className="posing-vertical-2">
       <div className="flex items-center justify-between ">
-        <h2 className="text-large font-semibold lg:mb-6">
+        <h2 className=" text-medium lg:text-large font-semibold ">
           Các bài viết được chú ý
         </h2>
         <Link
@@ -36,7 +35,7 @@ const ListBlogsTrending = () => {
           Xem tất cả
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {isLoading ? (
           Array.from({ length: 3 }).map((_, index) => (
             <LoadingItemBlog key={index} />

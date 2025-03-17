@@ -32,11 +32,11 @@ const HotelPage = () => {
         <section className={cn("relative p-4 text-white", "lg:p-10")}>
           <div className="w-full h-auto flex items-center justify-between gap-y-2 bg-white p-2 md:p-4 lg:p-6 text-black_sub rounded-md shadow-lg">
             <div className="posing-vertical-6">
-              <h3 className="text-black text-normal lg:text-lg font-semibold">
+              <h3 className="text-black text-normal lg:text-lg font-normal lg:font-semibold">
                 Tận hưởng không gian nghỉ dưỡng lý tưởng - Hành trình đáng nhớ
                 đang chờ đón bạn! ✨
               </h3>
-              <p className="hidden lg:block text-sm text-black_sub mb-4">
+              <p className="hidden lg:block text-sm text-black_sub mb-4 tracking-[0.020rem]">
                 Chúng tôi giúp bạn tìm kiếm những khách sạn lý tưởng nhất, từ
                 view biển thơ mộng đến trung tâm sôi động.
               </p>
@@ -82,7 +82,7 @@ const HotelPage = () => {
                 <h3 className="text-normal font-medium text-black_main">
                   {rule.title}
                 </h3>
-                <p className="text-black_main_blur text-sm mt-1">
+                <p className="text-black_main_blur text-sm mt-1 font-light lg:font-normal">
                   {rule.description}
                 </p>
               </div>

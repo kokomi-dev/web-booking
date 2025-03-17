@@ -87,7 +87,7 @@ const ListHotel = () => {
             Xem thêm
           </span>
         </div>
-        <p className="text-black_sub text-small">
+        <p className="text-black_sub text-small font-light">
           Hãy theo dỗi và xem qua những nơi nghỉ chân hàng đầu của chúng tôi
         </p>
       </div>

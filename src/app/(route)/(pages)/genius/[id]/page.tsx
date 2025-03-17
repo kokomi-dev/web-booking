@@ -17,17 +17,19 @@ const TrangVoucher = () => {
           alt="banner-gennius"
           className="w-full h-full min-h-[25vh] lg:min-h-auto object-cover "
         />
-        <div className="absolute top-[40%] left-[36%] lg:left-[30%] translate-x-[-50%] translate-y-[-50%] text-white text-left ">
-          <h4 className="font-bold text-medium lg:text-large font-mono">
-            Mọi chuyến đi đều đáng giá
-          </h4>
-          <h1 className="text-[2.5rem] lg:text-[3rem] font-extrabold">
-            Genius
-          </h1>
-          <p className="text-normal+ font-normal hidden lg:block">
-            Chương trình khách hàng thân thiết và ưu đãi người mới của
-            KoKoTravel
-          </p>
+        <div className="w-full absolute top-[50%] left-[50%]  translate-x-[-50%] translate-y-[-50%] text-white text-left flex items-center justify-start">
+          <div className="container-padding">
+            <h4 className="font-bold text-medium lg:text-large font-mono">
+              Mọi chuyến đi đều đáng giá
+            </h4>
+            <h1 className="text-[2.5rem] lg:text-[3rem] font-extrabold">
+              Genius
+            </h1>
+            <p className="text-normal+ font-normal hidden lg:block">
+              Chương trình khách hàng thân thiết và ưu đãi người mới của
+              KoKoTravel
+            </p>
+          </div>
         </div>
       </div>
       <BreadcrumbHead

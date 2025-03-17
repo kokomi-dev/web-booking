@@ -54,7 +54,7 @@ const Intro = () => {
       <p
         className={cn(
           " w-[90%] hidden pb-5 text-justify  text-[#888]",
-          "lg:w-[70%] lg:block lg:pb-20 lg:text-center"
+          "lg:w-[85%] xl:w-[80%] lg:block lg:pb-15 lg:text-center"
         )}
       >
         KoKo Travel hứa hẹn sẽ mang tới cho bạn những địa điểm chât lượng, dịch
@@ -65,7 +65,7 @@ const Intro = () => {
         opts={{
           align: "start",
         }}
-        className="w-[100%] md:w-[90%] lg:w-[90%] xl:w-[80%] "
+        className="w-[100%] md:w-[98%] lg:w-[95%] xl:w-[85%] "
       >
         <CarouselContent>
           {arrInfo.map((item, index) => (
@@ -89,8 +89,8 @@ const Intro = () => {
                   </h5>
                   <p
                     className={cn(
-                      "text-black_sub text-justify",
-                      index === 1 && "text-white"
+                      "text-black_sub text-justify font-light",
+                      index === 1 && "text-white lg:font-normal"
                     )}
                   >
                     {item.des}

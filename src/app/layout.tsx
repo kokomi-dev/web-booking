@@ -36,7 +36,7 @@ export default function RootLayout({
           content="width=device-width,height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
       </head>
-      <body className={roboto.className}>
+      <body translate="no" className={roboto.className}>
         <QueryProvider>
           <ClerkProvider localization={viVN}>
             <AuthMiddleWare />

@@ -59,15 +59,25 @@ const PageView = () => {
 
   return (
     <div className="posing-vertical-1">
-      <section className="hidden lg:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
+      <section className="min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
         <Image
           alt="imng-banner-blog"
-          width={1600}
-          height={1000}
+          width={1400}
+          height={300}
           priority={true}
           src={bannerBlog}
-          className="w-full h-full min-h-[30vh] md:max-h-[45vh] lg:max-h-[65vh] object-cover"
+          className="w-full h-full max-h-[300px] object-cover"
         />
+        <div className="w-full absolute top-[50%] left-[50%]  translate-x-[-50%] translate-y-[-50%] text-white text-left flex items-center justify-start">
+          <div className="container-padding">
+            <h6 className="text-normal+ lg:text-medium xl:text-large font-semibold tracking-[0.1rem]">
+              Tin tức
+            </h6>
+            <p className="text-smallest lg:text-small font-normal">
+              Cập nhật tin tức du lịch qua KoKoTravel
+            </p>
+          </div>
+        </div>
       </section>
       <BreadcrumbHead
         items={[{ label: "Trang chủ", href: "/home" }, { label: "Bài viết" }]}
