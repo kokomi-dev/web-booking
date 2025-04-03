@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 import { LoadingPage } from "@/components/components/loading";
@@ -12,9 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/css/toast.css";
 import "../styles/globals.css";
 
-const roboto = Roboto({
+const roboto = Be_Vietnam_Pro({
   subsets: ["vietnamese"],
-  weight: ["100", "300", "400", "500", "700", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -47,7 +47,6 @@ export default function RootLayout({
             <Analytics />
           </ClerkProvider>
           <ToastContainer
-            className=""
             autoClose={2000}
             position="top-left"
             hideProgressBar={false}

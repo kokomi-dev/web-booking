@@ -13,6 +13,7 @@ import QUERY_KEY_BLOG from "@/services/queryKeyStore/blogQueryKeyStore";
 import { IBlog } from "@/types/blog";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
+import Image from "next/image";
 
 const ListBlogPageRelate = ({
   unitCode,
@@ -55,17 +56,40 @@ const ListBlogPageRelate = ({
     >
       {listBlogRelate.length > 0 ? (
         <CarouselContent>
-          {listBlogRelate.map((e: IBlog, index: number) => (
+          {listBlogRelate.map((blog: any) => (
             <CarouselItem
-              key={index}
-              className="basis-76.77 md:basis-1/2 lg:basis-1/3 "
+              key={blog.id}
+              className="basis-[66.67%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 hover:scale-105 transition-transform duration-300"
             >
-              <ItemBlog e={e} />
+              <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <Image
+                  width={700}
+                  height={300}
+                  src={blog.imgBanner}
+                  alt={blog.title}
+                  className="w-full h-[200px] object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-bold text-black truncate hover:text-blue transition-colors duration-300">
+                    {blog.title}
+                  </h3>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: blog.content }}
+                    className="text-sm text-black_sub_2 mt-2 line-clamp-2"
+                  ></p>
+                  <a
+                    href={`/blogs/${blog.slug}`}
+                    className="text-blue_sub text-sm font-medium mt-4 block hover:underline"
+                  >
+                    Đọc thêm
+                  </a>
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       ) : (
-        <span className="text-center text-normal font-medium">
+        <span className="text-center text-base font-medium">
           Chưa có bài viết liên quan nào!
         </span>
       )}

@@ -18,34 +18,34 @@ const Info: React.FC<InfoProps> = ({
   slug,
 }) => {
   return (
-    <div className="w-full posing-vertical-2 ">
-      <div className="w-full posing-vertical-3" id="overview">
+    <div className="w-full container-spacing ">
+      <div className="w-full list-spacing">
         <div className="w-fit ">
-          <h5 className="text-smallest bg-bg_primary_yellow text-black p-1 rounded-8">
+          <h5 className="text-xs bg-yellow text-black_sub_2 p-1 px-2 rounded-14">
             Đặt phòng với chúng tôi !
           </h5>
         </div>
         <div className="flex items-center justify-between">
-          <h1 className="text-large font-bold">{name}</h1>
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">{name}</h1>
           <div className="flex items-center justify-start gap-x-2">
             <ShareButton model="hotels" slug={slug} title={name} />
           </div>
         </div>
         <div className="w-full flex flex-col items-start md:flex-row md:items-center justify-start md:justify-between">
-          <address className="w-full flex items-center justify-start gap-x-2 text-small ">
-            <MapPin className="text-blue_main text-normal" />
+          <address className="w-full flex items-center justify-start gap-x-2 text-sm ">
+            <MapPin className="text-blue text-base" />
             {location}
           </address>
-          <div className="hidden lg:flex items-center justify-end gap-x-1 lg:p-2 rounded-8 text-blue_main_sub hover:bg-bg_primary_hover">
+          <div className="hidden lg:flex items-center justify-end gap-x-1 lg:p-2 rounded-8 text-blue_sub hover:bg-blue_hover">
             <TriangleAlert className="w-5 h-5 " />
-            <span className="capitalize text-small text-nowrap  ">
+            <span className="capitalize text-sm text-nowrap  ">
               Chúng tôi luôn khớp giá
             </span>
           </div>
         </div>
         <h6 className="flex items-center justify-start">
-          <GoStarFill className="text-yellow_main text-medium mr-2" />
-          <span className="text-normal font-medium mr-2">
+          <GoStarFill className="text-yellow text-lg mr-2" />
+          <span className="text-base font-medium mr-2">
             {rating} -
             {rating > 4 ? (
               <span className="text-[0.98rem] font-medium"> Rất tốt</span>
@@ -53,9 +53,7 @@ const Info: React.FC<InfoProps> = ({
               <span className="text-[0.98rem] font-medium"> Tốt</span>
             )}
           </span>
-          <span className="text-[0.9rem] text-blue_main_sub ">
-            (0 đánh giá)
-          </span>
+          <span className="text-[0.9rem] text-blue_sub ">(0 đánh giá)</span>
         </h6>
       </div>
       {/* images */}

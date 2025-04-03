@@ -3,17 +3,17 @@ import { twMerge } from "tailwind-merge";
 
 const ratingConvert = (rating: number) => {
   if (rating >= 5) {
-    return <span className="font-bold text-smallest ">Rất tuyệt vời</span>;
+    return <span className="font-bold text-xs ">Rất tuyệt vời</span>;
   }
   if (rating >= 4.5) {
-    return <span className="font-bold text-smallest ">Tuyệt</span>;
+    return <span className="font-bold text-xs ">Tuyệt</span>;
   }
   if (rating >= 4) {
-    return <span className="font-bold text-smallest ">Tốt</span>;
+    return <span className="font-bold text-xs ">Tốt</span>;
   }
 
   if (rating > 3) {
-    return <span className="font-bold text-smallest ">Chưa tốt</span>;
+    return <span className="font-bold text-xs ">Chưa tốt</span>;
   }
 };
 const convertVND = (num: number) => {

@@ -226,7 +226,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
             {step === 1 && "Chọn phương thức thanh toán"}
             <div className="h-[16px]">
               {modalState?.method === "cod" && (
-                <span className="text-blue_main_sub underline font-normal text-smallest">
+                <span className="text-blue_sub underline font-normal text-xs">
                   Bước {step}/3
                 </span>
               )}
@@ -244,7 +244,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
             ) : (
               <Fragment>
                 {step === 1 && (
-                  <div className="w-full posing-vertical-4">
+                  <div className="w-full list-spacing">
                     <ul className="space-y-4">
                       {paymentMethods.map(({ id, label, icon }) => (
                         <li key={id}>
@@ -260,7 +260,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
                                 }))
                               }
                             />
-                            <span className="ml-3 space-x-2 text-small">
+                            <span className="ml-3 space-x-2 text-sm">
                               <Icon
                                 className="mr-2"
                                 tooltip={`Thanh toán qua ${label}`}
@@ -283,7 +283,7 @@ const PayListWrap: React.FC<PayListWrapProps> = ({
                     <Button
                       onClick={handlePaymentRequest}
                       disabled={!modalState.method}
-                      className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
+                      className="bg-blue_sub hover:bg-blue_active mt-4 text-white w-full py-6"
                     >
                       Tiếp tục{" "}
                       {mutationSendEmailConfirm.isPending ? (

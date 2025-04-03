@@ -44,11 +44,11 @@ const Item = ({ title }: { title: string }) => {
       className={cn(
         "w-full border-[0.5px] border-t-[#999]  transition-all duration-300 flex items-center justify-between  cursor-pointer px-2 py-3",
         "lg:p-4",
-        "hover:bg-bg_primary_white"
+        "hover:bg-white"
       )}
     >
       <span className="capitalize font-normal text-[0.9rem] ">{title}</span>
-      <ChevronRight className="text-small " />
+      <ChevronRight className="text-sm " />
     </div>
   );
 };
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 };
 const ContactPage = () => {
   return (
-    <section className="w-full posing-vertical-1 mt-[1rem] lg:mt-0">
+    <section className="w-full container-spacing">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/home" },
@@ -66,15 +66,13 @@ const ContactPage = () => {
         ]}
       />
       {/* head */}
-      <div className="w-full posing-vertical-2">
-        <h2 className="text-medium font-bold lg:text-large">
-          Trung tâm trợ giúp
-        </h2>
+      <div className="container xl:px-0 container-spacing">
+        <h2 className="text-lg font-bold lg:text-2xl">Trung tâm trợ giúp</h2>
         <Chat />
         <div className="w-full border-[0.5px] border-[#999] rounded-xl p-4">
           <div className="flex items-center justify-start">
             <MailWarning className={cn("pr-2", "lg:pr-3")} />
-            <span className="text-small font-bold">Bảo mật online</span>
+            <span className="text-sm font-bold">Bảo mật online</span>
           </div>
           <p className="my-2">
             Bảo vệ an toàn của bản thân bằng cách không chia sẻ thông tin cá
@@ -84,13 +82,15 @@ const ContactPage = () => {
         </div>
       </div>
       {/* main */}
-      <div className="w-full h-full posing-vertical-2">
-        <h1 className={cn("font-bold text-medium", "lg:text-large")}>
-          Bạn cần hỗ trợ gì ?
-        </h1>
-        <span className="text-normal font-normal block">
-          Chúng tôi luôn hỗ trợ 24/7
-        </span>
+      <div className="container xl:px-0 h-full container-spacing">
+        <div className="list-spacing">
+          <h1 className={cn("font-bold text-lg", "lg:text-2xl")}>
+            Bạn cần hỗ trợ gì ?
+          </h1>
+          <span className="text-base font-normal block">
+            Chúng tôi luôn hỗ trợ 24/7
+          </span>
+        </div>
         <div className="w-full">
           <Tabs
             defaultValue="stay"

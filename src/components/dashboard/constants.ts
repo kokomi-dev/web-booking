@@ -54,38 +54,26 @@ export const RULES_HOTEL = [
   {
     icon: BookmarkCheck,
     title: "Chỗ nghỉ hàng đầu",
-    description:
-      "Trải nghiệm những điều tuyệt vời nhất tại điểm đến với các địa điểm tham quan, tour và nhiều hoạt động khác.",
   },
   {
     icon: CalendarCheck2,
     title: "Nhanh chóng và linh hoạt",
-    description:
-      "Đặt vé online trong vài phút với lựa chọn hủy miễn phí ở nhiều địa điểm tham quan.",
   },
   {
     icon: PhoneCall,
     title: "Hỗ trợ khách hàng 24/7",
-    description:
-      "Đội ngũ Dịch vụ Khách hàng toàn cầu của KoKoTravel sẽ luôn có mặt để hỗ trợ bạn 24/7.",
   },
   {
     icon: ShieldCheck,
     title: "Đảm bảo an toàn",
-    description:
-      "Tất cả chỗ nghỉ và dịch vụ của chúng tôi đều được kiểm duyệt kỹ càng để đảm bảo chất lượng.",
   },
   {
     icon: Globe,
     title: "Mạng lưới toàn cầu",
-    description:
-      "Hơn 10.000+ khách sạn và khu nghỉ dưỡng trên khắp cả nước sẵn sàng phục vụ bạn.",
   },
   {
     icon: Star,
     title: "Trải nghiệm đáng nhớ",
-    description:
-      "Dịch vụ chất lượng, giá cả hợp lý, giúp bạn tận hưởng kỳ nghỉ một cách trọn vẹn nhất.",
   },
 ];
 

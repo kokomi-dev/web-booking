@@ -45,20 +45,20 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
             setOpen(!open);
           }}
           className={cn(
-            "hidden w-full h-[44px] bg-white px-2 py-1 text-normal font-light",
+            "hidden w-full h-[44px] bg-white px-2 py-1 text-base font-light",
             className,
             "md:flex"
           )}
         >
           {date?.from ? (
             date.to ? (
-              <span className="w-full h-full flex items-center justify-start gap-x-1 text-normal font-light">
+              <span className="w-full h-full flex items-center justify-start gap-x-1 text-base font-light">
                 <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
                 {format(date.from, "dd/MM/yyyy", { locale: vi })} -{" "}
                 {format(date.to, "dd/MM/yyyy", { locale: vi })}
               </span>
             ) : (
-              <span className="w-full h-full flex items-center justify-start gap-x-1 text-normal font-light">
+              <span className="w-full h-full flex items-center justify-start gap-x-1 text-base font-light">
                 <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
                 {format(date.from, "dd/MM/yyyy", { locale: vi })}
               </span>
@@ -66,7 +66,7 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
           ) : (
             <div className="w-full flex items-center justify-start gap-x-1">
               <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
-              <span className="w-full h-full text-start text-normal font-light">
+              <span className="w-full h-full text-start text-base font-light">
                 Chọn ngày đi và trả phòng
               </span>
             </div>
@@ -77,8 +77,8 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
         onMouseLeave={() => {
           setHoveredDate(null);
         }}
-        className="w-full p-4 bg-white text-black z-[15]"
-        align="start"
+        className="min-w-[60vw] w-full p-4 bg-white text-black z-[15]"
+        align="center"
       >
         <Calendar
           initialFocus
@@ -89,7 +89,7 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
           onDayMouseEnter={handleDayHover}
           numberOfMonths={2}
           locale={vi}
-          className="w-full flex items-center justify-between bg-white text-normal font-normal"
+          className="w-full flex items-center justify-between bg-white text-base font-normal"
           modifiers={{
             inRange: (day) =>
               date?.from &&

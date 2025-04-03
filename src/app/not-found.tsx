@@ -1,40 +1,33 @@
-"use client";
-import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import notFound from "../assets/images/not-found.png";
 
-const NotFoundPage = ({ page }: { page: string }) => {
+export default function NotFound() {
   return (
-    <div className="w-full min-h-[100vh] flex items-center justify-center bg-black_sub">
-      <div className="w-full  h-full flex flex-col gap-y-2 items-center justify-start gap-x-2 text-center p-6 bg-white rounded-14  ">
-        <Image
-          src={notFound}
-          alt="img-not-found"
-          width={500}
-          height={500}
-          className="object-cover w-[300px] h-[300px] "
-        />
-        <h2 className="text-large font-bold ">
-          {page === "attractions" && "Không tìm thấy địa điểm tham quan này !"}
-          {page === "hotels" && "Không tìm thấy chỗ nghỉ này !"}
-        </h2>
-        <h1 className="text-large text-blue_main font-bold">KoKoTravel</h1>
-        <p className="text-black_sub text-small ">
-          Rất tiếc, trang mà bạn đang cố gắng truy cập không tồn tại hoặc đã bị
-          xóa (404)
-        </p>
-        <Link
-          href={`/home`}
-          className="flex items-center justify-center gap-2 text-blue_main_sub underline font-medium cursor-pointer"
-        >
-          <ArrowLeft className="mr-1 size-5" />
-          Quay lại Trang chủ
-        </Link>
-      </div>
-    </div>
+    <>
+      <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+        <div className="text-center">
+          <p className="text-base font-semibold text-blue">404</p>
+          <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+            Page not found
+          </h1>
+          <p className="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+            Xin lỗi, trang này hiện đang không thể truy cập
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Link
+              href="/home"
+              className="rounded-md bg-blue_sub px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue_active focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Quay lại
+            </Link>
+            <Link
+              href="tel:0961326123"
+              className="text-sm font-semibold text-gray-900"
+            >
+              Liên hệ hỗ trợ <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </main>
+    </>
   );
-};
-
-export default NotFoundPage;
+}

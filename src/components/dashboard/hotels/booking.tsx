@@ -159,28 +159,25 @@ const Booking = ({
     });
   }, []);
   return (
-    <div
-      className="w-full h-full posing-vertical-4 p-2  lg:p-3 bg-sub rounded-xl text-normal"
-      id="price"
-    >
+    <div className="w-full h-full list-spacing p-0 bg-white p-sm-2  lg:p-3 sm:bg-bg_sub rounded-xl text-base">
       {/* choose person and room */}
       <CardText title="Thông tin đặt phòng" className="">
         <div className="hidden lg:flex items-center justify-start gap-x-2">
-          <TriangleAlert className="text-yellow_main" />
-          <h5 className="text-small mb-2">
+          <TriangleAlert className="text-yellow" />
+          <h5 className="text-sm mb-2">
             Vui lòng chọn đúng đủ số người cho phòng để có trải nghiệm tốt nhất
             !
           </h5>
         </div>
-        <div className="bg-bg_primary_yellow w-full flex flex-col lg:flex-row items-center justify-start gap-x-2 p-2 rounded-8">
+        <div className="bg-yellow w-full flex flex-col lg:flex-row items-center justify-start gap-x-2 p-2 rounded-8">
           <SearchDatePickerDou
-            className="text-black w-full h-[36px]  text-medium font-medium"
+            className="text-black w-full h-[36px]  text-sm sm:text-base md:text-lg font-medium"
             date={date}
             setDate={setDate}
           />
           <SearchSelectPerson
             setError={setError}
-            className=" w-full h-[36px] text-medium font-semibold mt-2 lg:mt-0"
+            className=" w-full h-[36px] text-sm sm:text-base md:text-lg font-semibold mt-2 lg:mt-0"
             numberChildren={numberChildren}
             numberAdults={numberAdults}
             setNumberAdults={setNumberAdults}
@@ -193,7 +190,7 @@ const Booking = ({
       </CardText>
       {/* booking tickets */}
 
-      <div id="booking-hotel-container" className="w-full  space-y-4">
+      <div id="booking-hotel-container" className="w-full  list-spacing">
         {isLoading
           ? Array.from({ length: listRooms.length }, (_, i) => (
               <LoadingBookingCardHotel key={i} />
@@ -202,44 +199,46 @@ const Booking = ({
               <div key={index} className="bg-white shadow-md rounded-lg p-4">
                 <div className="flex flex-col space-y-2">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-blue_main">
+                    <h3 className="text-base md:text-lg font-bold text-blue">
                       {room.name}
                     </h3>
                     {room.numberOfRoom === 0 && (
-                      <span className="text-red-600">Hết phòng</span>
+                      <span className="text-red-600 text-base md:text-lg">
+                        Hết phòng
+                      </span>
                     )}
                   </div>
-                  <ul className="flex flex-wrap gap-2 text-smallest">
+                  <ul className="flex flex-wrap gap-2 text-xs">
                     {Array.isArray(room.details) &&
                       room.details.map((detail, i) => (
                         <li key={i} className="flex items-center gap-1">
-                          <Check className="size-3 text-green_main" />
+                          <Check className="size-3 text-green" />
                           <span>{detail}</span>
                         </li>
                       ))}
                   </ul>
-                  <div className="flex items-center gap-2 text-small">
+                  <div className="flex items-center gap-2 text-sm">
                     <User className="size-4 fill-black" />
                     <X className="size-4" />
                     <span>{room.numberPeople}</span>
                     {room.isAddChildren && (
-                      <span className="flex items-center gap-1 text-smallest">
+                      <span className="flex items-center gap-1 text-xs">
                         <UserPlus className="size-4" /> trẻ em
                       </span>
                     )}
                   </div>
                   {chooseInput[index] >= room.numberOfRoom && (
-                    <span className="text-red-600 text-smallest   lg:hidden">
+                    <span className="text-red-600 text-xs   lg:hidden">
                       Đã chọn tối đa số phòng
                     </span>
                   )}
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col md:flex-row gap-y-1 items-start justify-between md:items-center">
                     <div>
                       <div className="line-through text-red-400 text-[0.8rem]">
                         <span className="mr-1">VNĐ</span>
                         {convertVND(room.price)}
                       </div>
-                      <div className="text-black_main text-small font-semibold">
+                      <div className="text-black text-sm font-semibold">
                         <span className="mr-1">VNĐ</span>
                         {convertVND(
                           room.price - (room.price / 100) * room.sale
@@ -252,12 +251,12 @@ const Booking = ({
 
                     <div className=" flex items-center justify-start lg:space-x-2 shadow-none border-none">
                       {chooseInput[index] >= room.numberOfRoom && (
-                        <span className="text-red-600 text-smallest ml-2 hidden lg:block">
+                        <span className="text-red-600 text-xs ml-2 hidden lg:block">
                           Đã chọn tối đa số phòng còn lại
                         </span>
                       )}
                       <Label
-                        className="text-small font-normal hidden lg:block"
+                        className="text-sm font-normal hidden lg:block"
                         htmlFor="adults"
                       >
                         Số lượng:
@@ -275,15 +274,15 @@ const Booking = ({
                           type="button"
                           onClick={() => handleDecrease(index)}
                           className={cn(
-                            "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
+                            "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub",
                             chooseInput[index] === 0 && "pointer-events-none"
                           )}
                         >
                           <span
                             className={cn(
-                              "!text-largest text-blue_main_sub font-normal p-2",
+                              "!text-4xl text-blue_sub font-normal p-2",
                               chooseInput[index] === 0 &&
-                                "opacity-40 hover:cursor-none  hover:bg-transparent text-black_main"
+                                "opacity-40 hover:cursor-none  hover:bg-transparent text-black"
                             )}
                           >
                             -
@@ -294,7 +293,7 @@ const Booking = ({
                           id="adults"
                           min="1"
                           value={chooseInput[index]}
-                          className="h-8 outline-none bg-white text-normal  max-w-[50px] text-black text-center shadow-none border-none"
+                          className="h-8 outline-none bg-white text-base  max-w-[50px] text-black text-center shadow-none border-none"
                           onChange={(e) => {
                             const { value } = e.target;
                             setChooseInput((prev) => {
@@ -316,11 +315,9 @@ const Booking = ({
                           }
                           type="button"
                           onClick={() => handleIncrease(index)}
-                          className="bg-white hover:bg-bg_black_sub text-black px-2  shadow-none border-none "
+                          className="bg-white hover:bg-black_sub text-black px-2  shadow-none border-none "
                         >
-                          <span className="text-large text-blue_main_sub p-2 ">
-                            +
-                          </span>
+                          <span className="text-3xl text-blue_sub p-2 ">+</span>
                         </Button>
                       </div>
                     </div>
@@ -330,36 +327,37 @@ const Booking = ({
             ))}
 
         {showActionBar && (
-          <div className="container-padding fixed z-[30] bottom-0 left-0 w-full bg-white  p-4 flex justify-between items-center shadow-2xl border-t-2 border-t-blue_main_sub">
-            <div className="min-w-[42%] max-w-[55%] line-clamp-2">
-              <div className="line-through text-red-400 text-small">
-                <span className="mr-1">VNĐ</span>
-                {convertVND(total)}
+          <div className=" w-full bg-white fixed z-[30] bottom-0 left-0 border-t-2 border-t-blue_main_sub  p-4 flex justify-center items-center shadow-2xl  ">
+            <div className="container flex items-center justify-between">
+              <div className="min-w-[42%] max-w-[55%] line-clamp-2">
+                <div className="line-through text-red-400 text-sm">
+                  <span className="mr-1">VNĐ</span>
+                  {convertVND(total)}
+                </div>
+                <div className="text-black text-base font-bold">
+                  <span className="mr-1">VNĐ</span>
+                  {convertVND(totalSale)}
+                </div>
               </div>
-              <div className="text-black_main text-normal font-bold">
-                <span className="mr-1">VNĐ</span>
-                {convertVND(totalSale)}
-              </div>
+              {!!user && isAuthenticated ? (
+                <Button
+                  className="bg-blue_sub text-white hover:bg-blue_active py-2 px-4 rounded-md"
+                  onClick={handleBooking}
+                  disabled={checkHiddenBtn}
+                >
+                  Đặt ngay
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    router.push("/sign-in");
+                  }}
+                  className="bg-blue hover:bg-blue_active text-white"
+                >
+                  Đăng nhập
+                </Button>
+              )}
             </div>
-            {!!user && isAuthenticated ? (
-              <Button
-                className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active py-2 px-4 rounded-md"
-                onClick={handleBooking}
-                disabled={checkHiddenBtn}
-              >
-                Đặt ngay
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  router.push("/sign-in");
-                }}
-                className="bg-bg_primary_main hover:bg-bg_primary_active text-white"
-              >
-                Đăng nhập
-              </Button>
-            )}
-            <div></div>
           </div>
         )}
       </div>

@@ -1,5 +1,4 @@
 import axiosClient from "@/configs/axiosClient/axiosClient";
-import { SearchResult } from "@/types/attraction.type";
 
 export const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 interface IGetAllAttractionProp {
@@ -69,9 +68,9 @@ const getListProvinces = async () => {
 
 export {
   getAllAttraction,
+  getAttractionBooked,
   getAttractionTrending,
   getDetailAttraction,
-  getAttractionBooked,
   getFilterAttractions,
   getListProvinces,
   updateStatus,

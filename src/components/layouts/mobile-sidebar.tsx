@@ -44,12 +44,12 @@ const MobileSidebar = () => {
         <SheetDescription></SheetDescription>
         <SheetContent
           onClick={handleClose}
-          className="w-[85%] h-full bg-bg_primary_white text-black_main"
+          className="w-[85%] h-full bg-white text-black"
           side="right"
         >
           <div className="w-full h-full overflow-y-auto ">
-            <h3 className="text-medium font-bold">Khác</h3>
-            <section className="flex items-start justify-start flex-col text-small  gap-y-4">
+            <h3 className="text-lg font-bold">Khác</h3>
+            <section className="flex items-start justify-start flex-col text-sm  gap-y-4">
               <div className="flex flex-col gap-y-2">
                 {!!user && isAuthenticated ? (
                   <Link
@@ -73,7 +73,7 @@ const MobileSidebar = () => {
                   <span>Đăng chỗ nghỉ của quý vị</span>
                 </div>
               </div>
-              <h4 className="text-normal+ font-semibold">Trợ giúp</h4>
+              <h4 className="text-lg font-semibold">Trợ giúp</h4>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
                   <CircleHelp className="size-4" />
@@ -84,7 +84,7 @@ const MobileSidebar = () => {
                   <span>Tranh chấp đối tác</span>
                 </div>
               </div>
-              <h4 className="text-normal+ font-semibold">Cảm hứng</h4>
+              <h4 className="text-lg font-semibold">Cảm hứng</h4>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
                   <BadgeDollarSign className="size-4" />
@@ -98,7 +98,7 @@ const MobileSidebar = () => {
                   <span>Bài viết về du lịch</span>
                 </Link>
               </div>
-              <h4 className="text-normal+ font-semibold">Cài đặt và pháp lý</h4>
+              <h4 className="text-lg font-semibold">Cài đặt và pháp lý</h4>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
                   <OctagonAlert className="size-4" />

@@ -85,7 +85,7 @@ const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
                   className="absolute inset-0 bg-[rgba(0,0,0,0.15)] flex items-center justify-center text-white font-bold text-lg hover:cursor-pointer"
                   onClick={() => setOpen(true)}
                 >
-                  <span className="text-small font-semibold">
+                  <span className="text-sm font-semibold">
                     + Hiển thị thêm ảnh ({data.images.length - 5})
                   </span>
                 </div>

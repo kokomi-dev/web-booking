@@ -44,21 +44,21 @@ const PayConfirmCode: React.FC<ModalConfirmCodeProps> = ({
     }
   };
   return (
-    <div className="w-full h-full flex items-center justify-center text-black_main">
-      <div className="w-full p-2 posing-vertical-3">
+    <div className="w-full h-full flex items-center justify-center text-black">
+      <div className="w-full p-2 list-spacing">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h3 className="text-medium font-bold flex items-center justify-center gap-x-2">
-            <Check className="size-7 text-green_main" />
+          <h3 className="text-lg font-bold flex items-center justify-center gap-x-2">
+            <Check className="size-7 text-green" />
             Xác thực tài khoản
           </h3>
-          <p className="text-black_sub text-small">
+          <p className="text-black_sub text-sm">
             Xin chào
-            <span className="capitalize text-normal+ first-letter:uppercase font-semibold text-black_main_blur mx-1">
+            <span className="capitalize text-lg first-letter:uppercase font-semibold text-black_blur mx-1">
               {lastName}
             </span>
             ! Chúng tôi đã gửi mã xác thực đến
-            <span className="text-blue_main_sub font-medium underline mx-1">
+            <span className="text-blue_sub font-medium underline mx-1">
               {email}
             </span>
           </p>
@@ -66,7 +66,7 @@ const PayConfirmCode: React.FC<ModalConfirmCodeProps> = ({
 
         {/* OTP Input */}
         <div className="space-y-3">
-          <h4 className="text-normal font-semibold text-center">
+          <h4 className="text-base font-semibold text-center">
             Nhập mã gồm 6 chữ số
           </h4>
           <div className="flex justify-center gap-2">
@@ -89,7 +89,7 @@ const PayConfirmCode: React.FC<ModalConfirmCodeProps> = ({
           <Button
             size="sm"
             onClick={prevStep}
-            className="w-full h-10 bg-bg_black_sub text-black rounded-lg hover:bg-bg_primary_white transition"
+            className="w-full h-10 bg-black_sub text-black rounded-lg hover:bg-white transition"
           >
             Quay lại
           </Button>
@@ -99,8 +99,8 @@ const PayConfirmCode: React.FC<ModalConfirmCodeProps> = ({
             type="button"
             className={`w-full h-10 rounded-lg text-white ${
               value
-                ? "bg-bg_primary_blue_sub hover:bg-bg_primary_active"
-                : "bg-bg_primary_white cursor-not-allowed"
+                ? "bg-blue_sub hover:bg-blue_active"
+                : "bg-white cursor-not-allowed"
             } transition`}
             disabled={!value}
           >
@@ -109,9 +109,9 @@ const PayConfirmCode: React.FC<ModalConfirmCodeProps> = ({
         </div>
 
         {/* Resend code */}
-        <div className="text-center text-smallest text-black_sub">
+        <div className="text-center text-xs text-black_sub">
           Chưa nhận được mã?{" "}
-          <button className="text-blue_main_sub font-medium underline">
+          <button className="text-blue_sub font-medium underline">
             Gửi lại
           </button>
         </div>

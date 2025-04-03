@@ -24,27 +24,27 @@ export default function ModalPayCreditCard({
           <Card className="w-full bg-white p-1 lg:p-6 shadow-lg rounded-2xl mt-6 py-4">
             <CardContent className="w-full">
               <h2 className="text-xl font-semibold text-center mb-4 flex items-start justify-center">
-                <CreditCard className="w-7 h-7 mr-2 text-blue_main_sub" /> Thanh
-                toán qua Thẻ Tín Dụng/Ghi Nợ
+                <CreditCard className="w-7 h-7 mr-2 text-blue_sub" /> Thanh toán
+                qua Thẻ Tín Dụng/Ghi Nợ
               </h2>
               <div className="space-y-4 text-gray-700">
                 <label className="block">
-                  <span className="text-black_main font-semibold">Chủ thẻ</span>
+                  <span className="text-black font-semibold">Chủ thẻ</span>
                   <Input type="text" placeholder="Nguyen The An" />
                 </label>
                 <label className="block">
-                  <span className="text-black_main font-semibold">Số thẻ</span>
+                  <span className="text-black font-semibold">Số thẻ</span>
                   <Input type="text" placeholder="1234 5678 9012 3456" />
                 </label>
                 <div className="flex space-x-4">
                   <label className="block w-1/2">
-                    <span className="text-black_main font-semibold">
+                    <span className="text-black font-semibold">
                       Hạn sử dụng
                     </span>
                     <Input type="text" placeholder="MM/YY" />
                   </label>
                   <label className="block w-1/2">
-                    <span className="text-black_main font-semibold">CVV</span>
+                    <span className="text-black font-semibold">CVV</span>
                     <Input type="text" placeholder="123" />
                   </label>
                 </div>

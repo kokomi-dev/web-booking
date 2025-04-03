@@ -21,9 +21,9 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
     <section className="flex flex-col w-full">
       <Button
         className={cn(
-          "flex items-center justify-start gap-x-1 w-full h-[44px]  text-left bg-white hover:!bg-white focus:!bg-white  px-2 py-1 shadow-none text-normal font-light",
+          "flex items-center justify-start gap-x-1 w-full h-[44px]  text-left bg-white hover:!bg-white focus:!bg-white  px-2 py-1 shadow-none text-base font-light",
           className,
-          "md:hidden lg:hidden text-black_main"
+          "md:hidden lg:hidden text-black"
         )}
         variant="outline"
         onClick={(e) => {
@@ -34,11 +34,11 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
         <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
 
         {date ? (
-          <span className="text-normal font-light">
+          <span className="text-base font-light">
             {format(date, "dd/MM/yyyy", { locale: vi })}
           </span>
         ) : (
-          <span className="text-normal font-light">Vui lòng chọn ngày !</span>
+          <span className="text-base font-light">Vui lòng chọn ngày !</span>
         )}
       </Button>
       <SearchDatePickerSM

@@ -69,160 +69,159 @@ const Search: React.FC<SearchContainerProp> = ({
 
   if (page === "home" && !pathname.includes("genius")) {
     return (
-      <div className="w-full h-full py-4 container-padding bg-transparent lg:bg-bg_primary_main ">
-        <Tabs
-          defaultValue="attractions"
-          className="w-full h-auto bg-bg_primary_white rounded-8 "
-        >
-          <TabsList className="grid w-full grid-cols-2 gap-x-2">
-            <TabsTrigger
+      <div className="w-full h-full py-4  bg-transparent lg:bg-blue ">
+        <div className="container xl:p-0">
+          <Tabs
+            defaultValue="attractions"
+            className="w-full h-auto bg-white rounded-8"
+          >
+            <TabsList className="grid w-full grid-cols-2 gap-x-2 h-auto p-1 md:p-2 bg-black_sub">
+              <TabsTrigger
+                value="attractions"
+                className="text-black font-medium text-sm"
+              >
+                Địa điểm
+              </TabsTrigger>
+              <TabsTrigger
+                value="hotels"
+                className="text-black font-medium text-sm "
+              >
+                Lưu trú
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent
               value="attractions"
-              className="text-black_main font-medium text-small"
+              className="border-t-1  border-blue_sub"
             >
-              Địa điểm tham quan
-            </TabsTrigger>
-            <TabsTrigger
-              value="hotels"
-              className="text-black_main font-medium text-small"
-            >
-              Lưu trú
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent
-            value="attractions"
-            className="border-t-1  border-blue_main_sub"
-          >
-            <Card
-              className={cn(
-                "overflow-hidden border-none h-auto rounded-none rounded-br-8 rounded-bl-8"
-              )}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0 ">
-                  <span className="hidden md:block text-small text-black_sub">
-                    Tìm kiếm điểm tham quan của bạn
-                  </span>
-                  <Link
-                    href="/attractions"
-                    className="text-blue_main_sub underline text-small font-normal"
-                  >
-                    Đến trang gợi ý của chúng tôi
-                  </Link>
-                </CardTitle>
-              </CardHeader>
-              <CardContent
+              <Card
                 className={cn(
-                  "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow_main p-1 ",
-                  "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2 lg:gap-y-0"
+                  "overflow-hidden border-none h-auto rounded-none rounded-br-8 rounded-bl-8"
                 )}
               >
-                <SearchAddress
-                  value={address}
-                  setValue={setAddress}
-                  error={error}
-                />
-                <SearchDatePicker date={date} setDate={setDate} />
-                <Button
-                  type="submit"
-                  variant="default"
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between font-medium text-base text-black -my-2 md:-my-0 ">
+                    <span className="hidden md:block text-sm text-black_sub">
+                      Tìm kiếm điểm tham quan của bạn
+                    </span>
+                    <Link
+                      href="/attractions"
+                      className="text-blue_sub underline text-sm font-normal"
+                    >
+                      Đến trang gợi ý của chúng tôi
+                    </Link>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent
                   className={cn(
-                    "lg:max-w-[140px] w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white text-white"
+                    "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow p-1 ",
+                    "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2 lg:gap-y-0"
                   )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (address === "" || address === null) {
-                      setError(true);
-                    } else {
-                      router.push(
-                        `/attractions/all?address=${address}&date=${format(
-                          date,
-                          "dd/MM/yyyy",
-                          { locale: vi }
-                        )}&filter=suggest`
-                      );
-                    }
-                  }}
                 >
-                  <span className="text-medium font-medium">Tìm</span>
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent
-            value="hotels"
-            className="border-t-1  border-yellow_main"
-          >
-            <Card className={cn("overflow-hidden  border-none mt-0 ")}>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between font-medium text-normal text-black_main -my-2 md:-my-0">
-                  <span className="hidden text-black_sub text-small md:block">
-                    Tìm kiếm nơi lưu trú hợp lí cho chuyến đi
-                  </span>
-                  <Link
-                    href="/hotels"
-                    className="text-blue_main_sub underline text-small font-normal"
+                  <SearchAddress
+                    value={address}
+                    setValue={setAddress}
+                    error={error}
+                  />
+                  <SearchDatePicker date={date} setDate={setDate} />
+                  <Button
+                    type="submit"
+                    variant="default"
+                    className={cn(
+                      "lg:max-w-[140px] w-full h-[44px] text-base font-medium bg-blue_sub hover:bg-blue_active hover:text-white text-white"
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (address === "" || address === null) {
+                        setError(true);
+                      } else {
+                        router.push(
+                          `/attractions/all?address=${address}&date=${format(
+                            date,
+                            "dd/MM/yyyy",
+                            { locale: vi }
+                          )}&filter=suggest`
+                        );
+                      }
+                    }}
                   >
-                    Đến trang gợi ý của chúng tôi
-                  </Link>
-                </CardTitle>
-              </CardHeader>
-              <CardContent
-                className={cn(
-                  "w-full h-auo flex flex-col justify-start  bg-yellow_main p-1 gap-y-2",
-                  "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2  "
-                )}
-              >
-                <SearchAddress
-                  value={address}
-                  setValue={setAddress}
-                  error={error}
-                />
-                <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
-                <SearchSelectPerson
-                  setError={setError}
-                  numberAdults={numberAdults}
-                  setNumberAdults={setNumberAdults}
-                  numberChildren={numberChildren}
-                  setNumberChildren={setNumberChildren}
-                  numberRoom={numberRoom}
-                  setNumberRoom={setNumberRoom}
-                />
-                <Button
-                  type="submit"
-                  variant="default"
+                    <span className="text-lg font-medium">Tìm</span>
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="hotels" className="border-t-1  border-yellow">
+              <Card className={cn("overflow-hidden  border-none mt-0 ")}>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between font-medium text-base text-black -my-2 md:-my-0">
+                    <span className="hidden text-black_sub text-sm md:block">
+                      Tìm kiếm nơi lưu trú hợp lí cho chuyến đi
+                    </span>
+                    <Link
+                      href="/hotels"
+                      className="text-blue_sub underline text-sm font-normal"
+                    >
+                      Đến trang gợi ý của chúng tôi
+                    </Link>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent
                   className={cn(
-                    "lg:max-w-[140px] w-full  h-[44px]   bg-bg_primary_blue_sub text-white"
+                    "w-full h-auo flex flex-col justify-start bg-yellow p-1 gap-y-2",
+                    "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2  "
                   )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (address === "" || address === null) {
-                      setError(true);
-                    } else {
-                      router.push(
-                        `/hotels/all?address=${address}&dateFrom=${format(
-                          dateDou.from,
-                          "dd/MM/yyyy",
-                          { locale: vi }
-                        )}&dateTo=${format(dateDou.to, "dd/MM/yyyy", {
-                          locale: vi,
-                        })}&numberAdults=${numberAdults}&numberChildren=${numberChildren}&numberRoom=${numberRoom}`
-                      );
-                    }
-                  }}
                 >
-                  <span className="text-medium font-medium">Tìm</span>
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  <SearchAddress
+                    value={address}
+                    setValue={setAddress}
+                    error={error}
+                  />
+                  <SearchDatePickerDou date={dateDou} setDate={setDateDou} />
+                  <SearchSelectPerson
+                    setError={setError}
+                    numberAdults={numberAdults}
+                    setNumberAdults={setNumberAdults}
+                    numberChildren={numberChildren}
+                    setNumberChildren={setNumberChildren}
+                    numberRoom={numberRoom}
+                    setNumberRoom={setNumberRoom}
+                  />
+                  <Button
+                    type="submit"
+                    variant="default"
+                    className={cn(
+                      "lg:max-w-[140px] w-full  h-[44px]   bg-blue_sub text-white"
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (address === "" || address === null) {
+                        setError(true);
+                      } else {
+                        router.push(
+                          `/hotels/all?address=${address}&dateFrom=${format(
+                            dateDou.from,
+                            "dd/MM/yyyy",
+                            { locale: vi }
+                          )}&dateTo=${format(dateDou.to, "dd/MM/yyyy", {
+                            locale: vi,
+                          })}&numberAdults=${numberAdults}&numberChildren=${numberChildren}&numberRoom=${numberRoom}`
+                        );
+                      }
+                    }}
+                  >
+                    <span className="text-lg font-medium">Tìm</span>
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     );
   }
   return (
     <form
       className={cn(
-        "w-full h-full flex items-center justify-center py-4 !container-padding  bg-transparent lg:bg-bg_primary_main",
+        "w-full h-full flex items-center justify-center py-4 bg-transparent lg:bg-blue",
         className,
         isDetailPage && "hidden lg:flex",
         HIDDEN_SEARCH.some((value) => pathname.includes(value)) &&
@@ -231,7 +230,7 @@ const Search: React.FC<SearchContainerProp> = ({
     >
       <div
         className={cn(
-          "w-full h-full  grid z-[10] gap-2",
+          "container lg:p-0  grid z-[10] gap-2",
           "md:gap-4",
           "lg:gap-6",
           variant === "search" && " ",
@@ -245,22 +244,22 @@ const Search: React.FC<SearchContainerProp> = ({
               <h1
                 className={cn(
                   "w-full hidden ",
-                  "lg:block lg:text-largest lg:font-bold"
+                  "lg:block lg:text-4xl lg:font-bold"
                 )}
               >
                 Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
               </h1>
               <h1
                 className={cn(
-                  "w-full block lg:hidden !text-medium text-black font-semibold"
+                  "w-full block lg:hidden !text-lg text-black font-semibold"
                 )}
               >
                 Tìm điểm đến tiếp theo
               </h1>
               <p
                 className={cn(
-                  "text-small text-black_sub",
-                  "lg:!text-large lg:text-white font-light lg:block"
+                  "text-sm text-black_sub",
+                  "lg:!text-3xl lg:text-white font-light lg:block"
                 )}
               >
                 Khám phá những khung cảnh thơ mộng tại Việt Nam
@@ -271,13 +270,13 @@ const Search: React.FC<SearchContainerProp> = ({
         {page === "hotels" && (
           <section className={cn("text-white")}>
             <div className="w-full">
-              <h1 className="hidden lg:block text-wrap text-largest font-extrabold">
+              <h1 className="hidden lg:block text-wrap text-4xl font-extrabold">
                 Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
               </h1>
-              <h1 className="block lg:hidden text-black text-wrap !text-medium font-semibold">
+              <h1 className="block lg:hidden text-black text-wrap !text-lg font-semibold">
                 Tìm chỗ nghỉ tiếp theo
               </h1>
-              <p className="md:text-small text-black_sub lg:text-white lg:text-large font-light">
+              <p className="md:text-sm text-black_sub lg:text-white lg:text-3xl font-light">
                 Những khách sạn hàng đầu tại Việt Nam
               </p>
             </div>
@@ -286,7 +285,7 @@ const Search: React.FC<SearchContainerProp> = ({
         {/* search container */}
         <div
           className={cn(
-            "w-full bg-bg_primary_yellow flex flex-col items-center justify-between gap-y-2 p-1 rounded-lg ",
+            "w-full bg-yellow flex flex-col items-center justify-between gap-y-2 p-1 rounded-lg ",
             variant === "search" && "lg:grid lg:grid-flow-row ",
             " lg:flex  lg:items-center lg:justify-between lg:px-1 lg:gap-2 lg:flex-row"
           )}
@@ -313,9 +312,9 @@ const Search: React.FC<SearchContainerProp> = ({
             type="submit"
             variant="ghost"
             className={cn(
-              "w-full h-[44px] text-normal font-medium bg-bg_primary_blue_sub text-white",
-              "lg:text-medium lg:font-semibold lg:max-w-[140px] ",
-              "hover:bg-bg_primary_active hover:text-white "
+              "w-full h-[44px] text-base font-medium bg-blue_sub text-white",
+              "lg:text-lg lg:font-semibold lg:max-w-[140px] ",
+              "hover:bg-blue_active hover:text-white "
             )}
             onClick={handleSearch}
           >

@@ -1,17 +1,18 @@
 import { Metadata } from "next";
-import Image from "next/image";
 
-import bannerSearch from "@/assets/images/pre-hotel.jpg";
 import BreadcrumbHead from "@/components/components/breadcrumb";
-import Icon from "@/components/components/icon";
+import ListFestivals from "@/components/components/list-festival";
+import ListTabAllType from "@/components/components/list-tab-all-type";
 import ReceiveFeedback from "@/components/components/receive-feedback";
 import Trending from "@/components/components/trending";
-import { RULES_DEMO } from "@/components/dashboard/constants";
+import {
+  FAG,
+  fakeRating,
+  Question,
+} from "@/components/dashboard/hotels/constant";
 import ListAllHotels from "@/components/dashboard/hotels/list-hotels";
 import ListHotelFavorite from "@/components/dashboard/hotels/list-hotels-favorite";
 import Rules from "@/components/dashboard/hotels/rules";
-import { cn } from "@/utils/constants";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Lưu trú - KoKoTravel",
@@ -19,73 +20,96 @@ export const metadata: Metadata = {
 
 const HotelPage = () => {
   return (
-    <div className="w-full h-full posing-vertical-1 ">
-      <BreadcrumbHead
-        items={[{ label: "Trang chủ", href: "/home" }, { label: "Lưu trú" }]}
-      />
-      <Trending page="hotels" />
-      <hr className="hr" />
+    <div className="w-full h-full section-spacing">
+      <section className="list-spacing">
+        <BreadcrumbHead
+          items={[{ label: "Trang chủ", href: "/home" }, { label: "Lưu trú" }]}
+        />
+        <Trending page="hotels" />
+      </section>
       <Rules />
-      <hr className="hr" />
-      <div className="relative w-full h-full bg-fixed bg-no-repeat rounded-14 bg-cover bg-[url('../assets/images/banner-hotel.jpg')]">
-        <div className="absolute inset-0 bg-black/40 rounded-14"></div>{" "}
-        <section className={cn("relative p-4 text-white", "lg:p-10")}>
-          <div className="w-full h-auto flex items-center justify-between gap-y-2 bg-white p-2 md:p-4 lg:p-6 text-black_sub rounded-md shadow-lg">
-            <div className="posing-vertical-6">
-              <h3 className="text-black text-normal lg:text-lg font-normal lg:font-semibold">
-                Tận hưởng không gian nghỉ dưỡng lý tưởng - Hành trình đáng nhớ
-                đang chờ đón bạn! ✨
-              </h3>
-              <p className="hidden lg:block text-sm text-black_sub mb-4 tracking-[0.020rem]">
-                Chúng tôi giúp bạn tìm kiếm những khách sạn lý tưởng nhất, từ
-                view biển thơ mộng đến trung tâm sôi động.
-              </p>
-              <Link
-                href="#list-all-hotel"
-                className="bg-bg_primary_main block w-fit text-white hover:bg-bg_primary_active transition-all duration-300 transform hover:scale-105 hover:shadow-lg p-3 py-2 rounded-8 text-normal font-medium"
-              >
-                Khám phá ngay
-              </Link>
-            </div>
-            <Image
-              src={bannerSearch}
-              alt="img_preview"
-              className="min-w-[18%] hidden lg:block min-h-[80%] w-[35%] lg:w-[25%] h-[100%] object-cover rounded-md shadow-md"
-            />
-          </div>
-        </section>
-      </div>
 
-      <hr className="hr" />
-      {/* favorite */}
-      <ListHotelFavorite />
-      {/* all hotels */}
-      <hr className="hr" />
-      <ListAllHotels />
-      <section className="p-2 md:p-4 lg:p-6 bg-bg_primary_white rounded-xl shadow-md posing-vertical-3">
-        <h2 className="text-large font-bold text-black_main ">
-          Quy định{" "}
-          <span className="text-sm text-black_main_blur">
-            (có thể thay đổi theo từng nơi lưu trú)
-          </span>
+      {/* lợi ích */}
+      <section className="container xl:px-0 ">
+        <div className="p-4 lg:p-6 bg-blue text-white rounded-xl shadow-md my-6">
+          <h2 className="text-lg md:text-xl font-bold heading-spacing text-center">
+            Lợi ích khi đặt phòng với chúng tôi
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {FAG.map((benefit, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 bg-white text-black p-3 lg:p-4 rounded-lg shadow hover:shadow-md transition-all"
+              >
+                <div className="text-2xl">{benefit.icon}</div>
+                <div>
+                  <h3 className="text-base md:text-lg font-medium">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-black_blur mt-1">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* đánh giá */}
+      <section className="container p-4 lg:p-6 bg-gray-50 rounded-xl shadow-md my-6 ">
+        <h2 className="text-xl md:text-2xl font-bold  text-center heading-spacing">
+          Đánh giá từ khách hàng
         </h2>
-        <div className="grid gap-4 md:grid-cols-2">
-          {RULES_DEMO.map((rule, index) => (
+        <div className="grid gap-3 md:gap-4 lg:gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {fakeRating.map((review, index) => (
             <div
               key={index}
-              className="flex items-start gap-3 bg-white p-3 lg:p-4 rounded-lg shadow hover:shadow-md transition-all"
+              className="flex flex-col items-start bg-white p-4 rounded-lg shadow hover:shadow-md transition-all"
             >
-              <Icon className="text-blue_main size-5 lg:size-6 mt-[1px]">
-                <rule.icon />
-              </Icon>
-              <div>
-                <h3 className="text-normal font-medium text-black_main">
-                  {rule.title}
-                </h3>
-                <p className="text-black_main_blur text-sm mt-1 font-light lg:font-normal">
-                  {rule.description}
-                </p>
+              <h3 className="text-sm lg:text-base font-medium text-black">
+                {review.name}
+              </h3>
+              <p className="text-xs lg:text-sm text-black_sub mt-1">
+                {review.feedback}
+              </p>
+              <div className="mt-2 flex items-center gap-1">
+                {Array.from({ length: Math.floor(review.rating) }).map(
+                  (_, i) => (
+                    <span key={i} className="text-yellow">
+                      ★
+                    </span>
+                  )
+                )}
+                {review.rating % 1 !== 0 && (
+                  <span className="text-yellow">☆</span>
+                )}
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/* list hotels */}
+      <section className="section-spacing container xl:px-0">
+        <ListHotelFavorite />
+        <ListAllHotels />
+      </section>
+      <ListTabAllType />
+      <ListFestivals />
+      {/* hỏi */}
+      <section className="container p-4 lg:p-6 bg-white rounded-xl shadow-md my-6">
+        <h2 className="text-xl md:text-2xl font-bold heading-spacing text-center">
+          Câu hỏi thường gặp
+        </h2>
+        <div className="list-spacing">
+          {Question.map((faq, index) => (
+            <div key={index} className="p-3 bg-gray-50 rounded-lg shadow">
+              <h3 className="text-sm lg:text-base font-medium text-black">
+                {faq.question}
+              </h3>
+              <p className="text-xs lg:text-sm text-black_sub mt-1 font-light">
+                {faq.answer}
+              </p>
             </div>
           ))}
         </div>

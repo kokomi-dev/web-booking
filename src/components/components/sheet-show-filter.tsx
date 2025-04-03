@@ -46,7 +46,7 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({
         className="text-black w-[90%] h-auto p-4 pl-8 flex flex-col"
       >
         <SheetHeader className="w-full h-fit text-start flex-shrink-0">
-          <SheetTitle className="text-start text-medium font-semibold">
+          <SheetTitle className="text-start text-lg font-semibold">
             Lọc theo
           </SheetTitle>
           <SheetDescription className="flex items-center justify-between">
@@ -54,7 +54,7 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({
           </SheetDescription>
         </SheetHeader>
 
-        <div className="w-full flex-1 overflow-y-auto my-3 posing-vertical-3 text-small font-normal">
+        <div className="w-full flex-1 overflow-y-auto my-3 list-spacing text-sm font-normal">
           <FilterComponent
             title="giá"
             arrayFilterItem={filterAttraction2}
@@ -69,12 +69,12 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({
             filter={filter}
             setFilter={setFilter}
           />
-          <div className="flex flex-col posing-vertical-5">
-            <h6 className="text-small font-medium capitalize">Ngày bắt đầu</h6>
+          <div className="flex flex-col list-spacing">
+            <h6 className="text-sm font-medium capitalize">Ngày bắt đầu</h6>
             <input
               value={filter.startDate}
               type="date"
-              className="w-[80%] border-1 border-black_sub p-1 rounded-8 bg-bg_primary_white text-black"
+              className="w-[80%] border-1 border-black_sub p-1 rounded-8 bg-white text-black"
               onChange={(e) => {
                 setFilter((pre: any) => ({
                   ...pre,
@@ -95,10 +95,10 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({
         <SheetFooter className="w-full h-[60px] flex items-center justify-center bg-white border-t flex-shrink-0">
           <div className="w-full flex items-center justify-between">
             <div
-              className="flex items-center justify-center gap-x-[3px] p-2 bg-bg_black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-bg_primary_hover"
+              className="flex items-center justify-center gap-x-[3px] p-2 bg-black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-blue_hover"
               onClick={handleResetFilter}
             >
-              <span className="text-smallest">Xóa bộ lọc</span>
+              <span className="text-xs">Xóa bộ lọc</span>
               <Slice className="size-4" />
             </div>
             <Button
@@ -106,7 +106,7 @@ const SheetShowFilter: React.FC<ISheetShowFilter> = ({
                 setOpen(false);
                 refetch();
               }}
-              className="bg-bg_primary_blue_sub text-white"
+              className="bg-blue_sub text-white"
             >
               Xem kết quả
             </Button>

@@ -15,10 +15,10 @@ import {
   AiOutlineClockCircle,
   AiOutlineInfoCircle,
 } from "react-icons/ai";
-import { formatPrice } from "../../components/item-component";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { LoadingBookingCardAttraction } from "@/components/components/loading";
+import { formatPrice } from "@/components/components/item-component";
 
 const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   isLoading,
@@ -33,140 +33,142 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
   const router = useRouter();
   const { user, isAuthenticated } = useAuthenticatedStore();
 
-  const [numberTicketsAdult, setNumberTicketsAdult] = useState(1);
-  const [numberTicketsChildren, setNumberTicketsChildren] = useState(0);
+  // State for ticket counts
+  const [tickets, setTickets] = useState({
+    adult: 1,
+    children: 0,
+  });
+
+  // State for overbooking
   const [isOverTickets, setIsOverTickets] = useState({
     adult: false,
     children: false,
   });
+
+  // Check if tickets exceed available count
   const checkOverTickets = (type: "adult" | "children", value: number) => {
-    if (
-      (type === "adult" && value >= (numberOfTickets?.adult || 0)) ||
-      (type === "children" && value >= (numberOfTickets?.children || 0))
-    ) {
-      setIsOverTickets((prev) => ({ ...prev, [type]: true }));
-    } else {
-      setIsOverTickets((prev) => ({ ...prev, [type]: false }));
-    }
+    setIsOverTickets((prev) => ({
+      ...prev,
+      [type]: value >= (numberOfTickets?.[type] || 0),
+    }));
   };
 
-  const handleIncrease = (
-    setter: (value: number) => void,
-    value: number,
-    type: "adult" | "children"
-  ) => {
-    const newValue = value + 1;
-    setter(newValue);
-    checkOverTickets(type, newValue);
+  // Handle ticket increase
+  const handleIncrease = (type: "adult" | "children") => {
+    setTickets((prev) => {
+      const newValue = prev[type] + 1;
+      checkOverTickets(type, newValue);
+      return { ...prev, [type]: newValue };
+    });
   };
 
-  const handleDecrease = (
-    setter: (value: number) => void,
-    value: number,
-    type: "adult" | "children"
-  ) => {
-    const newValue = Math.max(0, value - 1);
-    setter(newValue);
-    checkOverTickets(type, newValue);
+  // Handle ticket decrease
+  const handleDecrease = (type: "adult" | "children") => {
+    setTickets((prev) => {
+      const newValue = Math.max(0, prev[type] - 1);
+      checkOverTickets(type, newValue);
+      return { ...prev, [type]: newValue };
+    });
   };
 
-  const handleInputChange = (
-    setter: (value: number) => void,
-    value: string,
-    type: "adult" | "children"
-  ) => {
-    const newValue = Math.max(0, Number(value));
-    setter(newValue);
-    checkOverTickets(type, newValue);
+  // Validate booking conditions
+  const validateBooking = () => {
+    if (!date) return "Vui lòng chọn ngày đặt lịch";
+    if (!hour) return "Vui lòng chọn giờ đặt lịch";
+    if (tickets.adult === 0) return "Vui lòng chọn ít nhất 1 vé người lớn";
+    return null;
   };
 
+  // Handle booking tickets
   const handleBookedTickets = () => {
+    const error = validateBooking();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
     if (!date) {
-      return toast.error("Chọn ngày đặt lịch");
+      toast.error("Ngày không hợp lệ");
+      return;
     }
-    if (!hour) {
-      return toast.error("Chọn giờ đặt lịch");
-    }
-    if (numberTicketsAdult === 0) {
-      return toast.error("Vui lòng chọn ít nhất 1 vé");
-    }
+
     router.replace(
-      "/attractions/booking/" +
-        slug +
-        "?date=" +
-        format(date, "dd/MM/yyyy", { locale: vi }) +
-        "&hour=" +
-        hour +
-        "&adult=" +
-        numberTicketsAdult +
-        "&children=" +
-        numberTicketsChildren
+      `/attractions/booking/${slug}?date=${format(date, "dd/MM/yyyy", {
+        locale: vi,
+      })}&hour=${hour}&adult=${tickets.adult}&children=${tickets.children}`
     );
   };
+
   if (isLoading) {
     return <LoadingBookingCardAttraction />;
   }
+
   return (
-    <div
-      className={cn(
-        "posing-vertical-4 border-[2px] border-blue_main_sub rounded-xl p-3 relative "
-      )}
-    >
+    <div className="list-spacing border-[2px] border-blue_sub rounded-xl p-3 relative">
+      {/* Authentication Check */}
       {!isAuthenticated && !user && (
-        <div className="absolute w-full top-0 bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.15)] rounded-8 flex items-center justify-center ">
+        <div className="absolute w-full top-0 bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.15)] rounded-8 flex items-center justify-center">
           <Link
             href="/sign-in"
-            className="w-full text-center z-10 shadow-xl bg-bg_primary_active text-white p-2 rounded-8 text-small mx-8 hover:bg-bg_primary_main"
+            className="w-full text-center z-10 shadow-xl bg-blue_active text-white p-2 rounded-8 text-sm mx-8 hover:bg-blue"
           >
             Đăng nhập để tiếp tục
           </Link>
         </div>
       )}
+
+      {/* Duration and Name */}
       <h5 className="flex items-center justify-start gap-1">
-        <AiOutlineClockCircle className="text-[1.25rem]" />{" "}
+        <AiOutlineClockCircle className="text-[1.25rem]" />
         <span>{duration} ngày</span>
       </h5>
       <h3 className="font-semibold text-[1.2rem]">{name}</h3>
-      <ol className="w-full posing-vertical-4">
-        <li className="gap-x-2  lg:gap-x-3 flex items-center justify-start  text-black font-normal">
-          <AiOutlineCheckCircle className="text-[1.2rem]  flex-shrink-0" />
-          <span className="text-small font-normal">Các dịch vụ đi kèm</span>
+
+      {/* Features */}
+      <ol className="w-full list-spacing">
+        <li className="gap-x-2 lg:gap-x-3 flex items-center justify-start text-black font-normal">
+          <AiOutlineCheckCircle className="text-[1.2rem] flex-shrink-0" />
+          <span className="text-sm font-normal">Các dịch vụ đi kèm</span>
         </li>
-        <li className="gap-x-2  lg:gap-x-3 flex justify-start items-center   text-black font-normal">
-          <AiOutlineInfoCircle className="text-[1.2rem]  flex-shrink-0" />
-          <span className="text-small font-normal">
-            Đảm bảo quyền lợi của bạn
-          </span>
+        <li className="gap-x-2 lg:gap-x-3 flex justify-start items-center text-black font-normal">
+          <AiOutlineInfoCircle className="text-[1.2rem] flex-shrink-0" />
+          <span className="text-sm font-normal">Đảm bảo quyền lợi của bạn</span>
         </li>
       </ol>
+
+      {/* Pricing */}
       <ol className="w-full">
-        <li className="text-small font-medium text-black_main ">
+        <li className="text-sm font-medium text-black">
           Giá người lớn:{" "}
-          <span className="underline text-normal text-blue_main font-medium">
+          <span className="underline text-base text-blue font-medium">
             {formatPrice(price[0])} VNĐ
           </span>
         </li>
-        <li className="text-black_main text-small font-medium">
+        <li className="text-black text-sm font-medium">
           Giá trẻ em (7 =&gt; 14 tuổi):{" "}
-          <span className="underline text-normal text-blue_main font-medium">
+          <span className="underline text-base text-blue font-medium">
             {formatPrice(price[1])} VNĐ
           </span>
         </li>
       </ol>
+
+      {/* Ticket Availability */}
       <div className="w-full h-auto">
         {numberOfTickets?.adult === 0 && (
-          <span className="text-red-500 text-small font-medium">
+          <span className="text-red-500 text-sm font-medium">
             Hết vé người lớn!
           </span>
         )}
         {numberOfTickets?.children === 0 && (
-          <span className="text-red-500 text-small font-medium">
+          <span className="text-red-500 text-sm font-medium">
             Hết vé trẻ em!
           </span>
         )}
       </div>
-      <section className="space-y-3 text-small">
-        <h4 className="text-normal font-bold">Số lượng vé</h4>
+
+      {/* Ticket Selection */}
+      <section className="space-y-3 text-sm">
+        <h4 className="text-base font-bold">Số lượng vé</h4>
         {isOverTickets.adult && (
           <span className="text-red-600">Đã đặt hết vé người lớn</span>
         )}
@@ -174,158 +176,69 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
           <span className="text-red-600">Đã đặt hết vé trẻ em</span>
         )}
 
+        {/* Adult Tickets */}
         <div className="flex items-center justify-between gap-x-4">
-          <Label
-            className="text-small flex-shrink-0 w-[180px] font-medium"
-            htmlFor="adults"
-          >
+          <Label className="text-sm flex-shrink-0 w-[180px] font-medium">
             Người lớn (tuổi 16-60)
           </Label>
-          <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
+          <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
             <Button
-              disabled={numberTicketsAdult === 1}
-              type="button"
-              onClick={() =>
-                handleDecrease(
-                  setNumberTicketsAdult,
-                  numberTicketsAdult,
-                  "adult"
-                )
-              }
-              className={cn(
-                "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
-                numberTicketsAdult === 1 && "pointer-events-none"
-              )}
+              disabled={tickets.adult === 1}
+              onClick={() => handleDecrease("adult")}
+              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
             >
-              <span
-                className={cn(
-                  "!text-large text-blue_main_sub font-normal p-1 select-none ",
-                  numberTicketsAdult === 1 &&
-                    "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_main pointer-events-none"
-                )}
-              >
-                -
-              </span>
+              -
             </Button>
-            <Input
-              type="number"
-              id="adults"
-              min="1"
-              disabled={numberTicketsAdult >= (numberOfTickets?.adult || 0)}
-              value={numberTicketsAdult}
-              className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
-              onChange={(e) =>
-                handleInputChange(
-                  setNumberTicketsAdult,
-                  e.target.value,
-                  "adult"
-                )
-              }
-              onMouseDown={(e) => e.stopPropagation()}
-            />
+            <span className="text-base text-center w-[30px] select-none">
+              {tickets.adult}
+            </span>
             <Button
-              disabled={numberTicketsAdult >= (numberOfTickets?.adult || 0)}
-              type="button"
-              onClick={() =>
-                handleIncrease(
-                  setNumberTicketsAdult,
-                  numberTicketsAdult,
-                  "adult"
-                )
-              }
-              className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
+              disabled={tickets.adult >= (numberOfTickets?.adult || 0)}
+              onClick={() => handleIncrease("adult")}
+              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
             >
-              <span className="text-large text-blue_main_sub select-none ">
-                +
-              </span>
+              +
             </Button>
           </div>
         </div>
-        <div className="flex justify-between items-center gap-x-4">
-          <Label
-            className="text-small flex-shrink-0 w-[180px] font-medium"
-            htmlFor="adults"
-          >
+
+        {/* Children Tickets */}
+        <div className="flex items-center justify-between gap-x-4">
+          <Label className="text-sm flex-shrink-0 w-[180px] font-medium">
             Trẻ nhỏ (tuổi 10-15)
           </Label>
-          <div className=" flex items-center border-0.5 border-black_sub justify-center rounded-[4px] ">
+          <div className="flex items-center border-0.5 border-black_sub justify-center rounded-[4px]">
             <Button
-              disabled={numberTicketsChildren === 0}
-              type="button"
-              onClick={() =>
-                handleDecrease(
-                  setNumberTicketsChildren,
-                  numberTicketsChildren,
-                  "children"
-                )
-              }
-              className={cn(
-                "bg-white text-black shadow-none border-none p-0 px-2 hover:bg-bg_black_sub",
-                numberTicketsChildren === 0 && "pointer-events-none"
-              )}
+              disabled={tickets.children === 0}
+              onClick={() => handleDecrease("children")}
+              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
             >
-              <span
-                className={cn(
-                  "!text-large text-blue_main_sub font-normal p-1 select-none",
-                  numberTicketsChildren === 0 &&
-                    "opacity-40 hover:cursor-none !text-large hover:bg-transparent text-black_sub pointer-events-none"
-                )}
-              >
-                -
-              </span>
+              -
             </Button>
-            <Input
-              type="number"
-              id="children"
-              min="1"
-              disabled={
-                numberTicketsChildren >= (numberOfTickets?.children || 0)
-              }
-              value={numberTicketsChildren}
-              className="h-8 outline-none bg-white text-normal  max-w-[60px] text-black text-center shadow-none border-none"
-              onChange={(e) =>
-                handleInputChange(
-                  setNumberTicketsChildren,
-                  e.target.value,
-                  "children"
-                )
-              }
-              onMouseDown={(e) => e.stopPropagation()}
-            />
+            <span className="text-base text-center w-[30px] select-none">
+              {tickets.children}
+            </span>
             <Button
-              disabled={
-                numberTicketsChildren >= (numberOfTickets?.children || 0)
-              }
-              type="button"
-              onClick={() =>
-                handleIncrease(
-                  setNumberTicketsChildren,
-                  numberTicketsChildren,
-                  "children"
-                )
-              }
-              className="bg-white hover:bg-bg_black_sub text-black px-2 text-largest shadow-none border-none "
+              disabled={tickets.children >= (numberOfTickets?.children || 0)}
+              onClick={() => handleIncrease("children")}
+              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
             >
-              <span className="text-large text-blue_main_sub select-none ">
-                +
-              </span>
+              +
             </Button>
           </div>
         </div>
+
+        {/* Action Buttons */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-y-0 md:gap-x-4">
           <Button
-            type="button"
-            className="w-full bg-bg_primary_blue_sub hover:bg-bg_primary_active"
             onClick={handleBookedTickets}
+            className="w-full bg-blue_sub hover:bg-blue_active"
           >
-            <span className="text-white text-small font-normal">Đặt ngay</span>
+            <span className="text-white text-sm font-normal">Đặt ngay</span>
           </Button>
           <Button
-            onClick={() => {
-              router.push("/contact");
-            }}
-            type="button"
-            className="w-full text-small font-normal bg-bg_primary_white hover:bg-bg_primary_hover"
+            onClick={() => router.push("/contact")}
+            className="w-full text-sm font-normal text-black_sub bg-white hover:bg-blue_hover"
           >
             Liên hệ
           </Button>

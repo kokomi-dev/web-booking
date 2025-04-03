@@ -72,20 +72,20 @@ const ListAttractions = () => {
   }, [listAttraction, isLoading, isFetching]);
   const router = useRouter();
   return (
-    <section id="list-all-attractions" className="w-full posing-vertical-4">
-      <div className="posing-vertical-6">
-        <div className="flex items-start justify-between">
-          <h2 className="text-large font-bold">
+    <section id="list-all-attractions" className="w-full list-spacing">
+      <div className="">
+        <div className="flex items-start justify-between ">
+          <h2 className="text-xl md:text-2xl font-bold ">
             Tất cả địa điểm của chúng tôi
           </h2>
           <span
             onClick={() => router.push("/attractions/all")}
-            className="text-blue_main_sub underline hover:cursor-pointer hover:underline text-smallest lg:text-small flex-shrink-0 mt-2 md:mt-1 lg:mt-0"
+            className="text-blue_sub underline hover:cursor-pointer hover:underline text-xs lg:text-sm flex-shrink-0 mt-2  lg:mt-2"
           >
             Xem thêm
           </span>
         </div>
-        <p className="text-black_sub text-small font-light">
+        <p className="text-black_sub text-sm font-light">
           Các điểm đến đang có nhiều điều chờ đón bạn
         </p>
       </div>

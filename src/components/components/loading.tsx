@@ -1,12 +1,26 @@
 "use client";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/utils/constants";
 import { Skeleton } from "../ui/skeleton";
+
 const LoadingPage = () => {
+  useEffect(() => {
+    // Thêm lớp "overflow-hidden" vào <html> và <body> khi loading
+    document.documentElement.classList.add("overflow-hidden");
+    document.body.classList.add("overflow-hidden");
+
+    return () => {
+      // Loại bỏ lớp "overflow-hidden" khi loading kết thúc
+      document.documentElement.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
+
   return (
-    <div className=" absolute top-0 right-0 left-0 bottom-0  w-screen h-screen flex items-center justify-center bg-white/80 backdrop-blur-md z-[999] overflow-hidden">
+    <div className="absolute top-0 right-0 left-0 bottom-0 w-screen h-screen flex items-center justify-center bg-white/80 backdrop-blur-md z-[999] overflow-hidden">
       <div className="relative flex items-center space-x-2">
-        <span className="text-normal+ lg:text-medium font-bold text-blue_main">
+        <span className="text-lg lg:text-lg font-bold text-blue">
           KoKoTravel
         </span>
         <div className="flex space-x-1">
@@ -26,15 +40,14 @@ const LoadingComponentAccount = () => {
   return (
     <div
       className={cn(
-        "flex items-center justify-center  gap-2 p-1 z-[80] rounded-lg w-[45px]  h-[45px] animate-pulse bg-bg_primary_blue_sub ",
-        "md:w-[60px] md:h-[60px]",
+        "flex items-center justify-center  gap-2 p-1 z-[80] rounded-lg w-[35px] h-[35px] sm:w-[40px]  sm:h-[40px] animate-pulse bg-blue_sub ",
         "lg:justify-start lg:w-[155px] lg:h-[45px] lg:pl-2"
       )}
     >
-      <Skeleton className="w-[2.1rem] h-[2.1rem] rounded-full bg-bg_primary_blue_sub2" />
+      <Skeleton className="w-[2.1rem] h-[2.1rem] rounded-full bg-blue_sub2" />
       <div className="hidden lg:flex flex-col justify-center space-y-1">
-        <Skeleton className="w-[90px] h-[16px] rounded bg-bg_primary_blue_sub2" />
-        <Skeleton className="w-[90px] h-[12px] rounded bg-bg_primary_blue_sub2" />
+        <Skeleton className="w-[90px] h-[16px] rounded bg-blue_sub2" />
+        <Skeleton className="w-[90px] h-[12px] rounded bg-blue_sub2" />
       </div>
     </div>
   );
@@ -42,7 +55,7 @@ const LoadingComponentAccount = () => {
 const LoadingImg = () => {
   return (
     <div className="w-full h-full">
-      <Skeleton className="h-full w-full rounded-14 animate-pulse  bg-bg_black_sub  " />
+      <Skeleton className="h-full w-full rounded-14 animate-pulse  bg-black_sub  " />
     </div>
   );
 };
@@ -67,8 +80,8 @@ const LoadingItemSearch = () => {
 };
 const LoadingItemComment = () => {
   return (
-    <div className="w-full h-full animate-pulse bg-bg_black_sub rounded-8 ">
-      <Skeleton className="h-full w-full rounded-8 bg-bg_primary_white"></Skeleton>
+    <div className="w-full h-full animate-pulse bg-black_sub rounded-8 ">
+      <Skeleton className="h-full w-full rounded-8 bg-white"></Skeleton>
     </div>
   );
 };
@@ -122,7 +135,7 @@ const LoadingItemBlog = () => {
 };
 const LoadingBookingCardAttraction = () => {
   return (
-    <div className="posing-vertical-4 border-[2px] border-blue_main_sub rounded-xl p-3 relative">
+    <div className="list-spacing border-[2px] border-blue_sub rounded-xl p-3 relative">
       <Skeleton className="h-6 w-1/2 mb-4" />
       <Skeleton className="h-8 w-3/4 mb-4" />
       <div className="space-y-3">

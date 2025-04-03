@@ -53,7 +53,7 @@ const PageBlogDetail = async ({
   const res = await fetchBlogDetail(slug);
   const initialData = res.detailBlog;
   if (!initialData) {
-    return <NotFoundPage page="blog" />;
+    return <NotFoundPage />;
   }
   return <ClientBlogDetail initialData={initialData} />;
 };

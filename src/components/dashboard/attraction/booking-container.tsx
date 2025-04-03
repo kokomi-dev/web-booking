@@ -24,9 +24,9 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
     enabled: !!slug,
   });
   return (
-    <div className="w-full h-fit posing-vertical-4  lg:sticky lg:-top-[4rem] xl:top-[0rem] 2xl:top-[2rem] rounded-xl lg:pl-3 ">
+    <div className="w-full h-fit list-spacing  lg:sticky lg:-top-[4rem] xl:top-[0rem] 2xl:top-[2rem] rounded-xl lg:pl-3 ">
       <div className="w-full">
-        <h3 className="text-medium font-bold">Chọn ngày</h3>
+        <h3 className="text-lg font-bold">Chọn ngày</h3>
         <div className="max-w-fit w-auto">
           <CarouselDate date={date} setDate={setDate} />
         </div>
@@ -35,7 +35,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
         <div className="flex items-center justify-start gap-x-2">
           <label
             htmlFor="time1"
-            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+            className="select-none border-blue flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-xs  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
           >
             <input
               id="time1"
@@ -46,13 +46,13 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
               checked={hour === "7h00"}
               onChange={(e) => setHour(e.target.value)}
             />
-            <span className="ml-1 text-smallest font-medium hover:cursor-pointer">
+            <span className="ml-1 text-xs font-medium hover:cursor-pointer">
               7:00
             </span>
           </label>
           <label
             htmlFor="time2"
-            className="select-none border-blue_main flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-smallest  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
+            className="select-none border-blue flex items-center justify-center border-1 cursor-pointer transiton-all duration-200 text-xs  text-black hover:opacity-80 rounded-14 p-3 lg:p-2"
           >
             <input
               id="time2"
@@ -63,7 +63,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
               checked={hour === "13h00"}
               onChange={(e) => setHour(e.target.value)}
             />
-            <span className="ml-1 text-smallest font-medium hover:cursor-pointer">
+            <span className="ml-1 text-xs font-medium hover:cursor-pointer">
               13h00
             </span>
           </label>

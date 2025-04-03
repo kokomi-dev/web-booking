@@ -1,7 +1,7 @@
 "use client";
 import { getFilterAttractions } from "@/api/api-attractions";
 import BreadcrumbHead from "@/components/components/breadcrumb";
-import CardItem from "@/components/components/card-item";
+import CardItem from "@/components/components/item-search";
 import FilterComponent from "@/components/components/filter-item";
 import {
   LoadingItemSearch,
@@ -79,43 +79,49 @@ const AllAttractionsPage = () => {
     return <LoadingPage />;
   }
   return (
-    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
+    <div className={cn("container-spacing")}>
+      {/* Breadcrumb */}
       <BreadcrumbHead
         items={[
           { label: "Địa điểm du lịch", href: "/attractions" },
           {
             label: search
               ? `Tìm kiếm ở ${nameValue}`
-              : `Tât cả địa điểm du lịch`,
+              : `Tất cả địa điểm du lịch`,
           },
         ]}
       />
-      <div className="w-full h-full max-w-full posing-vertical-2">
+
+      {/* Container */}
+      <div className="container xl:p-0">
+        {/* Header */}
         {search ? (
-          <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
-            <span className="capitalize">{nameValue}</span>
+          <h2 className="text-lg font-bold flex items-center justify-start gap-x-2 heading-spacing">
+            <span className="capitalize text-nowrap">{nameValue}</span>
             <Dot />
-            <span className="text-normal font-medium">
+            <span className="text-base font-medium">
               tìm thấy {listAttraction?.length} điểm tham quan
             </span>
           </h2>
         ) : (
-          <span className="text-medium font-bold">
+          <span className="text-lg font-bold heading-spacing">
             Lựa chọn điểm đến phù hợp với bạn
           </span>
         )}
 
-        <div className="w-full h-full flex flex-col-reverse posing-vertical-3 lg:grid  lg:grid-cols-[28%,72%] xl:grid-cols-[25%,75%] ">
+        {/* Main Content */}
+        <div className="w-full h-full flex flex-col-reverse list-spacing lg:grid lg:grid-cols-[28%,72%] xl:grid-cols-[25%,75%]">
+          {/* Sidebar Filter */}
           <div
             className={cn(
-              "w-full h-fit border_div_card hidden  !p-0 ",
+              "w-full h-fit border_div_card hidden !p-0",
               "lg:flex flex-col items-start justify-between lg:sticky lg:top-[2rem] xl:top-[3rem]"
             )}
           >
-            <h3 className="w-full h-auto  flex items-center justify-start text-normal+ font-semibold border-b-0.5 p-2 py-3 border-b-black_sub">
+            <h3 className="w-full h-auto flex items-center justify-start text-lg font-semibold border-b-0.5 p-2 py-3 border-b-black_sub">
               Lọc theo
             </h3>
-            <div className="w-full p-2 posing-vertical-3 overflow-y-auto max-h-[80%]">
+            <div className="w-full p-2 list-spacing overflow-y-auto max-h-[80%]">
               <FilterComponent
                 title="giá"
                 arrayFilterItem={filterAttraction2}
@@ -130,10 +136,8 @@ const AllAttractionsPage = () => {
                 filter={filter}
                 setFilter={setFilter}
               />
-              <div className="flex flex-col posing-vertical-5">
-                <h6 className="text-small font-medium capitalize">
-                  Ngày bắt đầu
-                </h6>
+              <div className="flex flex-col list-spacing">
+                <h6 className="text-sm font-medium capitalize">Ngày bắt đầu</h6>
                 <input
                   value={filter.startDate}
                   type="date"
@@ -156,42 +160,35 @@ const AllAttractionsPage = () => {
               <hr className="hr" />
               <div className="flex items-center justify-between">
                 <div
-                  className="flex items-center justify-center gap-x-[3px] p-2 bg-bg_black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-bg_primary_hover"
+                  className="flex items-center justify-center gap-x-[3px] p-2 bg-black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-blue_hover"
                   onClick={handleResetFilter}
                 >
-                  <span className="text-smallest">Xóa bộ lọc</span>
+                  <span className="text-xs">Xóa bộ lọc</span>
                   <Slice className="size-4" />
                 </div>
                 <Button
                   onClick={() => {
                     refetch();
                   }}
-                  className="bg-bg_primary_blue_sub text-white"
+                  className="bg-blue_sub text-white"
                 >
                   Xem kết quả
                 </Button>
               </div>
             </div>
           </div>
-          {/* show result */}
-          <div
-            className={cn(
-              "w-full h-full posing-vertical-3 !mt-[0.8rem] lg:!mt-0 ",
-              "lg:pl-3 "
-            )}
-          >
-            <div
-              className={cn(
-                "w-full flex items-center justify-between bg-bg_black_sub rounded-24 overflow-x-auto p-2  "
-              )}
-            >
+
+          {/* Results Section */}
+          <div className="w-full h-full list-spacing !mt-[0.8rem] lg:!mt-0 lg:pl-3">
+            {/* Filter Bar */}
+            <div className="w-full flex items-center justify-between bg-black_sub rounded-24 overflow-x-auto p-2">
               <Button
                 onClick={() => {
                   setOpenSheetFilter(!openSheetFilter);
                 }}
-                className="flex py-4 px-3 lg:py-6 lg:px-4 mx-2 !rounded-14 shadow-2xl items-center justify-center gap-x-1 text-small border-blue_main border-1  bg-white lg:hidden"
+                className="flex py-4 px-3 lg:py-6 lg:px-4 mx-2 !rounded-14 shadow-2xl items-center justify-center gap-x-1 text-sm border-blue border-1 bg-white lg:hidden"
               >
-                <SlidersHorizontal className="size-4 text-blue_main" />
+                <SlidersHorizontal className="size-4 text-blue" />
               </Button>
               <SheetShowFilter
                 handleResetFilter={handleResetFilter}
@@ -202,7 +199,7 @@ const AllAttractionsPage = () => {
                 open={openSheetFilter}
                 setOpen={setOpenSheetFilter}
               />
-              <div className="w-full gap-x-2 lg:gap-x-3 xl:gap-x-4 flex  items-center justify-between">
+              <div className="w-full gap-x-2 lg:gap-x-3 xl:gap-x-4 flex items-center justify-between">
                 {filterBar.map((item, index) => (
                   <Button
                     key={index}
@@ -214,8 +211,8 @@ const AllAttractionsPage = () => {
                       }));
                     }}
                     className={cn(
-                      "py-0 px-4 w-full text-smallest border-1 text-black_main_blur border-transparent font-normal !rounded-24 shadow-none  bg-transparent hover:border-1  hover:bg-white",
-                      filter.filterBar == index && "border-blue_main bg-white"
+                      "py-0 px-4 w-full text-xs border-1 text-black_blur border-transparent font-normal !rounded-24 shadow-none bg-transparent hover:border-1 hover:bg-white",
+                      filter.filterBar == index && "border-blue bg-white"
                     )}
                   >
                     {item.label}
@@ -223,11 +220,9 @@ const AllAttractionsPage = () => {
                 ))}
               </div>
             </div>
-            <div
-              className={cn(
-                "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-y-5 lg:gap-y-6 xl:gap-y-7"
-              )}
-            >
+
+            {/* Grid Results */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-y-5 lg:gap-y-6 xl:gap-y-7">
               {isFetching
                 ? Array.from({ length: 6 }).map((_, index) => (
                     <LoadingItemSearch key={index} />
@@ -250,27 +245,20 @@ const AllAttractionsPage = () => {
                     />
                   ))}
             </div>
+
+            {/* No Results */}
             {listAttraction?.length === 0 && (
-              <div className="w-full h-full  mx-auto flex items-center justify-center rounded-8">
-                {search ? (
-                  <div className="flex items-center justify-center w-full h-full flex-col">
-                    <h3 className="text-normal font-medium text-blue_main_sub">
-                      Hiện tại chúng tôi chưa có dịch vụ ở đây
-                    </h3>
-                    <p className="text-small text-black_sub">
-                      Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-full h-full flex-col">
-                    <h3 className="text-normal font-medium text-blue_main_sub">
-                      Chưa tìm thấy địa điểm du lịch phù hợp
-                    </h3>
-                    <p className="text-small text-black_sub">
-                      Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
-                    </p>
-                  </div>
-                )}
+              <div className="w-full h-full mx-auto flex items-center justify-center rounded-8">
+                <div className="flex items-center justify-center w-full h-full flex-col">
+                  <h3 className="text-base font-medium text-blue_sub">
+                    {search
+                      ? "Hiện tại chúng tôi chưa có dịch vụ ở đây"
+                      : "Chưa tìm thấy địa điểm du lịch phù hợp"}
+                  </h3>
+                  <p className="text-sm text-black_sub">
+                    Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
+                  </p>
+                </div>
               </div>
             )}
           </div>

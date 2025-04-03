@@ -1,3 +1,4 @@
+import { overflow } from "html2canvas/dist/types/css/property-descriptors/overflow";
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -12,9 +13,15 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "3rem",
+        xl: "3.5rem",
+        "2xl": "0",
+      },
       screens: {
-        "2xl": "1400px",
+        DEFAULT: "1100px",
       },
     },
     extend: {
@@ -22,15 +29,16 @@ const config = {
         "screen-dvh": "100dvh",
       },
       colors: {
-        yellow_main: "#FFB700",
-        blue_main: "#003B96",
+        white: "#FFFFFF",
+        yellow: "#FFB700",
+        blue: "#003B96",
         blue_main_sub: "#006CE4",
         blue_sub: "#1E50A0",
-        black_main: "#111",
+        black: "#222222",
         black_main_blur: "#333",
-        green_main: "#018235",
-        black_sub: "#4C4C4C",
-        black_sub_2: "#595959",
+        green: "#018235",
+        black_sub: "#333333",
+        black_sub_2: "#555555",
         red_main: "#FF0034",
         error_color: "#DB0200",
         background: "hsl(var(--background))",
@@ -75,16 +83,16 @@ const config = {
         },
       },
       backgroundColor: {
-        bg_primary_main: "#003B96",
-        bg_primary_active: "#1E50A0",
-        bg_primary_hover: "#F1F6FE",
-        bg_primary_blue_sub: "#006CE4",
+        blue_active: "#1E50A0",
+        blue_hover: "#F1F6FE",
+        blue: "#003B96",
+        blue_sub: "#006CE4",
         bg_primary_blue_sub2: "#F1F6FE",
-        bg_primary_yellow: "#FFB700",
-        bg_primary_green: "#018235",
-        bg_primary_white: "#f0f0f0",
-        bg_black_sub: "#F5F5F5",
-        sub: "#f0f0f0",
+        yellow: "#FFB700",
+        green: "#018235",
+        black_sub: "#F5F5F5",
+        bg_sub: "#f0f0f0",
+        bg_footer: "#F9FAFB",
       },
       borderRadius: {
         "8": "8px",
@@ -137,13 +145,14 @@ const config = {
         "layout-4": "25% 75%",
       },
       fontSize: {
-        smallest: "0.82rem",
-        small: "0.92rem",
-        normal: "1rem",
-        "normal+": "1.1rem",
-        medium: "1.3rem",
-        large: "1.45rem",
-        largest: "2.2rem",
+        xs: "0.75rem", // 12px
+        sm: "0.875rem", // 14px
+        base: "1rem", // 16px
+        lg: "1.125rem", // 18px
+        xl: "1.25rem", // 20px
+        "2xl": "1.5rem", // 24px
+        "3xl": "1.875rem", // 30px
+        "4xl": "2.25rem",
       },
       padding: {},
       margin: {},
@@ -158,91 +167,48 @@ const config = {
       addUtilities: (utilities: object, variants?: string[]) => void;
     }) {
       const newUtilities = {
-        ".container-padding": {
-          center: true,
-          paddingLeft: "0.8rem", // tương đương với px-4
-          paddingRight: "0.8rem", // tương đương với px-4
-          "@screen sm": {
-            paddingLeft: "2rem", // sm:px-6
-            paddingRight: "2rem", // sm:px-6
-          },
-          "@screen md": {
-            paddingLeft: "4rem", // md:px-12
-            paddingRight: "4rem", // md:px-12
-          },
-          "@screen lg": {
-            paddingLeft: "7rem", // lg:px-24
-            paddingRight: "7rem", // lg:px-24
-          },
-          "@screen xl": {
-            paddingLeft: "10rem", // xl:px-36
-            paddingRight: "10rem", // xl:px-36
-          },
-          "@screen 2xl": {
-            paddingLeft: "22rem",
-            paddingRight: "22rem",
-          },
+        ".section-spacing > * + *": {
+          marginTop: "2rem",
+          "@screen md": { marginTop: "2.5rem" },
+          "@screen lg": { marginTop: "3rem" },
+          "@screen xl": { marginTop: "3.5rem" },
         },
-        ".no-container-padding": {
-          center: true,
-          marginLeft: "-0.8rem", // tương đương với px-4
-          marginRight: "-0.8rem", // tương đương với px-4
-          "@screen sm": {
-            marginLeft: "-2rem", // sm:px-6
-            marginRight: "-2rem", // sm:px-6
-          },
-          "@screen md": {
-            marginLeft: "-4rem", // md:px-12
-            marginRight: "-4rem", // md:px-12
-          },
-          "@screen lg": {
-            marginLeft: "-7rem", // lg:px-24
-            marginRight: "-7rem", // lg:px-24
-          },
-          "@screen xl": {
-            marginLeft: "-10rem", // xl:px-36
-            marginRight: "-10rem", // xl:px-36
-          },
-          "@screen 2xl": {
-            marginLeft: "-22rem",
-            marginRight: "-22rem",
-          },
+        ".container-spacing > * + *": {
+          marginTop: "1.5rem",
+          "@screen lg": { marginTop: "2rem" },
+          "@screen xl": { marginTop: "2.5rem" },
         },
-        ".posing-vertical-1": {
-          "& > *:not(:first-child)": { marginTop: "1.4rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.6rem" } },
+        ".list-spacing > * + *": {
+          marginTop: "0.8rem",
+          "@screen sm": { marginTop: "0.9rem" },
+          "@screen md": { marginTop: "1rem" },
+          "@screen lg": { marginTop: "1.2rem" },
+          "@screen xl": { marginTop: "1.2rem" },
         },
-        ".posing-vertical-2": {
-          "& > *:not(:first-child)": { marginTop: "1.2rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.4rem" } },
+        ".heading-spacing": {
+          marginBottom: "0.75rem", // 12px
+          "@screen sm": { marginBottom: "1rem" }, // 16px
+          "@screen md": { marginBottom: "1.25rem" }, // 20px
+          "@screen lg": { marginBottom: "1.5rem" }, // 24px
+          "@screen xl": { marginBottom: "1.75rem" }, // 28px
+          "@screen 2xl": { marginBottom: "2rem" }, // 32px
         },
-        ".posing-vertical-3": {
-          "& > *:not(:first-child)": { marginTop: "1rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1.2rem" } },
+        ".form-spacing > * + *": {
+          marginTop: "0.8rem",
+          "@screen sm": { marginTop: "1rem" },
+          "@screen md": { marginTop: "1.2rem" },
+          "@screen lg": { marginTop: "1.5rem" },
+          "@screen xl": { marginTop: "1.75rem" },
+          "@screen 2xl": { marginTop: "2rem" },
         },
-        ".posing-vertical-4": {
-          "& > *:not(:first-child)": { marginTop: "0.8rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "1rem" } },
-        },
-        ".posing-vertical-5": {
-          "& > *:not(:first-child)": { marginTop: "0.6rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.85rem" } },
-        },
-        ".posing-vertical-6": {
-          "& > *:not(:first-child)": { marginTop: "0.4rem" },
-          "@screen lg": { "& > *:not(:first-child)": { marginTop: "0.65rem" } },
-        },
-
-        ".posing-horizontal-1": {
-          "& > * + *": { marginRight: "1rem" },
-          "@screen lg": { "& > * + *": { marginRight: "1.5rem" } },
-        },
-        ".posing-horizontal-2": {
-          "& > * + *": { marginRight: "0.8rem" },
-          "@screen lg": { "& > * + *": { marginRight: "1.3rem" } },
+        ".container-padding-y": {
+          paddingTop: "2rem",
+          paddingBottom: "2rem",
+          "@screen md": { paddingTop: "2.5rem", paddingBottom: "2.5rem" },
+          "@screen lg": { paddingTop: "3rem", paddingBottom: "3rem" },
+          "@screen xl": { paddingTop: "3rem", paddingBottom: "3rem" },
         },
       };
-
       addUtilities(newUtilities, ["responsive"]);
     },
   ],

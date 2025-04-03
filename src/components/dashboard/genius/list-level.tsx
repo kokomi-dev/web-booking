@@ -39,11 +39,11 @@ const ListLevel = () => {
   };
   const levelBooked = checkLevel();
   return (
-    <div className="posing-vertical-3">
-      <h3 className="text-large font-bold">
+    <div className="list-spacing">
+      <h3 className="text-xl lg:text-2xl font-bold">
         Khám phá các cấp độ tăng thưởng du lịch mới
       </h3>
-      <p className="text-normal font-normal text-black_sub">
+      <p className="text-base font-normal text-black_sub">
         Mỗi đơn đặt đều được tính vào chương trình. Bạn sẽ được tận hưởng giảm
         giá và tặng thưởng du lịch trọn đời sau khi mở khóa. Bạn sẽ đi đâu tiếp
         theo nào?
@@ -60,15 +60,15 @@ const ListLevel = () => {
                   <div
                     className={cn(
                       "p-2 rounded-8 flex flex-col gap-y-2 border-0.5 border-black_sub ",
-                      id <= levelBooked - 1 && "border-blue_main border-2 "
+                      id <= levelBooked - 1 && "border-blue border-2 "
                     )}
                   >
                     <div className="flex items-center justify-between gap-x-2">
-                      <div className="text-normal+ text-blue_main font-bold">
+                      <div className="text-lg text-blue font-bold">
                         Genius Cấp {item.level}
                       </div>
                       {id <= levelBooked - 1 && (
-                        <div className=" bg-bg_primary_blue_sub text-white p-1 px-2 rounded-8 text-smallest flex items-center justify-start gap-x-1">
+                        <div className=" bg-blue_sub text-white p-1 px-2 rounded-8 text-xs flex items-center justify-start gap-x-1">
                           <Check className="size-3" />
                           Đã đạt
                         </div>
@@ -77,7 +77,7 @@ const ListLevel = () => {
 
                     <hr className="hr lg:my-2" />
                     <div>
-                      <p className="text-small text-black_sub text-justify">
+                      <p className="text-sm text-black_sub text-justify">
                         {item.des}
                       </p>
                     </div>
@@ -86,9 +86,9 @@ const ListLevel = () => {
                         return (
                           <li
                             key={i}
-                            className="text-small font-semibold flex items-center justify-start gap-x-2"
+                            className="text-sm font-semibold flex items-center justify-start gap-x-2"
                           >
-                            <Check className="size-4 text-green_main" />
+                            <Check className="size-4 text-green" />
                             {vou}
                           </li>
                         );
@@ -99,8 +99,8 @@ const ListLevel = () => {
               );
             })}
         </CarouselContent>
-        <CarouselNext />
-        <CarouselPrevious />
+        <CarouselNext hidden />
+        <CarouselPrevious hidden />
       </Carousel>
     </div>
   );

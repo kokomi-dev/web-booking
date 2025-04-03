@@ -72,14 +72,14 @@ const ListHotel = () => {
   }, [listHotel, isLoading, isFetching]);
 
   return (
-    <section id="list-all-attractions" className="w-full posing-vertical-4">
-      <div className="posing-vertical-6">
-        <div className="flex items-start  justify-between">
-          <h2 className="text-large font-bold">
+    <section id="list-all-attractions" className="w-full list-spacing">
+      <div className="">
+        <div className="flex items-start justify-between mb-1 ">
+          <h2 className="text-xl md:text-2xl font-bold">
             Khách sạn (nhà nghỉ) của chúng tôi
           </h2>
           <span
-            className="text-blue_main_sub underline text-smallest hover:cursor-pointer flex-shrink-0 mt-2"
+            className="text-blue_sub underline text-xs hover:cursor-pointer flex-shrink-0 mt-2"
             onClick={() => {
               router.push("hotels/all");
             }}
@@ -87,11 +87,10 @@ const ListHotel = () => {
             Xem thêm
           </span>
         </div>
-        <p className="text-black_sub text-small font-light">
+        <p className="text-black_sub text-sm font-light">
           Hãy theo dỗi và xem qua những nơi nghỉ chân hàng đầu của chúng tôi
         </p>
       </div>
-
       {isError && (
         <div className="text-red-500 text-center mt-4">
           Không thể tải dữ liệu. Vui lòng thử lại!

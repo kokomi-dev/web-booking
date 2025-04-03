@@ -73,14 +73,12 @@ const ListHotelFavorite = () => {
   }, [listHotel, isLoading, isFetching]);
 
   return (
-    <section id="list-all-attractions" className="w-full posing-vertical-4">
-      <div className="posing-vertical-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-large font-bold">
-            Nơi lưu trú được yêu thích nhất
-          </h2>
-        </div>
-        <p className="text-black_sub text-small font-light">
+    <section id="list-all-attractions" className="w-full list-spacing">
+      <div className="">
+        <h2 className="text-xl md:text-2xl font-bold mb-1">
+          Nơi lưu trú được yêu thích nhất
+        </h2>
+        <p className="text-black_sub text-sm font-light">
           Sự quan tâm của mọi người hàng đầu
         </p>
       </div>
@@ -91,7 +89,7 @@ const ListHotelFavorite = () => {
         </div>
       )}
       {listHotel?.length === 0 && (
-        <div className="text-black_main text-center mt-4">
+        <div className="text-black text-center mt-4">
           Chưa có nơi lưu trú nổi bật nào!
         </div>
       )}

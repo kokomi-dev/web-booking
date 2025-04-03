@@ -47,14 +47,14 @@ const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
   return (
     <li className="w-full flex items-start justify-start flex-col gap-2 ">
       <div className="w-full">
-        <a className="capitalize text-small font-semibold">{title}</a>
+        <a className="capitalize text-sm font-semibold">{title}</a>
       </div>
-      <ul className="w-full text-smallest font-medium">
+      <ul className="w-full text-xs font-medium">
         {arrItem.map((item, index) => {
           return (
             <li className="w-full  " key={index}>
               <a>
-                <span className="text-smallest font-normal capitalize">
+                <span className="text-xs py-2 block font-normal capitalize">
                   {item}
                 </span>
               </a>
@@ -68,41 +68,42 @@ const FooterItem: React.FC<FooterItemProps> = ({ title, arrItem }) => {
 
 const FooterAccount = () => {
   return (
-    <footer className="w-full h-full  bg-sub py-5 container-padding  ">
-      <div>
-        <ul
+    <footer className="w-full h-full  bg-bg_footer py-5 ">
+      <div className="container">
+        <div>
+          <ul
+            className={cn(
+              "grid grid-cols-2 gap-2  text-black py-2 ",
+              "md:grid-cols-3",
+              "lg:grid-cols-5"
+            )}
+          >
+            {titles.map((title, index) => {
+              return (
+                <FooterItem title={title} key={index} arrItem={arr1[index]} />
+              );
+            })}
+          </ul>
+        </div>
+        <div
           className={cn(
-            "grid grid-cols-2 gap-2  text-black py-2 ",
-            "md:grid-cols-3",
-            "lg:grid-cols-5"
+            "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4  text-[0.8rem] text-black_sub border-b-0.5 border-blue",
+            "  "
           )}
         >
-          {titles.map((title, index) => {
-            return (
-              <FooterItem title={title} key={index} arrItem={arr1[index]} />
-            );
-          })}
-        </ul>
-      </div>
-
-      <div
-        className={cn(
-          "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4  text-[0.8rem] text-black_sub border-b-0.5 border-blue_main",
-          "  "
-        )}
-      >
-        <ul></ul>
-        <ul></ul> <ul></ul> <ul></ul>
-      </div>
-      <div className="px-20 py-5">
-        <h6 className="pb-5 text-black text-center text-small">
-          Bản quyền sáng tạo thuộc về KokoMi Dev. Liên hệ
-          nguyenthean12062002@gmail.com
-        </h6>
-        <p className="text-center text-smallest">
-          KoKo Travel là một website thương mại điện tử liên quan đến lĩnh vực
-          du lịch và những phục vụ xoay quanh nó.
-        </p>
+          <ul></ul>
+          <ul></ul> <ul></ul> <ul></ul>
+        </div>
+        <div className="px-20 py-5">
+          <h6 className="pb-5 text-black text-center text-sm">
+            Bản quyền sáng tạo thuộc về KokoMi Dev. Liên hệ
+            nguyenthean12062002@gmail.com
+          </h6>
+          <p className="text-center text-xs">
+            KoKo Travel là một website thương mại điện tử liên quan đến lĩnh vực
+            du lịch và những phục vụ xoay quanh nó.
+          </p>
+        </div>
       </div>
     </footer>
   );

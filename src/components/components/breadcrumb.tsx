@@ -7,23 +7,29 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { BreadcrumbItemType } from "@/types/component-types";
-import { ChevronRight, Slash } from "lucide-react";
+import { cn } from "@/utils/constants";
 
-const BreadcrumbHead = ({ items }: { items: BreadcrumbItemType[] }) => {
+const BreadcrumbHead = ({
+  items,
+  className,
+}: {
+  items: BreadcrumbItemType[];
+  className?: string;
+}) => {
   return (
-    <Breadcrumb>
+    <Breadcrumb className={cn("container xl:px-0", className)}>
       <BreadcrumbList className="line-clamp-1">
         {items.map((item, index) => (
           <BreadcrumbItem key={index}>
             {item.href ? (
               <BreadcrumbLink
-                className="hover:underline text-blue_main_sub ub"
+                className="hover:underline text-blue_sub ub"
                 href={item.href}
               >
                 {item.label}
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbPage className="text-black_main_blur first-letter:uppercase">
+              <BreadcrumbPage className="text-black_blur first-letter:uppercase">
                 {item.label}
               </BreadcrumbPage>
             )}

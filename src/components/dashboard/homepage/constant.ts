@@ -25,3 +25,15 @@ export const listAddressTredingHome = [
     des: "Những khu dịch vụ, nghỉ dưỡng tầm quốc tế",
   },
 ];
+
+export const links = [
+  { name: "Địa điểm du lịch", href: "/attractions" },
+  { name: "Nơi lưu trú", href: "/hotels" },
+  { name: "Bài viết", href: "/blogs" },
+];
+export const stats = [
+  { name: "Doanh nghiệp", value: "12" },
+  { name: "Chuyến đi", value: "300+" },
+  { name: "Nơi lưu trú", value: "40" },
+  { name: "Phản hồi", value: "4.7" },
+];
