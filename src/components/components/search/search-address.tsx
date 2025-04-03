@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react";
 import { MapPinned } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-import { DataAddressProps, SearchAddressProps } from "@/types/search";
 import { getListProvinces } from "@/api/api-attractions";
-import SearchAddressSM from "./search-address/search-address-sm";
-import SearchAddressLG from "./search-address/search-address-lg";
 import { Button } from "@/components/ui/button";
+import { DataAddressProps, SearchAddressProps } from "@/types/search";
 import { cn } from "@/utils/constants";
+import SearchAddressLG from "./search-address/search-address-lg";
 
 const SearchAddress = ({
   value,
@@ -48,7 +47,7 @@ const SearchAddress = ({
       <Button
         variant="ghost"
         className={cn(
-          "flex items-center w-full h-[44px] rounded-[4px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
+          "hidden items-center w-full h-[44px] rounded-[4px] z-[40] gap-x-1  justify-start font-normal bg-white px-2 py-1 shadow-none hover:cursor-pointer transiton-all duration-150 select-none",
           error && "border-2 border-red-600",
           "md:hidden xl:hidden"
         )}
@@ -58,7 +57,7 @@ const SearchAddress = ({
         }}
       >
         <MapPinned className="size-[1.2rem] text-black_sub" />
-        <span className="ml-1 text-normal font-light">
+        <span className="ml-1 text-base font-light">
           {value === "" || value === null ? "Chọn nơi bạn muốn đến ?" : value}
         </span>
       </Button>
@@ -73,7 +72,7 @@ const SearchAddress = ({
         error={error}
         className={className}
       />
-      <SearchAddressSM
+      {/* <SearchAddressSM
         data={data}
         value={value}
         valueSearch={valueSearch}
@@ -82,7 +81,7 @@ const SearchAddress = ({
         open2={open2}
         setOpen2={setOpen2}
         error={error}
-      />
+      /> */}
     </section>
   );
 };

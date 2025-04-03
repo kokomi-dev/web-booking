@@ -21,7 +21,6 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { PopoverTrigger } from "../ui/popover";
 import { Textarea } from "../ui/textarea";
-import Icon from "./icon";
 
 interface IComments {
   category: string;
@@ -47,7 +46,7 @@ const Comments: React.FC<IComments> = ({
   slug,
 }) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-  const { data, isLoading } = useSWR(`${apiUrl}/${category}/${slug}`, fetcher, {
+  const { data } = useSWR(`${apiUrl}/${category}/${slug}`, fetcher, {
     fallbackData: {
       comments: initialComments || [],
       rating: initialRating,
@@ -77,15 +76,17 @@ const Comments: React.FC<IComments> = ({
         await mutate(`${apiUrl}/${category}/${slug}`);
         setVote(0);
         setComment("");
-        toast.success("Bình luận thành công", { className: "toast-success" });
+        toast.success("Bình luận thành công");
       } else {
         toast.warning("Xảy ra lỗi khi bình luận. Liên hệ quản trị viên");
       }
     }
   }, [comment, vote, apiUrl, category, slug, user]);
+
   const handleVote = useCallback((value: number) => {
     setVote(value);
   }, []);
+
   const handleDeleteComment = useCallback(
     async (idComment: string) => {
       const result = await deleteComment(idComment, category, slug);
@@ -98,158 +99,163 @@ const Comments: React.FC<IComments> = ({
     },
     [apiUrl, category, slug]
   );
+
   return (
-    <div className="w-full posing-vertical-3 !z-0">
-      <h3 className="text-medium font-semibold">Đánh giá của khách</h3>
-      <div className="w-auto flex items-center justify-start gap-x-1">
-        <Star className="fill-yellow_main text-yellow_main text-medium" />
-        <span className="text-normal font-medium">{rating}</span>
-        <Dot />
-        <span className="text-normal font-medium">
-          {rating > 4.5 ? "Rất tuyệt vời" : rating > 4.0 ? "Tuyệt vời" : "Tốt"}
-        </span>
-        <span>({comments.length} đánh giá)</span>
+    <div className="w-full container-spacing">
+      {/* Header */}
+      <div className="flex flex-col list-spacing">
+        <h3 className="text-lg font-semibold">Đánh giá của khách</h3>
+        <div className="flex items-center gap-2">
+          <Star className="fill-yellow text-yellow text-lg" />
+          <span className="text-base font-medium">{rating}</span>
+          <Dot />
+          <span className="text-base font-medium">
+            {rating > 4.5
+              ? "Rất tuyệt vời"
+              : rating > 4.0
+              ? "Tuyệt vời"
+              : "Tốt"}
+          </span>
+          <span>({comments.length} đánh giá)</span>
+        </div>
       </div>
-      <div className="w-full h-auto ">
-        {isAuthenticated ? (
-          <div className="w-full h-auto grid gap-y-3">
-            <h4 className="text-normal+ font-semibold">Bình luận</h4>
-            <div className="flex items-center justify-start gap-x-1 w-fit ">
-              {[1, 2, 3, 4, 5].map((star) => {
-                return (
-                  <div
-                    key={star}
-                    onClick={() => {
-                      handleVote(star);
-                    }}
-                  >
-                    <Star
-                      className={cn(
-                        "cursor-pointer size-5",
-                        star <= vote
-                          ? "text-yellow_main fill-yellow_main"
-                          : "text-black"
-                      )}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <Textarea
-              value={comment}
-              placeholder="Nhập bình luận..."
-              onChange={(e) => {
-                setComment(e.target.value);
-              }}
-              className="!text-normal font-normal"
-            />
-            <Button
-              className={cn(
-                "w-fit text-normal bg-bg_primary_blue_sub hover:bg-bg_primary_active  text-white mt-2 "
-              )}
-              onClick={handleComment}
-              disabled={!vote || !comment}
+
+      {/* Comment Input */}
+      {isAuthenticated ? (
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold">Viết bình luận</h4>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                className={cn(
+                  "cursor-pointer size-5",
+                  star <= vote ? "text-yellow fill-yellow" : "text-black"
+                )}
+                onClick={() => handleVote(star)}
+              />
+            ))}
+          </div>
+          <Textarea
+            value={comment}
+            placeholder="Nhập bình luận..."
+            onChange={(e) => setComment(e.target.value)}
+            className="!text-base font-normal border-gray-300 rounded-lg"
+          />
+          <Button
+            className="w-fit text-sm bg-blue_sub hover:bg-blue_active text-white mt-2 px-4 py-2 rounded-lg"
+            onClick={handleComment}
+            disabled={!vote || !comment}
+          >
+            <Send className="size-4 mr-2" /> Gửi bình luận
+          </Button>
+        </div>
+      ) : (
+        <div className="text-gray-600">
+          <h4 className="flex items-center gap-x-1">
+            <Link
+              href="/sign-in"
+              className="text-sm font-medium text-blue_sub underline"
             >
-              <Send className="size-4" /> Gửi bình luận
-            </Button>
-          </div>
-        ) : (
-          <div className="w-full h-auto">
-            <h4 className="flex items-center justify-start gap-x-1 ext-normal font-medium">
-              <Link
-                href="/sign-in"
-                className="text-normal font-medium text-blue_main_sub underline"
-              >
-                Đăng nhập
-              </Link>
-              <span className="font-normal ">để bình luận</span>
-            </h4>
-          </div>
-        )}
-      </div>
+              Đăng nhập
+            </Link>
+            <span>để bình luận</span>
+          </h4>
+        </div>
+      )}
+
+      {/* Comments List */}
       {comments.length === 0 ? (
         <div className="mt-3 lg:mt-4">
           <span>Chưa có bình luận nào!</span>
         </div>
       ) : (
-        <div>
-          {comments.map((e: CommentProps, index: number) => {
-            return (
-              <Card
-                key={index}
-                className="w-full relative p-2 flex flex-col gap-y-2 border-none shadow-none !z-0"
-              >
-                <div className="w-full flex items-start justify-start space-x-2">
-                  <div className="flex-shrink-0 size-9 bg-bg_primary_active rounded-full relative">
-                    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-                      <span className="text-white capitalize font-medium text-small">
-                        {e.nameShow}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-y-1">
-                    <div className="bg-bg_black_sub rounded-14 p-2 mr-5 lg:mr-10">
-                      <div className="flex items-center justify-start gap-x-1">
-                        <span className="text-small font-semibold capitalize">
-                          {e.name}
-                        </span>
-                        <span className="text-black_sub">-</span>
-                        <span className="text-[0.8rem] text-black_sub italic ">
-                          {formatDate(e.commentDate)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start gap-x-1">
-                        {Array.from({ length: e.ratingVote }).map(
-                          (_, index) => (
-                            <Star
-                              key={index}
-                              className="text-yellow_main size-3 fill-yellow_main"
-                            />
-                          )
-                        )}
-                      </div>
-                      <p className="text-small lg:text-normal line-clamp-2 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 first-letter:uppercase  overflow-y-auto ">
-                        {e.content}.
+        <div className="list-spacing">
+          {comments.map((e: CommentProps, index: number) => (
+            <Card
+              key={index}
+              className="p-2 sm:p-3 md:p-4 border-1 border-gray-200 rounded-lg shadow-sm"
+            >
+              <div className="flex items-start gap-4">
+                {/* Avatar */}
+                <div className="w-10 h-10 bg-blue_active text-white rounded-full flex items-center justify-center font-bold uppercase">
+                  {e.nameShow}
+                </div>
+                {/* Comment Content */}
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h5 className="text-sm font-semibold capitalize mb-1 md:mb-2">
+                        {e.name}
+                      </h5>
+                      <p className="text-xs text-black_sub_2">
+                        {formatDate(e.commentDate)}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between w-full ">
-                      <div className="flex items-center justify-start gap-x-2 w-fit">
-                        <Icon level={4} tooltip="Thích">
-                          <ThumbsUp />
-                        </Icon>
-                        <Icon tooltip="Không thích" level={4}>
-                          <ThumbsDown />
-                        </Icon>
-                        <Icon tooltip="Phản hồi" level={4}>
-                          <MessageSquareMore />
-                        </Icon>
-                      </div>
-                      {String(user?._id) === e.idUser && (
-                        <div className="absolute top-2 right-2">
-                          <Popover>
-                            <PopoverTrigger>
-                              <EllipsisVertical className="w-5 h-5 md:w-4 md:h-4 cursor-pointer" />
-                            </PopoverTrigger>
-                            <PopoverContent className="bg-bg_primary_blue_sub2 shadow-2xl rounded-8 p-1 grid gap-1">
-                              <Button className="text-smallest hover:cursor-pointer  hover:opacity-100 hover:bg-bg_primary_active bg-bg_primary_blue_sub text-white font-normal">
-                                Sửa
-                              </Button>
-                              <Button
-                                className="text-smallest hover:cursor-pointer  hover:opacity-100 bg-yellow_main hover:bg-yellow-500"
-                                //  onClick={() => handleDeleteComment(e._id)}
-                              >
-                                Xóa
-                              </Button>
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                      )}
-                    </div>
+                    {String(user?._id) === e.idUser && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <EllipsisVertical className="w-5 h-5 cursor-pointer text-black_sub_2" />
+                        </PopoverTrigger>
+                        <PopoverContent className="bg-white shadow-lg rounded-lg p-2">
+                          <Button
+                            className="text-sm text-blue_sub hover:bg-blue_active hover:text-white w-full"
+                            onClick={() => console.log("Edit comment")}
+                          >
+                            Sửa
+                          </Button>
+                          <Button
+                            className="text-sm text-red-500 hover:bg-red-400 w-full"
+                            onClick={() => handleDeleteComment(e._id)}
+                          >
+                            Xóa
+                          </Button>
+                        </PopoverContent>
+                      </Popover>
+                    )}
                   </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    {Array.from({ length: e.ratingVote }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className="text-yellow size-4 fill-yellow"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm text-black_sub mt-2 first-letter:uppercase">
+                    {e.content}
+                  </p>
                 </div>
-              </Card>
-            );
-          })}
+              </div>
+              {/* Actions */}
+              <div className="flex items-center gap-0 sm:gap-3 md:gap-4 mt-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                >
+                  <ThumbsUp className="w-4 h-4" />
+                  <span className="hidden sm:block">Thích</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                >
+                  <ThumbsDown className="w-4 h-4" />
+                  <span className="hidden sm:block">Không thích</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                >
+                  <MessageSquareMore className="w-4 h-4" />
+                  <span className="hidden sm:block">Phản hồi</span>
+                </Button>
+              </div>
+            </Card>
+          ))}
         </div>
       )}
     </div>

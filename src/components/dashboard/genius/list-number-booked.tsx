@@ -30,9 +30,9 @@ const ListItemBooked = () => {
   };
   const levelBooked = checkLevel();
   return (
-    <div className="posing-vertical-2  ">
-      <div className="flex items-start lg:items-center justify-center gap-x-1 gap-y-3 text-normal  ">
-        <h3 className="capitalize text-center text-normal+ font-bold">
+    <div className="container-spacing container xl:px-0  ">
+      <div className="flex items-start lg:items-center justify-center gap-x-1 gap-y-3 text-base  ">
+        <h3 className="capitalize text-center text-lg font-bold">
           {user?.lastname}{" "}
         </h3>
         <span className="">ơi,</span>
@@ -56,17 +56,16 @@ const ListItemBooked = () => {
             <div
               key={index}
               className={cn(
-                "w-[50px] h-[50px] lg:w-[100px] lg:h-[100px] rounded-full bg-bg_black_sub border-dotted	border-1 border-black_sub",
-                index < dataBooked.totalNumberBooked && "bg-bg_primary_active"
+                "w-[50px] h-[50px] lg:w-[100px] lg:h-[100px] rounded-full bg-black_sub border-dotted	border-1 border-black_sub",
+                index < dataBooked.totalNumberBooked && "bg-blue_active"
               )}
             ></div>
           ))}
         </div>
       ) : (
-        <div className="font-semibold text-black_main text-normal">
+        <div className="font-semibold text-black text-base">
           Bạn đang ở cấp {levelBooked} trong{" "}
-          <span className="uppercase text-blue_main_sub">GENIUS</span> của chúng
-          tôi
+          <span className="uppercase text-blue_sub">GENIUS</span> của chúng tôi
         </div>
       )}
     </div>

@@ -1,125 +1,127 @@
 "use client";
+import { ChevronRight, MailWarning, MessageCircle } from "lucide-react";
+import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/constants";
-import { ArrowLeft, MessageCircleMore, Send } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BreadcrumbHead from "@/components/components/breadcrumb";
 import { useState } from "react";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import ChatModalAI from "./chat-ai/chat-ai-modal";
-const IuputChat = ({
-  value,
-  setValue,
-}: {
-  value: string;
-  setValue: () => string;
-}) => {
+
+const stay = [
+  "Hủy phòng",
+  "Thanh toán",
+  "Chi tiết đặt phòng",
+  "Trao đổi với khách",
+  "Các loại phòng",
+  "Giá cả",
+  "Thẻ tín dụng",
+  "Chính sách chỗ nghỉ",
+  "Tiện nghi thêm",
+  "Bảo mật và nhận thức",
+];
+const address = [
+  "Những câu hỏi phổ biến nhất",
+  "Giá cả",
+  "Chi tiết đặt chuyến đi",
+  "Tour của chúng tôi",
+  "Bảo mật quyền riêng tư",
+];
+const hotel = [
+  "Làm sao để tìm được phòng gần nơi du lịch nhất",
+  "Có những ưu đãi gì",
+  "Đánh giá của khách hàng",
+  "Bài viết về các khu du lịch",
+];
+const privacy = [
+  "Bảo hiểm trong các chuyến đi",
+  "Chính sách về quyền lợi của khách hàng",
+  "Chính sách đổi trả",
+  "Bảo mật thông tin cá nhân khách hàng",
+];
+
+const Item = ({ title }: { title: string }) => {
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="absolute bottom-1 right-0 left-0 flex items-center justify-between gap-x-2 px-2"
+    <div
+      className={cn(
+        "w-full border-[0.5px] border-t-[#999] transition-all duration-300 flex items-center justify-between cursor-pointer px-4 py-3",
+        "lg:p-4",
+        "hover:bg-gray-100"
+      )}
     >
-      <Input placeholder="...aaa" className="text-smallest" />
-      <Send className="text-blue_main_sub" />
-    </form>
+      <span className="capitalize font-medium text-sm lg:text-base">
+        {title}
+      </span>
+      <ChevronRight className="text-gray-500 w-5 h-5" />
+    </div>
   );
 };
+
+export const metadata: Metadata = {
+  title: "Trợ giúp - KoKoTravel",
+};
+
 const Chat = () => {
-  const [open, setOpen] = useState(false);
-  const [isActive, setIsActive] = useState({
-    status: false,
-    index: 0,
-  });
+  const [aiMessages, setAiMessages] = useState<string[]>([]);
+  const [userMessage, setUserMessage] = useState("");
+
+  const handleSendMessageToAI = () => {
+    if (userMessage.trim() === "") return;
+
+    // Simulate AI response
+    const aiResponse = `AI trả lời: ${userMessage}`;
+    setAiMessages((prev) => [...prev, `Bạn: ${userMessage}`, aiResponse]);
+    setUserMessage("");
+  };
 
   return (
-    <>
-      <Popover
-        open={open}
-        onOpenChange={() => {
-          setOpen(!open);
-          setIsActive({
-            status: false,
-            index: 0,
-          });
-        }}
+    <div className="w-full mt-6">
+      <Tabs
+        defaultValue="ai"
+        className="w-full border-[0.5px] border-[#999] rounded-lg overflow-hidden"
       >
-        <PopoverTrigger asChild>
-          <div
-            className={cn(
-              "fixed bottom-4 right-4 bg-bg_primary_main rounded-full p-2 shadow-2xl z-[50]",
-              "hover:cursor-pointer "
-            )}
-            onClick={() => {
-              setOpen(true);
-            }}
+        {/* Tabs List */}
+        <TabsList className="w-full h-[60px] border-b-[0.5px] border-[#999] flex items-center justify-start gap-x-4 overflow-x-auto scrollbar-hide px-2 lg:grid lg:grid-cols-2 lg:h-auto lg:gap-0 lg:px-4">
+          <TabsTrigger
+            className="w-auto text-sm lg:text-base font-medium text-black_sub hover:text-blue-500"
+            value="ai"
           >
-            <MessageCircleMore
-              className={cn(
-                "size-10 lg:size-11 transition-all duration-150 text-white"
-              )}
-            />
-          </div>
-        </PopoverTrigger>
-        <PopoverContent
-          side="top"
-          className={cn(
-            "w-[290px] bg-bg_primary_white left-[-10%] text-black text-small z-[80] flex flex-col gap-y-2 relative select-none"
-          )}
-        >
-          <h4 className="text-normal font-semibold">Chat</h4>
-          <Button
-            className="hover:text-blue_main_sub bg-white text-black_main"
-            onClick={() => {
-              setIsActive({
-                status: true,
-                index: 1,
-              });
-            }}
+            Chat với AI
+          </TabsTrigger>
+          <TabsTrigger
+            className="w-auto text-sm lg:text-base font-medium text-black_sub hover:text-blue-500"
+            value="user"
           >
-            Liên hệ với chúng tôi
-          </Button>
-          <Button
-            className="hover:text-blue_main_sub bg-white text-blue_main_sub"
-            onClick={() => {
-              setIsActive({
-                status: true,
-                index: 2,
-              });
-            }}
-          >
-            Giải đáp với AI
-          </Button>
-          <section
-            className={cn(
-              "absolute w-[90vw] md:w-[360px] lg:w-[420px] min-h-[350px] h-full top-0 left-[0%] right-[5%] translate-x-[120%] translate-y-[-58%]  bg-white rounded-8 shadow-2xl transition-all duration-150",
-              isActive.status === true &&
-                "translate-x-[-33%] md:translate-x-[-30%] lg:translate-x-[-28%]"
-            )}
-          >
-            {isActive.index === 1 && (
-              <div className="p-2">
-                <ArrowLeft
-                  className="text-blue_main size-5 hover:cursor-pointer"
-                  onClick={() => {
-                    setIsActive({ status: false, index: 0 });
-                  }}
-                />
-                <h4 className="text-normal font-semibold">Tư vấn </h4>
+            Chat với nhân viên hỗ trợ
+          </TabsTrigger>
+        </TabsList>
 
-                <div>
-                  <span>Nội dung chat</span>
-                </div>
-                <IuputChat value="" setValue={() => ""} />
-              </div>
-            )}
-            {isActive.index === 2 && isActive.status === true && (
-              <ChatModalAI setIsActive={setIsActive} />
-            )}
-          </section>
-        </PopoverContent>
-      </Popover>
-    </>
+        {/* Tabs Content */}
+        <TabsContent value="ai">
+          <ChatModalAI />
+        </TabsContent>
+
+        <TabsContent value="user">
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <h3 className="text-lg font-semibold text-black_sub">
+              Chat với người dùng
+            </h3>
+            <p className="text-sm text-gray-600 mt-2">
+              Kết nối với người dùng khác để trao đổi thông tin và hỗ trợ.
+            </p>
+            <div className="mt-4">
+              <textarea
+                placeholder="Nhập tin nhắn của bạn..."
+                className="w-full h-[100px] border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+              <Button className="mt-2 bg-blue text-white hover:bg-blue_active">
+                Gửi
+              </Button>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 

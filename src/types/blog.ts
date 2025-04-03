@@ -8,6 +8,8 @@ export interface IBlog {
   likes: number;
   comments: [];
   imgBanner: string;
+  isToday: boolean;
+  isTrending: boolean;
 }
 export interface IBlogComment {
   email: string;

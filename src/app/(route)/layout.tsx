@@ -10,14 +10,12 @@ export default function DefaultLayout({
 }>) {
   return (
     <Fragment>
-      <header className="w-full h-full z-[50]  sticky top-0 lg:relative">
+      <header className="w-full h-full z-[50] sticky top-0 lg:relative">
         <HeaderDashboard />
       </header>
       <main className="w-full h-full">
         <Search />
-        <div className="container-padding py-[0.2rem] pb-[1rem] md:py-4 ">
-          {children}
-        </div>
+        <div className="container-padding-y">{children}</div>
       </main>
       <footer>
         <FooterDashboard />

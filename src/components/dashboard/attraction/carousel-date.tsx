@@ -86,9 +86,9 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
                 className={cn(
                   "transition-all text-black duration-200  border border-black_sub rounded-8  w-auto ",
                   isSameDate(day, date) &&
-                    "bg-bg_primary_hover text-black border-2 border-blue_main_sub rounded-8 shadow-lg",
+                    "bg-blue_hover text-black border-2 border-blue_sub rounded-8 shadow-lg",
                   hiddenDayNow &&
-                    "bg-bg_black_sub opacity-30 cursor-no-drop hover:cursor-no-drop z-[30] "
+                    "bg-black_sub opacity-30 cursor-no-drop hover:cursor-no-drop z-[30] "
                 )}
               >
                 <div
@@ -104,7 +104,7 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
                   </span>
                   <span
                     className={cn(
-                      "text-medium md:text-2xl lg:text-3xl font-semibold hover:cursor-pointer",
+                      "text-lg md:text-2xl lg:text-3xl font-semibold hover:cursor-pointer",
                       hiddenDayNow && "!cursor-no-drop "
                     )}
                   >
@@ -119,12 +119,12 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
                     {month}
                   </span>
                   {hiddenDayNow && (
-                    <span className="absolute bg-black z-10 bottom-[0px] text-smallest text-white px-[0.4rem] rounded-8 cursor-no-drop">
+                    <span className="absolute bg-black z-10 bottom-[0px] text-xs text-white px-[0.4rem] rounded-8 cursor-no-drop">
                       Hôm nay
                     </span>
                   )}
                   {isSameDate(day, nextDay) && (
-                    <span className="absolute bg-bg_primary_blue_sub bottom-0 text-smallest text-white px-[0.4rem] rounded-8">
+                    <span className="absolute bg-blue_sub bottom-0 text-xs text-white px-[0.4rem] rounded-8">
                       Ngày mai
                     </span>
                   )}
@@ -136,7 +136,7 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
       </CarouselContent>
       {!isAtStart ? (
         <div
-          className="bg-bg_primary_white shadow-2xl rounded-full p-3 md:p-2 absolute  left-[3%] lg:-left-[0%]  top-[50%] translate-y-[0%] translate-x-[-50%] md:translate-y-[-50%] hover:cursor-pointer"
+          className="bg-white shadow-2xl rounded-full p-3 md:p-2 absolute  left-[3%] lg:-left-[0%]  top-[50%] translate-y-[0%] translate-x-[-50%] md:translate-y-[-50%] hover:cursor-pointer"
           onClick={handlePrevious}
         >
           <ChevronLeft className="size-6" />
@@ -146,7 +146,7 @@ const CarouselDate: React.FC<SearchDatePickerProps> = ({
       )}
 
       <div
-        className="bg-bg_primary_white absolute -right-[9%] lg:-right-[10%] top-[50%] translate-x-[-50%]  translate-y-[0%] md:translate-y-[-50%] shadow-2xl rounded-full p-3 md:p-2 hover:cursor-pointer"
+        className="bg-white absolute -right-[9%] lg:-right-[10%] top-[50%] translate-x-[-50%]  translate-y-[0%] md:translate-y-[-50%] shadow-2xl rounded-full p-3 md:p-2 hover:cursor-pointer"
         onClick={handleNext}
       >
         <ChevronRight className="siz-6" />

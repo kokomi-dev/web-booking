@@ -35,7 +35,7 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
         side="bottom"
       >
         <SheetHeader className="w-full text-start p-2">
-          <SheetTitle className="text-normal+ font-semibold w-full flex items-center justify-start mt-2 ">
+          <SheetTitle className="text-lg font-semibold w-full flex items-center justify-start mt-2 ">
             Chọn ngày đến và đi
           </SheetTitle>
           <SheetDescription aria-describedby={undefined}></SheetDescription>
@@ -50,7 +50,7 @@ const SearchDatePickerDouSM: React.FC<SearchDatePickerDouSMProps> = ({
             }}
             numberOfMonths={2}
             locale={vi}
-            className="text-normal w-full my-5 h-auto font-normal bg-white flex items-center justify-center"
+            className="text-base w-full my-5 h-auto font-normal bg-white flex items-center justify-center"
           />
         </div>
         <SheetFooter>

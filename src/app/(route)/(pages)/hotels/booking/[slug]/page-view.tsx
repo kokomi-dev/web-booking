@@ -1,7 +1,7 @@
 "use client";
 import { Check, ChevronRight, CircleUser, Star, UserRound } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { getDetailHotel } from "@/api/api-hotels";
 import Loading from "@/app/loading";
@@ -104,8 +104,6 @@ const BookingHotel = () => {
     }
   }, [user, form, slug]);
 
-  const [value, setValue] = React.useState("");
-  const [open, setOpen] = React.useState(false);
   const [listRoomBooked, setListRoomBooked] = useState<any>([]);
   const param = useSearchParams();
 
@@ -159,9 +157,7 @@ const BookingHotel = () => {
       {isLoading ? (
         <Loading />
       ) : data ? (
-        <div
-          className={cn("w-full h-full  posing-vertical-1 mt-[1rem] lg:mt-0 ")}
-        >
+        <div className={cn(" section-spacing ")}>
           {/* head */}
           <BreadcrumbHead
             items={[
@@ -185,38 +181,40 @@ const BookingHotel = () => {
           {/* body */}
           <div
             className={cn(
-              "w-full grid grid-cols-1 gap-y-5 ",
+              "container xl:px-0  grid grid-cols-1 gap-y-5 ",
               "lg:grid-cols-layout-3  lg:gap-x-5 lg:gap-y-0 lg:h-full "
             )}
           >
             {/* info */}
-            <div className={cn("w-full h-fit posing-vertical-2  ")}>
+            <div className={cn("w-full h-fit container-spacing  ")}>
               <div
                 className={cn(
                   "w-full h-full flex items-start justify-start gap-2 border-[0.4px] border-[#999] p-3 rounded-8"
                 )}
               >
-                <div className=" text-small font-normal p-1 posing-vertical-6">
-                  <h4 className="text-medium font-semibold">{data.name}</h4>
-                  <span className="flex items-center justify-start gap-x-1 text-small">
-                    <Star className="size-4 text-yellow_main fill-yellow_main" />
+                <div className=" text-sm font-normal p-1 list-spacing">
+                  <h4 className="text-xl lg:text-2xl font-semibold">
+                    {data.name}
+                  </h4>
+                  <span className="flex items-center justify-start gap-x-1 text-sm">
+                    <Star className="size-4 text-yellow fill-yellow" />
                     {data.rating}
                   </span>
-                  <span className=" text-smallest text-black_sub">
+                  <span className=" text-xs text-black_sub">
                     {data.comments.length} bình luận
                   </span>
-                  <address className="text-smallest text-green_main">
+                  <address className="text-xs text-green">
                     {data.location.detail}
                   </address>
                   <ul className="w-full flex flex-wrap gap-x-2">
                     {data.includes.map((include: string, index: number) => {
                       return (
                         <li
-                          className="text-smallest flex items-center justify-start gap-x-1 "
+                          className="text-xs flex items-center justify-start gap-x-1 "
                           key={index}
                         >
-                          <Check className="size-3 text-green_main flex-shrink-0" />
-                          <span className="first-letter:uppercase text-black_main">
+                          <Check className="size-3 text-green flex-shrink-0" />
+                          <span className="first-letter:uppercase text-black">
                             {include}
                           </span>
                         </li>
@@ -225,97 +223,99 @@ const BookingHotel = () => {
                   </ul>
                 </div>
               </div>
-              <div className="w-full h-full border-[#999] border-0.5 rounded-8 posing-vertical-3 p-2">
-                <h4 className="text-normal font-semibold">
+              <div className="w-full h-full border-[#999] border-0.5 rounded-8 list-spacing p-2">
+                <h4 className="text-base font-semibold">
                   Chi tiết đặt phòng của bạn
                 </h4>
-                <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium">
+                <div className="w-full grid grid-cols-2 gap-x-2 text-base font-medium">
                   <div className="text-center">
-                    <h4 className="text-smallest font-semibold text-blue_main_sub">
+                    <h4 className="text-xs font-semibold text-blue_sub">
                       Nhận phòng
                     </h4>
-                    <span className="text-small font-semibold">{dateFrom}</span>
+                    <span className="text-sm font-semibold">{dateFrom}</span>
                   </div>
                   <div className="text-center border-l-[0.4px] border-[#999]">
-                    <h4 className="text-smallest font-semibold text-blue_main_sub">
+                    <h4 className="text-xs font-semibold text-blue_sub">
                       Trả phòng
                     </h4>
-                    <span className="text-small font-semibold">{dateTo}</span>
+                    <span className="text-sm font-semibold">{dateTo}</span>
                   </div>
                 </div>
                 <div className="w-full flex flex-col items-start justify-start gap-2 text-[1rem]">
-                  <h4 className="text-small font-medium">
+                  <h4 className="text-sm font-medium">
                     Tổng thời gian lưu trú:
                   </h4>
-                  <span className="text-small font-semibold ">1</span>
+                  <span className="text-sm font-semibold ">1</span>
                 </div>
-                <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
-                  <h4 className="text-small font-medium">Bạn đã chọn</h4>
-                  <span className="text-small font-semibold">{num} phòng</span>
+                <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999] py-2 pt-3">
+                  <h4 className="text-sm font-medium">Bạn đã chọn</h4>
+                  <span className="text-sm font-semibold">{num} phòng</span>
                 </div>
               </div>
               <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 ">
                 <div className="p-2">
-                  <h4 className="text-normal font-semibold">
+                  <h4 className="text-base font-semibold">
                     Tổng tiền phải thanh toán:
                   </h4>
                 </div>
-                <div className="w-full grid grid-cols-2 gap-x-2 text-normal font-medium bg-bg_primary_hover text-black">
-                  <h2 className="text-large font-bold p-2">Tổng cộng </h2>
-                  <span className="text-blue_main_sub  flex items-center font-bold text-medium underline">
+                <div className="w-full grid grid-cols-2 gap-x-2 text-base font-medium bg-blue_hover text-black">
+                  <h2 className="text-2xl md:text-3xl font-bold p-2">
+                    Tổng cộng{" "}
+                  </h2>
+                  <span className="text-blue_sub  flex items-center font-bold text-lg underline">
                     VNĐ {convertVND(Number(total))}
                   </span>
                 </div>
               </div>
               <div className="w-full h-full border-[#999] border-0.5 rounded-8 flex flex-col items-start justify-start gap-4 p-2">
-                <h4 className="text-normal font-semibold">
+                <h4 className="text-base font-semibold">
                   Đơn này sẽ được tính
                 </h4>
-                <p className="text-smallest text-black_sub">
+                <p className="text-xs text-black_sub">
                   Chỗ nghỉ, vé máy bay, xe thuê, taxi hay vé tham quan, mỗi đơn
                   đặt hoàn tất đều được tính vào tiến trình Genius của bạn.
                 </p>
 
                 <div className="w-full flex items-center justify-between gap-2 border-t-[0.4px] border-[#999]">
-                  <span className="text-small font-normal text-black_main">
+                  <span className="text-sm font-normal text-black">
                     Chương trình khách hàng thân thiết của KoKoTravel
                   </span>
                 </div>
               </div>
             </div>
             {/* info customer */}
-            <div className={cn("w-full posing-vertical-2 ")}>
-              <div className="w-full flex flex-col items-start justify-start gap-2">
+            <div className={cn("w-full container-spacing ")}>
+              <div className="w-full container-spacing">
                 {user && isAuthenticated && (
                   <div className="w-full h-auto flex items-center justify-start gap-x-2 p-3 border-0.5 border-[#999] rounded-8">
                     <div
                       className={cn(
-                        "w-[2.2rem] h-[2.2rem] border-1 border-yellow_main rounded-full flex items-center justify-center",
+                        "w-[2.2rem] h-[2.2rem] border-1 border-yellow rounded-full flex items-center justify-center",
                         "md:w-[2.8rem] md:h-[2.8rem]"
                       )}
                     >
-                      <CircleUser className="text-blue_main_sub size-8" />
+                      <CircleUser className="text-blue_sub size-8" />
                     </div>
                     <div>
-                      <h4 className="text-normal font-semibold ">
+                      <h4 className="text-base font-semibold ">
                         Bạn đã được đăng nhập
                       </h4>
-                      <span className="text-small font-normal text-black_sub">
+                      <span className="text-sm font-normal text-black_sub">
                         {user.email}
                       </span>
                     </div>
                   </div>
                 )}
-                <h3 className={cn("text-medium font-semibold")}>
+                <h3 className={cn("text-lg font-semibold")}>
                   Nhập thông tin chi tiết của bạn
                 </h3>
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="posing-vertical-2 w-full  "
+                    className="container-spacing w-full  "
                   >
-                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 posing-vertical-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-2">
+                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 container-spacing">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:gap-y-0 md:gap-x-2">
                         <FormField
                           control={form.control}
                           name="firstname"
@@ -394,8 +394,8 @@ const BookingHotel = () => {
                         )}
                       />
                     </div>
-                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 posing-vertical-3">
-                      <h3 className={cn("text-medium font-semibold")}>
+                    <div className="w-full p-2 lg:p-3 border-0.5 border-[#999] rounded-8 list-spacing">
+                      <h3 className={cn("text-lg font-semibold")}>
                         Thông tin thêm
                       </h3>
                       <FormField
@@ -403,7 +403,7 @@ const BookingHotel = () => {
                         name="note"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="!text-normal">
+                            <FormLabel className="!text-base">
                               Ghi chú thêm
                             </FormLabel>
                             <FormControl>
@@ -412,30 +412,32 @@ const BookingHotel = () => {
                           </FormItem>
                         )}
                       />
-                      <div className="">
-                        <h4 className="text-small font-semibold ">
+                      <div className="list-spacing">
+                        <h4 className="text-sm font-semibold ">
                           Thời gian đến dự kiến của bạn
                         </h4>
                         <div className="w-full grid gap-y-2 mt-2">
-                          <div className="flex items-center justify-start gap-x-1 font-normal text-small">
+                          <div className="flex items-center justify-start gap-x-1 font-normal text-sm">
                             <span>
-                              <Check className="text-green_main size-4" />
+                              <Check className="text-green size-4" />
                             </span>
                             Các phòng của bạn sẽ sẵn sàng nhận vào 7h00 hoặc
                             14h00{" "}
                           </div>
-                          <div className="flex items-center justify-start gap-x-1 font-normal text-small">
+                          <div className="flex items-center justify-start gap-x-1 font-normal text-sm">
                             <span>
-                              <Check className="text-green_main size-4" />
+                              <Check className="text-green size-4" />
                             </span>
                             Lễ tân sẵn sàng phục vụ bạn{" "}
                           </div>
+                        </div>
+                        <div>
                           <FormField
                             control={form.control}
                             name="expectedTime"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-small font-semibold">
+                                <FormLabel className="text-sm font-semibold">
                                   Vui lòng chọn thời gian nhận phòng{" "}
                                   <IconRequired />
                                 </FormLabel>
@@ -469,20 +471,17 @@ const BookingHotel = () => {
                     </div>
 
                     <div className="w-full p-3 border-0.5 border-[#999] rounded-8">
-                      <h4 className="text-black  text-medium font-semibold">
+                      <h4 className="text-black  text-lg font-semibold mb-2">
                         Các phòng đã đặt
                       </h4>
-                      <div className="grid gap-y-3">
+                      <div className="grid gap-y-3 lg:gap-y-4">
                         {bookingInfo.map((item, index) => {
                           const room = data.listRooms[index];
                           if (item > 0) {
                             return (
-                              <div
-                                key={index}
-                                className="font-normal text-small"
-                              >
-                                <h4 className="text-normal font-bold">
-                                  <span className="text-blue_main_sub text-normal font-semibold">
+                              <div key={index} className="font-normal text-sm">
+                                <h4 className="text-base font-bold">
+                                  <span className="text-blue_sub text-base font-semibold">
                                     {" "}
                                     {item}
                                   </span>{" "}
@@ -496,9 +495,9 @@ const BookingHotel = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="flex items-center justify-start text-smallest p-1"
+                                              className="flex items-center justify-start text-xs p-1"
                                             >
-                                              <Check className="text-green_main size-3" />
+                                              <Check className="text-green size-3" />
                                               <span className="ml-1">
                                                 {detailItem}
                                               </span>
@@ -526,7 +525,7 @@ const BookingHotel = () => {
                     {!isValidate && (
                       <Button
                         type="submit"
-                        className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
+                        className="bg-blue_sub hover:bg-blue_active mt-4 text-white w-full py-6"
                       >
                         Tiếp tục <ChevronRight className="size-5" />
                       </Button>

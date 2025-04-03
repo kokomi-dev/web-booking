@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 
 const ContentPage = () => {
   return (
-    <div className="posing-vertical-1 !mt-[1rem] lg:!mt-0">
+    <div className="section-spacing ">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/home" },
           { label: "Điều khoản điều kiện" },
         ]}
       />
-      <div className="grid grid-cols-1 md:grid-cols-[20%,80%] gap-4 ">
+      <div className="container xl:px-0 grid grid-cols-1 md:grid-cols-[20%,80%] gap-4 ">
         <SidebarContent />
         <ShowContent />
       </div>

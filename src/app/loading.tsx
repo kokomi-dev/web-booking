@@ -1,2 +1,3 @@
-import LoadingPage from "./account/loading";
+import { LoadingPage } from "@/components/components/loading";
+
 export default LoadingPage;

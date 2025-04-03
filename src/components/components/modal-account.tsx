@@ -57,16 +57,13 @@ const ModalAccount = ({
   const handleSignOut = () => {};
   return (
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
-      <DialogContent className="bg-bg_black_sub text-black  h-auto w-full">
+      <DialogContent className="bg-black_sub text-black  h-auto w-full">
         <DialogHeader>
           <DialogTitle>Tài khoản của bạn</DialogTitle>
         </DialogHeader>
         <div className="w-full grid gap-2 ">
           <div className="w-full">
-            <Label
-              htmlFor="email"
-              className="text-right text-small font-normal"
-            >
+            <Label htmlFor="email" className="text-right text-sm font-normal">
               Email
             </Label>
             <Input
@@ -76,11 +73,11 @@ const ModalAccount = ({
               disabled
             />
           </div>
-          <h4 className="text-smallest text-blue_main_sub">
+          <h4 className="text-xs text-blue_sub">
             Chúng tôi sẽ gửi mail xác nhận tới email này
           </h4>
           <hr className="hr" />
-          <h4 className="text-small font-medium">Đổi thông tin</h4>
+          <h4 className="text-sm font-medium">Đổi thông tin</h4>
           <div
             className={cn(
               "w-full flex flex-col items-start justify-start gap-2",
@@ -89,7 +86,7 @@ const ModalAccount = ({
           >
             <div className="w-full flex flex-col items-center justify-between gap-2 ">
               <FormInput
-                className="text-smallest "
+                className="text-xs "
                 title="họ"
                 value={firstname}
                 onChange={(e) => {
@@ -98,7 +95,7 @@ const ModalAccount = ({
                 type="text"
               />
               <FormInput
-                className="text-smallest"
+                className="text-xs"
                 title="tên"
                 defaultValue={user.lastname}
                 onChange={(e) => {
@@ -110,7 +107,7 @@ const ModalAccount = ({
             </div>
             <div className="w-full flex flex-col items-start justify-start gap-2">
               <FormInput
-                className="text-smallest"
+                className="text-xs"
                 title="Mật khẩu hiện tại"
                 value={password}
                 onChange={(e) => {
@@ -120,11 +117,11 @@ const ModalAccount = ({
               />
               {/*  */}
               <hr className="hr" />
-              <h4 className="text-smallest text-blue_main">
+              <h4 className="text-xs text-blue">
                 Mật khấu phải có 8 kí tự, 1 chữ số, 1 kí tự
               </h4>
               <FormInput
-                className="text-smallest"
+                className="text-xs"
                 title="Mật khẩu mới"
                 value={passwordNew}
                 onChange={(e) => {
@@ -133,7 +130,7 @@ const ModalAccount = ({
                 type="password"
               />
               <FormInput
-                className="text-smallest"
+                className="text-xs"
                 title="Nhập lại"
                 value={passwordNewConfirm}
                 onChange={(e) => {
@@ -144,7 +141,7 @@ const ModalAccount = ({
             </div>
           </div>
           <Button
-            className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_main"
+            className="bg-blue_sub text-white hover:bg-blue"
             onClick={handleUpdateUser}
             disabled={!password}
           >
@@ -154,7 +151,7 @@ const ModalAccount = ({
         <DialogFooter>
           <Button
             type="submit"
-            className="hover:bg-bg_primary_hover border-1 border-black_sub"
+            className="hover:bg-blue_hover border-1 border-black_sub"
           >
             Đăng xuất
           </Button>

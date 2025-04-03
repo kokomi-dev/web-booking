@@ -1,9 +1,8 @@
 "use client";
-import { getFilterAttractions } from "@/api/api-attractions";
 import { getFilterHotel } from "@/api/api-hotels";
 import BreadcrumbHead from "@/components/components/breadcrumb";
-import CardItem from "@/components/components/card-item";
 import FilterComponent from "@/components/components/filter-item";
+import CardItem from "@/components/components/item-search";
 import {
   LoadingItemSearch,
   LoadingPage,
@@ -12,7 +11,6 @@ import SheetShowFilter from "@/components/components/sheet-show-filter";
 import {
   filterAttraction2,
   filterAttraction3,
-  filterAttraction4,
   filterBar,
   filterHotel1,
   filterHotel2,
@@ -20,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
 import { IHotel } from "@/types/hotel.type";
-import { cn, convertToSlug, formatDate } from "@/utils/constants";
+import { cn, convertToSlug } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import { Dot, Slice, SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -83,7 +81,7 @@ const AllHotelPage = () => {
     return <LoadingPage />;
   }
   return (
-    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
+    <div className={cn("container-spacing ")}>
       <BreadcrumbHead
         items={[
           { label: "Lưu trú", href: "/hotels" },
@@ -92,35 +90,35 @@ const AllHotelPage = () => {
           },
         ]}
       />
-      <div className="w-full h-full max-w-full posing-vertical-2">
+      <div className="container xl:px-0">
         {search ? (
-          <h2 className="text-medium font-bold mb-2 flex items-center justify-start gap-x-2">
+          <h2 className="text-lg font-bold mb-2 flex items-center justify-start gap-x-2 heading-spacing">
             <span className="capitalize">{nameValue}</span>
             <Dot />
-            <span className="text-normal font-medium">
+            <span className="text-base font-medium">
               tìm thấy {listHotel?.length} địa điểm lưu trú
             </span>
           </h2>
         ) : (
-          <span className="text-medium font-bold">
+          <span className="text-lg font-bold heading-spacing">
             Lựa chọn nơi lưu trú phù hợp với bạn
           </span>
         )}
 
-        <div className="w-full h-full flex flex-col-reverse posing-vertical-3 lg:grid  lg:grid-cols-[28%,72%] xl:grid-cols-[25%,75%] ">
+        <div className="w-full h-full flex flex-col-reverse list-spacing lg:grid  lg:grid-cols-[28%,72%] xl:grid-cols-[25%,75%] ">
           <div
             className={cn(
               "w-full h-fit border_div_card hidden  !p-0 ",
               "lg:flex flex-col items-start justify-between lg:sticky lg:top-[2rem] xl:top-[3rem]"
             )}
           >
-            <h3 className="w-full h-auto  flex items-center justify-start text-normal+ font-semibold border-b-0.5 p-2 py-3 border-b-black_sub">
+            <h3 className="w-full h-auto  flex items-center justify-start text-lg font-semibold border-b-0.5 p-2 py-3 border-b-black_sub">
               Lọc theo
             </h3>
-            <span className="text-smallest text-black_main_blur p-2">
+            <span className="text-xs text-black_blur p-2">
               Giá được áp dụng cho phòng đầu của địa điểm lưu trú
             </span>
-            <div className="w-full p-2 posing-vertical-3 overflow-y-auto max-h-[80%]">
+            <div className="w-full p-2 list-spacing overflow-y-auto max-h-[80%]">
               <FilterComponent
                 title="giá"
                 arrayFilterItem={filterAttraction2}
@@ -152,43 +150,42 @@ const AllHotelPage = () => {
               <hr className="hr" />
               <div className="flex items-center justify-between">
                 <div
-                  className="flex items-center justify-center gap-x-[3px] p-2 bg-bg_black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-bg_primary_hover"
+                  className="flex items-center justify-center gap-x-[3px] p-2 bg-black_sub rounded-8 hover:cursor-pointer border-1 border-black_sub hover:bg-blue_hover"
                   onClick={handleResetFilter}
                 >
-                  <span className="text-smallest">Xóa bộ lọc</span>
+                  <span className="text-xs">Xóa bộ lọc</span>
                   <Slice className="size-4" />
                 </div>
                 <Button
                   onClick={() => {
                     refetch();
                   }}
-                  className="bg-bg_primary_blue_sub text-white"
+                  className="bg-blue_sub text-white"
                 >
                   Xem kết quả
                 </Button>
               </div>
-              s
             </div>
           </div>
           {/* show result */}
           <div
             className={cn(
-              "w-full h-full posing-vertical-3 !mt-[0.8rem] lg:!mt-0 ",
+              "w-full h-full list-spacing !mt-[0.8rem] lg:!mt-0 ",
               "lg:pl-3 "
             )}
           >
             <div
               className={cn(
-                "w-full flex items-center justify-between bg-bg_black_sub rounded-24 overflow-x-auto p-2  "
+                "w-full flex items-center justify-between bg-black_sub rounded-24 overflow-x-auto p-2  "
               )}
             >
               <Button
                 onClick={() => {
                   setOpenSheetFilter(!openSheetFilter);
                 }}
-                className="flex py-4 px-3 lg:py-6 lg:px-4 mx-2 !rounded-14 shadow-2xl items-center justify-center gap-x-1 text-small border-blue_main border-1  bg-white lg:hidden"
+                className="flex py-4 px-3 lg:py-6 lg:px-4 mx-2 !rounded-14 shadow-2xl items-center justify-center gap-x-1 text-sm border-blue border-1  bg-white lg:hidden"
               >
-                <SlidersHorizontal className="size-4 text-blue_main" />
+                <SlidersHorizontal className="size-4 text-blue" />
               </Button>
               <SheetShowFilter
                 handleResetFilter={handleResetFilter}
@@ -211,8 +208,8 @@ const AllHotelPage = () => {
                       }));
                     }}
                     className={cn(
-                      "py-0 px-4 w-full text-smallest border-1 text-black_main_blur border-transparent font-normal !rounded-24 shadow-none  bg-transparent hover:border-1  hover:bg-white",
-                      filter.filterBar == index && "border-blue_main bg-white"
+                      "py-0 px-4 w-full text-xs border-1 text-black_blur border-transparent font-normal !rounded-24 shadow-none  bg-transparent hover:border-1  hover:bg-white",
+                      filter.filterBar == index && "border-blue bg-white"
                     )}
                   >
                     {item.label}
@@ -249,19 +246,19 @@ const AllHotelPage = () => {
               <div className="w-full h-full  mx-auto flex items-center justify-center rounded-8">
                 {search ? (
                   <div className="flex items-center justify-center w-full h-full flex-col">
-                    <h3 className="text-normal font-medium text-blue_main_sub">
+                    <h3 className="text-base font-medium text-blue_sub">
                       Hiện tại chúng tôi chưa có dịch vụ ở đây
                     </h3>
-                    <p className="text-small text-black_sub">
+                    <p className="text-sm text-black_sub">
                       Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
                     </p>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center w-full h-full flex-col">
-                    <h3 className="text-normal font-medium text-blue_main_sub">
+                    <h3 className="text-base font-medium text-blue_sub">
                       Chưa tìm thấy địa điểm du lịch phù hợp
                     </h3>
-                    <p className="text-small text-black_sub">
+                    <p className="text-sm text-black_sub">
                       Xin vui lòng tìm kiếm với địa điểm khác của chúng tôi
                     </p>
                   </div>

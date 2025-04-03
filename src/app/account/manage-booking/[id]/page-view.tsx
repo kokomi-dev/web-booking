@@ -12,7 +12,7 @@ const ManageBooking = () => {
   const { user } = useAuthenticatedStore();
   const router = useRouter();
   return (
-    <div className="w-full h-full posing-vertical-1">
+    <div className="w-full h-full section-spacing">
       {user ? (
         <Fragment>
           <BreadcrumbHead
@@ -29,16 +29,16 @@ const ManageBooking = () => {
               },
             ]}
           />
-          <section className="w-full h-full flex flex-col items-center justify-start gap-y-4 ">
+          <section className="container xl:px-0 flex flex-col items-center justify-start gap-y-4 ">
             <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-between">
-              <h3 className="text-medium lg:text-large font-semibold">
+              <h3 className="text-lg lg:text-3xl font-semibold">
                 Hãy khám phá thêm nhiều địa điểm với chúng tôi
               </h3>
               <span
                 onClick={() => {
                   router.push("/home");
                 }}
-                className="text-blue_main_sub cursor-pointer transition-all duration-200 hover:underline"
+                className="text-blue_sub cursor-pointer transition-all duration-200 hover:underline"
               >
                 Tìm thêm
               </span>
@@ -48,7 +48,7 @@ const ManageBooking = () => {
           </section>
         </Fragment>
       ) : (
-        <section className="w-full min-h-full border-0.5 border-black_sub rounded-8 gap-2 flex items-center justify-center p-6">
+        <section className="container xl:px-0 min-h-full border-0.5 border-black_sub rounded-8 gap-2 flex items-center justify-center p-6">
           <div className=" flex flex-col items-center justify-start gap-4">
             <Image
               src="https://t-cf.bstatic.com/design-assets/assets/v3.125.0/illustrations-traveller/TripsGlobe@2x.png"
@@ -57,7 +57,7 @@ const ManageBooking = () => {
               height={600}
               className="w-[300px] h-[300px]"
             />
-            <h2 className="text-large font-semibold text-center">
+            <h2 className="text-3xl font-semibold text-center">
               Hiện bạn chưa thể xem được dữ liệu này
             </h2>
             <p className="w-[70%] text-center">

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useMemo } from "react";
 
 import { getDetailAttraction } from "@/api/api-attractions";
 import BreadcrumbHead from "@/components/components/breadcrumb";
@@ -40,6 +40,10 @@ const infoBooking = z.object({
   email: z.string().email("Vui lòng nhập đúng email"),
   note: z.optional(z.string()),
   pickUpPoint: z.string({ message: "Chọn địa điểm đón bạn" }),
+  address: z.optional(z.string().min(5, "Địa chỉ không hợp lệ")),
+  specialRequests: z.optional(z.string()),
+  nationality: z.string().min(2, "Vui lòng nhập quốc tịch"),
+  passportNumber: z.optional(z.string().min(8, "Số hộ chiếu không hợp lệ")),
 });
 type InfoBooking = z.infer<typeof infoBooking>;
 
@@ -105,26 +109,27 @@ const BookingAttraction = () => {
   const adult = Number(param.get("adult")) ?? 0;
   const children = Number(param.get("children")) ?? 0;
   const [isValidate, setIsValidate] = useState(false);
-  const totalBooking = (): string => {
+  const totalBooking = useMemo(() => {
     if (data) {
       return formatPrice(
         Number(adult) * data.price[0] + Number(children) * data.price[1]
       );
     }
     return "";
-  };
+  }, [data, adult, children]);
+
   const onSubmit = (data: InfoBooking) => {
     if (data) {
-      if (data.pickUpPoint == "1") {
-        data.pickUpPoint = "Gặp tại đia điểm của nhà điều hành tour";
-      } else if (data.pickUpPoint == "2") {
+      if (data.pickUpPoint === "1") {
+        data.pickUpPoint = "Gặp tại địa điểm của nhà điều hành tour";
+      } else if (data.pickUpPoint === "2") {
         data.pickUpPoint = "Liên hệ riêng để chọn địa điểm đón";
       } else {
         data.pickUpPoint = addressPickUpPoint;
       }
       setInfoBookingUser({ ...data, idUser: user?._id });
       setIsValidate(!isValidate);
-    } else return;
+    }
   };
 
   return (
@@ -132,9 +137,7 @@ const BookingAttraction = () => {
       {isLoading ? (
         <LoadingPage />
       ) : data ? (
-        <div
-          className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}
-        >
+        <div className={cn("container-spacing")}>
           {/* head */}
           <BreadcrumbHead
             items={[
@@ -144,27 +147,34 @@ const BookingAttraction = () => {
               { label: `Đặt chỗ` },
             ]}
           />
-
-          <div className={cn("text-medium font-bold ", "lg:text-large")}>
-            <h1>{data?.name}</h1>
-            <p className="text-small text-black_sub font-normal">
-              Đảm bảo an toàn về quyền lợi khách hàng
-            </p>
+          <div className="container-spacing container xl:px-0">
+            <div
+              className={cn("text-lg font-bold text-black", "lg:text-3xl ]")}
+            >
+              <h1>
+                {data?.name} -<span className="text-blue_sub"> ( Đặt vé )</span>
+              </h1>
+              <p className="text-sm text-black_sub font-normal">
+                Đảm bảo an toàn về quyền lợi khách hàng
+              </p>
+            </div>
           </div>
           <div
             className={cn(
-              "w-full flex flex-col-reverse items-center justify-center posing-vertical-2 ",
-              "lg:flex-row lg:justify-between lg:gap-x-10 lg:items-start lg:gap-y-0 lg:h-full "
+              "container xl:px-0 flex flex-col-reverse items-center justify-center gap-y-7",
+              "lg:flex-row lg:justify-between lg:gap-x-10 lg:items-start lg:gap-y-0 lg:h-full"
             )}
           >
-            <div className="w-[100%] posing-vertical-2 ">
-              <h3 className="text-medium font-semibold ">Thông tin của bạn</h3>
+            <div className="w-[100%] container-spacing shadow-none lg:shadow-md rounded-lg p-0 lg:p-6">
+              <h3 className="text-lg font-semibold text-black_sub">
+                Thông tin của bạn
+              </h3>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="posing-vertical-2"
+                  className="container-spacing"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:gap-y-0 lg:gap-x-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 lg:gap-y-0 md:gap-x-4 lg:gap-x-7">
                     <FormField
                       control={form.control}
                       name="firstname"
@@ -175,7 +185,7 @@ const BookingAttraction = () => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className="capitalize border-black_main border-0.5"
+                              className="capitalize border-gray-300 border-0.5"
                               type="text"
                               placeholder="Họ"
                               {...field}
@@ -195,7 +205,7 @@ const BookingAttraction = () => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className="capitalize border-black_main border-0.5"
+                              className="capitalize border-gray-300 border-0.5"
                               type="text"
                               placeholder="Tên"
                               {...field}
@@ -206,29 +216,32 @@ const BookingAttraction = () => {
                       )}
                     />
                   </div>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Email <IconRequired />
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            className="border-0.5 border-black_main"
-                            type="email"
-                            placeholder="Email"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red_main" />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="text-smallest text-black_sub !mt-1">
-                    Chúng tôi sẽ gửi email xác nhận tới email này
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Email <IconRequired />
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border-0.5 border-gray-300"
+                              type="email"
+                              placeholder="Email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red_main" />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="text-xs text-black_sub_2 mt-2">
+                      Chúng tôi sẽ gửi email xác nhận tới email này
+                    </div>
                   </div>
+
                   <FormField
                     control={form.control}
                     name="numberphone"
@@ -240,7 +253,7 @@ const BookingAttraction = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
-                            className="border-0.5 border-black_main"
+                            className="border-0.5 border-gray-300"
                             type="text"
                             placeholder="Số ĐT"
                             {...field}
@@ -250,37 +263,109 @@ const BookingAttraction = () => {
                       </FormItem>
                     )}
                   />
-                  <div className="border-0.5 border-[#999] rounded-8 p-2 lg:p-3 posing-vertical-3">
-                    <h3 className=" text-medium font-semibold flex items-center justify-start gap-x-2">
+                  <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Địa chỉ</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="border-0.5 border-gray-300"
+                            type="text"
+                            placeholder="Nhập địa chỉ của bạn"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red_main" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="nationality"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Quốc tịch <IconRequired />
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="border-0.5 border-gray-300"
+                            type="text"
+                            placeholder="Nhập quốc tịch của bạn"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red_main" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="passportNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Số hộ chiếu</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="border-0.5 border-gray-300"
+                            type="text"
+                            placeholder="Nhập số hộ chiếu (nếu có)"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red_main" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="specialRequests"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Yêu cầu đặc biệt</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            className="border-0.5 border-gray-300"
+                            placeholder="Nhập yêu cầu đặc biệt (nếu có)"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <div className="border-0.5 border-gray-300 rounded-lg p-4 mt-4">
+                    <h3 className="text-lg font-semibold text-black_sub flex items-center gap-x-2 heading-spacing">
                       Thông tin thêm <CircleAlert className="size-6" />
                     </h3>
                     <FormField
                       control={form.control}
                       name="pickUpPoint"
                       render={({ field }) => (
-                        <FormItem className=" w-full">
-                          <FormLabel className="!text-normal !font-medium">
+                        <FormItem>
+                          <FormLabel className="!text-base !font-medium text-black_sub_2 ">
                             Vui lòng chọn địa điểm đón <IconRequired />
                           </FormLabel>
-                          <FormControl>
+                          <FormControl className="!mt-4">
                             <RadioGroup
                               onValueChange={field.onChange}
                               defaultValue={field.value}
-                              className="flex flex-col space-y-1"
+                              className="flex flex-col space-y-3"
                             >
                               <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
-                                  <RadioGroupItem value="1" className=" " />
+                                  <RadioGroupItem value="1" />
                                 </FormControl>
-                                <FormLabel className="font-normal hover:cursor-pointer">
-                                  Gặp tại đia điểm của nhà điều hành tour
+                                <FormLabel className="font-normal cursor-pointer">
+                                  Gặp tại địa điểm của nhà điều hành tour
                                 </FormLabel>
                               </FormItem>
                               <FormItem className="flex items-center space-x-3 space-y-0">
                                 <FormControl>
                                   <RadioGroupItem value="2" />
                                 </FormControl>
-                                <FormLabel className="font-normal hover:cursor-pointer">
+                                <FormLabel className="font-normal cursor-pointer">
                                   Liên hệ riêng để chọn địa điểm đón
                                 </FormLabel>
                               </FormItem>
@@ -288,7 +373,7 @@ const BookingAttraction = () => {
                                 <FormControl>
                                   <RadioGroupItem value="3" />
                                 </FormControl>
-                                <FormLabel className="font-normal hover:cursor-pointer">
+                                <FormLabel className="font-normal cursor-pointer">
                                   Chọn địa điểm
                                 </FormLabel>
                               </FormItem>
@@ -306,65 +391,34 @@ const BookingAttraction = () => {
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="note"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="!text-normal">
-                            Ghi chú thêm
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              className="border-0.5 border-black_main"
-                              placeholder="...aaa"
-                              {...field}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
                   </div>
-
-                  <p className={cn("text-smallest !mt-4", "lg:text-small")}>
-                    Bằng việc nhấn &quot; Tiếp tục &ldquo; và hoàn tất đơn đặt,
-                    bạn đồng ý với {""}
+                  <p className="text-xs text-black_sub_2 mt-4">
+                    Bằng việc nhấn &quot;Tiếp tục&quot; và hoàn tất đơn đặt, bạn
+                    đồng ý với{" "}
                     <Link
                       href="/content/privacy?activeTab=3"
-                      className="text-blue_main_sub"
+                      className="text-blue-500"
                     >
                       điều khoản và điều kiện
                     </Link>{" "}
                     của KokoTravel.com cũng như chính sách bảo mật của chúng
                     tôi.
-                    <br />
-                    Vui lòng xem{" "}
-                    <Link
-                      className="text-blue_main_sub text-small"
-                      href="/content/privacy?activeTab=2"
-                    >
-                      Chính sách bảo mật
-                    </Link>{" "}
-                    để hiểu cách chúng tôi sử dụng và bảo vệ thông tin cá nhân
-                    của bạn.
-                    <br />
                   </p>
                   {!isValidate && (
                     <Button
                       type="submit"
-                      className="bg-bg_primary_blue_sub hover:bg-bg_primary_active mt-4 text-white w-full py-6"
+                      className="bg-blue hover:bg-blue_active mt-4 text-white w-full py-4"
                     >
                       Tiếp tục <ChevronRight className="size-5" />
                     </Button>
                   )}
-
                   {isValidate && (
                     <PayListWrap
                       open={isValidate}
                       setOpen={setIsValidate}
                       category="attraction"
                       data={data}
-                      totalBooking={totalBooking()}
+                      totalBooking={totalBooking}
                       hour={hour}
                       childrenNumber={children}
                       adult={adult}
@@ -376,13 +430,13 @@ const BookingAttraction = () => {
             </div>
             <div
               className={cn(
-                "w-full lg:w-[80%] posing-vertical-3 ",
-                "lg:sticky lg:top-[2rem]"
+                "w-full lg:w-[100%] shadow-none lg:shadow-md rounded-lg p-0 lg:p-6 ",
+                "lg:sticky lg:top-[2rem] lg:h-auto"
               )}
             >
               <div
                 className={cn(
-                  "w-full h-full flex items-start justify-start gap-2 border-b-[0.4px] border-[#999] py-4"
+                  "w-full h-full flex items-start justify-start gap-2 border-b-[0.4px] border-[#999] py-4 "
                 )}
               >
                 <Image
@@ -391,49 +445,49 @@ const BookingAttraction = () => {
                   width={300}
                   height={200}
                   sizes="50"
-                  className="w-[8rem] h-[8rem] rounded-lg object-cover object-center"
+                  className="w-[8rem] h-[8rem] md:w-[10rem] md:h-[10rem] rounded-lg object-cover object-center"
                 />
-                <div className="flex flex-col gap-y-1">
-                  <h4 className="font-bold text-normal lg:text-medium">
+                <div className="flex flex-col gap-y-2 lg:gap-y-3">
+                  <h4 className="font-bold text-base lg:text-lg">
                     {data?.name}
                   </h4>
-                  <address className="text-smallest text-blue_main_sub flex items-center justify-start gap-x-1 ">
+                  <address className="text-xs text-blue_sub flex items-center justify-start gap-x-1 ">
                     <MapPin className="size-4" /> {data?.location.detail}
                   </address>
-                  <p className="text-smallest text-black_main_blur line-clamp-3">
+                  <p className="text-xs md:text-sm text-black_blur line-clamp-3">
                     {data?.description}
                   </p>
                 </div>
               </div>
-              <div className="posing-vertical-6 text-smallest lg:text-small">
+              <div className="list-spacing text-xs lg:text-sm py-3 md:py-4 lg:py-5 ">
                 <h6 className="flex items-center justify-start gap-x-1">
                   {" "}
-                  <Star className="size-4 fill-yellow_main text-yellow_main flex-shrink-0" />
+                  <Star className="size-4 fill-yellow text-yellow flex-shrink-0" />
                   {data.rating}
                 </h6>
                 {data.cancelFree && (
-                  <h6 className="text-green_main flex items-center justify-start gap-x-1">
+                  <h6 className="text-green flex items-center justify-start gap-x-1">
                     <Check className="size-4 flex-shrink-0" />
                     Hủy miễn phí
                   </h6>
                 )}
               </div>
               <hr className="hr" />
-              <div className="w-full h-full border-b-[0.4px] border-[#999] posing-vertical-4 py-2">
-                <div className="flex items-center justify-start gap-x-2 text-normal font-medium">
+              <div className="w-full h-full border-b-[0.4px] border-[#999] list-spacing py-3 md:py-4 lg:py-5">
+                <div className="flex items-center justify-start gap-x-2 text-base font-medium">
                   <span>Thời gian: </span>
-                  <span className="underline text-blue_main_sub font-semibold">
+                  <span className="underline text-blue_sub font-semibold">
                     {hour} ngày {date}
                   </span>
                 </div>
-                <div className="w-full posing-vertical-5 text-[1rem]">
+                <div className="w-full list-spacing text-[1rem]">
                   {adult !== 0 && (
                     <div className="w-full flex items-center justify-between gap-2">
                       <div>
                         <span className="font-medium text-[1rem]">{adult}</span>
                         <span className="font-semibold text-[1rem]">
                           {" "}
-                          <span className="text-yellow_main">*</span> Người lớn
+                          <span className="text-yellow">*</span> Người lớn
                         </span>
                       </div>
                       <div>{data && formatPrice(data.price[0])} VNĐ</div>
@@ -447,23 +501,23 @@ const BookingAttraction = () => {
                         </span>
                         <span className="font-semibold text-[1rem]">
                           {" "}
-                          <span className="text-yellow_main">*</span> Trẻ em
+                          <span className="text-yellow">*</span> Trẻ em
                         </span>
                       </div>
                       <div>{data && formatPrice(data.price[1])} VNĐ</div>
                     </div>
                   )}
                 </div>
-                <div className="w-full flex items-center justify-between gap-2 text-blue_main_sub">
-                  <span className="font-semibold text-medium">Tổng tiền:</span>
+                <div className="w-full flex items-center justify-between gap-2 text-blue_sub">
+                  <span className="font-semibold text-lg">Tổng tiền:</span>
                   <div>
-                    <span className="font-bold text-medium">
-                      {totalBooking()} VNĐ
+                    <span className="font-bold text-lg">
+                      {totalBooking} VNĐ
                     </span>
                   </div>
                 </div>
                 <div>
-                  <span className="text-black_sub text-small">
+                  <span className="text-black_sub text-sm">
                     Đã bao gồm thuế và phí
                   </span>
                 </div>

@@ -24,7 +24,7 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
   if (isLoading) return <p>Đang tải...</p>;
   const blog = data.detailBlog;
   return (
-    <div className="mt-[1rem] lg:mt-0  posing-vertical-1">
+    <div className="container-spacing">
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/" },
@@ -32,32 +32,34 @@ const ClientBlogDetail = ({ initialData }: { initialData: IBlog }) => {
           { label: blog.title },
         ]}
       />
-      <div className="flex items-center justify-between">
-        <h3 className="text-large xl:text-[1.7rem] font-bold capitalize flex-shrink-0">
-          {blog.title}
-        </h3>
-        <ShareButton
-          model="blog"
-          slug={blog.slug}
-          title={`Bài viết của KoKoTravel: ${blog.title}`}
+      <div className="container xl:px-0 container-spacing">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold capitalize ">
+            {blog.title}
+          </h3>
+          <ShareButton
+            model="blog"
+            slug={blog.slug}
+            title={`Bài viết của KoKoTravel: ${blog.title}`}
+          />
+        </div>
+
+        <p className="text-black text-sm">
+          Được viết bởi <span className="font-medium">{blog?.author}</span> •{" "}
+          {formatDate(blog.createdAt)}
+        </p>
+
+        <div
+          className="blog-show-detail prose max-w-none text-black_sub font-normal text-sm list-spacing"
+          dangerouslySetInnerHTML={{ __html: blog?.content }}
         />
+        <hr className="hr" />
+        <h4 className="text-lg font-bold">
+          Các bài viết liên quan cùng tác giả
+        </h4>
+        <ListBlogPageRelate currentBlog={blog?._id} unitCode={blog?.unitCode} />
+        <CommentBlog e={blog} />
       </div>
-
-      <p className="text-black_main text-small">
-        Được viết bởi <span className="font-medium">{blog?.author}</span> •{" "}
-        {formatDate(blog.createdAt)}
-      </p>
-
-      <div
-        className="blog-show-detail prose max-w-none   text-black_main font-normal text-small posing-vertical-4"
-        dangerouslySetInnerHTML={{ __html: blog?.content }}
-      />
-      <hr className="hr" />
-      <h4 className="text-medium font-bold">
-        Các bài viết liên quan cùng tác giả
-      </h4>
-      <ListBlogPageRelate currentBlog={blog?._id} unitCode={blog?.unitCode} />
-      <CommentBlog e={blog} />
     </div>
   );
 };

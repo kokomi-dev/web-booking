@@ -32,12 +32,12 @@ const FormInput: React.FC<FormInputProps> = ({
   disable,
 }) => {
   return (
-    <div className={cn("w-full text-small", className)}>
+    <div className={cn("w-full text-sm", className)}>
       <label
         htmlFor={title}
         className="select-none flex items-center justify-start mb-1"
       >
-        <span className="text-normal capitalize font-normal">{title}</span>
+        <span className="text-base capitalize font-normal">{title}</span>
         {isImportant && <Asterisk className="text-red-700" size={18} />}
       </label>
       <Input
@@ -53,9 +53,7 @@ const FormInput: React.FC<FormInputProps> = ({
         defaultValue={defaultValue}
         disabled={disable}
       />
-      {error && (
-        <span className="text-red-500 text-smallest">{errorTitle}</span>
-      )}
+      {error && <span className="text-red-500 text-xs">{errorTitle}</span>}
     </div>
   );
 };

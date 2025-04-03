@@ -68,11 +68,11 @@ const BookingSuccess = () => {
   return (
     <Fragment>
       {Number(status) == 1 ? (
-        <div className="w-full posing-vertical-2  flex items-center flex-col min-h-screen text-center p-2 md:p-4 lg:p-6 bg-bg_primary_white rounded-14">
+        <div className="container xl:px-0 container-spacing  flex items-center flex-col min-h-screen text-center p-2 md:p-4 lg:p-6 bg-white rounded-14">
           <div
             ref={ticketRef}
             id="ticket"
-            className="posing-vertical-1 w-full  flex items-center flex-col text-center"
+            className="section-spacing w-full  flex items-center flex-col text-center"
           >
             <CheckCircle className="text-green-600 w-20 h-20 mb-4" />
             <h1 className="text-3xl font-bold text-green-700">
@@ -89,11 +89,11 @@ const BookingSuccess = () => {
             </p>
 
             {/* Card thông tin đặt vé */}
-            <div className="w-full posing-vertical-4 mt-6 bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 ">
-              <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
+            <div className="w-full list-spacing mt-6 bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 ">
+              <h2 className="text-xl font-semibold mb-4 text-blue_sub">
                 Thông tin đơn đặt
               </h2>
-              <div className="space-y-2 text-left text-black_main">
+              <div className="space-y-2 text-left text-black">
                 <p className="flex items-center">
                   <Calendar className="w-5 h-5 mr-2 flex-shrink-0 text-black_sub" />{" "}
                   <b>Ngày đặt:</b>{" "}
@@ -129,7 +129,7 @@ const BookingSuccess = () => {
                     {dataBooked?.numberOfTicketsBooked.children} trẻ em
                   </p>
                 )}
-                <p className="flex items-center text-blue_main_sub">
+                <p className="flex items-center text-blue_sub">
                   <b>Tổng tiền:</b> {dataBooked?.totalBooked.toLocaleString()}{" "}
                   VND
                 </p>
@@ -139,22 +139,22 @@ const BookingSuccess = () => {
               </div>
             </div>
             {/* Card thông tin người đặt */}
-            <div className="w-full flex flex-col posing-vertical-3 lg:space-y-0 lg:space-x-4 lg:flex-row items-stretch lg:justify-between ">
-              <div className="h-full bg-white posing-vertical-4 shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow ">
-                <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
+            <div className="w-full flex flex-col list-spacing lg:space-y-0 lg:space-x-4 lg:flex-row items-stretch lg:justify-between ">
+              <div className="h-full bg-white list-spacing shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow ">
+                <h2 className="text-xl font-semibold mb-4 text-blue_sub">
                   Thông tin khách hàng
                 </h2>
                 <p className="text-start">
                   <b>Mã đơn:</b> {dataBooked?._id}
                 </p>
-                <p className="text-start text-blue_main_sub">
+                <p className="text-start text-blue_sub">
                   <b>Email:</b> {dataBooked?.infoUser?.email}
                 </p>
               </div>
               {/* Card thông tin tour */}
               {checkCategory ? (
-                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow posing-vertical-4 ">
-                  <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
+                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-grow list-spacing ">
+                  <h2 className="text-xl font-semibold mb-4 text-blue_sub">
                     Thông tin tour
                   </h2>
                   <p className="text-start">
@@ -166,8 +166,8 @@ const BookingSuccess = () => {
                   </p>
                 </div>
               ) : (
-                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-row posing-vertical-4">
-                  <h2 className="text-xl font-semibold mb-4 text-blue_main_sub">
+                <div className="h-full bg-white shadow-lg rounded-lg p-3 md:p-4 lg:p-6 w-full flex-row list-spacing">
+                  <h2 className="text-xl font-semibold mb-4 text-blue_sub">
                     Thông tin lưu trú
                   </h2>
                   <p className="flex items-center">
@@ -201,14 +201,14 @@ const BookingSuccess = () => {
 
           <div className="w-full flex flex-col gap-y-2 lg:gap-y-0 lg:flex-row items-center justify-start lg:gap-x-2">
             <Button
-              className="bg-bg_primary_main text-white hover:bg-bg_primary_active flex items-center justify-center gap-x-1 w-full text-center max-w-lg lg:max-w-full"
+              className="bg-blue text-white hover:bg-blue_active flex items-center justify-center gap-x-1 w-full text-center max-w-lg lg:max-w-full"
               onClick={() => handleDownloadPDF()}
             >
               <Download />
               Tải thông tin vé
             </Button>
             <Button
-              className="bg-white text-black_main hover:bg-bg_primary_hover w-full text-center max-w-lg flex items-center justify-center gap-x-1 lg:max-w-full"
+              className="bg-white text-black hover:bg-blue_hover w-full text-center max-w-lg flex items-center justify-center gap-x-1 lg:max-w-full"
               onClick={() => router.push("/")}
             >
               <Home />
@@ -217,12 +217,12 @@ const BookingSuccess = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-bg_primary_white rounded-14 text-center p-3 md:p-4 lg:p-6 posing-vertical-3">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-white rounded-14 text-center p-3 md:p-4 lg:p-6 list-spacing">
           <XCircle className="text-red-600 w-20 h-20 " />
-          <h1 className="text-large font-bold text-red-600">
+          <h1 className="text-3xl font-bold text-red-600">
             Đặt thất bại | Hoặc xảy ra lỗi giao dịch thanh toán trực tuyến
           </h1>
-          <p className="text-black_main mt-2">
+          <p className="text-black mt-2">
             Có lỗi xảy ra khi xử lý đơn của bạn.
           </p>
           <p>
@@ -239,7 +239,7 @@ const BookingSuccess = () => {
           </div>
 
           <Button
-            className="bg-bg_primary_main text-white hover:bg-bg_primary_active flex items-center justify-start gap-x-1"
+            className="bg-blue text-white hover:bg-blue_active flex items-center justify-start gap-x-1"
             onClick={() => router.push("/")}
           >
             <Home />

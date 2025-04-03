@@ -9,7 +9,6 @@ import CardText from "@/components/components/card-text";
 import ScheduleDisplay from "@/components/components/display-schedule";
 import BookingContainer from "@/components/dashboard/attraction/booking-container";
 import { PropsGenerateMetaData } from "@/types";
-import { cn } from "@/utils/constants";
 
 import NotFoundPage from "@/app/not-found";
 import BreadcrumbHead from "@/components/components/breadcrumb";
@@ -79,11 +78,12 @@ const DetailAttractionPage = async ({
 }) => {
   const data = await getDetailAttraction({ slug });
   if (!data) {
-    return <NotFoundPage page="attractions" />;
+    return <NotFoundPage />;
   }
+
   return (
-    <div className={cn("w-full h-full posing-vertical-1 mt-[1rem] lg:mt-0")}>
-      {/* head */}
+    <div className="section-spacing">
+      {/* Breadcrumb */}
       <BreadcrumbHead
         items={[
           { label: "Trang chủ", href: "/home" },
@@ -91,141 +91,133 @@ const DetailAttractionPage = async ({
           { label: `${data.name}` },
         ]}
       />
-      {/* info */}
-      <section
-        className={cn("w-full h-full flex  items-start justify-between ")}
-      >
-        <div className="grid gap-y-2">
-          <div className="w-full flex items-center justify-between ">
-            <h1 className="text-large font-bold ">{data.name}</h1>
-          </div>
-          <h3 className="w-fit flex items-center justify-center gap-x-1  ">
-            <GoStarFill className="text-yellow_main text-[1.2rem] flex-shrink-0" />
-            <span className="text-medium flex items-center justify-center">
-              <span className="text-normal font-semibold">{data.rating}</span>
-              {data?.rating > 4 ? (
-                <span className="ml-1 text-small font-medium">Rất tốt</span>
-              ) : (
-                <span className="ml-1 text-small font-medium">Tốt</span>
-              )}
-            </span>
-            <span className="text-small text-black_sub text-center flex items-center justify-center ">
-              ( {data.comments.length} đánh giá )
-            </span>
-          </h3>
-          <address className="text-small font-normal text-black_sub flex items-start lg:items-center justify-start gap-x-1">
-            <MapPin className="w-5 h-5 text-blue_main_sub flex-shrink-0" />
-            <address className="text-black">
-              <span className="font-medium">Địa chỉ: </span>
-              {data.location.detail}
-            </address>
-          </address>
-        </div>
-        <div className="w-fit grid gap-y-2 ">
-          <ShareButton model="attractions" slug={slug} title={data.name} />
-        </div>
-      </section>
-      {/* images */}
-      <ImagesDetail data={data} slug={slug} />
-      {/* rules */}
-      <div className="w-full h-full posing-vertical-2">
-        {data.cancelFree && (
-          <div className="flex items-center ">
-            <FaCalendarXmark className="text-green_main text-[1.3rem] mr-2" />
-            <h4 className="text-normal text-green_main font-semibold">
-              Có lựa chọn hủy miễn phí
-            </h4>
-          </div>
-        )}
-        {/* content and book tickets */}
-        <div className="w-full h-full flex  flex-col-reverse lg:grid posing-vertical-3 lg:grid-cols-layout-2">
-          {/* left */}
 
-          <div className="w-full flex flex-col items-start justify-start gap-y-4 lg:pr-2 ">
-            {data.duration < 2 ? (
-              <p className="bg-yellow_main w-fit text-white text-smallest font-normal rounded-8 p-1 px-2 block mt-3 lg:mt-0">
-                Lựa chọn ưa thích của khách du lịch một mình
-              </p>
-            ) : (
-              <></>
-            )}
-            <h3 className="flex items-center justify-start gap-x-2 text-normal font-bold p-2">
-              <Clock className="size-5 text-black_main flex-shrink-0" /> Thời
-              gian: {data.duration} ngày
-            </h3>
-            {/* descriptiton */}
-            <DisplayDocs docs={data.description} />
-            {/* schedule in tour */}
-            <div className="w-full h-full ">
-              <h3 className="text-medium font-semibold  text-blue_main  bg-bg_black_sub rounded-8 p-2">
-                Lịch trình tour của chúng tôi
+      <div className="container xl:p-0 section-spacing">
+        {/* Info Section */}
+        <section className="w-full h-full flex flex-row items-start justify-between gap-6">
+          <div className="flex-1 grid gap-2 md:gap-y-3 lg:gap-y-4">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
+              {data.name}
+            </h1>
+            <div className="flex items-center gap-2">
+              <GoStarFill className="text-yellow text-[1.2rem]" />
+              <span className="text-lg font-semibold">{data.rating}</span>
+              <span className="text-sm font-medium">
+                {data.rating > 4 ? "Rất tốt" : "Tốt"}
+              </span>
+              <span className="text-sm text-black_sub">
+                ({data.comments.length} đánh giá)
+              </span>
+            </div>
+            <address className="text-sm text-black_sub flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-blue_sub" />
+              <span>
+                <strong>Địa chỉ:</strong> {data.location.detail}
+              </span>
+            </address>
+          </div>
+          <div className="w-fit flex-shrink-0">
+            <ShareButton model="attractions" slug={slug} title={data.name} />
+          </div>
+        </section>
+
+        {/* Images Section */}
+        <ImagesDetail data={data} slug={slug} />
+
+        {/* Rules Section */}
+        <div className="w-full h-full container-spacing">
+          {data.cancelFree && (
+            <div className="flex items-center bg-green-100  rounded-lg">
+              <FaCalendarXmark className="text-green text-[1.3rem] mr-2" />
+              <h4 className="text-base text-green font-semibold">
+                Có lựa chọn hủy miễn phí
+              </h4>
+            </div>
+          )}
+
+          {/* Content and Booking Section */}
+          <div className="w-full h-full flex flex-col-reverse lg:grid list-spacing lg:grid-cols-layout-2 gap-6">
+            {/* Left Content */}
+            <div className="flex flex-col gap-6">
+              {data.duration < 2 && (
+                <p className="bg-yellow text-white text-xs font-normal rounded-8 p-2 w-fit">
+                  Lựa chọn ưa thích của khách du lịch một mình
+                </p>
+              )}
+              <h3 className="flex items-center gap-2 text-base font-bold">
+                <Clock className="size-5 text-black" /> Thời gian:{" "}
+                {data.duration} ngày
               </h3>
-              <div className="w-full h-full ">
+
+              {/* Description */}
+              <DisplayDocs docs={data.description} />
+
+              {/* Schedule */}
+              <div>
+                <h3 className="text-lg font-semibold text-blue bg-black_sub rounded-8 p-2 md:px-3 heading-spacing">
+                  Lịch trình tour của chúng tôi
+                </h3>
                 <ScheduleDisplay data={data} />
               </div>
-            </div>
-            {/* included */}
-            <CardText title="Dịch vụ bao gồm">
-              <ul className="list-none w-full posing-vertical-6">
-                {data.included.map((item: string, index: number) => (
-                  <li key={index} className="flex gap-3 items-center">
-                    <FaCheck className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5 text-green_main" />
-                    <span className="text-normal break-words">{item}</span>
+
+              {/* Included Services */}
+              <CardText title="Dịch vụ bao gồm">
+                <ul className="list-none list-spacing">
+                  {data.included.map((item: string, index: number) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <FaCheck className="text-green w-4 h-4" />
+                      <span className="text-base">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardText>
+
+              {/* Health and Safety */}
+              <CardText title="Sức khỏe an toàn">
+                <ul className="list-disc pl-4 list-spacing">
+                  <li>Không phù hợp với khách có vấn đề về lưng</li>
+                  <li>
+                    Không phù hợp với khách có vấn đề về tim hoặc sức khỏe
+                    nghiêm trọng
                   </li>
-                ))}
-              </ul>
-            </CardText>
-            {/* healthy */}
-            <CardText title="Sức khỏe an toàn">
-              <ul className="pl-3 list-disc text-normal posing-vertical-6">
-                <li className="">Không phù hợp với khách có vấn đề về lưng</li>
-                <li className="">
-                  Không phù hợp với khách có vấn đề về tim hoặc vấn đề sức khỏe
-                  nghiêm trọng
-                </li>
-                <li className="">Phù hợp với mọi tình trạng thể lực</li>
-              </ul>
-            </CardText>
-            {/* languge guides */}
-            <CardText title="Ngôn ngữ hướng dẫn viên">
-              <ul className="w-full pl-3">
-                <li
-                  className={cn(
-                    "border-1 border-yellow_main text-small  rounded-8 py-1 w-[40%] flex items-center justify-center mb-3",
-                    "lg:w-[20%]"
-                  )}
-                >
-                  Tiếng Việt
-                </li>
-                <li
-                  className={cn(
-                    "border-1 border-yellow_main text-small rounded-8 py-1 w-[40%] flex items-center justify-center ",
-                    "lg:w-[20%]"
-                  )}
-                >
-                  Tiếng Anh
-                </li>
-              </ul>
-            </CardText>
-            {/* location on map */}
-            <CardText title="Vị trí">
-              <ShowOnMap address={data.location.detail || data.location} />
-            </CardText>
+                  <li>Phù hợp với mọi tình trạng thể lực</li>
+                </ul>
+              </CardText>
+
+              {/* Language Guides */}
+              <CardText title="Ngôn ngữ hướng dẫn viên">
+                <ul className="flex flex-wrap gap-3">
+                  {["Tiếng Việt", "Tiếng Anh"].map((lang, index) => (
+                    <li
+                      key={index}
+                      className="border border-yellow text-sm rounded-8 py-1 px-3"
+                    >
+                      {lang}
+                    </li>
+                  ))}
+                </ul>
+              </CardText>
+
+              {/* Location on Map */}
+              <CardText title="Vị trí">
+                <ShowOnMap address={data.location.detail || data.location} />
+              </CardText>
+            </div>
+
+            {/* Booking Section */}
+            <BookingContainer slug={slug} data={data} />
           </div>
-          {/* book tickets */}
-          <BookingContainer slug={slug} data={data} />
-        </div>
-        <hr className="hr" />
-        <div className="w-full h-full lg:grid flex flex-col posing-vertical-3 lg:gap-x-4 lg:grid-cols-layout-2">
-          {/* evaluate */}
-          <Comments
-            category="attraction"
-            initialComments={data.comments}
-            initialRating={data.rating}
-            slug={slug}
-          />
-          {/* question */}
-          <SupportQuestions />
+
+          {/* Comments and Questions */}
+          <div className="w-full h-full lg:grid flex flex-col container-spacing lg:gap-x-4 lg:grid-cols-layout-2">
+            <Comments
+              category="attraction"
+              initialComments={data.comments}
+              initialRating={data.rating}
+              slug={slug}
+            />
+            <SupportQuestions />
+          </div>
         </div>
       </div>
     </div>

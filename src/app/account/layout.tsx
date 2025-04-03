@@ -9,9 +9,7 @@ const AccountLayout: React.FC<AuthLayoutProp> = ({ children }) => {
       <header>
         <HeaderAccount />
       </header>
-      <main className="w-full h-full container-padding py-4 flex items-center justify-center">
-        {children}
-      </main>
+      <main className="w-full h-full container-padding-y">{children}</main>
       <footer>
         <FooterAccount />
       </footer>

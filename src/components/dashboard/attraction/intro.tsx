@@ -1,7 +1,7 @@
 import {
   IoAirplaneOutline,
-  IoStarOutline,
   IoHeartOutline,
+  IoStarOutline,
 } from "react-icons/io5";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { cn } from "@/utils/constants";
+
 const arrInfo: {
   id: number;
   icon: any;
@@ -20,76 +21,49 @@ const arrInfo: {
   {
     id: 1,
     icon: <IoAirplaneOutline />,
-    title: "Giá cả ưu đãi, hấp dẫn",
-    des: "Trải nghiệm du lịch tuyệt vời với chi phí hợp lý, phù hợp mọi ngân sách.",
+    title: "Ưu đãi độc quyền",
+    des: "Tận hưởng chuyến đi với mức giá tốt nhất, phù hợp mọi ngân sách.",
   },
   {
     id: 2,
     icon: <IoHeartOutline />,
-    title: "Công ty du lịch tốt nhất",
-    des: "Đồng hành cùng bạn trong mọi hành trình, mang đến dịch vụ chất lượng cao.",
+    title: "Dịch vụ chất lượng",
+    des: "Đồng hành cùng bạn với dịch vụ cao cấp và trải nghiệm đáng nhớ.",
   },
   {
     id: 3,
     icon: <IoStarOutline />,
-    title: "Tin tưởng & An toàn",
-    des: "Du lịch an tâm với những chuyến đi an toàn và đáng tin cậy.",
+    title: "An toàn tuyệt đối",
+    des: "Hành trình an tâm với các chuyến đi an toàn và đáng tin cậy.",
   },
 ];
 const Intro = () => {
   return (
-    <section
-      className={cn(
-        "w-full h-auto flex flex-col items-center justify-start posing-vertical-4  bg-bg_black_sub p-4 "
-      )}
-    >
-      <h1
-        className={cn(
-          "hidden text-center  font-medium text-large",
-          "lg:text-largest lg:block lg:mt-0 lg:font-bold"
-        )}
-      >
-        KoKo Travel
-      </h1>
-      <p
-        className={cn(
-          " w-[90%] hidden pb-5 text-justify  text-[#888]",
-          "lg:w-[85%] xl:w-[80%] lg:block lg:pb-15 lg:text-center"
-        )}
-      >
-        KoKo Travel hứa hẹn sẽ mang tới cho bạn những địa điểm chât lượng, dịch
-        vụ tiện lợi và những chính sách ưu đãi nhất đến quý khách hàng khi sử
-        dụng dịch vụ của chúng tôi
-      </p>
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="w-[100%] md:w-[98%] lg:w-[95%] xl:w-[85%] "
-      >
+    <section className="container xl:px-0  flex justify-center bg-black_sub p-4 rounded-8">
+      <Carousel className="w-[100%] md:w-[98%] lg:w-[95%] xl:w-[85%]">
         <CarouselContent>
           {arrInfo.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basis-[76.67%] md:basis-[45%] lg:basis-1/3"
+              className="basis-[76.67%] sm:basis-[45%] md:basis-1/3 transition-transform duration-300 hover:scale-105"
               autoFocus={index === 1}
             >
               <Card
                 className={cn(
-                  "w-auto ",
-                  index === 1 && "bg-bg_primary_main text-white"
+                  "w-auto h-full shadow-md hover:shadow-lg transition-all",
+                  index === 1 && "bg-blue text-white"
                 )}
               >
-                <CardContent className=" flex aspect-square items-center justify-center p-6 flex-col">
-                  <div className="text-largest text-yellow_main flex-shrink-0">
+                <CardContent className="h-full flex aspect-square items-center justify-center p-4 md:p-6 flex-col">
+                  <div className="text-4xl text-yellow flex-shrink-0">
                     {item.icon}
                   </div>
-                  <h5 className="text-large font-[600] text-center capitalize my-3">
+                  <h5 className="text-lg lg:text-2xl font-semibold text-center capitalize my-3">
                     {item.title}
                   </h5>
                   <p
                     className={cn(
-                      "text-black_sub text-justify font-light",
+                      "text-black_sub text-sm lg:text-base text-center font-light",
                       index === 1 && "text-white lg:font-normal"
                     )}
                   >
@@ -100,10 +74,9 @@ const Intro = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        {/* <CarouselPrevious />
-        <CarouselNext /> */}
       </Carousel>
     </section>
   );
 };
+
 export default Intro;

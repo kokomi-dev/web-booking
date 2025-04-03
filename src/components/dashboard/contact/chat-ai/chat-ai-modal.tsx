@@ -16,7 +16,7 @@ type Message = {
   content: string;
 };
 
-const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
+const ChatModalAI = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
@@ -91,20 +91,14 @@ const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
     }
   }, [displayedMessages]);
   return (
-    <div className="flex flex-col h-full border rounded-lg  bg-white text-black_main shadow-lg">
-      <div className="flex items-center justify-between p-4 py-2">
-        <ArrowLeft
-          className="text-blue_main size-5 hover:cursor-pointer"
-          onClick={() => {
-            setIsActive({ status: false, index: 0 });
-          }}
-        />
-        <h5 className="font-medium text-small">Trò chuyện với AI</h5>
-      </div>
-      <hr className="hr" />
+    <div className="flex flex-col h-full rounded-lg  text-black p-3 md:p-4">
+      <h3 className="text-lg font-semibold text-black_sub">Chat với AI</h3>
+      <p className="text-sm text-gray-600 mt-2">
+        Kết nối với AI để giải đáp các câu hỏi và nhận hỗ trợ nhanh chóng.
+      </p>
       <div
         ref={messagesContainerRef}
-        className="flex-1 overflow-y-auto mb-4 p-4 posing-vertical-6"
+        className="min-h-[200px] flex-1 overflow-y-auto mb-4 p-2 md:p-3 lg:p-4 list-spacing"
       >
         {displayedMessages.map((msg, idx) => (
           <div
@@ -117,7 +111,7 @@ const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
           >
             <div className="flex items-start justify-start gap-x-1">
               {msg.role !== "user" && (
-                <div className="size-8 rounded-full flex items-center justify-center bg-bg_primary_yellow flex-shrink-0">
+                <div className="size-8 rounded-full flex items-center justify-center bg-yellow flex-shrink-0">
                   <Bot className="size-4 " />
                 </div>
               )}
@@ -126,14 +120,14 @@ const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
                 className={cn(
                   "rounded-14 p-1 px-3 first-letter:uppercase hover:cursor-default cursor-default",
                   msg.role === "user"
-                    ? "text-white bg-bg_primary_blue_sub "
-                    : "text-black_main_blur bg-bg_black_sub "
+                    ? "text-white bg-blue_sub "
+                    : "text-black_blur bg-black_sub "
                 )}
               >
                 {msg.content}
               </p>
               {msg.role === "user" && (
-                <div className="size-8 rounded-full flex items-center justify-center bg-bg_primary_white flex-shrink-0">
+                <div className="size-8 rounded-full flex items-center justify-center bg-white flex-shrink-0">
                   <User className="size-4 " />
                 </div>
               )}
@@ -148,7 +142,7 @@ const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
           </div>
         )}
       </div>
-      <div className="flex gap-2 p-2">
+      <div className="w-full flex gap-2">
         <input
           value={input}
           onChange={handleInputChange}
@@ -158,7 +152,7 @@ const ChatModalAI = ({ setIsActive }: { setIsActive: any }) => {
         />
         <button
           onClick={sendMessage}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue_main_sub"
+          className="bg-blue text-xs md:text-base text-white px-4 py-2 rounded-lg hover:bg-blue_main_sub"
         >
           Gửi
         </button>

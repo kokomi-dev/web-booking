@@ -31,11 +31,11 @@ export default function ModalBankTransfer({
       <DialogDescription aria-describedby={undefined}></DialogDescription>
       <DialogContent className="min-w-[96vw] lg:min-w-[60vw] w-full max-h-[95vh] lg:max-h-[90vh]">
         <Card className="w-full border-none shadow-none  bg-white p-1  rounded-2xl  ">
-          <CardContent className="posing-vertical-4 p-0">
+          <CardContent className="list-spacing p-0">
             <h2 className="text-xl font-semibold text-center mb-4">
               Chuyển khoản ngân hàng
             </h2>
-            <div className="posing-vertical-6 text-black_main">
+            <div className="list-spacing text-black">
               <p>
                 <strong>Ngân hàng:</strong> {bankName}
               </p>
@@ -48,7 +48,7 @@ export default function ModalBankTransfer({
                 </span>
                 <button
                   onClick={copyToClipboard}
-                  className="text-blue_main_sub hover:text-blue-800"
+                  className="text-blue_sub hover:text-blue-800"
                 >
                   {copied ? (
                     <CheckCircle className="w-5 h-5 text-green-500" />
@@ -62,7 +62,7 @@ export default function ModalBankTransfer({
               <p>
                 <strong>Lưu ý khi chuyển khoản:</strong>
               </p>
-              <ul className="list-disc text-small list-inside">
+              <ul className="list-disc text-sm list-inside">
                 <li>Nhập đúng số tài khoản và tên người nhận.</li>
                 <li>
                   Ghi rõ nội dung chuyển khoản để chúng tôi xác nhận nhanh
@@ -73,11 +73,9 @@ export default function ModalBankTransfer({
                 </li>
               </ul>
             </div>
-            <div className="mt-4 text-small text-gray-500">
+            <div className="mt-4 text-sm text-gray-500">
               <p>
-                <strong className="text-black_main">
-                  Điều khoản & Điều kiện:
-                </strong>
+                <strong className="text-black">Điều khoản & Điều kiện:</strong>
               </p>
               <p>
                 Chúng tôi cam kết bảo mật thông tin và xử lý thanh toán an toàn.
@@ -85,10 +83,10 @@ export default function ModalBankTransfer({
                 giải quyết nhanh nhất.
               </p>
             </div>
-            <p className="font-semibold text-black_main">
+            <p className="font-semibold text-black">
               Chúng tôi sẽ xác nhận và phản hồi với bạn qua email, số điện thoại
             </p>
-            <p className="font-semibold text-smallest text-red-500">
+            <p className="font-semibold text-xs text-red-500">
               Nếu bạn đã thanh toán thành công, sau 1-2 tiếng chưa thấy người
               liên hệ lại. Vui lòng liên hệ hotline:{" "}
               <a href="tel:096151231">096151231</a>
@@ -96,7 +94,7 @@ export default function ModalBankTransfer({
             <div className="flex items-center justify-center">
               <Button
                 type="button"
-                className="w-[100%] lg:w-[40%] text-center bg-bg_primary_blue_sub hover:bg-bg_primary_active"
+                className="w-[100%] lg:w-[40%] text-center bg-blue_sub hover:bg-blue_active"
                 onClick={() => setOpen(false)}
               >
                 Hoàn tất

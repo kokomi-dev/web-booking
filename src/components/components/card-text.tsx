@@ -10,11 +10,9 @@ const CardText = ({
   className?: any;
 }) => {
   return (
-    <div className="w-full h-full posing-vertical-6">
-      <h3 className="text-medium font-semibold ">{title}</h3>
-      <div className={cn("text-normal w-full h-auto", className)}>
-        {children}
-      </div>
+    <div className="w-full h-full ">
+      <h3 className="text-lg font-semibold heading-spacing">{title}</h3>
+      <div className={cn("text-base w-full h-auto", className)}>{children}</div>
     </div>
   );
 };

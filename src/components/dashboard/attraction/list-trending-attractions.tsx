@@ -72,11 +72,10 @@ const ListAttractions = () => {
   }, [listAttraction, isLoading, isFetching]);
 
   return (
-    <section id="list-all-attractions" className="w-full posing-vertical-4">
-      <div className="posing-vertical-6">
-        <h2 className="text-large font-bold">Địa điểm nổi bật</h2>
-
-        <p className="text-black_sub text-small font-light">
+    <section id="list-all-attractions" className="w-full list-spacing">
+      <div className="">
+        <h2 className="text-xl md:text-2xl font-bold ">Địa điểm nổi bật</h2>
+        <p className="text-black_sub text-sm font-light">
           Xem trước các địa điểm nổi bật của chúng tôi
         </p>
       </div>
@@ -86,7 +85,6 @@ const ListAttractions = () => {
           Không thể tải dữ liệu. Vui lòng thử lại!
         </div>
       )}
-
       <Carousel opts={{ align: "start" }} className="w-full">
         <CarouselContent>{renderCarouselItems}</CarouselContent>
         <CarouselPrevious hidden />

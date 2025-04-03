@@ -11,6 +11,7 @@ export const formatPrice = (num: number) => {
   const formattedNumber = new Intl.NumberFormat("vi-VN").format(num);
   return formattedNumber;
 };
+
 const ItemCard = memo(
   ({ slug, name, images, location, price, route, rating }: ItemCardProps) => {
     const ratingText =
@@ -18,38 +19,51 @@ const ItemCard = memo(
     const formattedPrice = useMemo(() => formatPrice(price), [price]);
 
     return (
-      <Link href={`/${route}/${slug}`} className="w-full h-full relative">
-        <Card className="min-h-[100%] flex items-start justify-start flex-col ">
-          <Image
-            width={600}
-            height={400}
-            className="rounded-tr-md rounded-tl-md object-cover w-full h-[190px] md:h-[205px] lg:h-[220px] xl:h-[240px]"
-            src={images}
-            alt={name}
-            priority={true}
-            placeholder="empty"
-            quality={85}
-          />
-          <CardContent className="flex flex-col gap-1 p-2 pt-1 pb-8 text-start ">
-            <h4 className="text-normal font-bold w-full overflow-hidden line-clamp-2 text-start ">
+      <Link
+        href={`/${route}/${slug}`}
+        className="w-full h-full relative group transition-transform duration-300 hover:z-10"
+      >
+        <Card className="min-h-[100%] flex items-start justify-start flex-col shadow-md hover:shadow-lg rounded-lg overflow-hidden">
+          {/* ảnh */}
+          <div className="w-full overflow-hidden h-[178px] sm:h-[186px] md:h-[205px] lg:h-[220px] xl:h-[240px]">
+            <Image
+              width={600}
+              height={400}
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              src={images}
+              alt={name}
+              priority={true}
+              placeholder="empty"
+              quality={85}
+            />
+          </div>
+
+          {/* nội dung */}
+          <CardContent className="flex flex-col gap-2 p-4 text-start">
+            {/* Name */}
+            <h4 className="text-base font-bold w-full overflow-hidden line-clamp-2 text-start">
               {name}
             </h4>
-            <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1 flex items-center justify-start gap-x-1">
-              <MapPin className="size-4" />
+
+            {/* địa điểm */}
+            <address className="text-[0.8rem] text-black_sub overflow-hidden line-clamp-1 flex items-center gap-x-1">
+              <MapPin className="size-4 text-blue" />
               <span className="line-clamp-1">{location}</span>
             </address>
-            <div className="w-full flex items-center justify-start gap-1 text-[0.8rem] font-normal">
-              <div className="text-white bg-bg_primary_active rounded-8 flex items-center justify-start px-2 py-1 gap-x-1 text-small">
-                <span className="text-[0.75rem] md:text-small">{rating}</span>
+
+            {/* đánh giá */}
+            <div className="w-full flex items-center gap-2 text-[0.8rem] font-normal">
+              <div className="text-white bg-blue_active rounded-8 flex items-center px-2 py-1 gap-x-1 text-sm">
+                <span className="text-[0.75rem] md:text-sm">{rating}</span>
               </div>
-              <GoStarFill className="text-yellow_main text-[1rem]" />
-              <h6 className="text-smallest font-normal">{ratingText}</h6>
+              <GoStarFill className="text-yellow text-[1rem]" />
+              <h6 className="text-xs font-medium">{ratingText}</h6>
             </div>
-            <h6 className="text-normal absolute bottom-2 right-4 flex items-center justify-start gap-x-1">
-              <span className="text-small font-bold pr-1">
-                <DollarSign className="size-4" />
-              </span>
-              <span className="underline text-blue_main text-small font-bold">
+
+            {/* giá */}
+            <h6 className="text-base flex items-center justify-start gap-x-1 mt-2">
+              <DollarSign className="size-4 text-blue" />
+              <span className="text-blue text-sm font-bold underline">
                 {formattedPrice} VNĐ
               </span>
             </h6>
@@ -59,5 +73,6 @@ const ItemCard = memo(
     );
   }
 );
+
 ItemCard.displayName = "ItemCard";
 export default ItemCard;

@@ -1,5 +1,4 @@
 "use client";
-import InputDebounce from "@/components/components/input-debounce";
 import {
   Carousel,
   CarouselContent,
@@ -7,13 +6,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Input } from "@/components/ui/input";
 import { IVoucherProp } from "@/types/component-types";
 import { DollarSign } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const ListVoucher = () => {
-  const [search, setSearch] = useState("");
   const [filteredVouchers, setFilteredVouchers] = useState([
     {
       title: "Ưu đãi Resort Sang Trọng",
@@ -80,20 +77,11 @@ const ListVoucher = () => {
     }
   }, [filter]);
   return (
-    <div className="posing-vertical-3">
-      <h3 className="text-large font-bold">
+    <div className="list-spacing">
+      <h3 className="text-xl lg:text-2xl font-bold">
         Lựa chọn các ưu đãi hấp dẫn dành cho bạn
       </h3>
-      <InputDebounce
-        autoFocus={false}
-        placeholder="Tìm kiếm voucher..."
-        value={filter.title}
-        onChange={(e: any) =>
-          setFilter((pre) => ({ ...pre, title: e.target.value }))
-        }
-        debounceTime={400}
-        className=" max-w-[280px] text-normal"
-      />
+
       <Carousel>
         <CarouselContent>
           {_dataListVoucher?.map((item, i) => {
@@ -102,19 +90,19 @@ const ListVoucher = () => {
                 key={i}
                 className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
               >
-                <div className="min-h-[120px] p-2 rounded-8 flex flex-col gap-y-2 border-1 border-blue_main_sub  ">
-                  <h5 className="font-bold text-normal flex items-start justify-between ">
+                <div className="min-h-[120px] p-2 rounded-8 flex flex-col gap-y-2 border-1 border-blue_sub  ">
+                  <h5 className="font-semibold text-base flex items-start justify-between ">
                     {item.title}{" "}
-                    <DollarSign className="size-4 text-blue_main_sub mt-1 flex-shrink-0 gap-x-2" />
+                    <DollarSign className="size-4 text-blue_sub mt-1 flex-shrink-0 gap-x-2" />
                   </h5>
-                  <p className="text-small line-clamp-2">{item.description}</p>
+                  <p className="text-sm line-clamp-2">{item.description}</p>
                 </div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
-        <CarouselNext />
-        <CarouselPrevious />
+        <CarouselNext hidden />
+        <CarouselPrevious hidden />
       </Carousel>
     </div>
   );

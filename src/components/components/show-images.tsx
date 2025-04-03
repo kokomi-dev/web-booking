@@ -51,7 +51,7 @@ const ShowImages: React.FC<IShowImage> = ({
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
       <DialogContent
         className={cn(
-          " w-full bg-bg_primary_white text-black p-4 rounded-14",
+          " w-full bg-white text-black p-4 rounded-14",
           " md:min-w-[900px]",
           "lg:min-w-[1000px]",
           "xl:min-w-[1130px]"
@@ -79,7 +79,7 @@ const ShowImages: React.FC<IShowImage> = ({
           </Button>
         </div>
         <div className="w-full items-center flex  justify-center">
-          <span className="text-small font-semibold">
+          <span className="text-sm font-semibold">
             {index + 1} / {data?.images.length}
           </span>
         </div>

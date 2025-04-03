@@ -22,7 +22,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
 }) => {
   return (
     <div className="w-full flex flex-col">
-      <h6 className="text-small font-medium capitalize mb-2">{title}</h6>
+      <h6 className="text-sm font-medium capitalize mb-2">{title}</h6>
 
       <div className="filter_component space-y-2">
         {arrayFilterItem.map((item, index) => {
@@ -48,14 +48,12 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
               <label
                 htmlFor={inputId}
                 className={`w-5 h-5 border-1 rounded-md cursor-pointer ${
-                  isChecked
-                    ? "bg-bg_primary_main border-blue_main"
-                    : "border-blue_main"
+                  isChecked ? "bg-blue border-blue" : "border-blue"
                 }`}
               />
               <label
                 htmlFor={inputId}
-                className="text-small font-normal text-black_main_blur cursor-pointer first-letter:uppercase"
+                className="text-sm font-normal text-black_blur cursor-pointer first-letter:uppercase"
               >
                 {item.label}
               </label>

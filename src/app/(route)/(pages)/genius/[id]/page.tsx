@@ -5,105 +5,101 @@ import ListLevel from "@/components/dashboard/genius/list-level";
 import ListItemBooked from "@/components/dashboard/genius/list-number-booked";
 import ListVoucher from "@/components/dashboard/genius/list-voucher";
 import Image from "next/image";
+
 const TrangVoucher = () => {
   return (
-    <div className="w-full min-h-screen posing-vertical-1 ">
-      <div className="hidden md:block min-w-full h-full text-center relative -mt-4 px-[-10rem] no-container-padding">
+    <div className="w-full min-h-screen container-spacing">
+      {/* Banner */}
+      <div className="hidden md:block md:mt-[-3rem] relative w-full md:h-[35vh] lg:h-[50vh] overflow-hidden  shadow-lg">
         <Image
           width={1200}
           height={800}
           src={imgGenius}
           priority={true}
-          alt="banner-gennius"
-          className="w-full h-full min-h-[25vh] lg:min-h-auto object-cover "
+          alt="banner-genius"
+          className="w-full h-full object-cover"
         />
-        <div className="w-full absolute top-[50%] left-[50%]  translate-x-[-50%] translate-y-[-50%] text-white text-left flex items-center justify-start">
-          <div className="container-padding">
-            <h4 className="font-bold text-medium lg:text-large font-mono">
-              Mọi chuyến đi đều đáng giá
-            </h4>
-            <h1 className="text-[2.5rem] lg:text-[3rem] font-extrabold">
-              Genius
-            </h1>
-            <p className="text-normal+ font-normal hidden lg:block">
-              Chương trình khách hàng thân thiết và ưu đãi người mới của
-              KoKoTravel
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-3xl lg:text-4xl font-extrabold">Genius</h1>
+            <p className="text-lg lg:text-xl font-light mt-2">
+              Ưu đãi đặc biệt cho khách hàng thân thiết
             </p>
           </div>
         </div>
       </div>
+
+      {/* Breadcrumb */}
       <BreadcrumbHead
+        className="mt-4"
         items={[
-          {
-            label: "Trang chủ",
-            href: "/home",
-          },
+          { label: "Trang chủ", href: "/home" },
           { label: "Chương trình thân thiết" },
         ]}
       />
-      <ListItemBooked />
-      <div className="w-full mx-auto posing-vertical-1">
-        <h1 className="text-large font-bold text-black_main">
-          Tiết kiệm khi đặt chuyến đi tiếp theo
-        </h1>
-        <p className="text-normal mb-4 text-black_sub">
-          Chào mừng bạn đến với nền tảng đặt vé và ưu đãi hàng đầu của chúng
-          tôi! Trang web cung cấp các tiện ích đặt vé nhanh chóng, giao diện
-          thân thiện, và nhiều ưu đãi đặc biệt dành cho bạn. Đối với người dùng
-          mới, chúng tôi có các chương trình giảm giá hấp dẫn, giúp bạn trải
-          nghiệm dịch vụ với chi phí thấp nhất. Hãy khám phá ngay hôm nay!
-        </p>
-        <hr className="hr" />
-        <div className="posing-vertical-2 p-3 rounded-8">
-          <div className="flex  items-center justify-start gap-2">
+
+      {/* Section: Tiết kiệm khi đặt chuyến đi */}
+      <div className="container xl:px-0 section-spacing">
+        <h2 className="text-xl lg:text-2xl font-bold text-black mb-4">
+          Tiết kiệm khi đặt chuyến đi
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg shadow-md">
             <Image
-              width={120}
-              height={120}
+              width={40}
+              height={40}
               alt="img-qua"
               src={imgQua}
               className="w-[40px] h-[40px]"
             />
-            <div className="text-left">
-              <h4 className="text-normal font-semibold">
-                Giảm giá Genius cho chỗ nghỉ
+            <div>
+              <h4 className="text-base font-semibold text-blue-600">
+                Giảm giá Genius
               </h4>
-              <p className="text-smallest ">
-                Tận hưởng kỳ lưu trú và các điểm du lịch trên khắp đất nước Việt
-                Nam.
+              <p className="text-sm text-black_sub">
+                Tận hưởng kỳ lưu trú và các điểm du lịch trên khắp Việt Nam.
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="p-3 border-0.5 border-black_sub rounded-8">
-              <h4 className="text-small font-semibold">Giảm giá 10%</h4>
-              <p className="text-smallest  text-black_sub">
-                Áp dụng cho giá trước thuế và phí
-              </p>
-            </div>
-            <div className="p-3 border-0.5 border-black_sub rounded-8">
-              <h4 className="text-small font-semibold">Giảm giá 15%</h4>
-              <p className="text-smallest  text-black_sub">
-                Áp dụng cho giá trước thuế và phí
-              </p>
-            </div>
-            <div className="p-3 border-0.5 border-black_sub rounded-8">
-              <h4 className="text-small font-semibold">Giảm giá 20%</h4>
-              <p className="text-smallest  text-black_sub">
-                Áp dụng cho giá trước thuế và phí
-              </p>
-            </div>
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+            <h4 className="text-base font-semibold text-green-600">
+              Giảm giá 10%
+            </h4>
+            <p className="text-sm text-black_sub">
+              Áp dụng cho giá trước thuế và phí.
+            </p>
+          </div>
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+            <h4 className="text-base font-semibold text-green-600">
+              Giảm giá 15%
+            </h4>
+            <p className="text-sm text-black_sub">
+              Áp dụng cho giá trước thuế và phí.
+            </p>
+          </div>
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+            <h4 className="text-base font-semibold text-green-600">
+              Giảm giá 20%
+            </h4>
+            <p className="text-sm text-black_sub">
+              Áp dụng cho giá trước thuế và phí.
+            </p>
           </div>
         </div>
-        <hr className="hr" />
-        <div className=" flex flex-col md:flex-row items-center  md:items-start justify-start md:justify-between gap-y-3 md:gap-x-3">
+      </div>
+
+      {/* Section: Dễ dàng tiết kiệm */}
+      <div className="section-spacing container xl:px-0">
+        <div className="flex flex-col md:flex-row items-center gap-6">
           <div className="text-left">
-            <h3 className="text-large font-bold">Dễ dàng tiết kiệm</h3>
-            <p className="text-black_main text-normal ">
-              Bạn sẽ nhận ra các xe và chỗ nghỉ có trong chương trình nhờ nhãn
-              Genius màu xanh dương. Tất cả giảm giá và tặng thưởng đều được áp
-              dụng tự động khi đặt – bạn không cần thao tác gì thêm.
+            <h3 className="text-xl lg:text-2xl font-bold mb-2">
+              Dễ dàng tiết kiệm
+            </h3>
+            <p className="text-base text-black_sub mb-2">
+              Nhận diện các ưu đãi Genius với nhãn màu xanh dương. Tất cả giảm
+              giá và tặng thưởng đều được áp dụng tự động khi đặt.
             </p>
-            <p className="text-black_main text-normal ">
+            <p className="text-base text-black_sub">
               Quá đơn giản, chỉ có thể là Genius.
             </p>
           </div>
@@ -111,11 +107,14 @@ const TrangVoucher = () => {
             width={600}
             height={400}
             alt="banner-genius-sale"
-            className="object-cover"
+            className="object-cover rounded-lg shadow-md"
             src="https://cf.bstatic.com/psb/capla/static/media/how-to.fb2b5d7a.svg"
           />
         </div>
-        <hr className="hr" />
+      </div>
+
+      <div className="container xl:px-0 section-spacing">
+        {" "}
         <ListLevel />
         <ListVoucher />
       </div>

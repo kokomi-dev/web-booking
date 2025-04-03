@@ -82,11 +82,11 @@ const Account = () => {
                   "w-fit h-full flex items-center justify-center gap-2 p-1 shadow-none rounded-lg text-white focus:outline-none border-none border-transparent focus-visible:ring-0",
                   "cursor-pointer",
                   "md:p-1 md:px-2",
-                  "bg-bg_primary_active hover:bg-bg_primary_blue_sub select-none"
+                  "bg-blue_active hover:bg-blue_sub select-none"
                 )}
                 onClick={() => setOpen(!open)}
               >
-                <div className="w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow_main rounded-full flex items-center justify-center overflow-hidden">
+                <div className="w-7 h-7 lg:w-9 lg:h-9 border-1 border-yellow rounded-full flex items-center justify-center overflow-hidden">
                   {user?.images ? (
                     <Image
                       src={user.images}
@@ -99,8 +99,8 @@ const Account = () => {
                     <CircleUser className="text-white size-6 !w-6 !h-6" />
                   )}
                 </div>
-                <div className="w-auto h-auto hidden flex-col items-start justify-center lg:flex">
-                  <div className="flex items-center gap-x-1 text-white font-bold text-smallest">
+                <div className="size-auto hidden flex-col items-start justify-center lg:flex">
+                  <div className="flex items-center gap-x-1 text-white font-bold text-xs">
                     <span className="capitalize">
                       {user.firstname.length > 11
                         ? user.firstname.slice(0, 11) + "..."
@@ -108,17 +108,17 @@ const Account = () => {
                     </span>
                     <span className="capitalize">{user.lastname}</span>
                   </div>
-                  <span className="text-[0.7rem] text-yellow_main">
-                    Genius Cấp 1
-                  </span>
+                  <span className="text-xs text-yellow">Genius Cấp 1</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
+              sideOffset={4} // Điều chỉnh khoảng cách giữa dropdown và trigger
+              alignOffset={0}
               align="end"
               className="w-56 bg-white text-black  lg:font-normal rounded-14 "
             >
-              <DropdownMenuGroup className="posing-vertical-5 p-0">
+              <DropdownMenuGroup className="grid gap-2 p-2">
                 <DropdownMenuItem
                   className="w-full flex items-center p-2 hover:cursor-pointer"
                   onClick={() => {
@@ -143,15 +143,6 @@ const Account = () => {
                   <CalendarCheck className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
                   Đặt chỗ & chuyến đi
                 </DropdownMenuItem>
-                {/* <DropdownMenuItem onSelect={() => setOpen(false)}>
-                  <Link
-                    className="w-full flex items-center p-2 hover:cursor-pointer"
-                    href={`/account/saved/${user._id}`}
-                  >
-                    <BookmarkCheck className="size-[1.18rem] lg:w-5 lg:h-5 mr-2 text-black_sub" />
-                    Đã lưu
-                  </Link>
-                </DropdownMenuItem> */}
                 <DropdownMenuItem
                   className="w-full flex items-center p-2 hover:cursor-pointer"
                   onSelect={() => {
@@ -163,20 +154,20 @@ const Account = () => {
                 </DropdownMenuItem>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-3 hover:bg-bg_primary_hover ">
+                    <div className="flex items-center w-full cursor-pointer px-[0.65rem] py-2 hover:bg-blue_hover ">
                       <LogOut className="size-4 lg:w-5 lg:h-5 mr-[0.3rem] text-black_sub" />
-                      <span className="text-smallest">Đăng xuất</span>
+                      <span className="text-sm">Đăng xuất</span>
                     </div>
                   </AlertDialogTrigger>
                   <AlertDialogContent
                     tabIndex={-1}
-                    className="bg-bg_black_sub text-black rounded-14"
+                    className="bg-black_sub text-black rounded-14"
                   >
                     <AlertDialogHeader>
                       <AlertDialogTitle>
                         Bạn chắc chắn muốn Đăng Xuất?
                       </AlertDialogTitle>
-                      <AlertDialogDescription className="text-black_sub text-smallest">
+                      <AlertDialogDescription className="text-black_sub text-xs">
                         Mọi thông tin sẽ được lưu trữ lại phục vụ cho lần đăng
                         nhập tiếp theo.
                       </AlertDialogDescription>
@@ -187,14 +178,14 @@ const Account = () => {
                     >
                       <AlertDialogCancel
                         autoFocus={false}
-                        className="bg-bg_primary_blue_sub text-white hover:bg-bg_primary_active  focus-visible:ring-0"
+                        className="bg-blue_sub text-white hover:bg-blue_active  focus-visible:ring-0"
                       >
                         Hủy
                       </AlertDialogCancel>
                       <AlertDialogAction
                         autoFocus={false}
                         onClick={handleLogout}
-                        className="bg-bg_black_sub text-black_sub hover:bg-bg_primary_hover"
+                        className="bg-black_sub text-black_sub hover:bg-blue_hover"
                       >
                         Đăng xuất
                       </AlertDialogAction>
@@ -209,7 +200,7 @@ const Account = () => {
         <div className="flex items-center justify-center">
           <Button
             onClick={() => router.push("/sign-in")}
-            className="hidden lg:block ml-4 text-small text-white bg-bg_primary_blue_sub hover:bg-bg_primary_active hover:text-white"
+            className="hidden lg:block ml-4 text-sm text-white bg-blue_sub hover:bg-blue_active hover:text-white"
           >
             Đăng nhập
           </Button>
@@ -226,7 +217,7 @@ const Account = () => {
             >
               <Button
                 onClick={() => router.push("/sign-in")}
-                className="text-smallest font-normal"
+                className="text-xs font-normal"
               >
                 Đăng nhập
               </Button>

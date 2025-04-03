@@ -48,7 +48,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
         className="min-h-[60vh] h-auto w-full z-[50] overflow-y-auto  bg-white text-black flex flex-col items-center justify-start p-4 pb-6"
       >
         <SheetHeader className="text-start w-full">
-          <SheetTitle className="text-normal+ font-semibold text-start w-fit flex items-start justify-start">
+          <SheetTitle className="text-lg font-semibold text-start w-fit flex items-start justify-start">
             Tìm
           </SheetTitle>
           <SheetDescription aria-describedby={undefined}></SheetDescription>
@@ -60,7 +60,7 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             type="text"
             placeholder="Bạn muốn đi đâu !"
             className={cn(
-              "w-full h-[36px] text-normal font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black_sub "
+              "w-full h-[36px] text-base font-normal shadow-none border-none outline-none justify-between bg-white text-black  placeholder-black_sub "
             )}
             debounceTime={400}
             value={valueSearch}
@@ -74,18 +74,18 @@ const SearchAddressSM: React.FC<SearchAddressSMProps> = ({
             data.map((item, index) => (
               <div
                 key={index}
-                className=" px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:text-blue_main_sub hover:cursor-pointer"
+                className=" px-4 py-3  border-b-1 last:border-none transition-all duration-300 hover:text-blue_sub hover:cursor-pointer"
                 onClick={() => {
                   setValue(item.name);
                   setValueSearch(item.name);
                   setOpen2(false);
                 }}
               >
-                <span className="text-normal font-medium">{item.name}</span>
+                <span className="text-base font-medium">{item.name}</span>
               </div>
             ))
           ) : (
-            <div className="p-2 text-small font-normal">
+            <div className="p-2 text-sm font-normal">
               {valueSearch ? (
                 <span>Nhập chính xác tên tỉnh thành !</span>
               ) : (

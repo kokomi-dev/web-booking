@@ -38,34 +38,32 @@ const SheetShowComments: React.FC<ISheetShowComments> = ({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent className="bg-white text-black lg:max-w-[50%] h-full overflow-y-auto scroll-smooth p-6">
         <SheetHeader>
-          <SheetTitle className="text-medium font-semibold">
-            Đánh giá
-          </SheetTitle>
+          <SheetTitle className="text-lg font-semibold">Đánh giá</SheetTitle>
           <SheetDescription className="flex items-center justify-between">
             Để lại đánh giá của bạn cho chúng tôi
           </SheetDescription>
         </SheetHeader>
-        <div className="w-full h-auto mt-5 grid gap-y-2 text-small font-normal">
+        <div className="w-full h-auto mt-5 grid gap-y-2 text-sm font-normal">
           <div className="w-full h-auto grid grid-cols-[20%,40%,auto] ">
             <div className="flex items-center justify-start gap-x-1">
-              <Star className="size-8 text-yellow_main fill-yellow_main" />
+              <Star className="size-8 text-yellow fill-yellow" />
               <div className="grid  ml-2">
-                <h4 className="text-small">{rating}</h4>
-                <span className="text-small text-blue_main_sub">
+                <h4 className="text-sm">{rating}</h4>
+                <span className="text-sm text-blue_sub">
                   {comments.length} đánh giá
                 </span>
               </div>
             </div>
             <Input placeholder="Tìm đánh giá" />
             <div className=" text-end">
-              <label className="text-smallest mr-2">Sắp xếp theo</label>
+              <label className="text-xs mr-2">Sắp xếp theo</label>
               <select className="border-0.5 border-black p-2 rounded-8">
                 <option>Phù hợp nhất</option>
               </select>
             </div>
           </div>
           <div className="grid gap-4 py-4">
-            <h4 className="text-normal font-medium">Lọc theo</h4>
+            <h4 className="text-base font-medium">Lọc theo</h4>
             <div className="grid grid-cols-3 gap-x-2">
               <div className="grid ">
                 <label>Điểm đánh giá</label>
@@ -101,7 +99,7 @@ const SheetShowComments: React.FC<ISheetShowComments> = ({
                 </select>
               </div>
             </div>
-            <h4 className="text-normal font-medium mt-2">Đánh giá tổng quan</h4>
+            <h4 className="text-base font-medium mt-2">Đánh giá tổng quan</h4>
             <div className="grid grid-cols-2 gap-y-4">
               <ProgessComponent value={60} title="Đánh giá tiền" />
               <ProgessComponent value={10} title="Tiện nghi" />
@@ -134,7 +132,7 @@ export function ProgessComponent({
   return (
     <div className="w-full h-auto  grid text-start">
       <label className="text-[0.88rem] font-medium mb-1">{title}</label>
-      <Progress value={value} className="w-[80%]  text-yellow_main"></Progress>
+      <Progress value={value} className="w-[80%]  text-yellow"></Progress>
     </div>
   );
 }

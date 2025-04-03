@@ -5,7 +5,6 @@ import Image from "next/image";
 import errIllustration from "@/assets/images/err-illustration.webp";
 
 export default function GlobalError({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };
@@ -23,7 +22,7 @@ export default function GlobalError({
             className="mb-4"
           />
 
-          <h2 className="text-2xl font-bold text-black_main mb-2">
+          <h2 className="text-2xl font-bold text-black mb-2">
             Ôi không! Đã xảy ra lỗi
           </h2>
           <p className="text-gray-600 text-sm mb-4">
