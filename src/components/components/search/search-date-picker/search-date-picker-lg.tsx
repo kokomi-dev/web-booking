@@ -51,6 +51,9 @@ const SearchDatePickerLG: React.FC<SearchDatePickerLGProps> = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent
+        side="bottom"
+        sideOffset={10}
+        avoidCollisions={false}
         align="end"
         className="min-w-[30vw] w-full flex flex-col items-center justify-center z-[10]  p-0  text-black"
       >

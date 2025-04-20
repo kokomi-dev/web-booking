@@ -1,8 +1,7 @@
 "use client";
 import { sendMessages } from "@/api/api-chat";
-import { fetchTrendingAttractions } from "@/api/api-attractions"; // API để lấy danh sách trending
 import { cn } from "@/utils/constants";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Bot, User } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
@@ -11,7 +10,7 @@ type Message = {
   content: string;
 };
 
-const ChatModalAI = () => {
+const ChatModalEmploye = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
@@ -22,18 +21,10 @@ const ChatModalAI = () => {
     mutationFn: sendMessages,
   });
 
-  const { data: trendingAttractions, refetch: fetchAttractions } = useQuery(
-    ["trendingAttractions"],
-    fetchTrendingAttractions,
-    {
-      enabled: false, // Chỉ fetch khi người dùng nhấn vào câu hỏi
-    }
-  );
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading) return;
 
-  const sendMessage = async (messageContent: string) => {
-    if (!messageContent.trim() || isLoading) return;
-
-    const userMessage: Message = { role: "user", content: messageContent };
+    const userMessage: Message = { role: "user", content: input };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
     setIsLoading(true);
@@ -62,30 +53,9 @@ const ChatModalAI = () => {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      sendMessage(input);
+      sendMessage();
     }
   };
-
-  const handleSuggestedQuestionClick = async (question: string) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { role: "user", content: question },
-    ]);
-    fetchAttractions(); // Gọi API để lấy danh sách trending
-  };
-
-  useEffect(() => {
-    if (trendingAttractions) {
-      const aiMessage: Message = {
-        role: "assistant",
-        content: `Dưới đây là các địa điểm trending:\n${trendingAttractions
-          .map((item: any) => `- ${item.name}`)
-          .join("\n")}`,
-      };
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
-    }
-  }, [trendingAttractions]);
-
   useEffect(() => {
     let currentMessage = "";
     let i = 0;
@@ -108,38 +78,20 @@ const ChatModalAI = () => {
       }
     }
   }, [messages]);
-
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
   }, [displayedMessages]);
-
   return (
-    <div className="flex flex-col h-full rounded-lg text-black p-3 md:p-4">
-      <h3 className="text-lg font-semibold text-black_sub">Chat với AI</h3>
+    <div className="flex flex-col h-full rounded-lg  text-black p-3 md:p-4">
+      <h3 className="text-lg font-semibold text-black_sub">
+        Chat với Nhân viên tư vấn
+      </h3>
       <p className="text-sm text-gray-600 mt-2">
-        Kết nối với AI để giải đáp các câu hỏi và nhận hỗ trợ nhanh chóng.
+        Kết nối với Nhân viên của chúng tôi để được tư vấn chính xác hơn.
       </p>
-
-      {/* Suggested Questions */}
-      <div className="flex flex-wrap gap-2 mt-4">
-        {[
-          "Địa điểm du lịch đẹp nhất",
-          "Nhà nghỉ tốt nhất",
-          "Ẩm thực nổi bật",
-        ].map((question, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSuggestedQuestionClick(question)}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all text-sm"
-          >
-            {question}
-          </button>
-        ))}
-      </div>
-
       <div
         ref={messagesContainerRef}
         className="min-h-[200px] flex-1 overflow-y-auto mb-4 p-2 md:p-3 lg:p-4 list-spacing"
@@ -149,8 +101,8 @@ const ChatModalAI = () => {
             key={idx}
             className={`text-${
               msg.role === "user"
-                ? "right flex items-center justify-end"
-                : "left w-fit"
+                ? "right  flex items-center justify-end"
+                : "left  w-fit"
             } my-2 first-letter:uppercase`}
           >
             <div className="flex items-start justify-start gap-x-1">
@@ -195,7 +147,7 @@ const ChatModalAI = () => {
           placeholder="Nhập tin nhắn..."
         />
         <button
-          onClick={() => sendMessage(input)}
+          onClick={sendMessage}
           className="bg-blue text-xs md:text-base text-white px-4 py-2 rounded-lg hover:bg-blue_main_sub"
         >
           Gửi
@@ -205,4 +157,4 @@ const ChatModalAI = () => {
   );
 };
 
-export default ChatModalAI;
+export default ChatModalEmploye;

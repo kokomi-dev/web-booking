@@ -106,7 +106,7 @@ const BannerHome = () => {
               </div>
 
               <Link
-                href="#"
+                href="#trending_shared"
                 className="inline-block text-sm sm:text-base md:text-lg rounded-md border border-transparent bg-blue_sub px-8 py-3 text-center font-medium text-white hover:bg-blue_active"
               >
                 Khám phá ngay

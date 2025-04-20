@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
-:root {
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap");
+
+/* :root {
   --toastify-color-success: #006ce4;
   --toastify-color-warning: #ffb700;
   --toastify-color-error: #ed6758;
@@ -16,11 +18,10 @@
   --toastify-toast-max-height: 120px;
   --toastify-z-index: 9999;
 
-  /* --toastify-color-progress-info: ; */
   --toastify-color-progress-success: var(--toastify-color-success);
   --toastify-color-progress-warning: var(--toastify-color-warning);
   --toastify-color-progress-error: var(--toastify-color-error);
-}
+} */
 
 body {
   font-size: 62, 5%;
@@ -176,6 +177,26 @@ input[type="number"]::-webkit-outer-spin-button {
 .font-family-2 {
   font-family: "Dancing Script", cursive;
 }
+@keyframes underlineFlow {
+  0% {
+    transform: translateX(-50%) scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+.animate-underline {
+  animation: underlineFlow 1s ease-out forwards;
+  transform-origin: center;
+}
+
 @keyframes glow {
   0% {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
@@ -459,7 +480,25 @@ input[type="number"]::-webkit-outer-spin-button {
 .progress-container {
   background-color: #e0e0e0; /* Màu nền */
 }
+.bg-blue-linear {
+  background-image: linear-gradient(to bottom, #003b96, #006ce4);
+}
+.bg-blue-linear-r {
+  background-image: linear-gradient(to right, #003b96, #006ce4);
+}
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
 
+.from-yellow-400 {
+  --tw-gradient-from: #facc15;
+  --tw-gradient-stops: var(--tw-gradient-from),
+    var(--tw-gradient-to, rgba(250, 204, 21, 0));
+}
+
+.to-orange-500 {
+  --tw-gradient-to: #f97316;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -530,11 +569,12 @@ input[type="number"]::-webkit-outer-spin-button {
   line-height: 1.6;
 }
 .blog-show-detail > p > img {
+  margin: 0 auto;
   object-fit: cover;
   width: 100% !important;
   height: auto;
-  max-width: none !important;
-  max-height: 680px;
+  max-width: 600px !important;
+  max-height: 480px;
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor;
   object-position: center;
@@ -572,4 +612,22 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
+}
+
+@keyframes shine {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s infinite;
+}
+
+/* Đảm bảo overflow: hidden cho container của các star */
+.overflow-hidden {
+  overflow: hidden;
 }

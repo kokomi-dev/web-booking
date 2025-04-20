@@ -166,7 +166,7 @@ const ListTabAllType = () => {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full h-[200px] object-cover transition-transform duration-300 hover:scale-105"
+                        className="w-full h-[240px] object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                     <div className=" absolute bottom-1 left-2">

@@ -52,7 +52,7 @@ const SearchSelectPerson = ({
       >
         <User className="size-5 font-medium text-black_sub flex-shrink-0 " />
         <span className="w-full h-full flex items-center justify-start gap-x-1 ">
-          <span className="w-full flex items-center justify-start gap-x-0 sm:gap-x-1 text-base font-light whitespace-nowrap ">
+          <span className="w-full flex items-center justify-start gap-x-0 sm:gap-x-1 text-sm md:text-base font-light whitespace-nowrap ">
             {numberAdults} người lớn <Dot /> {numberChildren} trẻ em <Dot />{" "}
             {numberRoom} phòng
           </span>

@@ -15,6 +15,7 @@ import { listAddressTredingHome } from "@/components/dashboard/homepage/constant
 import SalesCustommer from "@/components/dashboard/homepage/sales-custommer";
 import TravelBenefitsSection from "@/components/dashboard/homepage/travel-benefit";
 import { Metadata } from "next";
+import Trending from "@/components/components/trending";
 
 export const metadata: Metadata = {
   title: "KoKo Travel - Trang chủ",
@@ -28,9 +29,8 @@ function HomePage() {
     <div className="section-spacing">
       {/* Banner chính */}
       <BannerHome />
-
       {/* Điểm đến nổi bật */}
-      <section className="list-spacing container xl:px-0 ">
+      {/* <section className="list-spacing container xl:px-0 ">
         <h2 className="text-lg lg:text-2xl font-semibold">Điểm đến hàng đầu</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
           {listAddressTredingHome.map((e, index) => (
@@ -54,7 +54,8 @@ function HomePage() {
             </Link>
           ))}
         </div>
-      </section>
+      </section> */}
+      <Trending page="attractions" />
 
       {/* Ưu đãi khách hàng */}
       <SalesCustommer />
@@ -82,7 +83,7 @@ function HomePage() {
           </Link>
         </div>
       </section>
-
+      <ListTabAllType />
       {/* Phản hồi từ khách hàng */}
       <section className="container xl:px-0">
         <div className="bg-black_sub px-3 py-6 rounded-14 flex flex-col list-spacing">
@@ -111,14 +112,13 @@ function HomePage() {
           </div>
         </div>
       </section>
-
+      <ListFestivals />
       {/* Lợi ích du lịch */}
       <TravelBenefitsSection />
 
       {/* Bài viết & Mẹo du lịch */}
       <ListBlogsTrending />
-      <ListTabAllType />
-      <ListFestivals />
+
       {/* Nhận phản hồi */}
       <ReceiveFeedback />
     </div>

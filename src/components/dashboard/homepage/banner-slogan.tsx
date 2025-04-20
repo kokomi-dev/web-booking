@@ -1,16 +1,25 @@
+import Image from "next/image";
 import imgBaner from "@/assets/images/banner-home-slogan.jpg";
 import { links, stats } from "./constant";
+
 export default function BannerSlogan() {
   return (
-    <section
-      className="relative  bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url(${imgBaner.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="absolute inset-0 bg-black/50 z-10 container"></div>
+    <section className="relative">
+      <div className="absolute inset-0">
+        <Image
+          src={imgBaner}
+          alt="Banner background"
+          fill
+          priority
+          quality={80}
+          sizes="100vw"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+      </div>
 
       <div className="relative z-10 isolate overflow-hidden py-24 sm:py-32 container">
         <div className="mx-auto w-full h-full">

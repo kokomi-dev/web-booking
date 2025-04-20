@@ -30,8 +30,6 @@ const HomePage = () => {
       </section>
       {/* Giới thiệu */}
       <Intro />
-      {/* banner giới thiệu */}
-      <BannerSale />
       <section className="section-spacing container xl:px-0 ">
         {/* địa điểm nổi bật
          */}
@@ -39,6 +37,10 @@ const HomePage = () => {
         {/* tất cả địa điểm */}
         <ListAttractions />
       </section>
+
+      {/* banner giới thiệu */}
+      <BannerSale />
+
       <ListTabAllType />
       <ListFestivals />
       {/* các tinh thành */}

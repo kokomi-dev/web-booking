@@ -44,13 +44,16 @@ const SearchAddressLG: React.FC<SearchAddressLGProps> = ({
           }}
         >
           <MapPinned className="size-[1.2rem] text-black_sub" />
-          <span className="ml-1 text-base font-light">
+          <span className="ml-1 text-sm md:text-base font-light">
             {value === "" || value === null ? "Chọn nơi bạn muốn đến ?" : value}
           </span>
         </Button>
       </PopoverTrigger>
       <PopoverContent
+        side="bottom"
         align="start"
+        sideOffset={10}
+        avoidCollisions={false}
         className="min-w-[90vw] md:min-w-[60vw] lg:min-w-[40vw]  z-[20] p-4 bg-white text-black"
       >
         <div className="w-full mt-2 flex items-center justify-start gap-x-1 border-1 border-black_sub outline-blue_main_sub p-1 rounded-8 text-black">

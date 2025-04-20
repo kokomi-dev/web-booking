@@ -79,6 +79,9 @@ const SearchDatePickerDouLG: React.FC<SearchDatePickerDouLGProps> = ({
         }}
         className="min-w-[60vw] w-full p-4 bg-white text-black z-[15]"
         align="center"
+        side="bottom"
+        sideOffset={10}
+        avoidCollisions={false}
       >
         <Calendar
           initialFocus
