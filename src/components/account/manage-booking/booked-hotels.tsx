@@ -5,7 +5,7 @@ import { useAuthenticatedStore } from "@/store/authencation-store";
 import { formatPrice } from "@/components/components/item-component";
 import { checkOverDate, cn, formatDate } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
-import { Check, UserRound, UsersRound } from "lucide-react";
+import { Check, Ticket, UserRound, UsersRound } from "lucide-react";
 import { LoadingShowBooked } from "@/components/components/loading";
 import { getHotelBooked } from "@/api/api-hotels";
 import QUERY_KEY_HOTEL from "@/services/queryKeyStore/hotelQueryKeyStore";
@@ -57,10 +57,19 @@ const BookedHotel = () => {
               <div
                 key={index}
                 className={cn(
-                  "bg-white rounded-2xl shadow-lg p-3 md:p-4 lg:p-6 list-spacing border border-gray-200 relative",
+                  "bg-white  shadow-lg p-3 md:p-4 lg:p-6 list-spacing border border-gray-200 relative",
                   isWentSuccess ? "border-green" : "border-yellow"
                 )}
               >
+                <div className="absolute -left-1 top-3">
+                  <div className="relative">
+                    <div className="bg-red-600 text-white font-bold py-1 px-3 text-xs uppercase flex items-center">
+                      <Ticket className="size-4 mr-2" /> Thẻ
+                    </div>
+                    <div className="absolute -right-2 top-0 bottom-0 w-0 h-0 border-t-[16px] border-b-[10px] border-l-[8px] border-t-transparent border-b-transparent border-l-red-600"></div>
+                    <div className="absolute -bottom-1 left-0 w-1 h-1 bg-red-800"></div>
+                  </div>
+                </div>
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                   <div className="text-left space-y-1">
                     <h2 className="text-lg font-bold text-black">
@@ -128,9 +137,9 @@ const BookedHotel = () => {
                       </span>{" "}
                       VND
                     </p>
-                    <p className="text-sm">
+                    <p className="text-sm text-nowrap">
                       Phương thức thanh toán:{" "}
-                      <span className="text-blue_sub font-medium">
+                      <span className="text-blue_sub font-semibold uppercase">
                         {booking.paymentMethod}
                       </span>
                     </p>
@@ -146,11 +155,11 @@ const BookedHotel = () => {
                     )}
                   </div>
                 </div>
-                <div className="absolute -top-[1.9rem] left-3">
+                <div className="absolute -top-[1.9rem] right-3">
                   <div
                     className={cn(
                       "!text-white rounded-8 p-1 px-2 text-xs",
-                      !isWentSuccess ? "bg-yellow" : "bg-green_main"
+                      !isWentSuccess ? "bg-yellow" : "bg-green"
                     )}
                   >
                     {isWentSuccess ? "Hoàn thành" : "Sắp nhận phòng"}

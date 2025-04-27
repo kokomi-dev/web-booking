@@ -5,18 +5,16 @@ import { Button } from "@/components/ui/button";
 import QUERY_KEY_BOOKING from "@/services/queryKeyStore/bookingQueyKeyStore";
 import { IHotelRoom } from "@/types/hotel.type";
 import { useQuery } from "@tanstack/react-query";
+const LottiePlayer = dynamic(() => import("lottie-react"), {
+  ssr: false,
+  loading: () => <div style={{ width: "100%", height: "100%" }} />,
+});
 
-import {
-  Calendar,
-  CheckCircle,
-  Download,
-  Home,
-  Ticket,
-  XCircle,
-} from "lucide-react";
+import aniamtionSucess from "@/assets/animations/animation-success.json";
+import { Calendar, Download, Home, Ticket, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Fragment, useRef } from "react";
-
+import dynamic from "next/dynamic";
 const BookingSuccess = () => {
   const router = useRouter();
   const params = useSearchParams();
@@ -36,30 +34,32 @@ const BookingSuccess = () => {
 
   const checkCategory = category === "attraction" ? true : false;
   const handleDownloadPDF = async () => {
-    const ticketElement = document.getElementById("ticket");
-    if (!ticketElement) return;
+    if (typeof window !== "undefined") {
+      const ticketElement = document.getElementById("ticket");
+      if (!ticketElement) return;
 
-    const canvas = await (
-      await import("html2canvas")
-    ).default(ticketRef.current, {
-      scale: 3,
-      useCORS: true,
-    });
-    const { jsPDF } = await import("jspdf");
-    const imgData = canvas.toDataURL("image/png");
+      const canvas = await (
+        await import("html2canvas")
+      ).default(ticketRef.current, {
+        scale: 3,
+        useCORS: true,
+      });
+      const { jsPDF } = await import("jspdf");
+      const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    const imgWidth = 210;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    pdf.save(
-      `Thông tin ${category === "attraction" ? "vé" : "đặt phòng"} - ${
-        category === "attraction"
-          ? dataBooked?.infoAttraction?.name
-          : dataBooked?.infoHotel?.name
-      } `
-    );
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save(
+        `Thông tin ${category === "attraction" ? "vé" : "đặt phòng"} - ${
+          category === "attraction"
+            ? dataBooked?.infoAttraction?.name
+            : dataBooked?.infoHotel?.name
+        } `
+      );
+    }
   };
   if (isLoading) {
     return <Loading />;
@@ -74,7 +74,9 @@ const BookingSuccess = () => {
             id="ticket"
             className="section-spacing w-full  flex items-center flex-col text-center"
           >
-            <CheckCircle className="text-green-600 w-20 h-20 mb-4" />
+            <div className="w-64 h-64">
+              <LottiePlayer animationData={aniamtionSucess} loop={true} />
+            </div>
             <h1 className="text-3xl font-bold text-green-700">
               {checkCategory
                 ? "Đặt vé tham quan thành công!"

@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { GoStarFill } from "react-icons/go";
 import { memo, useMemo } from "react";
 import { ItemCardProps } from "@/types/component-types";
-import { DollarSign, MapPin } from "lucide-react";
+import { DollarSign, MapPin, Ticket } from "lucide-react";
 
 export const formatPrice = (num: number) => {
   const formattedNumber = new Intl.NumberFormat("vi-VN").format(num);
@@ -13,7 +13,16 @@ export const formatPrice = (num: number) => {
 };
 
 const ItemCard = memo(
-  ({ slug, name, images, location, price, route, rating }: ItemCardProps) => {
+  ({
+    slug,
+    name,
+    images,
+    location,
+    price,
+    route,
+    rating,
+    discount,
+  }: ItemCardProps) => {
     const ratingText =
       rating > 4.5 ? "Rất tuyệt vời" : rating > 4 ? "Rất tốt" : "Tốt";
     const formattedPrice = useMemo(() => formatPrice(price), [price]);
@@ -23,9 +32,22 @@ const ItemCard = memo(
         href={`/${route}/${slug}`}
         className="w-full h-full relative group transition-transform duration-300 hover:z-10"
       >
+        {discount && (
+          <div className="absolute -right-1 top-3 z-[150]">
+            <div className="relative">
+              <div className="bg-red-600 text-white font-normal leading-[20px] px-3 text-[0.7rem] uppercase flex items-center rounded-tl-[4px] rounded-bl-[4px]">
+                {discount}%
+              </div>
+              <div className="absolute right-0 -bottom-2 w-0 h-0 border-t-[8px] border-r-[5px] border-l-[0px] border-t-red-800 border-r-transparent"></div>
+            </div>
+          </div>
+        )}
         <Card className="min-h-[100%] flex items-start justify-start flex-col shadow-md hover:shadow-lg rounded-lg overflow-hidden">
           {/* ảnh */}
-          <div className="w-full overflow-hidden h-[178px] sm:h-[186px] md:h-[205px] lg:h-[220px] xl:h-[240px]">
+          <div className="w-full relative overflow-hidden h-[178px] sm:h-[186px] md:h-[205px] lg:h-[220px] xl:h-[240px] image-shine-container">
+            {/* Hiệu ứng shine chỉ trên ảnh */}
+            <div className="shine-effect"></div>
+
             <Image
               width={600}
               height={400}

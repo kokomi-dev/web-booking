@@ -220,7 +220,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   "lg:block lg:text-4xl lg:font-bold mb-5"
                 )}
               >
-                Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
+                Những trải nghiệm mới đang chờ đón bạn !
               </div>
               <div
                 className={cn(
@@ -244,7 +244,7 @@ const Search: React.FC<SearchContainerProp> = ({
           <section className={cn("text-white")}>
             <div className="w-full">
               <div className="hidden lg:block text-wrap text-4xl font-extrabold mb-5">
-                Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
+                Một nơi nghỉ ngơi xứng đáng cho chuyến du lịch tuyệt vời
               </div>
               <div className="block lg:hidden text-white text-wrap !text-2xl font-semibold">
                 Tìm chỗ nghỉ tiếp theo

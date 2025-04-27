@@ -24,7 +24,7 @@ const BookingContainer: React.FC<IBookingContainer> = ({ slug, data }) => {
     enabled: !!slug,
   });
   return (
-    <div className="w-full h-fit list-spacing  lg:sticky lg:-top-[4rem] xl:top-[0rem] 2xl:top-[2rem] rounded-xl lg:pl-3 ">
+    <div className="w-full h-fit list-spacing  lg:sticky lg:-top-[4rem] xl:-top-[7rem] 2xl:top-[2rem] rounded-xl lg:pl-3 ">
       <div className="w-full">
         <h3 className="text-lg font-bold">Chọn ngày</h3>
         <div className="max-w-fit w-auto">

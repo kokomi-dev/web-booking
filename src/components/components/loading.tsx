@@ -220,6 +220,9 @@ const LoadingShowBooked = () => {
     </div>
   );
 };
+const LoadingSpin = () => {
+  return <div className="loader__spinner"></div>;
+};
 export {
   LoadingBookingCardAttraction,
   LoadingBookingCardHotel,
@@ -232,4 +235,5 @@ export {
   LoadingItemShow,
   LoadingPage,
   LoadingShowBooked,
+  LoadingSpin,
 };

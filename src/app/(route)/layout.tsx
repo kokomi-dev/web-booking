@@ -1,8 +1,7 @@
-import { Fragment } from "react";
-import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
-import FooterDashboard from "@/components/layouts/default-layout/footer-dashboard";
-import Search from "@/components/components/search/search";
 import WrapperContacts from "@/components/components/wraper-contacts";
+import FooterDashboard from "@/components/layouts/default-layout/footer-dashboard";
+import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
+import { Fragment } from "react";
 
 export default function DefaultLayout({
   children,

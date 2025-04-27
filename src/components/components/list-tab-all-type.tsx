@@ -146,8 +146,6 @@ const ListTabAllType = () => {
         {/* Tabs Content */}
         <TabsContent value="city">
           <Carousel
-            onMouseEnter={() => plugin.current?.stop()}
-            onMouseLeave={() => plugin.current?.play()}
             opts={{
               align: "start",
               loop: true,

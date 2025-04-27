@@ -10,7 +10,7 @@ import {
 import { cn } from "@/utils/constants"; // Utility function for conditional classNames
 import Link from "next/link";
 import zaloIcon from "@/assets/img-social/Icon_of_Zalo.svg.webp"; // Zalo icon
-import messIcon from "@/assets/img-social/Facebook_Messenger_logo_2025.svg.png"; // Zalo icon
+import messIcon from "@/assets/img-social/icon-message.png"; // Zalo icon
 import Image from "next/image";
 
 const WrapperContacts = () => {
@@ -48,44 +48,55 @@ const WrapperContacts = () => {
         )}
       >
         {/* Zalo Icon */}
-        <Link
-          href="https://zalo.me/0961563714"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-white text-white rounded-full shadow-lg hover:bg-blue-600 transition-all"
-        >
-          <Image
-            width={50}
-            height={50}
-            alt="img__social__zalo"
-            src={zaloIcon}
-            className="object-cover size-8"
-          />
-        </Link>
+        <div className="relative">
+          {/* Hiệu ứng vòng tròn */}
+          <div className="pulse-effect"></div>
+
+          <Link
+            href="https://zalo.me/0961563714"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center w-12 h-12 bg-white text-white rounded-full shadow-lg  transition-all animate-shake"
+          >
+            <Image
+              width={50}
+              height={50}
+              alt="img__social__zalo"
+              src={zaloIcon}
+              className="object-cover size-8"
+            />
+          </Link>
+        </div>
 
         {/* Messenger Icon */}
-        <Link
-          href="https://m.me/nguyen.the.an.389568"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 bg-white  rounded-full shadow-lg hover:bg-blue-500 transition-all"
-        >
-          <Image
-            width={50}
-            height={50}
-            alt="img__social__messenger"
-            className="object-cover size-8"
-            src={messIcon}
-          />
-        </Link>
+        <div className="relative">
+          <div className="pulse-effect yellow"></div>
+          <Link
+            href="https://m.me/nguyen.the.an.389568"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center w-12 h-12 bg-white text-white  rounded-full shadow-lg transition-all animate-shake"
+          >
+            <Image
+              width={50}
+              height={50}
+              alt="img__social__messenger"
+              className="object-cover size-8"
+              src={messIcon}
+            />
+          </Link>
+        </div>
 
         {/* Contact Page Icon */}
-        <Link
-          href="/contact"
-          className="flex items-center justify-center w-12 h-12 bg-white  rounded-full shadow-lg hover:bg-green-600 transition-all"
-        >
-          <MessageCircleMore className="w-6 h-6 text-blue" />
-        </Link>
+        <div className="relative">
+          <div className="pulse-effect red"></div>
+          <Link
+            href="/contact"
+            className="flex items-center justify-center w-12 h-12 bg-white  rounded-full shadow-lg hover:bg-green-600 transition-all animate-shake"
+          >
+            <MessageCircleMore className="w-6 h-6 text-blue" />
+          </Link>
+        </div>
       </div>
       <Button
         className="rounded-full p-3 w-12 h-12 shadow-lg bg-blue text-white hover:bg-green-600 transition-all"

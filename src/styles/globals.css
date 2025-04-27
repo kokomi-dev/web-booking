@@ -40,6 +40,20 @@ html {
   scroll-behavior: smooth;
   height: 100dvh;
 }
+input,
+select,
+textarea {
+  touch-action: manipulation;
+  font-size: 16px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+}
 .scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -630,4 +644,140 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Đảm bảo overflow: hidden cho container của các star */
 .overflow-hidden {
   overflow: hidden;
+}
+
+@keyframes pulse__icon {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.pulse-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3); /* Màu đen nhạt */
+  animation: pulse__icon 1.5s infinite;
+  z-index: -1; /* Đưa hiệu ứng ra phía sau icon */
+}
+
+.loader__spinner {
+  width: 36px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #003b96) content-box;
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 20deg,
+      #0000 21deg 36deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l4 1s infinite steps(10);
+}
+@keyframes l4 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* animation cart item */
+.image-shine-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  z-index: 2;
+}
+
+/* Khi hover vào link hoặc card, hiệu ứng chạy từ trái sang phải */
+.group:hover .shine-effect {
+  animation: image-shine 0.7s forwards;
+}
+
+/* Khi hết hover, hiệu ứng chạy ngược lại từ phải sang trái */
+.group:not(:hover) .shine-effect {
+  animation: image-shine-reverse 0.7s forwards;
+}
+
+@keyframes image-shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+@keyframes image-shine-reverse {
+  0% {
+    left: 200%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+.message__chat {
+  margin-bottom: 12px;
+}
+
+@keyframes shake {
+  0%,
+  80%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(12deg);
+  }
+  20% {
+    transform: rotate(-12deg);
+  }
+  30% {
+    transform: rotate(8deg);
+  }
+  40% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+}
+
+/* Áp dụng animation */
+.animate-shake {
+  animation: shake 3s infinite ease-in-out;
+  transform-origin: center;
 }

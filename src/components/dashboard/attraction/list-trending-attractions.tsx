@@ -59,6 +59,7 @@ const ListAttractions = () => {
         className="basis-[66.67%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
       >
         <ItemCard
+          discount={tour.discount}
           route="attractions"
           slug={tour.slug}
           name={tour.name}

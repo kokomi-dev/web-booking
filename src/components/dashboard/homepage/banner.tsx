@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const BannerHome = () => {
   return (
-    <div className="container xl:px-0 relative overflow-hidden">
+    <div className="container xl:px-0 relative  overflow-hidden">
       <div className="pb-80 pt-3 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
         <div className="relative  sm:static ">
           <div className="sm:max-w-lg">

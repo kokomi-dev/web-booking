@@ -25,6 +25,7 @@ export interface AttractionData {
   unitCode: string;
   startDate: Date;
   createdAt: Date;
+  discount: number;
 }
 export interface CardBookingTicketProps {
   isLoading: boolean;

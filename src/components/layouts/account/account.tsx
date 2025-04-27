@@ -129,7 +129,7 @@ const Account = () => {
                   }}
                 >
                   <UserRound className="size-4 lg:w-5 lg:h-5 mr-2 text-black_sub" />
-                  Quản lí tài khoản
+                  Cài đặt tài khoản
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="w-full flex items-center p-2 hover:cursor-pointer"

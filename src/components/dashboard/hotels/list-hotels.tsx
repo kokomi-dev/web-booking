@@ -59,6 +59,7 @@ const ListHotel = () => {
         className="basis-[66.67%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
       >
         <ItemCard
+          discount={hotel.listRooms[0].sale}
           route="hotels"
           slug={hotel.slug}
           name={hotel.name}

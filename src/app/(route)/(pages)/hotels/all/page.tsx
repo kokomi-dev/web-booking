@@ -236,9 +236,7 @@ const AllHotelPage = () => {
                       price={hotel.listRooms[0].price}
                       route="hotels"
                       location={hotel.location.detail}
-                      description={hotel.details}
                       ratingsQuantity={hotel.rating}
-                      cancelFree={hotel.cancelFree}
                     />
                   ))}
             </div>

@@ -28,13 +28,14 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 import Checkbox from "../form/input/Checkbox";
 import Input from "../form/input/InputField";
+import SuccessModal from "../success-modal";
 
 const signInBody = z
   .object({
     email: z.string().email("Vui lòng nhập email"),
     password: z
       .string()
-      .min(6, "Nhập đúng mật khẩu")
+      .min(6, "Mật khẩu không được để trống")
       .max(100, "Mật khẩu không quá 100 kí tự"),
   })
   .strict();
@@ -50,6 +51,7 @@ export default function SignInForm() {
   });
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
   const { setIsAuthenticated, setUserLogined } = useAuthenticatedStore();
@@ -58,6 +60,9 @@ export default function SignInForm() {
   });
   const onSubmit = async (data: SignupFormData) => {
     try {
+      if (data.email === "" || data.password === "") {
+        toast.warning("Vui lòng nhập đầy đủ thông tin!");
+      }
       mutationLogin.mutate(data, {
         onSuccess: async (res) => {
           if (res?.status === 200) {
@@ -72,14 +77,19 @@ export default function SignInForm() {
               accessToken: res.data.accessToken,
               refreshToken: res.data.refreshToken,
               ...userData,
-            }),
-              Cookies.set("accessToken", res.data.accessToken);
+            });
+            Cookies.set("accessToken", res.data.accessToken);
             Cookies.set("refreshToken", res.data.refreshToken);
             Cookies.set("userId", userData._id);
             Cookies.set("roles", userData.roles);
-            router.push("/home");
 
-            toast.success("Đăng nhập thành công!");
+            // Hiển thị modal
+            setIsModalOpen(true);
+
+            // Tự động chuyển hướng sau khi modal đóng
+            setTimeout(() => {
+              router.push("/home");
+            }, 1700);
           } else {
             toast.error("Sai email hoặc mật khẩu!");
           }
@@ -97,18 +107,24 @@ export default function SignInForm() {
     return <LoadingPage />;
   }
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
+    <div className="flex flex-col flex-1 lg:w-1/2 w-full px-0 sm:px-2 lg:px-8 py-6 lg:py-10">
+      <SuccessModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Đăng nhập thành công!"
+        message="Chào mừng bạn quay lại!"
+      />
       <div className="w-full max-w-md mx-auto">
         <Link
           href="/home"
-          className="inline-flex items-center text-sm text-black_sub transition-colors"
+          className="inline-flex items-center text-sm text-black_sub transition-colors underline"
         >
           <ChevronLeftIcon />
           Quay lại
         </Link>
       </div>
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
-        <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="flex flex-col mt-5 lg:mt-0 lg:justify-center flex-1 w-full max-w-md mx-auto ">
+        <div className="bg-white p-3 md:p-4 lg:p-6 rounded-lg shadow-md">
           <div className="mb-6">
             <h1 className="text-2xl font-semibold text-black mb-2">
               Đăng Nhập
@@ -165,7 +181,11 @@ export default function SignInForm() {
                         Email
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Email" {...field} />
+                        <Input
+                          className="text-base"
+                          placeholder="Email"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage className="text-red_main" />
                     </FormItem>
@@ -185,6 +205,7 @@ export default function SignInForm() {
                             type={showPassword ? "text" : "password"}
                             placeholder="Nhập mật khẩu"
                             {...field}
+                            className="text-base"
                           />
                           <ButtonShowPassWord
                             show={showPassword}

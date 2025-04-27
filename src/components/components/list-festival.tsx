@@ -81,8 +81,6 @@ const ListFestivals = () => {
       </h2>
       <Carousel
         className="w-full gap-0"
-        onMouseEnter={() => plugin.current?.stop()}
-        onMouseLeave={() => plugin.current?.play()}
         opts={{
           align: "start",
           loop: true,

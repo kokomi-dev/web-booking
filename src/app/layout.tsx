@@ -33,10 +33,14 @@ export default function RootLayout({
       <head>
         <meta
           name="viewport"
-          content="width=device-width,height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+          content="width=device-width,height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
         />
       </head>
-      <body translate="no" className={roboto.className}>
+      <body
+        translate="no"
+        className={roboto.className}
+        cz-shortcut-listen="false"
+      >
         <QueryProvider>
           <ClerkProvider localization={viVN}>
             <AuthMiddleWare />

@@ -1,3 +1,6 @@
+import axiosClient from "@/configs/axiosClient/axiosClient";
+import { ca } from "date-fns/locale";
+
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 const sendComment = async (
@@ -49,4 +52,17 @@ const deleteComment = async (id: string, category: string, slug: string) => {
     throw new Error("Lỗi khi xóa bình luận");
   }
 };
-export { sendComment, deleteComment };
+const editComment = async (
+  id: string,
+  content: string,
+  category: string,
+  slug: string
+) => {
+  return axiosClient.post("/comment/editComment", {
+    id,
+    content,
+    category,
+    slug,
+  });
+};
+export { sendComment, deleteComment, editComment };

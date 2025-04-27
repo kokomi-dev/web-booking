@@ -68,7 +68,7 @@ const FooterDashboard = () => {
             </div>
           </Link>
           <div className="text-center">
-            <div className="text-2xl font-semibold text-white">
+            <div className="text-lg md:text-xl lg:text-2xl font-semibold text-white">
               Công ty Du lịch & Thương mại AnTenDev
             </div>
             <div className="w-1/2 h-[2px] bg-white mx-auto mt-2"></div>

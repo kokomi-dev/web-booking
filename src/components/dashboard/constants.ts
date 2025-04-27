@@ -146,7 +146,7 @@ export const filterAttraction1 = [
   { label: "dịch vụ & cho thuê", value: "5" },
 ];
 export const filterAttraction2 = [
-  { label: "Tât cả", value: "0" },
+  { label: "Tât cả", value: "" },
   { label: "0 - 400.000", value: "1" },
   { label: "400.000 - 1.000.000", value: "2" },
   { label: "1.000.000 - 3.000.000", value: "3" },

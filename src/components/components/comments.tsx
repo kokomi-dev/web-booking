@@ -1,5 +1,5 @@
 "use client";
-import { deleteComment, sendComment } from "@/api/api-comment";
+import { deleteComment, editComment, sendComment } from "@/api/api-comment";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import { CommentProps } from "@/types";
 import { cn, formatDate } from "@/utils/constants";
@@ -58,7 +58,9 @@ const Comments: React.FC<IComments> = ({
   const { isAuthenticated, user } = useAuthenticatedStore();
   const [vote, setVote] = useState(0);
   const [comment, setComment] = useState("");
-
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [editedContent, setEditedContent] = useState("");
+  const [openActionsCmt, setOpenActionsComment] = useState(false);
   const handleComment = useCallback(async () => {
     if (!comment || comment === "") {
       return toast.warning("Vui lòng nhập nội dung bình luận");
@@ -98,6 +100,34 @@ const Comments: React.FC<IComments> = ({
       }
     },
     [apiUrl, category, slug]
+  );
+
+  const handleEditComment = (commentId: string, currentContent: string) => {
+    setEditingCommentId(commentId);
+    setEditedContent(currentContent);
+    setOpenActionsComment(false);
+  };
+
+  const handleSaveEditedComment = useCallback(
+    async (commentId: string) => {
+      if (user) {
+        const result = await editComment(
+          commentId,
+          editedContent,
+          category,
+          slug
+        );
+        if (result && result.data.code === 200) {
+          setEditedContent("");
+          await mutate(`${apiUrl}/${category}/${slug}`);
+          toast.success("Cập nhật bình luận thành công");
+        } else {
+          toast.warning("Xảy ra lỗi khi cập nhật bình luận");
+        }
+        setEditingCommentId(null);
+      }
+    },
+    [editedContent, apiUrl, category, slug, user]
   );
 
   return (
@@ -193,19 +223,41 @@ const Comments: React.FC<IComments> = ({
                       </p>
                     </div>
                     {String(user?._id) === e.idUser && (
-                      <Popover>
-                        <PopoverTrigger>
-                          <EllipsisVertical className="w-5 h-5 cursor-pointer text-black_sub_2" />
+                      <Popover
+                        open={openActionsCmt}
+                        onOpenChange={setOpenActionsComment}
+                      >
+                        <PopoverTrigger asChild>
+                          <EllipsisVertical
+                            onClick={() =>
+                              setOpenActionsComment(!openActionsCmt)
+                            }
+                            className="w-5 h-5 cursor-pointer text-black_sub_2"
+                          />
                         </PopoverTrigger>
-                        <PopoverContent className="bg-white shadow-lg rounded-lg p-2">
+                        <PopoverContent className="bg-white shadow-lg rounded-lg p-1 md:p-2">
+                          {editingCommentId === e._id ? (
+                            <Button
+                              size={"sm"}
+                              className="text-sm text-white hover:bg-blue_active hover:text-white w-full mb-2"
+                              onClick={() => handleSaveEditedComment(e._id)}
+                            >
+                              Lưu
+                            </Button>
+                          ) : (
+                            <Button
+                              size={"sm"}
+                              className="text-sm text-white hover:bg-blue_active hover:text-white w-full mb-2"
+                              onClick={() =>
+                                handleEditComment(e._id, e.content)
+                              }
+                            >
+                              Sửa
+                            </Button>
+                          )}
                           <Button
-                            className="text-sm text-blue_sub hover:bg-blue_active hover:text-white w-full"
-                            onClick={() => console.log("Edit comment")}
-                          >
-                            Sửa
-                          </Button>
-                          <Button
-                            className="text-sm text-red-500 hover:bg-red-400 w-full"
+                            size={"sm"}
+                            className="text-sm bg-white text-black_sub w-full"
                             onClick={() => handleDeleteComment(e._id)}
                           >
                             Xóa
@@ -222,38 +274,66 @@ const Comments: React.FC<IComments> = ({
                       />
                     ))}
                   </div>
-                  <p className="text-sm text-black_sub mt-2 first-letter:uppercase">
-                    {e.content}
-                  </p>
+                  {editingCommentId === e._id ? (
+                    <div>
+                      <Textarea
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                        className="mt-2 text-sm text-black_sub border-gray-300 rounded-lg"
+                      />
+                      <div className="flex items-center gap-2 mt-2 justify-start">
+                        <Button
+                          size={"sm"}
+                          className="text-sm text-white hover:bg-blue_active hover:text-white w-fit "
+                          onClick={() => handleSaveEditedComment(e._id)}
+                        >
+                          Lưu
+                        </Button>
+                        <Button
+                          size={"sm"}
+                          className="text-sm bg-white text-black_sub w-fit"
+                          onClick={() => handleEditComment("", "")}
+                        >
+                          Hủy
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-black_sub mt-2 first-letter:uppercase">
+                      {e.content}
+                    </p>
+                  )}
                 </div>
               </div>
               {/* Actions */}
-              <div className="flex items-center gap-0 sm:gap-3 md:gap-4 mt-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
-                >
-                  <ThumbsUp className="w-4 h-4" />
-                  <span className="hidden sm:block">Thích</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
-                >
-                  <ThumbsDown className="w-4 h-4" />
-                  <span className="hidden sm:block">Không thích</span>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
-                >
-                  <MessageSquareMore className="w-4 h-4" />
-                  <span className="hidden sm:block">Phản hồi</span>
-                </Button>
-              </div>
+              {String(user?._id) !== e.idUser && (
+                <div className="flex items-center gap-0 sm:gap-3 md:gap-4 mt-4">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                  >
+                    <ThumbsUp className="w-4 h-4" />
+                    <span className="hidden sm:block">Thích</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                  >
+                    <ThumbsDown className="w-4 h-4" />
+                    <span className="hidden sm:block">Không thích</span>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-black_sub_2 hover:text-blue_sub text-xs flex items-center gap-1"
+                  >
+                    <MessageSquareMore className="w-4 h-4" />
+                    <span className="hidden sm:block">Phản hồi</span>
+                  </Button>
+                </div>
+              )}
             </Card>
           ))}
         </div>
