@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "react-toastify";
 
 const ReceiveFeedback = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +20,8 @@ const ReceiveFeedback = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Feedback submitted");
     setIsOpen(false);
+    toast.success("Cảm ơn bạn đã gửi phản hồi của mình!");
   };
 
   return (

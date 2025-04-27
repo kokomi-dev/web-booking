@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import feedBack1 from "@/assets/images/feedback-1.jpeg";
@@ -8,13 +7,14 @@ import FeedbackCard from "@/components/components/feedback-card";
 import ListFestivals from "@/components/components/list-festival";
 import ListTabAllType from "@/components/components/list-tab-all-type";
 import ReceiveFeedback from "@/components/components/receive-feedback";
+import Trending from "@/components/components/trending";
 import ListBlogsTrending from "@/components/dashboard/blog/list-blogs-trending";
 import BannerHome from "@/components/dashboard/homepage/banner";
 import BannerSlogan from "@/components/dashboard/homepage/banner-slogan";
-import { listAddressTredingHome } from "@/components/dashboard/homepage/constant";
 import SalesCustommer from "@/components/dashboard/homepage/sales-custommer";
 import TravelBenefitsSection from "@/components/dashboard/homepage/travel-benefit";
 import { Metadata } from "next";
+import { ScrollToTop } from "@/components/components/scrool-top";
 
 export const metadata: Metadata = {
   title: "KoKo Travel - Trang chủ",
@@ -26,42 +26,15 @@ export const metadata: Metadata = {
 function HomePage() {
   return (
     <div className="section-spacing">
+      <ScrollToTop />
       {/* Banner chính */}
       <BannerHome />
-
       {/* Điểm đến nổi bật */}
-      <section className="list-spacing container xl:px-0 ">
-        <h2 className="text-lg lg:text-2xl font-semibold">Điểm đến hàng đầu</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
-          {listAddressTredingHome.map((e, index) => (
-            <Link
-              href={e.path}
-              key={index}
-              className="rounded-lg shadow-lg overflow-hidden hover:cursor-pointer"
-            >
-              <Image
-                alt={e.label}
-                width={500}
-                height={400}
-                src={e.img}
-                loading="lazy"
-                className="w-full h-[220px] md:h-[250px] lg:h-[280px] object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-base font-bold">{e.label}</h3>
-                <p className="text-black_sub font-light text-sm">{e.des}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
+      <Trending page="attractions" />
       {/* Ưu đãi khách hàng */}
       <SalesCustommer />
-
       {/* Banner slogan */}
       <BannerSlogan />
-
       {/* Chỗ nghỉ */}
       <section className="container xl:px-0 px-2 md:px-12  rounded-14">
         <div className="text-center list-spacing">
@@ -82,7 +55,7 @@ function HomePage() {
           </Link>
         </div>
       </section>
-
+      <ListTabAllType />
       {/* Phản hồi từ khách hàng */}
       <section className="container xl:px-0">
         <div className="bg-black_sub px-3 py-6 rounded-14 flex flex-col list-spacing">
@@ -111,14 +84,13 @@ function HomePage() {
           </div>
         </div>
       </section>
-
+      <ListFestivals />
       {/* Lợi ích du lịch */}
       <TravelBenefitsSection />
 
       {/* Bài viết & Mẹo du lịch */}
       <ListBlogsTrending />
-      <ListTabAllType />
-      <ListFestivals />
+
       {/* Nhận phản hồi */}
       <ReceiveFeedback />
     </div>

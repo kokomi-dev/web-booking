@@ -1,7 +1,7 @@
-import { Fragment } from "react";
-import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
+import WrapperContacts from "@/components/components/wraper-contacts";
 import FooterDashboard from "@/components/layouts/default-layout/footer-dashboard";
-import Search from "@/components/components/search/search";
+import HeaderDashboard from "@/components/layouts/default-layout/header-dashboard";
+import { Fragment } from "react";
 
 export default function DefaultLayout({
   children,
@@ -10,12 +10,12 @@ export default function DefaultLayout({
 }>) {
   return (
     <Fragment>
-      <header className="w-full h-full z-[50] sticky top-0 lg:relative">
+      <header className="w-full h-full z-[50]">
         <HeaderDashboard />
       </header>
       <main className="w-full h-full">
-        <Search />
         <div className="container-padding-y">{children}</div>
+        <WrapperContacts />
       </main>
       <footer>
         <FooterDashboard />

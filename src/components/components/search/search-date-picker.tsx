@@ -34,7 +34,7 @@ const SearchDatePicker: React.FC<SearchDatePickerProps> = ({
         <CalendarIcon className="size-[1.2rem] text-black_sub mr-1" />
 
         {date ? (
-          <span className="text-base font-light">
+          <span className="text-sm md:text-base font-light">
             {format(date, "dd/MM/yyyy", { locale: vi })}
           </span>
         ) : (

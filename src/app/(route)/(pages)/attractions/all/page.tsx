@@ -1,8 +1,8 @@
 "use client";
 import { getFilterAttractions } from "@/api/api-attractions";
 import BreadcrumbHead from "@/components/components/breadcrumb";
-import CardItem from "@/components/components/item-search";
 import FilterComponent from "@/components/components/filter-item";
+import CardItem from "@/components/components/item-search";
 import {
   LoadingItemSearch,
   LoadingPage,
@@ -237,11 +237,8 @@ const AllAttractionsPage = () => {
                       price={attraction.price[0]}
                       route="attractions"
                       location={attraction.location.detail}
-                      description={attraction.description}
                       ratingsQuantity={attraction.rating}
-                      cancelFree={attraction.cancelFree}
                       startDate={formatDate(attraction.startDate)}
-                      duration={attraction.duration}
                     />
                   ))}
             </div>

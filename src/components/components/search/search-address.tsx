@@ -57,7 +57,7 @@ const SearchAddress = ({
         }}
       >
         <MapPinned className="size-[1.2rem] text-black_sub" />
-        <span className="ml-1 text-base font-light">
+        <span className="ml-1 text-sm md:text-base font-light">
           {value === "" || value === null ? "Chọn nơi bạn muốn đến ?" : value}
         </span>
       </Button>
@@ -72,16 +72,6 @@ const SearchAddress = ({
         error={error}
         className={className}
       />
-      {/* <SearchAddressSM
-        data={data}
-        value={value}
-        valueSearch={valueSearch}
-        setValue={setValue}
-        setValueSearch={setValueSearch}
-        open2={open2}
-        setOpen2={setOpen2}
-        error={error}
-      /> */}
     </section>
   );
 };

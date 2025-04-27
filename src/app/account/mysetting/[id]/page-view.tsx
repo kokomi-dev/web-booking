@@ -8,7 +8,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { reqUpdateUser } from "@/api/api-auth";
+import {
+  reqCheckUpdateUserPass,
+  reqUpdateUser,
+  reqUserSendOtp,
+} from "@/api/api-auth";
 import BreadcrumbHead from "@/components/components/breadcrumb";
 import Checkbox from "@/components/components/form/input/Checkbox";
 import Input from "@/components/components/form/input/InputField";
@@ -16,8 +20,22 @@ import Radio from "@/components/components/form/input/Radio";
 import TextArea from "@/components/components/form/input/TextArea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useAuthenticatedStore } from "@/store/authencation-store";
 import Loading from "../loading";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { LoadingSpin } from "@/components/components/loading";
+import { validatePasword } from "@/utils/constants";
 
 const MySetingPage = () => {
   const { user } = useAuthenticatedStore();
@@ -28,31 +46,49 @@ const MySetingPage = () => {
   const [passwordNew, setPasswordNew] = useState("");
   const [passwordNewConfirm, setPasswordNewConfirm] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [otpModalOpen, setOtpModalOpen] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [checkPass, setCheckPassword] = useState({
+    pass: false,
+    code: false,
+  });
   useEffect(() => {
     setFirstname(user?.firstname || "");
     setLastname(user?.lastname || "");
   }, [user]);
 
-  const hasNameChanged = (
-    firstname: string | undefined,
-    lastname: string | undefined,
-    user: any
-  ) => {
-    if (firstname !== user?.firstname || lastname !== user?.lastname) {
-      return true;
+  const handleCheckPassword = async () => {
+    try {
+      setLoading(true);
+      if (user) {
+        if (!validatePasword(passwordNew)) {
+          setLoading(false);
+          return toast.error("Mật khẩu mới chưa đủ điều kiện");
+        }
+        const checkPass = await reqCheckUpdateUserPass({
+          id: user._id,
+          pass: password,
+        });
+        if (checkPass?.data && checkPass?.data?.code !== 200) {
+          toast.error("Mật khẩu hiện tại không đúng");
+          return;
+        } else {
+          const reqSendOtp = await reqUserSendOtp(user?.email);
+          setCheckPassword({ pass: true, code: false });
+          if (otp === reqSendOtp?.data?.code) {
+            setCheckPassword({ pass: true, code: false });
+          }
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+      return toast.error("Xảy ra lỗi khi thực hiện!");
     }
-    return false;
   };
-  const isChanged = hasNameChanged(firstname, lastname, user);
-  const data = {
-    firstname,
-    lastname,
-    password,
-    passwordNew,
-    passwordNewConfirm,
-  };
-  const handleChangePassword = async () => {
+
+  const handleChangePassword = async (e: any) => {
+    e.preventDefault();
     if (!passwordNew) {
       return toast.error("Mật khẩu không được để trông");
     }
@@ -71,16 +107,16 @@ const MySetingPage = () => {
           passwordNewConfirm,
         });
         if (res) {
-          await route.refresh();
+          route.refresh();
           toast.success("Đổi mật khẩu thành công");
         }
       }
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
   const handleChangeName = async () => {
     if (!firstname) {
       return toast.error("Họ không được để trống");
@@ -96,7 +132,7 @@ const MySetingPage = () => {
           lastname,
         });
         if (res) {
-          route.refresh();
+          window.location.reload();
           toast.success("Đổi tên thành công");
         }
       }
@@ -106,9 +142,6 @@ const MySetingPage = () => {
       setLoading(false);
     }
   };
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <div className="section-spacing w-full h-full">
       <BreadcrumbHead
@@ -164,10 +197,11 @@ const MySetingPage = () => {
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <Button className="btn" size={"lg"} onClick={handleChangeName}>
+              <div className="sm:col-span-4 flex items-center justify-start gap-x-3">
+                <Button className="btn" size={"sm"} onClick={handleChangeName}>
                   Đổi tên
                 </Button>
+                {loading && <LoadingSpin />}
               </div>
               <div className="sm:col-span-4">
                 <Label
@@ -186,162 +220,240 @@ const MySetingPage = () => {
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <Label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Mật khẩu hiện tại
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <Label
-                  htmlFor="passwordNew"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Mật khẩu mới
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    onChange={(e) => {
-                      setPasswordNew(e.target.value);
-                    }}
-                    id="passwordNew"
-                    name="passwordNew"
-                    type="password"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <Label
-                  htmlFor="passwordNew"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Xác nhận mật khẩu mới
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    onChange={(e) => {
-                      setPasswordNewConfirm(e.target.value);
-                    }}
-                    id="passwordNew"
-                    name="passwordNew"
-                    type="password"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <Button
-                  className="btn"
-                  size={"lg"}
-                  onClick={handleChangePassword}
-                >
-                  Đổi mật khẩu
-                </Button>
-              </div>
-              <div className="sm:col-span-3">
-                <Label
-                  htmlFor="country"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Quê quán
-                </Label>
-                <div className="mt-2 grid grid-cols-1">
-                  <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
-                    className="col-start-1 row-start-1 border-1  w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-black  outline-1 -outline-offset-1 outline-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              {/* đổi mật khẩu */}
+              <div className="sm:col-span-6 w-full h-full border-1 p-4 rounded-md grid gap-3">
+                <div className="sm:col-span-4">
+                  <Label
+                    htmlFor="password"
+                    className="block text-sm/6 font-medium text-black"
                   >
-                    <option>Miền Bắc</option>
-                    <option>Miền Trung</option>
-                    <option>Miền Nam</option>
-                  </select>
-                  <ChevronDownIcon
-                    aria-hidden="true"
-                    className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                  />
+                    Mật khẩu hiện tại
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      className="block w-full rounded-md bg-white px-3 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
                 </div>
+                <div className="sm:col-span-4">
+                  <Label
+                    htmlFor="passwordNew"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Mật khẩu mới
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      onChange={(e) => {
+                        setPasswordNew(e.target.value);
+                      }}
+                      id="passwordNew"
+                      name="passwordNew"
+                      type="password"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-4">
+                  <Label
+                    htmlFor="passwordNewConfirm"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Xác nhận mật khẩu mới
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      onChange={(e) => {
+                        setPasswordNewConfirm(e.target.value);
+                      }}
+                      id="passwordNewConfirm"
+                      name="passwordNewConfirm"
+                      type="password"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
+                </div>
+                <p className="sm:col-span-6 text-sm text-blue">
+                  Nhận mã xác thực qua Email để đổi mật khẩu tài khoản của bạn!
+                </p>
+
+                {checkPass.pass !== true && (
+                  <div className="flex items-center justify-start gap-x-3 sm:col-span-4">
+                    <Button
+                      type="button"
+                      className="btn mr-3"
+                      size={"sm"}
+                      onClick={handleCheckPassword}
+                    >
+                      Xác minh mật khẩu
+                    </Button>
+                    {loading && <LoadingSpin />}
+                  </div>
+                )}
+              </div>
+              <div className="sm:col-span-6 border-1 p-4 rounded-md grid gap-3">
+                <div className="sm:col-span-4">
+                  <Label
+                    htmlFor="passwordNewConfirm"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Nhập mã xác thực
+                  </Label>
+                </div>
+                {checkPass.pass === true && (
+                  <div>
+                    <div>
+                      <div className="mt-4 text-center flex flex-col items-start justify-center gap-3">
+                        <Label
+                          htmlFor="otp"
+                          className="block text-sm font-medium text-black"
+                        >
+                          Mã OTP
+                        </Label>
+                        <InputOTP
+                          maxLength={6}
+                          value={otp}
+                          onChange={(value) => setOtp(value)}
+                        >
+                          <InputOTPGroup>
+                            {Array.from({ length: 6 }).map((_, index) => (
+                              <InputOTPSlot key={index} index={index} />
+                            ))}
+                          </InputOTPGroup>
+                        </InputOTP>
+                        <div className="flex items-center justify-between text-xs gap-4">
+                          <span>Mã xác minh hết hạn sau 60s</span>
+
+                          <span className="text-blue underline">
+                            Gửi lại mã
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {checkPass.pass == true && (
+                  <div className="sm:col-span-4 flex items-center justify-start gap-x-3">
+                    <Button
+                      type="button"
+                      className="btn mr-3"
+                      size={"sm"}
+                      onClick={() => {
+                        setCheckPassword({
+                          pass: false,
+                          code: false,
+                        });
+                      }}
+                    >
+                      Hủy
+                    </Button>
+                    <Button
+                      type="button"
+                      className="btn mr-3"
+                      size={"sm"}
+                      onClick={handleChangePassword}
+                    >
+                      Đổi mật khẩu
+                    </Button>
+                    {loading && <LoadingSpin />}
+                  </div>
+                )}
               </div>
 
-              <div className="col-span-full">
-                <Label
-                  htmlFor="street-address"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Đường / Số nhà
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    id="street-address"
-                    name="street-address"
-                    type="text"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
+              <div className="sm:col-span-6 border-1 p-4 rounded-md grid gap-3">
+                <div className="sm:col-span-3">
+                  <Label
+                    htmlFor="country"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Quê quán
+                  </Label>
+                  <div className="mt-2 grid grid-cols-1">
+                    <select
+                      id="country"
+                      name="country"
+                      autoComplete="country-name"
+                      className="col-start-1 row-start-1 border-1  w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-black  outline-1 -outline-offset-1 outline-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    >
+                      <option>Miền Bắc</option>
+                      <option>Miền Trung</option>
+                      <option>Miền Nam</option>
+                    </select>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="sm:col-span-2 sm:col-start-1">
-                <Label
-                  htmlFor="city"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Thành phố
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    id="city"
-                    name="city"
-                    type="text"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
+                <div className="col-span-full">
+                  <Label
+                    htmlFor="street-address"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Đường / Số nhà
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      id="street-address"
+                      name="street-address"
+                      type="text"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <Label
-                  htmlFor="region"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Tỉnh / Thành phố
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    id="region"
-                    name="region"
-                    type="text"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
+                <div className="sm:col-span-2 sm:col-start-1">
+                  <Label
+                    htmlFor="city"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Thành phố
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      id="city"
+                      name="city"
+                      type="text"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <Label
-                  htmlFor="postal-code"
-                  className="block text-sm/6 font-medium text-black"
-                >
-                  Mã Zip
-                </Label>
-                <div className="mt-2">
-                  <Input
-                    id="postal-code"
-                    name="postal-code"
-                    type="text"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                  />
+                <div className="sm:col-span-2">
+                  <Label
+                    htmlFor="region"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Tỉnh / Thành phố
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      id="region"
+                      name="region"
+                      type="text"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <Label
+                    htmlFor="postal-code"
+                    className="block text-sm/6 font-medium text-black"
+                  >
+                    Mã Zip
+                  </Label>
+                  <div className="mt-2">
+                    <Input
+                      id="postal-code"
+                      name="postal-code"
+                      type="text"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -641,13 +753,13 @@ const MySetingPage = () => {
           <Button
             type="button"
             variant={"ghost"}
-            className="text-sm/6 font-semibold text-black"
+            className="text-sm/6 font-semibold text-black border-1"
           >
             Hủy
           </Button>
           <Button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-blue px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue_active focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Lưu tất cả
           </Button>

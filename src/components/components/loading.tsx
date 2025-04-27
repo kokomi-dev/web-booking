@@ -26,7 +26,7 @@ const LoadingPage = () => {
         <div className="flex space-x-1">
           <span className="w-2 h-2 lg:w-3 lg:h-3 bg-blue_main_sub rounded-full animate-bounce [animation-delay:-0.3s]"></span>
           <span className="w-2 h-2 lg:w-3 lg:h-3 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-          <span className="w-2 h-2 lg:w-3 lg:h-3 bg-green-600 rounded-full animate-bounce"></span>
+          <span className="w-2 h-2 lg:w-3 lg:h-3 bg-green rounded-full animate-bounce"></span>
         </div>
       </div>
     </div>
@@ -220,6 +220,9 @@ const LoadingShowBooked = () => {
     </div>
   );
 };
+const LoadingSpin = () => {
+  return <div className="loader__spinner"></div>;
+};
 export {
   LoadingBookingCardAttraction,
   LoadingBookingCardHotel,
@@ -232,4 +235,5 @@ export {
   LoadingItemShow,
   LoadingPage,
   LoadingShowBooked,
+  LoadingSpin,
 };

@@ -16,7 +16,6 @@ const ShowImages = lazy(() => import("./show-images"));
 const ImagesDetail = ({ data, slug }: { data: any; slug: string }) => {
   // State
   const [open, setOpen] = useState(false);
-  const [openShowCmt, setOpenShowCmt] = useState(false);
   const [loading, setLoading] = useState<boolean[]>(
     Array(data?.images?.length || 0).fill(true)
   );

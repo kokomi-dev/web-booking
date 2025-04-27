@@ -105,4 +105,5 @@ export interface ItemCardProps {
   price: number;
   route: string;
   rating: number;
+  discount?: number;
 }

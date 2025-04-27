@@ -69,54 +69,40 @@ const Search: React.FC<SearchContainerProp> = ({
 
   if (page === "home" && !pathname.includes("genius")) {
     return (
-      <div className="w-full h-full py-4  bg-transparent lg:bg-blue ">
+      <div className="w-full h-max relative flex items-center justify-center">
         <div className="container xl:p-0">
+          {/* Tabs */}
           <Tabs
             defaultValue="attractions"
-            className="w-full h-auto bg-white rounded-8"
+            // md:bg-white/10 md:backdrop-blur-md
+            className="w-full h-auto bg-transparent "
           >
-            <TabsList className="grid w-full grid-cols-2 gap-x-2 h-auto p-1 md:p-2 bg-black_sub">
+            <TabsList className="grid w-full grid-cols-2 gap-x-2 h-auto p-1 md:p-2 bg-blue-linear">
               <TabsTrigger
                 value="attractions"
-                className="text-black font-medium text-sm"
+                className="text-black font-medium text-xs md:text-sm py-2 px-4 rounded-md transition-all duration-300 bg-gray-300 hover:text-blue-600 data-[state=active]:bg-white data-[state=active]:text-blue data-[state=active]:shadow-md"
               >
                 Địa điểm
               </TabsTrigger>
               <TabsTrigger
                 value="hotels"
-                className="text-black font-medium text-sm "
+                className="text-black font-medium text-xs md:text-sm py-2 px-4 rounded-md transition-all duration-300 bg-gray-300 hover:text-blue-600 data-[state=active]:bg-white data-[state=active]:text-blue data-[state=active]:shadow-md"
               >
                 Lưu trú
               </TabsTrigger>
             </TabsList>
             <TabsContent
               value="attractions"
-              className="border-t-1  border-blue_sub"
+              className="border-t-2 border-blue-600 pt-3 bg-transparent rounded-b-lg"
             >
-              <Card
-                className={cn(
-                  "overflow-hidden border-none h-auto rounded-none rounded-br-8 rounded-bl-8"
-                )}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between font-medium text-base text-black -my-2 md:-my-0 ">
-                    <span className="hidden md:block text-sm text-black_sub">
-                      Tìm kiếm điểm tham quan của bạn
-                    </span>
-                    <Link
-                      href="/attractions"
-                      className="text-blue_sub underline text-sm font-normal"
-                    >
-                      Đến trang gợi ý của chúng tôi
-                    </Link>
-                  </CardTitle>
+              <Card className="overflow-hidden border-none h-auto rounded-lg shadow-md">
+                <CardHeader className="hidden">
+                  <CardTitle
+                    hidden
+                    className="flex items-center justify-between font-medium text-base text-black"
+                  ></CardTitle>
                 </CardHeader>
-                <CardContent
-                  className={cn(
-                    "flex flex-col gap-y-2 justify-start w-full h-auto  bg-yellow p-1 ",
-                    "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2 lg:gap-y-0"
-                  )}
-                >
+                <CardContent className="flex flex-col gap-y-2 justify-start w-full h-auto bg-yellow p-1  md:flex-row md:items-center md:justify-start md:gap-x-2 md:gap-y-0">
                   <SearchAddress
                     value={address}
                     setValue={setAddress}
@@ -126,9 +112,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   <Button
                     type="submit"
                     variant="default"
-                    className={cn(
-                      "lg:max-w-[140px] w-full h-[44px] text-base font-medium bg-blue_sub hover:bg-blue_active hover:text-white text-white"
-                    )}
+                    className="lg:max-w-[140px] w-full h-[44px] text-base font-medium bg-blue hover:bg-blue_active text-white"
                     onClick={(e) => {
                       e.preventDefault();
                       if (address === "" || address === null) {
@@ -149,27 +133,18 @@ const Search: React.FC<SearchContainerProp> = ({
                 </CardContent>
               </Card>
             </TabsContent>
-            <TabsContent value="hotels" className="border-t-1  border-yellow">
-              <Card className={cn("overflow-hidden  border-none mt-0 ")}>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between font-medium text-base text-black -my-2 md:-my-0">
-                    <span className="hidden text-black_sub text-sm md:block">
-                      Tìm kiếm nơi lưu trú hợp lí cho chuyến đi
-                    </span>
-                    <Link
-                      href="/hotels"
-                      className="text-blue_sub underline text-sm font-normal"
-                    >
-                      Đến trang gợi ý của chúng tôi
-                    </Link>
-                  </CardTitle>
+            <TabsContent
+              value="hotels"
+              className="border-t-2 border-yellow-600 pt-3  rounded-b-lg"
+            >
+              <Card className="overflow-hidden border-none h-auto rounded-lg shadow-md">
+                <CardHeader className="hidden">
+                  <CardTitle
+                    hidden
+                    className="flex items-center justify-between font-medium text-base text-black"
+                  ></CardTitle>
                 </CardHeader>
-                <CardContent
-                  className={cn(
-                    "w-full h-auo flex flex-col justify-start bg-yellow p-1 gap-y-2",
-                    "lg:flex-row lg:items-center lg:justify-start lg:gap-x-2  "
-                  )}
-                >
+                <CardContent className="flex flex-col gap-y-2 justify-start w-full h-auto bg-yellow  p-1 md:flex-row md:items-center md:justify-start md:gap-x-2 md:gap-y-0">
                   <SearchAddress
                     value={address}
                     setValue={setAddress}
@@ -188,9 +163,7 @@ const Search: React.FC<SearchContainerProp> = ({
                   <Button
                     type="submit"
                     variant="default"
-                    className={cn(
-                      "lg:max-w-[140px] w-full  h-[44px]   bg-blue_sub text-white"
-                    )}
+                    className="lg:max-w-[140px] w-full h-[44px] text-base font-medium !bg-blue hover:bg-blue_active text-white"
                     onClick={(e) => {
                       e.preventDefault();
                       if (address === "" || address === null) {
@@ -221,16 +194,16 @@ const Search: React.FC<SearchContainerProp> = ({
   return (
     <form
       className={cn(
-        "w-full h-full flex items-center justify-center py-4 bg-transparent lg:bg-blue",
+        "w-full h-max flex items-center justify-center py-4 bg-transparent",
         className,
-        isDetailPage && "hidden lg:flex",
+        isDetailPage && "hidden lg:flex  mt-0",
         HIDDEN_SEARCH.some((value) => pathname.includes(value)) &&
           "!hidden !invisible"
       )}
     >
       <div
         className={cn(
-          "container lg:p-0  grid z-[10] gap-2",
+          "container xl:px-0 grid z-[10] gap-2",
           "md:gap-4",
           "lg:gap-6",
           variant === "search" && " ",
@@ -239,27 +212,27 @@ const Search: React.FC<SearchContainerProp> = ({
       >
         {/* search slogan */}
         {page === "attractions" && !variant && (
-          <section className={cn("text-white")}>
+          <section className={cn("text-white ")}>
             <div className="w-full">
-              <h1
+              <div
                 className={cn(
                   "w-full hidden ",
-                  "lg:block lg:text-4xl lg:font-bold"
+                  "lg:block lg:text-4xl lg:font-bold mb-5"
                 )}
               >
-                Một trải nghiệm tuyệt vời cho một chuyến đi đặc biệt
-              </h1>
-              <h1
+                Những trải nghiệm mới đang chờ đón bạn !
+              </div>
+              <div
                 className={cn(
-                  "w-full block lg:hidden !text-lg text-black font-semibold"
+                  "w-full block lg:hidden !text-2xl text-white font-semibold"
                 )}
               >
                 Tìm điểm đến tiếp theo
-              </h1>
+              </div>
               <p
                 className={cn(
-                  "text-sm text-black_sub",
-                  "lg:!text-3xl lg:text-white font-light lg:block"
+                  "text-sm text-white",
+                  "lg:!text-xl lg:text-white font-light lg:block"
                 )}
               >
                 Khám phá những khung cảnh thơ mộng tại Việt Nam
@@ -270,14 +243,14 @@ const Search: React.FC<SearchContainerProp> = ({
         {page === "hotels" && (
           <section className={cn("text-white")}>
             <div className="w-full">
-              <h1 className="hidden lg:block text-wrap text-4xl font-extrabold">
-                Một nơi nghỉ ngơi xứng đáng cho một chỗ du lịch tuyệt vời
-              </h1>
-              <h1 className="block lg:hidden text-black text-wrap !text-lg font-semibold">
+              <div className="hidden lg:block text-wrap text-4xl font-extrabold mb-5">
+                Một nơi nghỉ ngơi xứng đáng cho chuyến du lịch tuyệt vời
+              </div>
+              <div className="block lg:hidden text-white text-wrap !text-2xl font-semibold">
                 Tìm chỗ nghỉ tiếp theo
-              </h1>
-              <p className="md:text-sm text-black_sub lg:text-white lg:text-3xl font-light">
-                Những khách sạn hàng đầu tại Việt Nam
+              </div>
+              <p className="text-sm text-white lg:text-xl font-light">
+                Nơi nghỉ chân lý tưởng cho chuyến đi của bạn
               </p>
             </div>
           </section>

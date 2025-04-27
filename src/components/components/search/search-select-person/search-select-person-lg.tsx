@@ -48,6 +48,9 @@ const SearchSelectPersonLG: React.FC<SearchSelectPersonLGProps> = ({
           "w-full md:min-w-[40vw] lg:min-w-[25vw] lg:max-w-[26vw] flex flex-col items-center justify-center bg-white text-black z-[15] p-4 shadow-2xl mt-1 rounded-8 "
         )}
         align="end"
+        side="bottom"
+        sideOffset={10}
+        avoidCollisions={false}
       >
         <div className="min-w-[100%] grid gap-y-6 mt-8  p-4 rounded-8">
           {/* Người lớn */}

@@ -1,10 +1,9 @@
-import React, { Suspense } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
 
-import { ratingConvert } from "@/utils/constants";
 import { LoadingItemSearch } from "@/components/components/loading";
-import { CalendarCheck, DollarSign, MapPin, Rat, Star } from "lucide-react";
+import { CalendarCheck, DollarSign, MapPin, Star } from "lucide-react";
 export const formatPrice = (num: number) => {
   const str = num.toString();
   return str
@@ -22,12 +21,8 @@ const ItemSearch = ({
   location,
   price,
   route,
-  description,
   ratingsQuantity,
-  details,
-  cancelFree,
   startDate,
-  duration,
 }: {
   slug: string;
   name: string;
@@ -35,30 +30,27 @@ const ItemSearch = ({
   location: string;
   price: number;
   route: string;
-  description?: string;
   ratingsQuantity?: number;
-  details?: string;
-  cancelFree?: boolean;
   startDate?: string;
-  duration?: number;
 }) => {
   return (
     <Suspense fallback={<LoadingItemSearch />}>
       <Link
         href={`/${route}/${slug}`}
-        className="w-full p-1"
+        className="w-full p-1 group"
         key={slug}
         target="_blank"
       >
         <div className="flex flex-col items-center border rounded-lg overflow-hidden shadow-lg w-full ">
-          <div className="relative w-full ">
+          <div className="relative w-full image-shine-container ">
+            <div className="shine-effect"></div>
             <Image
               width={600}
               height={300}
               src={images}
               alt={name}
               priority={true}
-              className="object-cover  h-[180px] sm:h-[180px] md:h-[220px] lg:h-[240px]"
+              className="object-cover  h-[180px] sm:h-[180px] md:h-[220px] lg:h-[240px] transition-transform duration-300 group-hover:scale-105"
             />
           </div>
           <div className="p-3 lg:p-4 w-full flex flex-col items-start justify-start text-start gap-y-2">

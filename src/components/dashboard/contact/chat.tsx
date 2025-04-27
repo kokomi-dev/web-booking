@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BreadcrumbHead from "@/components/components/breadcrumb";
 import { useState } from "react";
 import ChatModalAI from "./chat-ai/chat-ai-modal";
+import ChatModalEmploye from "./chat-employe/chat-employe";
 
 const stay = [
   "Hủy phòng",
@@ -102,23 +103,7 @@ const Chat = () => {
         </TabsContent>
 
         <TabsContent value="user">
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <h3 className="text-lg font-semibold text-black_sub">
-              Chat với người dùng
-            </h3>
-            <p className="text-sm text-gray-600 mt-2">
-              Kết nối với người dùng khác để trao đổi thông tin và hỗ trợ.
-            </p>
-            <div className="mt-4">
-              <textarea
-                placeholder="Nhập tin nhắn của bạn..."
-                className="w-full h-[100px] border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
-              <Button className="mt-2 bg-blue text-white hover:bg-blue_active">
-                Gửi
-              </Button>
-            </div>
-          </div>
+          <ChatModalEmploye />
         </TabsContent>
       </Tabs>
     </div>

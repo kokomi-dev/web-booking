@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +8,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 
 const vietnameseFestivals = [
   {
@@ -76,31 +76,29 @@ const ListFestivals = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-4 list-spacing">
-      <h2 className="text-lg md:text-xl font-bold text-start ">
+      <h2 className="text-lg md:text-xl font-bold text-start">
         Lễ Hội Lớn Tại Việt Nam
       </h2>
       <Carousel
-        className="w-full"
-        onMouseEnter={() => plugin.current?.stop()}
-        onMouseLeave={() => plugin.current?.play()}
+        className="w-full gap-0"
         opts={{
           align: "start",
           loop: true,
         }}
         plugins={[plugin.current]}
       >
-        <CarouselContent>
+        <CarouselContent className="gap-0">
           {vietnameseFestivals.map((item) => (
             <CarouselItem
               key={item.name}
-              className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 hover:cursor-pointer"
+              className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 hover:cursor-pointer "
             >
               <div className=" relative shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="overflow-hidden">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-[200px] object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-[240px] object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
                 <div className=" absolute bottom-1 left-2">

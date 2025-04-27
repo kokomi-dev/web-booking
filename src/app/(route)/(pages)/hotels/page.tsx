@@ -28,7 +28,11 @@ const HotelPage = () => {
         <Trending page="hotels" />
       </section>
       <Rules />
-
+      {/* list hotels */}
+      <section className="section-spacing container xl:px-0">
+        <ListHotelFavorite />
+        <ListAllHotels />
+      </section>
       {/* lợi ích */}
       <section className="container xl:px-0 ">
         <div className="p-4 lg:p-6 bg-blue text-white rounded-xl shadow-md my-6">
@@ -89,11 +93,7 @@ const HotelPage = () => {
           ))}
         </div>
       </section>
-      {/* list hotels */}
-      <section className="section-spacing container xl:px-0">
-        <ListHotelFavorite />
-        <ListAllHotels />
-      </section>
+
       <ListTabAllType />
       <ListFestivals />
       {/* hỏi */}

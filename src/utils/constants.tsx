@@ -151,6 +151,20 @@ const checkOverDate = (dateString: any) => {
   today.setHours(0, 0, 0, 0);
   return bookingDate >= today;
 };
+const validatePasword = (password: string) => {
+  return password.match(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+  );
+};
+const isWithinOneDay = (dateString: Date): boolean => {
+  const inputDate = new Date(dateString);
+  const now = new Date();
+
+  const diffInMilliseconds = now.getTime() - inputDate.getTime();
+  const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 1 ngày
+
+  return diffInMilliseconds <= oneDayInMilliseconds;
+};
 
 export {
   ratingConvert,
@@ -165,4 +179,6 @@ export {
   formatDate,
   formatDateToISOString,
   checkOverDate,
+  validatePasword,
+  isWithinOneDay,
 };

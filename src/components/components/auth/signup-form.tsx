@@ -119,18 +119,18 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full h-full px-4 sm:px-6 lg:px-8 py-6 lg:py-10 bg-gray-50">
+    <div className="flex flex-col flex-1 lg:w-1/2 w-full h-full px-0 sm:px-6 lg:px-8 py-6 lg:py-10 ">
       <div className="w-full max-w-md mx-auto">
         <Link
           href="/sign-in"
-          className="inline-flex items-center text-sm text-black_sub transition-colors"
+          className="inline-flex items-center text-sm text-black_sub transition-colors underline"
         >
           <ChevronLeftIcon />
           Đăng nhập
         </Link>
       </div>
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
-        <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto mt-3">
+        <div className="bg-white p-3 md:p-4 lg:p-6 rounded-lg shadow-md">
           <h1 className="text-2xl font-semibold text-black mb-4">Đăng ký</h1>
           <Form {...form}>
             <form

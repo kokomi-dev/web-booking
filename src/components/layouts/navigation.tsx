@@ -53,7 +53,7 @@ const Navigation = () => {
               href={url}
               className={`min-w-fit focus-visible:ring-1 p-1 pr-[10px] flex text-white items-center justify-start gap-x-1  transition-all duration-300 select-none rounded-14 border-1 border-transparent ${
                 isActive
-                  ? "bg-blue_active text-white rounded-14 border-1 border-white"
+                  ? "bg-blue-linear text-white rounded-14 border-0.5 border-white"
                   : ""
               } hover:bg-blue_active cursor-pointer`}
               onClick={handleClick}

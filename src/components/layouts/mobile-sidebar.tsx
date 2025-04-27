@@ -35,16 +35,18 @@ const MobileSidebar = () => {
         "lg:hidden"
       )}
     >
-      <MenuIcon
+      <div
         onClick={handleCloseOrModal}
-        className="w-7 h-7 ml-2  text-white hover:cursor-pointer transition-all duration-300"
-      />
+        className="flex items-center justify-center p-1 rounded-8 bg-black/10 backdrop-blur-md ml-2"
+      >
+        <MenuIcon className="w-7 h-7  text-white hover:cursor-pointer transition-all duration-300" />
+      </div>
       <Sheet open={isOpen} onOpenChange={handleClose}>
         <SheetTitle></SheetTitle>
         <SheetDescription></SheetDescription>
         <SheetContent
           onClick={handleClose}
-          className="w-[85%] h-full bg-white text-black"
+          className="w-[70%] h-full bg-white text-black"
           side="right"
         >
           <div className="w-full h-full overflow-y-auto ">

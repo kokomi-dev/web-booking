@@ -36,4 +36,25 @@ const reqLogout = async () => {
   }
 };
 
-export { reqRegiter, reqLogin, reqCurrentUser, reqUpdateUser, reqLogout };
+// API USER
+const reqCheckUpdateUserPass = async ({
+  id,
+  pass,
+}: {
+  id: string | number;
+  pass: string;
+}) => {
+  return axiosClient.post("/user/check-update-user", { id, pass });
+};
+const reqUserSendOtp = async (email: string) => {
+  return axiosClient.post("/email/send-email-change-password", { email });
+};
+export {
+  reqRegiter,
+  reqLogin,
+  reqCurrentUser,
+  reqUpdateUser,
+  reqLogout,
+  reqCheckUpdateUserPass,
+  reqUserSendOtp,
+};

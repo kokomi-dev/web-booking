@@ -51,7 +51,7 @@ const ListBlogsTrending = () => {
               <LoadingItemBlog key={index} />
             ))}
           </div>
-        ) : listBlogTrending.length > 0 ? (
+        ) : listBlogTrending?.length > 0 ? (
           <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent>
               {listBlogTrending.map((blog: any) => (
