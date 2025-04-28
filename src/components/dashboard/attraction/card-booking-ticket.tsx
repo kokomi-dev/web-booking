@@ -185,7 +185,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             <Button
               disabled={tickets.adult === 1}
               onClick={() => handleDecrease("adult")}
-              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
+              className="bg-white text-black shadow-none border-none p-0 px-4 hover:bg-black_sub select-none text-lg font-semibold"
             >
               -
             </Button>
@@ -195,7 +195,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             <Button
               disabled={tickets.adult >= (numberOfTickets?.adult || 0)}
               onClick={() => handleIncrease("adult")}
-              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
+              className="bg-white text-black shadow-none border-none p-0 px-4 hover:bg-black_sub select-none text-lg font-semibold"
             >
               +
             </Button>
@@ -211,7 +211,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             <Button
               disabled={tickets.children === 0}
               onClick={() => handleDecrease("children")}
-              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
+              className="bg-white text-black shadow-none border-none p-0 px-4 hover:bg-black_sub select-none  text-lg font-semibold"
             >
               -
             </Button>
@@ -221,7 +221,7 @@ const CardBookingTicket: React.FC<CardBookingTicketProps> = ({
             <Button
               disabled={tickets.children >= (numberOfTickets?.children || 0)}
               onClick={() => handleIncrease("children")}
-              className="bg-white text-black shadow-none border-none p-0 px-2 hover:bg-black_sub select-none"
+              className="bg-white text-black shadow-none border-none p-0 px-4 hover:bg-black_sub select-none  text-lg font-semibold"
             >
               +
             </Button>

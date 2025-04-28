@@ -196,7 +196,7 @@ const Search: React.FC<SearchContainerProp> = ({
       className={cn(
         "w-full h-max flex items-center justify-center py-4 bg-transparent",
         className,
-        isDetailPage && "hidden lg:flex  mt-0",
+        isDetailPage && "hidden  mt-0",
         HIDDEN_SEARCH.some((value) => pathname.includes(value)) &&
           "!hidden !invisible"
       )}

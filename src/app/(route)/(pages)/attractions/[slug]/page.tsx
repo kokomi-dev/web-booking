@@ -165,7 +165,7 @@ const DetailAttractionPage = async ({
                 <ul className="list-none list-spacing">
                   {data.included.map((item: string, index: number) => (
                     <li key={index} className="flex items-center gap-3">
-                      <FaCheck className="text-green w-4 h-4" />
+                      <FaCheck className="text-green w-4 h-4 flex-shrink-0" />
                       <span className="text-base">{item}</span>
                     </li>
                   ))}

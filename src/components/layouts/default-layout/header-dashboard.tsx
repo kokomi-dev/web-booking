@@ -49,13 +49,17 @@ const HeaderDashboard = () => {
       (pathname.startsWith("/attractions/") && !pathname.includes("booking"))
     );
   }, [pathname]);
-  const containerHeight = shouldShowBackground
-    ? `${
-        pathname === "/home"
-          ? "h-[95vh] max-h-[760px]"
-          : "h-[70vh] max-h-[520px]"
-      }`
-    : "h-auto";
+  const isDetailPage =
+    (pathname.startsWith("/hotels/") && pathname !== "/hotels") ||
+    (pathname.startsWith("/attractions/") && pathname !== "/attractions");
+  const containerHeight =
+    shouldShowBackground && !isDetailPage
+      ? `${
+          pathname === "/home"
+            ? "h-[95vh] max-h-[760px]"
+            : "h-[70vh] max-h-[520px]"
+        }`
+      : "h-auto";
 
   return (
     <div className={cn("w-full relative py-3 ", containerHeight)}>
@@ -127,7 +131,7 @@ const HeaderDashboard = () => {
         </svg>
       </div>
 
-      {shouldShowBackground && (
+      {shouldShowBackground && !isDetailPage && (
         <>
           <div className="absolute right-[10%] top-[10%] w-[400px] max-w-full ]">
             <Image
