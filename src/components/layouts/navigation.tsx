@@ -14,7 +14,7 @@ const Navigation = () => {
   return (
     <div
       className={cn(
-        "w-[100%] h-full transition-all duration-200 mt-1 md:mt-2 lg:mt-4 pt-1 pb-3 lg:pb-1",
+        "w-[100%] h-full transition-all duration-200 mt-3  lg:mt-4 pt-1 pb-3 lg:pb-1",
         pathname.includes("attractions") && " lg:ml-[-1rem]",
         pathname.includes("hotels") && " lg:ml-[-1rem]",
         pathname.includes("combos") && " lg:ml-[-1rem]",

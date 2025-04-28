@@ -70,10 +70,13 @@ const MobileSidebar = () => {
                     Đăng nhập
                   </Link>
                 )}
-                <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
+                <Link
+                  href={process.env.NEXT_PUBLIC_HOST_ADMIN || "/"}
+                  className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3"
+                >
                   <HousePlug className="size-4" />
                   <span>Đăng chỗ nghỉ của quý vị</span>
-                </div>
+                </Link>
               </div>
               <h4 className="text-lg font-semibold">Trợ giúp</h4>
               <div className="flex flex-col gap-y-2">
@@ -111,10 +114,6 @@ const MobileSidebar = () => {
                   <Link href="/content/privacy?activeTab=2">
                     Điều khoản và điều kiện
                   </Link>
-                </div>
-                <div className="flex items-center justify-start gap-x-1 hover:cursor-pointer p-2 py-3">
-                  <OctagonPause className="size-4" />
-                  <span>Cơ hội trở thành đối tác</span>
                 </div>
               </div>
             </section>
